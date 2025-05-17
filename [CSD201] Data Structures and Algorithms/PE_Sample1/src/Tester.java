@@ -1,12 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author pta911
- */
-public class Tester {
-    
+public class Tester{
+    public static void main(String[] args){
+        MyList list=new MyList();
+        list.addFirst(2);
+        list.addLast(3);
+        list.addFirst(9);
+        list.addLast(17);
+        list.traverse();
+    }
 }

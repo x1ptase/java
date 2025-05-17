@@ -1,12 +1,12 @@
 public class Node{
-    String info;
-    int next;
+    int info;
+    Node next;
     
     public Node(){
     }
     
-    public Node(String info, int next){
+    public Node(int info, Node next){
+        this.info=info;
+        this.next=next;
     }
-    
-    
 }
