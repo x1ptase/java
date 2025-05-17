@@ -56,11 +56,40 @@ class MyList{
 //==========================================================================
 //(2)===YOU CAN EDIT OR EVEN ADD NEW FUNCTIONS IN THE FOLLOWING PART========
 //==========================================================================
+    void addLast(Person x){
+        Node p=new Node(x);
+        if(isEmpty()){
+            head=tail=null;
+            return;
+        }
+        tail.next=p;
+        tail=p;
+    }
+    
+    void addFirst(Person x){
+        Node p=new Node(x);
+        if(isEmpty()){
+            head=tail=null;
+            return;
+        }
+        
+    }
+    
     void addLast(String xName, int xAge) {//You should write here appropriate statements to complete this function.
     // Check if the first letter of xName is 'g' (i.e. xName.charAt(0) == 'g')
+        if(xName.charAt(0)=='B'){
+            return;
+        }else{
+            Person person=new Person(xName, xAge);
+            addLast(person);
+        }  
     }
 
     void addFirst(String xName, int xAge) {//You should write here appropriate statements to complete this function.
+    }
+    
+    void addMany(String[] a, int[] b){
+        
     }
 
 //=================================================================
