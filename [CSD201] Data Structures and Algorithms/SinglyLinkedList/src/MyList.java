@@ -1,65 +1,58 @@
 public class MyList{
-    Node headNode, tailNode;
+    Node head, tail;
     int size;
-
+    
     public MyList(){
-        headNode=tailNode=null;
+        head=tail=null;
         size=0;
     }
     
     public boolean isEmpty(){
-        return headNode==null;
+        return head==null;
     }
     
     public void clear(){
-        headNode=null;
-    }
-    
-    public void addLast(int x){
-        if(x%2!=0) return;
-        Node p=new Node(x, null);
-        if(isEmpty()){
-            headNode=tailNode=p;
-        } else{
-            tailNode.Next=p;
-            tailNode=p;
-        }
-        size++;
+        head=null;
     }
     
     public void addFirst(int x){
         if(x%2!=0) return;
         Node p=new Node(x, null);
-        if(isEmpty()){
-            headNode=tailNode=p;
-        } else{
-            p.Next=headNode;
-            headNode=p;
+        if(isEmpty())
+            head=tail=p;
+        else{
+            p.next=head;
+            head=p;
         }
         size++;
     }
     
-    public void remove(Node p){
-        
+    public void addLast(int x){
+        if(x%2==0) return;
+        Node p=new Node(x, null);
+        if(isEmpty())
+            head=tail=p;
+        else{
+            tail.next=p;
+            tail=p;
+        }
+        size++;
+    }
+    
+    public void remove(){
     }
     
     public void removeFirst(){
-        if(isEmpty()) return;
-        headNode=headNode.Next;
-        size--;
     }
     
     public void removeLast(){
-        if(isEmpty()) return;
-        
     }
     
     public void traverse(){
-        Node p=headNode;
-        while(p!=null){            
-            System.out.println(" " + p.info);
-            p=p.Next;
+        Node p=head;
+        while(p!=null){
+            System.out.print(" " + p.info);
+            p=p.next;
         }
     }
-   
 }

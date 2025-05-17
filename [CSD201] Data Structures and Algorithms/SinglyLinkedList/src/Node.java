@@ -1,13 +1,12 @@
 public class Node{
     int info; // Employee, Table, Person, Car, Student,...
-    Node Next;
+    Node next;
     
     public Node(){
-        
     }
 
-    public Node(int info, Node Next){
+    public Node(int info, Node next){
         this.info=info;
-        this.Next=Next;
+        this.next=next;
     }
 }
