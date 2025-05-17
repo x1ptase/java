@@ -16,6 +16,7 @@ public class MyList{
     }
     
     public void addFirst(int x){
+        if(x%2!=0) return;
         Node p=new Node(x, null);
         if(isEmpty())
             head=tail=p;
@@ -27,6 +28,7 @@ public class MyList{
     }
     
     public void addLast(int x){
+        if(x%2==0) return;
         Node p=new Node(x, null);
         if(isEmpty())
             head=tail=p;
@@ -37,10 +39,13 @@ public class MyList{
         size++;
     }
     
+    public void remove(){
+    }
+    
     public void traverse(){
         Node p=head;
         while(p!=null){
-            System.out.println(" " + p.info);
+            System.out.print(" " + p.info);
             p=p.next;
         }
     }
