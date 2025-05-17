@@ -161,7 +161,7 @@ class MyList {
     }
 
 //=================================================================
-     void remove(Node q) {
+    void remove(Node q) {
         if (q == null) {
             return;
         }
@@ -186,7 +186,7 @@ class MyList {
         }
 
     }
-    
+
     void removeFirst() {
         if (isEmpty()) {
             return;
@@ -245,7 +245,7 @@ class MyList {
         }
 
     }
-    
+
     void f5() throws Exception // sort by name
     {
         clear();
@@ -261,16 +261,15 @@ class MyList {
         /*You must keep statements pre-given in this function.
        Your task is to insert statements here, just after this comment,
        to complete the question in the exam paper.*/
-        
+
         sortByName();
-        
+
         //-------------------------------------------------------------------------------------
         ftraverse(f123);
         f123.close();
     }
 
 //=================================================================
-    
     void reverse() {
         MyList tList = new MyList();
         Node pNode = head;
@@ -281,6 +280,7 @@ class MyList {
         head = tList.head;
         tail = tList.tail;
     }
+
     void f6() throws Exception // sort by name
     {
         clear();
@@ -321,12 +321,12 @@ class MyList {
        Your task is to insert statements here, just after this comment,
        to complete the question in the exam paper.*/
         Node currentNode = h.head;
-        while (currentNode != null) {            
+        while (currentNode != null) {
             addLast(new Person(currentNode.info.name, currentNode.info.age));
-            
+
             currentNode = currentNode.next;
         }
-        
+
         //-------------------------------------------------------------------------------------
         ftraverse(f123);
         f123.close();
@@ -347,7 +347,7 @@ class MyList {
 
         return (null);
     }
-    
+
     void f8() throws Exception // sort by name
     {
         clear();
@@ -371,8 +371,6 @@ class MyList {
     }
 
 //=================================================================
-    
-    
     void f9() throws Exception // sort by name
     {
         clear();
@@ -390,18 +388,17 @@ class MyList {
         /*You must keep statements pre-given in this function.
        Your task is to insert statements here, just after this comment,
        to complete the question in the exam paper.*/
-        
+
         Node currenNode = head;
-        while (currenNode != null) {            
+        while (currenNode != null) {
             if (currenNode.info.name.equals(xName)) {
                 currenNode.info.name = yName;
                 break;
             }
-            
+
             currenNode = currenNode.next;
         }
-        
-        
+
         //-------------------------------------------------------------------------------------
         ftraverse(f123);
         f123.close();
