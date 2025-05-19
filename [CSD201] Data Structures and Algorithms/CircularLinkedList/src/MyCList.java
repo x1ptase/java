@@ -40,7 +40,7 @@ public class MyCList {
         size++;
     }
     
-    public void traverse(){
+    public void traverse(){  // /tra vet/
         Node p=head;
         if(isEmpty()) return;
         do{
