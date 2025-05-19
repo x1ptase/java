@@ -3,7 +3,6 @@ public class Node {
     Node next;
     
     public Node(){
-        
     }
     
     public Node(int info, Node next){
