@@ -1,5 +1,6 @@
 public class MyCList {
     Node head, tail;
+    int size=0;
     
     public MyCList(){
         head=tail=null;
@@ -12,30 +13,7 @@ public class MyCList {
     public void clear(){
        head=tail=null;
     }
-    /*
-    public void addLast(int x){
-        Node p=new Node(x, null);
-        if(isEmpty()){
-            head=tail=p;
-            return;
-        }
-        tail.next=p;
-        tail=p;
-    }
-    */
-    
-    /*
-    public void addFirst(int x) {
-       Node p=new Node(x, null);
-       if(isEmpty()){
-           head=tail=p;
-           return;
-       }
-       p.next=head;
-       head=p;
-    }
-    */
-    
+  
     public void addFirst(int x){
         Node p=new Node(x, null);
         if(isEmpty()){
@@ -46,6 +24,7 @@ public class MyCList {
         p.next=head;
         head=p;
         tail.next=head; // update
+        size++;
     }
     
     public void addLast(int x){
@@ -58,6 +37,7 @@ public class MyCList {
         tail.next=p;
         tail=p;
         tail.next=head;
+        size++;
     }
     
     public void traverse(){
