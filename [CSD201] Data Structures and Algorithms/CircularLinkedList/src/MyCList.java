@@ -1,9 +1,10 @@
 public class MyCList {
     Node head, tail;
-    int size=0;
+    int size;
     
     public MyCList(){
         head=tail=null;
+        size=0;
     }
     
     public boolean isEmpty(){
