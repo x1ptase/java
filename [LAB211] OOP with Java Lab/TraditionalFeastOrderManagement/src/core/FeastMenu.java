@@ -1,0 +1,53 @@
+package core;
+
+public class FeastMenu {
+    private String menuID; // Mã thực đơn (PWxxx)
+    private String name; // Tên thực đơn
+    private double price; // Giá thực đơn
+    private String ingredients; // Danh sách nguyên liệu
+
+    // Constructor
+    public FeastMenu(String menuID, String name, double price, String ingredients) {
+        this.menuID = menuID;
+        this.name = name;
+        this.price = price;
+        this.ingredients = ingredients;
+    }
+
+    // Getters
+    public String getMenuID() {
+        return menuID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public String getIngredients() {
+        return ingredients;
+    }
+
+    // Setters
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    // toString() - Hiển thị thông tin thực đơn
+    @Override
+    public String toString() {
+        return String.format("Menu ID: %s | Name: %s | Price: %.2f VND | Ingredients: %s",
+                menuID, name, price, ingredients);
+    }
+}
