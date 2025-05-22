@@ -1,20 +1,21 @@
 package core;
 
-public class Customer {
-    private String custCode; // Mã khách hàng (Cxxxx, Gxxxx, Kxxxx)
-    private String custName; // Họ tên khách hàng
-    private String phone; // Số điện thoại (10 số, mạng hợp lệ)
-    private String email; // Địa chỉ email
-
+public class Customer{
+    private String custCode; // mã khách hàng (Cxxxx, Gxxxx, Kxxxx)
+    private String custName; // tên khách hàng
+    private String phone; // số điện thoại (9-11 số, VN)
+    private String email; // dịa chỉ email
+    
+    // Ctor - Contructor
     public Customer(){ 
     }
     
     // Constructor
-    public Customer(String customerID, String name, String phoneNumber, String email) {
-        this.custCode = customerID;
-        this.custName = name;
-        this.phone = phoneNumber;
-        this.email = email;
+    public Customer(String custCode, String name, String phone, String email){
+        this.custCode=custCode;
+        this.custName=name;
+        this.phone=phone;
+        this.email=email;
     }
 
     // Getters
@@ -49,7 +50,7 @@ public class Customer {
 
     // toString() - Hiển thị thông tin khách hàng
     @Override
-    public String toString() {
+    public String toString(){
         return String.format("Customer ID: %s | Name: %s | Phone: %s | Email: %s",
                 custCode, custName, phone, email);
     }
