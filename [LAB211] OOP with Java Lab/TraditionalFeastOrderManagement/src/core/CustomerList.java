@@ -11,14 +11,14 @@ public class CustomerList {
     private static final String FILE_NAME="customers.dat";
     public static final String custCodePattern="^[CGKcgk]\\d{4}";
     public static final String cusNamePattern="^.{2,25}$";
-    public static final String phonePattern = "^(03[2-9]|05[2-9]|08[1-9]|09[0-9])\\d{7}$";
+    public static final String phonePattern = "^\\d{9}$|^\\d{11}$"; //^(03[2-9]|05[2-9]|08[1-9]|09[0-9])\\d{7}$
     public static final String emailPattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+]+\\.[a-zA-Z]{2,}$";
     private boolean existed=true; // biến kiểm tra trạng thái lưu
 
     /**
      * them khach hang moi vao danh sach
      */
-    public void addCustomer(){
+    public void addNew(){
         System.out.println("\n===== ADD NEW CUSTOMER =====");
 
         while(true){

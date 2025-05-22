@@ -22,7 +22,7 @@ public class Main{
 
             switch(choice){
                 case 1:
-                    customerList.addCustomer();
+                    customerList.addNew();
                     break;
                 case 2:
                     customerList.updateCustomer();
