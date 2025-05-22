@@ -1,70 +1,44 @@
-import core.CustomerList;
-import core.FeastMenuList;
-import core.OrderList;
-import view.Menu;
-import data.Inputter;
-import tool.ConsoleInputter;
+import java.util.Scanner;
 
 public class OrderManager {
-    public static void main(String[] args) {
-        // Khởi tạo danh sách khách hàng, thực đơn và đơn hàng từ file
-        CustomerList customerList = new CustomerList();
-        customerList.readFromFile(); // Đọc danh sách khách hàng từ file
-        
-        FeastMenuList menuList = new FeastMenuList();
-        menuList.readFromFile(); // Đọc danh sách thực đơn từ file
+    private static final Scanner sc = new Scanner(System.in);
 
-        OrderList orderList = new OrderList();
-        orderList.readFromFile(); // Đọc danh sách đơn hàng từ file
+    /**
+     * Displays the main menu of the program
+     */
+    public static void displayMenu(){
+        System.out.println("\n========= TRADITIONAL FEAST ORDER MANAGEMENT =========");
+        System.out.println("1. Register a new customer");
+        System.out.println("2. Update customer information");
+        System.out.println("3. Search for a customer by name");
+        System.out.println("4. Display feast menu");
+        System.out.println("5. Place a feast order");
+        System.out.println("6. Update order information");
+        System.out.println("7. Save data to file");
+        System.out.println("8. Display customer/order lists");
+        System.out.println("9. Exit");
+        System.out.println("=======================================================");
+    }
 
+    /**
+     * Gets the user's menu choice
+     * 
+     * @return A valid choice (integer from 1-9)
+     */
+    public static int getUserChoice(){
         int choice;
-        do {
-            Menu.displayMenu(); // Hiển thị menu
-            choice = Menu.getUserChoice(); // Nhận lựa chọn từ người dùng
-
-            switch (choice) {
-                case 1:
-                    customerList.addCustomer();
-                    break;
-                case 2:
-                    customerList.updateCustomer();
-                    break;
-                case 3:
-                    customerList.searchCustomerByName();
-                    break;
-                case 4:
-                    menuList.displayAllMenus();
-                    break;
-                case 5:
-                    orderList.placeOrder(customerList, menuList);
-                    break;
-                case 6:
-                    orderList.updateOrder(menuList);
-                    break;
-                case 7:
-                    orderList.saveToFile();
-                    customerList.saveToFile();
-                    System.out.println("Data has been saved successfully!");
-                    break;
-                case 8:
-                    orderList.displayOrders();
-                    customerList.displayCustomers();
-                    break;
-                case 9:
-                    if (!orderList.isSaved() || !customerList.isSaved()) {
-                        System.out.print("Do you want to save the data before exiting? (Y/N): ");
-                        String confirm = Inputter.getString("").toUpperCase();
-                        if (confirm.equals("Y")) {
-                            orderList.saveToFile();
-                            customerList.saveToFile();
-                            System.out.println("Data saved successfully.");
-                        }
-                    }
-                    System.out.println("Exiting the program. Goodbye!");
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
+        while(true){
+            try {
+                System.out.print("Please select an option (1-9): ");
+                choice = Integer.parseInt(sc.nextLine().trim());
+                if (choice >= 1 && choice <= 9) {
+                    return choice;
+                } else {
+                    System.out.println("Invalid input. Please enter a number between 1 and 9.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter an integer.");
             }
-        } while(choice != 9);
+        }
     }
 }

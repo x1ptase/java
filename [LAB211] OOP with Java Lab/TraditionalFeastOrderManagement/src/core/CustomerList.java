@@ -11,7 +11,11 @@ import java.io.*;
 public class CustomerList {
     private ArrayList<Customer> customerList = new ArrayList<>();
     private static final String FILE_NAME = "customers.dat";
-    private boolean saved = true; // Biến kiểm tra trạng thái lưu
+    public static final String custCodePattern = "^[CGKcgk]\\d{4}$";
+    public static final String cusNamePattern = "^[a-zA-Z ]{2,25}$";
+    public static final String phonePattern = "^\\d{9}|\\d{11}$";
+    public static final String emailPattern = "^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+.[a-zA-Z0-9_-]+$";
+    private boolean existed=true; // Biến kiểm tra trạng thái lưu
 
     /**
      * them khach hang moi vao danh sach
@@ -21,37 +25,34 @@ public class CustomerList {
 
         while (true) {
             // Nhập mã khách hàng
-            String customerID;
+            String custCode;
             do {
-                customerID = Inputter.getStringWithPattern("Enter customer ID (Cxxxx, Gxxxx, Kxxxx): ",
-                        Acceptable.CUSTOMER_ID);
-                if (isCustomerExist(customerID)) {
+                custCode = ConsoleInputter.getStr("New cust code", CustomerList.custCodePattern, "Pattern: CGK + 4 digits");
+                if (isCustomerExist(custCode)) {
                     System.out.println("Customer ID already exists. Please enter a unique ID.");
                 }
-            } while (isCustomerExist(customerID));
+            } while (isCustomerExist(custCode));
 
-            // Nhập tên khách hàng
-            String name = Inputter.getStringWithPattern("Enter name (2-25 characters): ", Acceptable.CUSTOMER_NAME);
-
-            // Nhập số điện thoại
-            String phone = Inputter.getStringWithPattern("Enter phone number (10 digits): ", Acceptable.PHONE_NUMBER);
-
-            // Nhập email
-            String email = Inputter.getStringWithPattern("Enter email: ", Acceptable.EMAIL);
+            //nhap ten
+            String name=ConsoleInputter.getStr("New name", cusNamePattern, "Name length 2-25!");
+            //nhap phone
+            String phone=ConsoleInputter.getStr("New phone", phonePattern, "9 or 11 numbers!");
+            // nhap mail
+            String email=ConsoleInputter.getStr("New email", emailPattern, "Unvalid email!");
 
             // Tạo đối tượng khách hàng mới
-            Customer newCustomer = new Customer(customerID, name, phone, email);
+            Customer newCustomer = new Customer(custCode, name, phone, email);
             customerList.add(newCustomer);
             System.out.println("Customer added successfully!");
 
             // Hỏi người dùng có muốn tiếp tục không
             System.out.print("Do you want to add another customer? (Y/N): ");
-            String choice = Inputter.getString("").trim().toUpperCase();
-            if (!choice.equals("Y")) {
+            String choice=ConsoleInputter.getStr("").trim().toUpperCase();
+            if (!choice.equals("Y")){
                 break;
             }
         }
-        saved = false; // Đánh dấu dữ liệu đã thay đổi
+        existed=false; // Đánh dấu dữ liệu đã thay đổi
 
     }
 
@@ -90,7 +91,7 @@ public class CustomerList {
         }
 
         System.out.println("Customer information updated successfully!");
-        saved = false; // Đánh dấu dữ liệu đã thay đổi
+        existed = false; // Đánh dấu dữ liệu đã thay đổi
 
     }
 
@@ -130,7 +131,7 @@ public class CustomerList {
         } catch (IOException e) {
             System.out.println("Error saving customer data: " + e.getMessage());
         }
-        saved = true; // Đánh dấu dữ liệu đã được lưu
+        existed = true; // Đánh dấu dữ liệu đã được lưu
 
     }
 
@@ -173,7 +174,7 @@ public class CustomerList {
 
     // Kiểm tra xem dữ liệu đã được lưu chưa
     public boolean isSaved() {
-        return saved;
+        return existed;
     }
 
     // Hiển thị danh sách khách hàng
