@@ -44,19 +44,19 @@ public class FeastMenuList extends ArrayList<FeastMenu>{
         Collections.sort(menuList, Comparator.comparingDouble(FeastMenu::getPrice));
 
         System.out.println("\n===== AVAILABLE MENU =====");
-        System.out.println("+----------------------------------------------------------------------------------------------------+");
-        System.out.println("| Code   | Name                      | Price         | Ingredients                                   |");
-        System.out.println("+----------------------------------------------------------------------------------------------------+");
+        System.out.println("+--------------------------------------------------------------------------------------------------------+");
+        System.out.println("| Code    | Name                    | Price         | Ingredients                                        |");
+        System.out.println("+--------------------------------------------------------------------------------------------------------+");
         
         for(FeastMenu item : menuList){
             System.out.printf("| %-7s | %-23s | %,13.2f | %-48s |\n", 
                 item.getMenuID(), 
                 item.getName(), 
                 item.getPrice(),
-                item.getIngredients().substring(0, Math.min(item.getIngredients().length(), 48)));
+                item.getIngredients().substring(0, Math.min(item.getIngredients().length(), 50)));
         }
         
-        System.out.println("+----------------------------------------------------------------------------------------------------+");
+        System.out.println("+--------------------------------------------------------------------------------------------------------+");
     }
 
         // tìm thực đơn theo ID
