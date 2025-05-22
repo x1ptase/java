@@ -1,10 +1,10 @@
 import java.util.Scanner;
 
-public class OrderManager {
-    private static final Scanner sc = new Scanner(System.in);
+public class OrderManager{
+    private static final Scanner inp=new Scanner(System.in);
 
     /**
-     * Displays the main menu of the program
+     * displays the main menu of the program
      */
     public static void displayMenu(){
         System.out.println("\n========= TRADITIONAL FEAST ORDER MANAGEMENT =========");
@@ -20,23 +20,18 @@ public class OrderManager {
         System.out.println("=======================================================");
     }
 
-    /**
-     * Gets the user's menu choice
-     * 
-     * @return A valid choice (integer from 1-9)
-     */
     public static int getUserChoice(){
         int choice;
         while(true){
-            try {
+            try{
                 System.out.print("Please select an option (1-9): ");
-                choice = Integer.parseInt(sc.nextLine().trim());
-                if (choice >= 1 && choice <= 9) {
+                choice=Integer.parseInt(inp.nextLine().trim());
+                if(choice>=1 && choice<=9){
                     return choice;
-                } else {
+                } else{
                     System.out.println("Invalid input. Please enter a number between 1 and 9.");
                 }
-            } catch (NumberFormatException e) {
+            } catch(NumberFormatException e){
                 System.out.println("Invalid input. Please enter an integer.");
             }
         }
