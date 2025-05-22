@@ -45,7 +45,7 @@ public class FeastMenuList extends ArrayList<FeastMenu>{
 
         System.out.println("\n===== AVAILABLE MENU =====");
         System.out.println("+----------------------------------------------------------------------------------------------------+");
-        System.out.println("| Menu ID | Name                     | Price (VND)   | Ingredients                                      |");
+        System.out.println("| Code   | Name                      | Price         | Ingredients                                   |");
         System.out.println("+----------------------------------------------------------------------------------------------------+");
         
         for(FeastMenu item : menuList){

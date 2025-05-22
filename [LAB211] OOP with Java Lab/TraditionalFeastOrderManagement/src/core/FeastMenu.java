@@ -50,7 +50,7 @@ public class FeastMenu{
     // toString() - Hiển thị thông tin thực đơn
     @Override
     public String toString() {
-        return String.format("Menu ID: %s | Name: %s | Price: %.2f VND | Ingredients: %s",
+        return String.format("CodeID: %s | Name: %s | Price: %.2f | Ingredients: %s",
                 menuID, name, price, ingredients);
     }
 }

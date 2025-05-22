@@ -58,7 +58,7 @@ public class OrderList{
         // nhập ngày tổ chức (phải là ngày tương lai)
         Date eventDate;
         while(true){
-            eventDate=ConsoleInputter.getDate("Enter new event date (dd/MM/yyyy): ", "dd-MM-yyyy");
+            eventDate=ConsoleInputter.getDate("Enter new event date (dd/MM/yyyy): ", "dd/MM/yyyy");
             if(!isDuplicateOrder(customer.getCustCode(), menuItem.getMenuID(), eventDate)){
                 break;
             }
@@ -126,7 +126,7 @@ public class OrderList{
         // nhập ngày tổ chức mới (hoặc giữ nguyên)
         String newEventDateStr=ConsoleInputter.getStr("Enter new event date (dd/MM/yyyy) (Press Enter to keep current): ").trim();
         if(!newEventDateStr.isEmpty()){
-            Date newEventDate=ConsoleInputter.getDate("Enter new event date (dd/MM/yyyy): ", "dd-MM-yyyy");
+            Date newEventDate=ConsoleInputter.getDate("Enter new event date (dd/MM/yyyy): ", "dd/MMyyyy");
             if(newEventDate.after(new Date())){
                 order.setEventDate(newEventDate);
             } else{

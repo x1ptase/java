@@ -51,7 +51,7 @@ public class Customer{
     // toString() - Hiển thị thông tin khách hàng
     @Override
     public String toString(){
-        return String.format("Customer ID: %s | Name: %s | Phone: %s | Email: %s",
+        return String.format("Code: %s | Customer Name: %s | Phone: %s | Email: %s",
                 custCode, custName, phone, email);
     }
 }

@@ -9,10 +9,10 @@ import java.io.*;
 public class CustomerList {
     private ArrayList<Customer> customerList=new ArrayList<>();
     private static final String FILE_NAME="customers.dat";
-    public static final String custCodePattern="^[CGKcgk]\\d{4}$";
-    public static final String cusNamePattern="^[a-zA-Z ]{2,25}$";
-    public static final String phonePattern="^\\d{9}|\\d{11}$";
-    public static final String emailPattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+.[a-zA-Z0-9_-]+$";
+    public static final String custCodePattern="^[CGKcgk]\\d{4}";
+    public static final String cusNamePattern="^.{2,25}$";
+    public static final String phonePattern = "^(03[2-9]|05[2-9]|08[1-9]|09[0-9])\\d{7}$";
+    public static final String emailPattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+]+\\.[a-zA-Z]{2,}$";
     private boolean existed=true; // biến kiểm tra trạng thái lưu
 
     /**
@@ -136,9 +136,9 @@ public class CustomerList {
     // read danh sách khách hàng từ file
     public void readFromFile(){
         customerList.clear();
-        try(BufferedReader br = new BufferedReader(new FileReader(FILE_NAME))){
+        try(BufferedReader br=new BufferedReader(new FileReader(FILE_NAME))){
             String line;
-            while((line = br.readLine()) != null){
+            while((line=br.readLine())!=null){
                 String[] parts=line.split(",");
                 if(parts.length==4){
                     customerList.add(new Customer(parts[0].trim(), parts[1].trim(), parts[2].trim(), parts[3].trim()));
@@ -184,7 +184,7 @@ public class CustomerList {
 
         System.out.println("\n===== CUSTOMER LIST =====");
         System.out.println("+----------------------------------------------------------------------------------------------------+");
-        System.out.println("| Customer ID | Name                     | Phone Number | Email                                      |");
+        System.out.println("| Code        | Customer Name            | Phone        | Email                                      |");
         System.out.println("+----------------------------------------------------------------------------------------------------+");
         
         for(Customer c : customerList){
@@ -194,7 +194,6 @@ public class CustomerList {
                 c.getPhone(),
                 c.getEmail());
         }
-        
         System.out.println("+----------------------------------------------------------------------------------------------------+");
     }
 }
