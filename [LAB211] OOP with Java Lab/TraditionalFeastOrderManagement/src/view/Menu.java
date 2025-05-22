@@ -8,7 +8,7 @@ public class Menu {
     /**
      * Displays the main menu of the program
      */
-    public static void displayMenu() {
+    public static void displayMenu(){
         System.out.println("\n========= TRADITIONAL FEAST ORDER MANAGEMENT =========");
         System.out.println("1. Register a new customer");
         System.out.println("2. Update customer information");
@@ -27,9 +27,9 @@ public class Menu {
      * 
      * @return A valid choice (integer from 1-9)
      */
-    public static int getUserChoice() {
+    public static int getUserChoice(){
         int choice;
-        while (true) {
+        while(true){
             try {
                 System.out.print("Please select an option (1-9): ");
                 choice = Integer.parseInt(sc.nextLine().trim());
