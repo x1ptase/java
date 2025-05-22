@@ -1,17 +1,20 @@
 package core;
 
-public class FeastMenu {
-    private String menuID; // Mã thực đơn (PWxxx)
-    private String name; // Tên thực đơn
-    private double price; // Giá thực đơn
-    private String ingredients; // Danh sách nguyên liệu
+public class FeastMenu{
+    private String menuID; // mã thực đơn (PWxxx)
+    private String name; // tên thực đơn
+    private double price; // giá thực đơn
+    private String ingredients; // danh sách nguyên liệu
+    
+    public FeastMenu(){
+    }
 
-    // Constructor
-    public FeastMenu(String menuID, String name, double price, String ingredients) {
-        this.menuID = menuID;
-        this.name = name;
-        this.price = price;
-        this.ingredients = ingredients;
+    // Ctor
+    public FeastMenu(String menuID, String name, double price, String ingredients){
+        this.menuID=menuID;
+        this.name=name;
+        this.price=price;
+        this.ingredients=ingredients;
     }
 
     // Getters

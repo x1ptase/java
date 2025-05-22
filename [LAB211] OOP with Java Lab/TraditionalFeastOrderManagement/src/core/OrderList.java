@@ -8,7 +8,7 @@ import java.io.*;
 
 public class OrderList {
     private ArrayList<Order> orderList = new ArrayList<>();
-    private static int orderCounter = 1; // Tạo mã đơn hàng tự động
+    private static int orderCounter = 1; // tạo mã đơn hàng tự động
     private static final String FILE_NAME = "feast_order_service.dat";
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     private boolean saved = true; // Biến kiểm tra trạng thái lưu
