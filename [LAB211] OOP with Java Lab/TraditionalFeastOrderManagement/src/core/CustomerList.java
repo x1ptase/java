@@ -23,7 +23,7 @@ public class CustomerList {
     public void addCustomer() {
         System.out.println("\n===== ADD NEW CUSTOMER =====");
 
-        while (true) {
+        while(true){
             // Nhập mã khách hàng
             String custCode;
             do {
@@ -61,7 +61,7 @@ public class CustomerList {
         System.out.println("\n===== UPDATE CUSTOMER INFORMATION =====");
 
         // Nhập mã khách hàng cần cập nhật
-        String customerID = Inputter.getString("Enter Customer ID: ").trim();
+        String customerID = ConsoleInputter.getStr("Enter Customer ID: ").trim();
         Customer customer = findCustomerByID(customerID);
 
         if (customer == null) {

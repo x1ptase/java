@@ -1,27 +1,26 @@
 import core.CustomerList;
 import core.FeastMenuList;
 import core.OrderList;
-import data.Inputter;
 import tool.ConsoleInputter;
 
-public class Main {
-    public static void main(String[] args) {
-        // Khởi tạo danh sách khách hàng, thực đơn và đơn hàng từ file
-        CustomerList customerList = new CustomerList();
-        customerList.readFromFile(); // Đọc danh sách khách hàng từ file
+public class Main{
+    public static void main(String[] args){
+        // khởi tạo danh sách khách hàng, thực đơn và đơn hàng từ file
+        CustomerList customerList=new CustomerList();
+        customerList.readFromFile(); // dọc danh sách khách hàng từ file
         
-        FeastMenuList menuList = new FeastMenuList();
-        menuList.readFromFile(); // Đọc danh sách thực đơn từ file
+        FeastMenuList menuList=new FeastMenuList();
+        menuList.readFromFile(); // dọc danh sách thực đơn từ file
 
-        OrderList orderList = new OrderList();
-        orderList.readFromFile(); // Đọc danh sách đơn hàng từ file
+        OrderList orderList=new OrderList();
+        orderList.readFromFile(); // dọc danh sách đơn hàng từ file
 
         int choice;
-        do {
-            OrderManager.displayMenu(); // Hiển thị menu
-            choice = OrderManager.getUserChoice(); // Nhận lựa chọn từ người dùng
+        do{
+            OrderManager.displayMenu(); // hiển thị menu
+            choice=OrderManager.getUserChoice(); // nhận lựa chọn từ người dùng
 
-            switch (choice) {
+            switch(choice){
                 case 1:
                     customerList.addCustomer();
                     break;
@@ -50,10 +49,10 @@ public class Main {
                     customerList.displayCustomers();
                     break;
                 case 9:
-                    if (!orderList.isSaved() || !customerList.isSaved()) {
+                    if(!orderList.isSaved() || !customerList.isSaved()){
                         System.out.print("Do you want to save the data before exiting? (Y/N): ");
-                        String confirm = Inputter.getString("").toUpperCase();
-                        if (confirm.equals("Y")) {
+                        String confirm=ConsoleInputter.getStr("").toUpperCase();
+                        if(confirm.equals("Y")){
                             orderList.saveToFile();
                             customerList.saveToFile();
                             System.out.println("Data saved successfully.");
@@ -64,6 +63,6 @@ public class Main {
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
-        } while(choice != 9);
+        } while(choice!=9);
     }
 }
