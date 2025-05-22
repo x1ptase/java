@@ -90,7 +90,7 @@ public class ConsoleInputter {
     }
     // Hàm kiểm tra chuỗi có hợp lệ theo biểu thức chính quy (regex)
     public static boolean isValid(String input, String regex) {
-        if (input == null) return false;
+        if (input==null) return false;
         return input.matches(regex);
     }
 

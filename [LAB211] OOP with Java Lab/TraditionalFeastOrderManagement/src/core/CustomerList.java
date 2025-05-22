@@ -161,9 +161,9 @@ public class CustomerList {
     }
 
     // kiểm tra xem khách hàng có tồn tại hay không
-    private boolean isCustomerExist(String customerID){
+    private boolean isCustomerExist(String custCode){
         for(Customer c : customerList){
-            if (c.getCustCode().equals(customerID)){
+            if (c.getCustCode().equals(custCode)){
                 return true;
             }
         }
