@@ -3,22 +3,24 @@ package core;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Order {
-    private String orderID; // Mã đơn hàng (tự động tạo)
-    private String customerID; // Mã khách hàng
-    private String menuID; // Mã thực đơn
-    private int tableCount; // Số bàn đặt
-    private Date eventDate; // Ngày tổ chức
-    private double totalCost; // Tổng chi phí
+public class Order{
+    private String orderID; // mã đơn hàng (tự động tạo)
+    private String custCode; // mã khách hàng
+    private String menuID; // mã thực đơn
+    private int tableCount; // số bàn đặt
+    private Date eventDate; // ngày tổ chức
+    private double totalCost; // tổng chi phí
 
+    public Order(){
+    }
     // Constructor
-    public Order(String orderID, String customerID, String menuID, int tableCount, Date eventDate, double totalCost) {
-        this.orderID = orderID;
-        this.customerID = customerID;
-        this.menuID = menuID;
-        this.tableCount = tableCount;
-        this.eventDate = eventDate;
-        this.totalCost = totalCost;
+    public Order(String orderID, String custCode, String menuID, int tableCount, Date eventDate, double totalCost){
+        this.orderID=orderID;
+        this.custCode=custCode;
+        this.menuID=menuID;
+        this.tableCount=tableCount;
+        this.eventDate=eventDate;
+        this.totalCost=totalCost;
     }
 
     // Getters
@@ -26,8 +28,8 @@ public class Order {
         return orderID;
     }
 
-    public String getCustomerID() {
-        return customerID;
+    public String getCustCode() {
+        return custCode;
     }
 
     public String getMenuID() {
@@ -65,10 +67,9 @@ public class Order {
 
     // toString() - Hiển thị thông tin đơn hàng
     @Override
-    public String toString() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        return String.format(
-                "Order ID: %s | Customer ID: %s | Menu ID: %s | Tables: %d | Event Date: %s | Total Cost: %.2f VND",
-                orderID, customerID, menuID, tableCount, dateFormat.format(eventDate), totalCost);
+    public String toString(){
+        SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy");
+        return String.format("Order ID: %s | Customer ID: %s | Menu ID: %s | Tables: %d | Event Date: %s | Total Cost: %.2f VND",
+                orderID, custCode, menuID, tableCount, dateFormat.format(eventDate), totalCost);
     }
 }

@@ -1,7 +1,5 @@
 package core;
 
-import data.Acceptable;
-import data.Inputter;
 import tool.ConsoleInputter;
 import java.util.ArrayList;
 import java.util.Collections;
