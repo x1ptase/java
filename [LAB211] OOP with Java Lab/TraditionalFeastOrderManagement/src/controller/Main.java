@@ -66,6 +66,6 @@ public class Main {
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
-        } while (choice != 9);
+        } while(choice != 9);
     }
 }

@@ -58,7 +58,7 @@ public class OrderList {
         Date eventDate;
         while (true) {
             eventDate = Inputter.getFutureDate("Enter event date (dd/MM/yyyy): ");
-            if (!isDuplicateOrder(customer.getCustomerID(), menuItem.getMenuID(), eventDate)) {
+            if (!isDuplicateOrder(customer.getCustCode(), menuItem.getMenuID(), eventDate)) {
                 break;
             }
             System.out.println("❌ Duplicate order! This customer already booked this menu on the same date.");
@@ -71,7 +71,7 @@ public class OrderList {
         double totalCost = menuItem.getPrice() * tableCount;
 
         // Tạo đơn hàng mới
-        Order newOrder = new Order(orderID, customer.getCustomerID(), menuItem.getMenuID(), tableCount, eventDate, totalCost);
+        Order newOrder = new Order(orderID, customer.getCustCode(), menuItem.getMenuID(), tableCount, eventDate, totalCost);
         orderList.add(newOrder);
 
         // Hiển thị thông tin đơn hàng

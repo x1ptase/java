@@ -73,13 +73,13 @@ public class CustomerList {
         // Cập nhật tên khách hàng
         String newName = Inputter.getString("Enter new name (Press Enter to keep current): ");
         if (!newName.isEmpty() && Acceptable.isValid(newName, Acceptable.CUSTOMER_NAME)) {
-            customer.setName(newName);
+            customer.setCustName(newName);
         }
 
         // Cập nhật số điện thoại
         String newPhone = Inputter.getString("Enter new phone number (Press Enter to keep current): ");
         if (!newPhone.isEmpty() && Acceptable.isValid(newPhone, Acceptable.PHONE_NUMBER)) {
-            customer.setPhoneNumber(newPhone);
+            customer.setPhone(newPhone);
         }
 
         // Cập nhật email
@@ -100,7 +100,7 @@ public class CustomerList {
 
         ArrayList<Customer> matchedCustomers = new ArrayList<>();
         for (Customer customer : customerList) {
-            if (customer.getName().toLowerCase().contains(searchKey)) {
+            if (customer.getCustName().toLowerCase().contains(searchKey)) {
                 matchedCustomers.add(customer);
             }
         }
@@ -109,7 +109,7 @@ public class CustomerList {
             System.out.println("No one matches the search criteria!");
         } else {
             // Sắp xếp danh sách theo tên
-            Collections.sort(matchedCustomers, Comparator.comparing(Customer::getName));
+            Collections.sort(matchedCustomers, Comparator.comparing(Customer::getCustName));
 
             System.out.println("\n===== MATCHING CUSTOMERS =====");
             for (Customer c : matchedCustomers) {
@@ -122,7 +122,7 @@ public class CustomerList {
     public void saveToFile() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_NAME))) {
             for (Customer c : customerList) {
-                bw.write(c.getCustomerID() + "," + c.getName() + "," + c.getPhoneNumber() + "," + c.getEmail());
+                bw.write(c.getCustCode() + "," + c.getCustName() + "," + c.getPhone() + "," + c.getEmail());
                 bw.newLine();
             }
             System.out.println("Customer data has been successfully saved to " + FILE_NAME);
@@ -153,7 +153,7 @@ public class CustomerList {
     // Tìm khách hàng theo ID
     public Customer findCustomerByID(String customerID) {
         for (Customer c : customerList) {
-            if (c.getCustomerID().equals(customerID)) {
+            if (c.getCustCode().equals(customerID)) {
                 return c;
             }
         }
@@ -163,7 +163,7 @@ public class CustomerList {
     // Kiểm tra xem khách hàng có tồn tại hay không
     private boolean isCustomerExist(String customerID) {
         for (Customer c : customerList) {
-            if (c.getCustomerID().equals(customerID)) {
+            if (c.getCustCode().equals(customerID)) {
                 return true;
             }
         }
@@ -189,9 +189,9 @@ public class CustomerList {
         
         for (Customer c : customerList) {
             System.out.printf("| %-11s | %-23s | %-12s | %-42s |\n", 
-                c.getCustomerID(), 
-                c.getName(), 
-                c.getPhoneNumber(),
+                c.getCustCode(), 
+                c.getCustName(), 
+                c.getPhone(),
                 c.getEmail());
         }
         

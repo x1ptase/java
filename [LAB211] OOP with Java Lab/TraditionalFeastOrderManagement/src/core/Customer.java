@@ -1,30 +1,33 @@
 package core;
 
 public class Customer {
-    private String customerID; // Mã khách hàng (Cxxxx, Gxxxx, Kxxxx)
-    private String name; // Họ tên khách hàng
-    private String phoneNumber; // Số điện thoại (10 số, mạng hợp lệ)
+    private String custCode; // Mã khách hàng (Cxxxx, Gxxxx, Kxxxx)
+    private String custName; // Họ tên khách hàng
+    private String phone; // Số điện thoại (10 số, mạng hợp lệ)
     private String email; // Địa chỉ email
 
+    public Customer(){ 
+    }
+    
     // Constructor
     public Customer(String customerID, String name, String phoneNumber, String email) {
-        this.customerID = customerID;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
+        this.custCode = customerID;
+        this.custName = name;
+        this.phone = phoneNumber;
         this.email = email;
     }
 
     // Getters
-    public String getCustomerID() {
-        return customerID;
+    public String getCustCode() {
+        return custCode;
     }
 
-    public String getName() {
-        return name;
+    public String getCustName() {
+        return custName;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone() {
+        return phone;
     }
 
     public String getEmail() {
@@ -32,12 +35,12 @@ public class Customer {
     }
 
     // Setters
-    public void setName(String name) {
-        this.name = name;
+    public void setCustName(String name) {
+        this.custName = name;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhone(String phoneNumber) {
+        this.phone = phoneNumber;
     }
 
     public void setEmail(String email) {
@@ -48,6 +51,6 @@ public class Customer {
     @Override
     public String toString() {
         return String.format("Customer ID: %s | Name: %s | Phone: %s | Email: %s",
-                customerID, name, phoneNumber, email);
+                custCode, custName, phone, email);
     }
 }
