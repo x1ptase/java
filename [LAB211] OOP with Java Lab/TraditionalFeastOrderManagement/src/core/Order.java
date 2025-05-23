@@ -13,7 +13,7 @@ public class Order{
 
     public Order(){
     }
-    // Constructor
+    // Ctors
     public Order(String orderID, String custCode, String menuID, int tableCount, Date eventDate, double totalCost){
         this.orderID=orderID;
         this.custCode=custCode;

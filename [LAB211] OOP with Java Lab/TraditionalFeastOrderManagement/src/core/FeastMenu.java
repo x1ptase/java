@@ -47,10 +47,16 @@ public class FeastMenu{
         this.ingredients = ingredients;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        FeastMenu fm=(FeastMenu)obj;
+        return this.menuID.equals(fm.menuID);
+    }
+
     // toString() - Hiển thị thông tin thực đơn
     @Override
     public String toString() {
         return String.format("CodeID: %s | Name: %s | Price: %.2f | Ingredients: %s",
                 menuID, name, price, ingredients);
     }
-}
+} // class FeastMenu
