@@ -8,9 +8,9 @@ import java.io.*;
 
 public class CustomerList {
     private ArrayList<Customer> customerList=new ArrayList<>();
-    private static final String FILE_NAME="customers.dat";
+    private static final String FILE_NAME="src/data/customers.dat";
     public static final String custCodePattern="^[CGKcgk]\\d{4}";
-    public static final String cusNamePattern="^.{2,25}$";
+    public static final String custNamePattern="^.{2,25}$";
     public static final String phonePattern = "^\\d{9}$|^\\d{11}$"; //^(03[2-9]|05[2-9]|08[1-9]|09[0-9])\\d{7}$
     public static final String emailPattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+]+\\.[a-zA-Z]{2,}$";
     private boolean existed=true; // biến kiểm tra trạng thái lưu
@@ -32,7 +32,7 @@ public class CustomerList {
             } while(isCustomerExist(custCode));
 
             //nhap ten
-            String name=ConsoleInputter.getStr("New name", cusNamePattern, "Name length 2-25!");
+            String name=ConsoleInputter.getStr("New name", custNamePattern, "Name length 2-25!");
             //nhap phone
             String phone=ConsoleInputter.getStr("New phone", phonePattern, "9 or 11 numbers!");
             // nhap mail
@@ -72,7 +72,7 @@ public class CustomerList {
 
         // cập nhật tên khách hàng
         String newName=ConsoleInputter.getStr("Enter new name (Press Enter to keep current): ");
-        if(!newName.isEmpty() && ConsoleInputter.isValid(newName,cusNamePattern)){
+        if(!newName.isEmpty() && ConsoleInputter.isValid(newName,custNamePattern)){
             customer.setCustName(newName);
         }
 

@@ -9,12 +9,12 @@ import java.io.*;
 public class OrderList{
     private ArrayList<Order> orderList=new ArrayList<>();
     private static int orderCounter=1; // tạo mã đơn hàng tự động
-    private static final String FILE_NAME="feast_order_service.dat";
+    private static final String FILE_NAME="src/data/feast_order_service.dat";
     private static final SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy");
     private boolean existed=true; // biến kiểm tra trạng thái lưu
 
 
-    // dặt tiệc
+    // dat tiec
     public void placeOrder(CustomerList customerList, FeastMenuList menuList){
         System.out.println("\n===== PLACE A NEW ORDER =====");
 
@@ -58,11 +58,16 @@ public class OrderList{
         Date eventDate;
         while(true){
             eventDate=ConsoleInputter.getDate("Enter new event date (dd/MM/yyyy): ", "dd/MM/yyyy");
-            if(!isDuplicateOrder(customer.getCustCode(), menuItem.getMenuID(), eventDate)){
+            if(!eventDate.after(new Date())){
+                System.out.println("Invalid date! The event date must be in the future.");
+                continue;
+            }
+            if(!isDuplicateOrder(customer.getCustCode(), menuItem.getMenuID(), eventDate)) {
                 break;
             }
             System.out.println("Duplicate order! This customer already booked this menu on the same date.");
         }
+
 
         // tạo mã đơn hàng tự động
         String orderID="ORD" + (orderCounter++);
@@ -216,11 +221,11 @@ public class OrderList{
 
         System.out.println("\n===== ORDER LIST =====");
         System.out.println("+----------------------------------------------------------------------------------------------------+");
-        System.out.println("| Order ID | Customer ID | Menu ID | Tables | Event Date  | Total Cost (VND) |");
+        System.out.println("| ID     | Customer ID  | Set Menu |  Tables | Event Date     | Cost                             |");
         System.out.println("+----------------------------------------------------------------------------------------------------+");
         
         for(Order o : orderList){
-            System.out.printf("| %-8s | %-11s | %-7s | %6d | %-11s | %,15.2f |\n",
+            System.out.printf("| %-7s | %-11s | %-7s | %8d | %-11s | %,22.2f |\n",
                 o.getOrderID(),
                 o.getCustCode(),
                 o.getMenuID(),

@@ -7,7 +7,7 @@ import java.util.Comparator;
 
 public class FeastMenuList extends ArrayList<FeastMenu>{
     private ArrayList<FeastMenu> menuList=new ArrayList<>();
-    private static final String FILE_NAME="FeastMenu.csv";
+    private static final String FILE_NAME="src/data/FeastMenu.csv";
 
     // dọc danh sách thực đơn từ file
     public void readFromFile(){
