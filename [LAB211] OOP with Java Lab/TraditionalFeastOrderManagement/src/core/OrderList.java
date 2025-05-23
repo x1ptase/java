@@ -210,7 +210,7 @@ public class OrderList{
 
     // hiển thị danh sách đơn hàng
     public void displayOrders(){
-        if (orderList.isEmpty()){
+        if(orderList.isEmpty()){
             System.out.println("No orders available.");
             return;
         }
