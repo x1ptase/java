@@ -7,7 +7,7 @@ public class Order{
     private String orderID; // mã đơn hàng (tự động tạo)
     private String custCode; // mã khách hàng
     private String menuID; // mã thực đơn
-    private int tableCount; // số bàn đặt
+    private int numTable; // số bàn đặt
     private Date eventDate; // ngày tổ chức
     private double totalCost; // tổng chi phí
 
@@ -18,7 +18,7 @@ public class Order{
         this.orderID=orderID;
         this.custCode=custCode;
         this.menuID=menuID;
-        this.tableCount=tableCount;
+        this.numTable=tableCount;
         this.eventDate=eventDate;
         this.totalCost=totalCost;
     }
@@ -36,8 +36,8 @@ public class Order{
         return menuID;
     }
 
-    public int getTableCount() {
-        return tableCount;
+    public int getNumTable() {
+        return numTable;
     }
 
     public Date getEventDate() {
@@ -53,8 +53,8 @@ public class Order{
         this.menuID = menuID;
     }
 
-    public void setTableCount(int tableCount) {
-        this.tableCount = tableCount;
+    public void setNumTable(int numTable) {
+        this.numTable = numTable;
     }
 
     public void setEventDate(Date eventDate) {
@@ -65,11 +65,19 @@ public class Order{
         this.totalCost = totalCost;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        Order o=(Order)obj;
+        return this.getOrderID().equals(o.orderID);
+    }
+    
+    
+    
     // toString() - Hiển thị thông tin đơn hàng
     @Override
     public String toString(){
         SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy");
         return String.format("ID: %s | Customer ID: %s | Menu ID: %s | Tables: %d | Event Date: %s | Total Cost: %.2f VND",
-                orderID, custCode, menuID, tableCount, dateFormat.format(eventDate), totalCost);
+                orderID, custCode, menuID, numTable, dateFormat.format(eventDate), totalCost);
     }
 }

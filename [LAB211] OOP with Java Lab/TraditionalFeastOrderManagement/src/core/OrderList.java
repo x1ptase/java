@@ -45,11 +45,10 @@ public class OrderList{
         }
 
         // nhập số bàn (phải lớn hơn 0)
-        int tableCount;
+        int numTable;
         while(true){
-            //tableCount = Inputter.getInt("Enter number of tables: ");
-            tableCount=ConsoleInputter.getInt("Enter number of tables", 1, Integer.MAX_VALUE);
-            if(tableCount>0){
+            numTable=ConsoleInputter.getInt("Enter number of tables", 1, Integer.MAX_VALUE);
+            if(numTable>0){
                 break;
             }
             System.out.println("Invalid input. Number of tables must be greater than 0.");
@@ -69,10 +68,10 @@ public class OrderList{
         String orderID="ORD" + (orderCounter++);
 
         // tính tổng tiền
-        double totalCost=menuItem.getPrice()*tableCount;
+        double totalCost=menuItem.getPrice()*numTable;
 
         // tạo đơn hàng mới
-        Order newOrder=new Order(orderID, customer.getCustCode(), menuItem.getMenuID(), tableCount, eventDate, totalCost);
+        Order newOrder=new Order(orderID, customer.getCustCode(), menuItem.getMenuID(), numTable, eventDate, totalCost);
         orderList.add(newOrder);
 
         // hiển thị thông tin đơn hàng
@@ -105,18 +104,18 @@ public class OrderList{
             FeastMenu newMenu=menuList.findMenuByID(newMenuID);
             if(newMenu!=null){
                 order.setMenuID(newMenuID);
-                order.setTotalCost(newMenu.getPrice()*order.getTableCount());
+                order.setTotalCost(newMenu.getPrice()*order.getNumTable());
             } else{
                 System.out.println("Invalid Set Menu ID. Keeping current value.");
             }
         }
 
         // nhập số bàn mới (hoặc giữ nguyên)
-        String newTableCountStr=ConsoleInputter.getStr("Enter new number of tables (Press Enter to keep current): ").trim();
-        if(!newTableCountStr.isEmpty()){
-            int newTableCount=Integer.parseInt(newTableCountStr);
+        String newNumTableStr=ConsoleInputter.getStr("Enter new number of tables (Press Enter to keep current): ").trim();
+        if(!newNumTableStr.isEmpty()){
+            int newTableCount=Integer.parseInt(newNumTableStr);
             if(newTableCount>0){
-                order.setTableCount(newTableCount);
+                order.setNumTable(newTableCount);
                 order.setTotalCost(menuList.findMenuByID(order.getMenuID()).getPrice()*newTableCount);
             } else{
                 System.out.println("Invalid number of tables. Keeping current value.");
@@ -148,7 +147,7 @@ public class OrderList{
         try(BufferedWriter bw=new BufferedWriter(new FileWriter(FILE_NAME))){
             for(Order o : orderList){
                 bw.write(o.getOrderID() + "," + o.getCustCode() + "," + o.getMenuID() + "," +
-                        o.getTableCount() + "," + dateFormat.format(o.getEventDate()) + "," + o.getTotalCost());
+                        o.getNumTable() + "," + dateFormat.format(o.getEventDate()) + "," + o.getTotalCost());
                 bw.newLine();
             }
             System.out.println("Order data has been successfully saved to " + FILE_NAME);
@@ -225,7 +224,7 @@ public class OrderList{
                 o.getOrderID(),
                 o.getCustCode(),
                 o.getMenuID(),
-                o.getTableCount(),
+                o.getNumTable(),
                 dateFormat.format(o.getEventDate()),
                 o.getTotalCost());
         }
