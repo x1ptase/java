@@ -58,7 +58,7 @@ public class Main{
                             System.out.println("Data saved successfully.");
                         }
                     }
-                    System.out.println("Exiting the program. Goodbye!");
+                    System.out.println("Exiting the program. GOOD LUCK!");
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");

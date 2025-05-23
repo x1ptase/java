@@ -177,7 +177,7 @@ public class OrderList{
                         parts[2].trim(), // Menu ID
                         Integer.parseInt(parts[3].trim()), // Table Count
                         dateFormat.parse(parts[4].trim()), // Event Date
-                        Double.parseDouble(parts[5].trim()) // Total Cost
+                        Double.parseDouble(parts[5].trim()) // Cost
                     ));
                 }
             }
@@ -220,12 +220,12 @@ public class OrderList{
         }
 
         System.out.println("\n===== ORDER LIST =====");
-        System.out.println("+----------------------------------------------------------------------------------------------------+");
-        System.out.println("| ID     | Customer ID  | Set Menu |  Tables | Event Date     | Cost                             |");
-        System.out.println("+----------------------------------------------------------------------------------------------------+");
+        System.out.println("+---------------------------------------------------------------------------------------------------+");
+        System.out.println("| ID    | Customer ID | Set Menu | Tables | Event Date  | Cost                                      |");
+        System.out.println("+---------------------------------------------------------------------------------------------------+");
         
         for(Order o : orderList){
-            System.out.printf("| %-7s | %-11s | %-7s | %8d | %-11s | %,22.2f |\n",
+            System.out.printf("| %-5s | %-11s | %-8s | %-6d | %-11s | %-,41.2f |\n",
                 o.getOrderID(),
                 o.getCustCode(),
                 o.getMenuID(),
@@ -233,7 +233,6 @@ public class OrderList{
                 dateFormat.format(o.getEventDate()),
                 o.getTotalCost());
         }
-        
-        System.out.println("+----------------------------------------------------------------------------------------------------+");
+        System.out.println("+---------------------------------------------------------------------------------------------------+");
     }
 }

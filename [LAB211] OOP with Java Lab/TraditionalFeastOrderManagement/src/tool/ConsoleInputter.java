@@ -66,7 +66,8 @@ public class ConsoleInputter {
     }
     // Nhập 1 chuỗi bất kỳ
     public static String getStr(String prompt){
-        System.out.print(prompt + ": "); // xuất lời nhắc nhở
+        System.out.print(prompt); // xuất lời nhắc nhở
+//        System.out.println(prompt + ": ");
         return sc.nextLine().trim(); 
     }
     /* Nhập 1 chuỗi theo mẫu quy định (pattern). Vì pattern có nhiều dạng nên
@@ -112,7 +113,8 @@ public class ConsoleInputter {
         // Tạo DateFormat formatter với date format trong tham sồ
         DateFormat formatter = new SimpleDateFormat(dateFormat);
         do{
-            System.out.print(prompt + ": "); // xuất lời nhắc
+            System.out.print(prompt); // xuất lời nhắc
+            // System.out.println(prompt + ": ");
             dateStr = sc.nextLine().trim(); // nhập data
             try{ // phân tích String -> Date. 
                 // Hành vi parse sẽ tự động điều chỉnh phù hợp. 

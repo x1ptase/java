@@ -16,7 +16,7 @@ public class OrderManager{
         System.out.println("6. Update order information.");
         System.out.println("7. Save data to file.");
         System.out.println("8. Display customer/Order lists");
-        System.out.println("9. Exit");
+        System.out.println("9. Quit");
         System.out.println("=======================================================");
     }
 
