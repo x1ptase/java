@@ -71,7 +71,7 @@ public class MyList{
 
     public void removeLast(){
         if(isEmpty()) return;
-        if(head == tail) { // Chỉ có 1 phần tử
+        if(head == tail) { 
             head = tail = null;
         } else {
             Node p = head;
