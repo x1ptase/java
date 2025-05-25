@@ -225,7 +225,7 @@ public class OrderList{
         System.out.println("+---------------------------------------------------------------------------------------------------+");
         
         for(Order o : orderList){
-            System.out.printf("| %-5s | %-11s | %-8s | %-6d | %-11s | %-,41.2f |\n",
+            System.out.printf("| %-5s | %-11s | %-8s | %-6d | %-11s | %-,41.0f |\n",
                 o.getOrderID(),
                 o.getCustCode(),
                 o.getMenuID(),
