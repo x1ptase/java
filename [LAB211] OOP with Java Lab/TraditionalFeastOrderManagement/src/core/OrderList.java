@@ -235,4 +235,33 @@ public class OrderList{
         }
         System.out.println("+---------------------------------------------------------------------------------------------------+");
     }
+//    public void displayOrders(CustomerList customerList, FeastMenuList menuList) {
+//    if (orderList.isEmpty()) {
+//        System.out.println("No orders available.");
+//        return;
+//    }
+//
+//    for (Order order : orderList) {
+//        Customer customer = customerList.findCustomerByID(order.getCustCode());
+//        FeastMenu menu = menuList.findMenuByID(order.getMenuID());
+//
+//        System.out.println("\nCustomer order information [Order ID: " + order.getOrderID() + "]");
+//        System.out.println("---");
+//        System.out.println("Customer code : " + customer.getCustCode());
+//        System.out.println("Customer name : " + customer.getCustName());
+//        System.out.println("Phone number : " + customer.getPhone());
+//        System.out.println("Email    : " + customer.getEmail());
+//        System.out.println("---");
+//        System.out.println("Code of Set Menu: " + menu.getMenuID());
+//        System.out.println("Set menu name   : " + menu.getName());
+//        System.out.println("Event date    : " + dateFormat.format(order.getEventDate()));
+//        System.out.println("Number of tables: " + order.getNumTable());
+//        System.out.println("Price    : " + String.format("%,.0f", menu.getPrice()) + " Vnd");
+//        System.out.println("Ingredients:");
+//        System.out.println(menu.getIngredients());
+//        System.out.println("---");
+//        System.out.println("Total cost    : " + String.format("%,.0f", order.getTotalCost()) + " Vnd");
+//        System.out.println();
+//    }
+//    }
 }

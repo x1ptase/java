@@ -45,6 +45,7 @@ public class Main{
                     System.out.println("Data has been saved successfully!");
                     break;
                 case 8:
+//                    orderList.displayOrders(customerList, menuList);
                     orderList.displayOrders();
                     customerList.displayCustomers();
                     break;
