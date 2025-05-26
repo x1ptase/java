@@ -16,13 +16,13 @@ public class CustomerList {
     private boolean existed=true; // biến kiểm tra trạng thái lưu
 
     /**
-     * them khach hang moi vao danh sach
+     * thêm khách hàng mới vào danh sách
      */
     public void addNew(){
         System.out.println("\n===== ADD NEW CUSTOMER =====");
 
         while(true){
-            // Nhập mã khách hàng
+            // nhập mã khách hàng
             String custCode;
             do{
                 custCode=ConsoleInputter.getStr("New cust code", CustomerList.custCodePattern, "Pattern: CGK + 4 digits");
@@ -31,15 +31,15 @@ public class CustomerList {
                 }
             } while(isCustomerExist(custCode));
 
-            //nhap ten
-            String name=ConsoleInputter.getStr("New name", custNamePattern, "Name length 2-25!");
-            //nhap phone
+            // nhập tên
+            String custName=ConsoleInputter.getStr("New name", custNamePattern, "Name length 2-25!");
+            // nhập phone
             String phone=ConsoleInputter.getStr("New phone", phonePattern, "9 or 11 numbers!");
-            // nhap mail
+            // nhập email
             String email=ConsoleInputter.getStr("New email", emailPattern, "Unvalid email!");
 
             // tạo đối tượng khách hàng mới
-            Customer newCust=new Customer(custCode, name, phone, email);
+            Customer newCust=new Customer(custCode, custName, phone, email);
             customerList.add(newCust);
             System.out.println("Customer added successfully!");
 
@@ -50,17 +50,16 @@ public class CustomerList {
                 break;
             }
         }
-        existed=false; // dánh dấu dữ liệu đã thay đổi
-
+        existed=false; // đánh dấu dữ liệu đã thay đổi
     }
 
     // cập nhật thông tin khách hàng
     public void updateCustomer(){
         System.out.println("\n===== UPDATE CUSTOMER INFORMATION =====");
 
-        // Nhập mã khách hàng cần cập nhật
+        // nhập mã khách hàng cần cập nhật
         String custCode=ConsoleInputter.getStr("Enter Customer ID: ").trim();
-        Customer customer = findCustomerByID(custCode);
+        Customer customer=findCustomerByID(custCode);
 
         if(customer==null){
             System.out.println("Customer not found!");
@@ -68,7 +67,7 @@ public class CustomerList {
         }
 
         // hiển thị thông tin hiện tại của khách hàng
-        System.out.println("Current Information: " + customer);
+        System.out.println("Current Information: "+customer);
 
         // cập nhật tên khách hàng
         String newName=ConsoleInputter.getStr("Enter new name (Press Enter to keep current): ");
@@ -76,20 +75,20 @@ public class CustomerList {
             customer.setCustName(newName);
         }
 
-        // Cập nhật số điện thoại
+        // cập nhật số điện thoại
         String newPhone=ConsoleInputter.getStr("Enter new phone number (Press Enter to keep current): ");
         if (!newPhone.isEmpty() && ConsoleInputter.isValid(newPhone, phonePattern)){
             customer.setPhone(newPhone);
         }
 
-        // Cập nhật email
+        // cập nhật email
         String newEmail=ConsoleInputter.getStr("Enter new email (Press Enter to keep current): ");
         if(!newEmail.isEmpty() && ConsoleInputter.isValid(newEmail, emailPattern)){
             customer.setEmail(newEmail);
         }
 
         System.out.println("Customer information updated successfully!");
-        existed=false; // dánh dấu dữ liệu đã thay đổi
+        existed=false; // đánh dấu dữ liệu đã thay đổi
 
     }
 

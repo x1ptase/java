@@ -77,7 +77,7 @@ public class Order{
     @Override
     public String toString(){
         SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy");
-        return String.format("ID: %s | Customer ID: %s | Menu ID: %s | Tables: %d | Event Date: %s | Total Cost: %.2f VND",
+        return String.format("ID: %s | Customer ID: %s | Menu ID: %s | Tables: %d | Event Date: %s | Total Cost: %.0f VND",
                 orderID, custCode, menuID, numTable, dateFormat.format(eventDate), totalCost);
     }
 }

@@ -4,16 +4,16 @@ public class Customer{
     private String custCode; // mã khách hàng (Cxxxx, Gxxxx, Kxxxx)
     private String custName; // tên khách hàng
     private String phone; // số điện thoại (9-11 số, VN)
-    private String email; // dịa chỉ email
+    private String email; // địa chỉ email
     
     // Ctor - Contructor
     public Customer(){ 
     }
     
     // Constructor
-    public Customer(String custCode, String name, String phone, String email){
+    public Customer(String custCode, String custName, String phone, String email){
         this.custCode=custCode;
-        this.custName=name;
+        this.custName=custName;
         this.phone=phone;
         this.email=email;
     }
