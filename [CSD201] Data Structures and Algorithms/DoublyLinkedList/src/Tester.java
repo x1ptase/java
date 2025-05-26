@@ -5,11 +5,11 @@ public class Tester{
         MyDList lst=new MyDList();
         Scanner inp=new Scanner(System.in);
         
-        System.out.println("Enter number of Cars: ");
+        System.out.print("Enter number of Cars: ");
         int n=Integer.parseInt(inp.nextLine());
         
         for(int i=0; i<=n; i++){
-            System.out.println("C" + (i+1) + ":");
+            System.out.print("Car " + (i+1));
             System.out.print("     ID: ");
             String id=inp.nextLine();
             

@@ -50,7 +50,4 @@ public class Car {
     public void setExp(int exp) {
         this.exp = exp;
     }
-    
-    
-    
 }
