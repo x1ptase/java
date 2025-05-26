@@ -14,51 +14,44 @@ public class OrderList{
     private boolean existed=true; // biến kiểm tra trạng thái lưu
 
 
-    // dat tiec
-    public void placeOrder(CustomerList customerList, FeastMenuList menuList){
+    // đặt tiệc
+    public void placeOrder(CustomerList customerList, FeastMenuList menuList) {
         System.out.println("\n===== PLACE A NEW ORDER =====");
 
         // Display available menus first
         menuList.displayAllMenus();
-        System.out.println(); // Add spacing
+        System.out.println();
 
-        // nhập mã khách hàng
+        // Nhập mã khách hàng
         Customer customer;
-        while(true){
-            String custCode=ConsoleInputter.getStr("Enter Customer ID: ");
-            customer=customerList.findCustomerByID(custCode);
-            if(customer!=null){
+        while(true) {
+            String custCode = ConsoleInputter.getStr("Enter Customer ID: ");
+            customer = customerList.findCustomerByID(custCode);
+            if(customer != null) {
                 break;
             }
             System.out.println("Customer ID not found. Please try again.");
         }
 
-        // nhập mã thực đơn
+        // Nhập mã thực đơn
         FeastMenu menuItem;
-        while(true){
-            String menuID=ConsoleInputter.getStr("Enter Set Menu ID: ");
-            menuItem=menuList.findMenuByID(menuID);
-            if(menuItem!=null){
+        while(true) {
+            String menuID = ConsoleInputter.getStr("Enter Set Menu ID: ");
+            menuItem = menuList.findMenuByID(menuID);
+            if(menuItem != null) {
                 break;
             }
             System.out.println("Set Menu ID not found. Please try again.");
         }
 
-        // nhập số bàn (phải lớn hơn 0)
-        int numTable;
-        while(true){
-            numTable=ConsoleInputter.getInt("Enter number of tables", 1, Integer.MAX_VALUE);
-            if(numTable>0){
-                break;
-            }
-            System.out.println("Invalid input. Number of tables must be greater than 0.");
-        }
+        // Nhập số bàn
+        int numTable = ConsoleInputter.getInt("Enter number of tables", 1, Integer.MAX_VALUE);
 
-        // nhập ngày tổ chức (phải là ngày tương lai)
+        // Nhập ngày tổ chức
         Date eventDate;
-        while(true){
-            eventDate=ConsoleInputter.getDate("Enter new event date (dd/MM/yyyy): ", "dd/MM/yyyy");
-            if(!eventDate.after(new Date())){
+        while(true) {
+            eventDate = ConsoleInputter.getDate("Enter event date (dd/MM/yyyy): ", "dd/MM/yyyy");
+            if(!eventDate.after(new Date())) {
                 System.out.println("Invalid date! The event date must be in the future.");
                 continue;
             }
@@ -68,24 +61,49 @@ public class OrderList{
             System.out.println("Duplicate order! This customer already booked this menu on the same date.");
         }
 
+        // Tạo mã đơn hàng tự động
+        String orderID = "ORD" + (orderCounter++);
 
-        // tạo mã đơn hàng tự động
-        String orderID="ORD" + (orderCounter++);
+        // Tính tổng tiền
+        double totalCost = menuItem.getPrice() * numTable;
 
-        // tính tổng tiền
-        double totalCost=menuItem.getPrice()*numTable;
-
-        // tạo đơn hàng mới
-        Order newOrder=new Order(orderID, customer.getCustCode(), menuItem.getMenuID(), numTable, eventDate, totalCost);
+        // Tạo đơn hàng mới
+        Order newOrder = new Order(orderID, customer.getCustCode(), menuItem.getMenuID(), numTable, eventDate, totalCost);
         orderList.add(newOrder);
 
-        // hiển thị thông tin đơn hàng
+        // Hiển thị thông tin đơn hàng theo form yêu cầu
         System.out.println("\nOrder placed successfully!");
-        System.out.println(newOrder);
-        existed=false; //dánh dấu dữ liệu đã thay đổi
+        System.out.println("---------------------------------------------");
+        System.out.println("Customer order information [Order ID: " + orderID + "]");
+        System.out.println("---------------------------------------------");
+        System.out.println("Customer code : " + customer.getCustCode());
+        System.out.println("Customer name : " + customer.getCustName());
+        System.out.println("Phone number  : " + customer.getPhone());
+        System.out.println("Email         : " + customer.getEmail());
+        System.out.println("---------------------------------------------");
+        System.out.println("Code of Set Menu: " + menuItem.getMenuID());
+        System.out.println("Set menu name   : " + menuItem.getName());
+        System.out.println("Event date      : " + new SimpleDateFormat("dd/MM/yyyy").format(eventDate));
+        System.out.println("Number of tables: " + numTable);
+        System.out.println("Price           : " + String.format("%,d Vnd", (int)menuItem.getPrice()));
+        System.out.println("Ingredients:");
 
+        // Hiển thị ingredients theo từng phần
+        String[] categories = menuItem.getIngredients().split("#");
+        for (String category : categories) {
+            String cleanedCategory = category.trim();
+            if (cleanedCategory.startsWith("+ ")) {
+                cleanedCategory = cleanedCategory.substring(2);
+            }
+            System.out.println("+ " + cleanedCategory.replace(";", "; "));
+        }
+
+        System.out.println("---------------------------------------------");
+        System.out.println("Total           : " + String.format("%,d Vnd", (int)totalCost));
+        System.out.println("---------------------------------------------");
+
+        existed = false; // Đánh dấu dữ liệu đã thay đổi
     }
-
     // cập nhật đơn hàng
     public void updateOrder(FeastMenuList menuList){
         System.out.println("\n===== UPDATE ORDER =====");
