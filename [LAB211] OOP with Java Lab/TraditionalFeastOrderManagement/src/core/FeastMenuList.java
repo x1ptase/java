@@ -34,38 +34,44 @@ public class FeastMenuList extends ArrayList<FeastMenu>{
     }
 
     // hiển thị danh sách thực đơn (sắp xếp theo giá)
-    public void displayAllMenus(){
-        if(menuList.isEmpty()){
+    public void displayAllMenus() {
+        if (menuList.isEmpty()) {
             System.out.println("No menu data available.");
             return;
         }
-
+            
+        // Tiêu đề
+        System.out.println("List of Set Menus for ordering party:");
+        
         // sắp xếp thực đơn theo giá (ascending order)
         Collections.sort(menuList, Comparator.comparingDouble(FeastMenu::getPrice));
-
-        System.out.println("\n===== AVAILABLE MENU =====");
-        System.out.println("+--------------------------------------------------------------------------------------------------------+");
-        System.out.println("| Code    | Name                    | Price         | Ingredients                                        |");
-        System.out.println("+--------------------------------------------------------------------------------------------------------+");
+        for (FeastMenu item : menuList) {
+            System.out.printf("Code    :%s\n", item.getMenuID());
+            System.out.printf("Name    :%s\n", item.getName());
+            System.out.printf("Price   :%,d Vnd\n", (int)item.getPrice());
+            System.out.println("Ingredients:");
         
-        for(FeastMenu item : menuList){
-            System.out.printf("| %-7s | %-23s | %,13.2f | %-48s |\n", 
-                item.getMenuID(), 
-                item.getName(), 
-                item.getPrice(),
-                item.getIngredients().substring(0, Math.min(item.getIngredients().length(), 50)));
+            // Phân tách các phần ingredients bằng dấu #
+            String[] categories = item.getIngredients().split("#");
+            for (String category : categories) {
+                // Loại bỏ dấu + ở đầu nếu có
+                String cleanedCategory = category.trim();
+                if (cleanedCategory.startsWith("+ ")) {
+                    cleanedCategory = cleanedCategory.substring(2);
+                }
+                System.out.println("+ " + cleanedCategory.replace(";", "; "));
+            }
+            System.out.println("---------------------------------------------");
         }
-        
-        System.out.println("+--------------------------------------------------------------------------------------------------------+");
     }
 
-        // tìm thực đơn theo ID
-        public FeastMenu findMenuByID(String menuID){
-            for(FeastMenu item : menuList){
-                if(item.getMenuID().equalsIgnoreCase(menuID)){
-                    return item;
-                }
+    // tìm thực đơn theo ID
+    public FeastMenu findMenuByID(String menuID){
+        for(FeastMenu item : menuList){
+            if(item.getMenuID().equalsIgnoreCase(menuID)){
+                return item;
             }
-            return null; // không tìm thấy thực đơn
         }
+        return null; // không tìm thấy thực đơn
+    }
 }
