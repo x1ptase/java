@@ -1,0 +1,25 @@
+==========ROOM MANAGEMENT MODULE==========
+
+
+birthDatePattern: YearNow - YearBirth OR DifferentDate
+
+FUNCTION 4: Update Guest Stay Information 
+
+FUNCTION 5: Search 
+
+
+FUNCTION 6: Delete Guest Reservation Before Arrival
+- Kiểm tra ngày đặt sau ngày hôm nay thì xóa
+
+FUNCTION 7: List Vacant Rooms
+R01: 15/5/25 5days
+
+
+FUNCTION 8: Monthly Revenue Report 
+
+FUNCTION 9: Revenue Report by Room Type
+- Lấy ra tất cả loại phòng 
+- Nếu đúng loại phòng giá tiền x ngày đã thuê --> Result
+
+FUNCTION 10: Save Guest Information
+guestInfo.dat

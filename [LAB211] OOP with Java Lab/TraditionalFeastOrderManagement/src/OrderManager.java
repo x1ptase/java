@@ -4,7 +4,7 @@ public class OrderManager{
     private static final Scanner inp=new Scanner(System.in);
 
     /**
-     * displays the main menu of the program
+     *  displays the main menu of the program
      */
     public static void displayMenu(){
         System.out.println("\n========= TRADITIONAL FEAST ORDER MANAGEMENT =========");

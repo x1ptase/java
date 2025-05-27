@@ -7,13 +7,13 @@ import java.util.Comparator;
 import java.io.*;
 
 public class CustomerList {
-    private ArrayList<Customer> customerList=new ArrayList<>();
-    private static final String FILE_NAME="src/data/customers.dat";
+    public ArrayList<Customer> customerList=new ArrayList<>();
+    public static final String FILE_NAME="src/data/customers.dat";
     public static final String custCodePattern="^[CGKcgk]\\d{4}";
     public static final String custNamePattern="^.{2,25}$";
     public static final String phonePattern = "^\\d{9}$|^\\d{11}$"; //^(03[2-9]|05[2-9]|08[1-9]|09[0-9])\\d{7}$
     public static final String emailPattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+]+\\.[a-zA-Z]{2,}$";
-    private boolean existed=true; // biến kiểm tra trạng thái lưu
+    public boolean existed=true; // biến kiểm tra trạng thái lưu
 
     /**
      * thêm khách hàng mới vào danh sách
@@ -128,7 +128,7 @@ public class CustomerList {
         } catch(IOException e){
             System.out.println("Error saving customer data: " + e.getMessage());
         }
-        existed=true; // dánh dấu dữ liệu đã được lưu
+        existed=true; // đánh dấu dữ liệu đã được lưu
 
     }
 
@@ -182,17 +182,17 @@ public class CustomerList {
         }
 
         System.out.println("\n===== CUSTOMER LIST =====");
-        System.out.println("+---------------------------------------------------------------------------------------------------+");
-        System.out.println("| Code        | Customer Name            | Phone        | Email                                     |");
-        System.out.println("+---------------------------------------------------------------------------------------------------+");
+        System.out.println("+------------------------------------------------------------------------------------------+");
+        System.out.println("| Code        | Customer Name           | Phone        | Email                             |");
+        System.out.println("+------------------------------------------------------------------------------------------+");
         
         for(Customer c : customerList){
-            System.out.printf("| %-11s | %-23s | %-12s | %-42s |\n", 
+            System.out.printf("| %-11s | %-23s | %-12s | %-33s |\n", 
                 c.getCustCode(), 
                 c.getCustName(), 
                 c.getPhone(),
                 c.getEmail());
         }
-        System.out.println("+---------------------------------------------------------------------------------------------------+");
+        System.out.println("+------------------------------------------------------------------------------------------+");
     }
 }
