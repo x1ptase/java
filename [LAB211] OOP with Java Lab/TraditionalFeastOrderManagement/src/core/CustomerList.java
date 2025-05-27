@@ -13,7 +13,7 @@ public class CustomerList {
     public static final String custNamePattern="^.{2,25}$";
     public static final String phonePattern = "^\\d{9}$|^\\d{11}$"; //^(03[2-9]|05[2-9]|08[1-9]|09[0-9])\\d{7}$
     public static final String emailPattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+]+\\.[a-zA-Z]{2,}$";
-    public boolean existed=true; // biến kiểm tra trạng thái lưu
+    private boolean existed=true;   // biến kiểm tra trạng thái lưu
 
     /**
      * thêm khách hàng mới vào danh sách
@@ -61,11 +61,11 @@ public class CustomerList {
         String custCode=ConsoleInputter.getStr("Enter Customer ID: ").trim();
         Customer customer=findCustomerByID(custCode);
 
-        if(customer==null){
+        if(customer == null){
             System.out.println("Customer not found!");
             return;
         }
-
+ 
         // hiển thị thông tin hiện tại của khách hàng
         System.out.println("Current Information: "+customer);
 
@@ -139,7 +139,7 @@ public class CustomerList {
             String line;
             while((line=br.readLine())!=null){
                 String[] parts=line.split(",");
-                if(parts.length==4){
+                if(parts.length == 4){
                     customerList.add(new Customer(parts[0].trim(), parts[1].trim(), parts[2].trim(), parts[3].trim()));
                 }
             }

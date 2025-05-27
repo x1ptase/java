@@ -6,47 +6,47 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.io.*;
 
-public class OrderList {
-    public ArrayList<Order> orderList = new ArrayList<>();
-    public static final String FILE_NAME = "src/data/feast_order_service.dat";
-    public static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    private boolean existed = true;
+public class OrderList{
+    public ArrayList<Order> orderList=new ArrayList<>();
+    public static final String FILE_NAME="src/data/feast_order_service.dat";
+    public static final SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy");
+    private boolean existed=true;
 
-    public void placeOrder(CustomerList customerList, FeastMenuList menuList) {
+    public void placeOrder(CustomerList customerList, FeastMenuList menuList){
         System.out.println("\n===== PLACE A NEW ORDER =====");
         menuList.displayAllMenus();
         System.out.println();
 
         Customer customer;
-        while (true) {
-            String custCode = ConsoleInputter.getStr("Enter Customer ID: ");
-            customer = customerList.findCustomerByID(custCode);
-            if (customer != null) {
+        while(true){
+            String custCode=ConsoleInputter.getStr("Enter Customer ID: ");
+            customer=customerList.findCustomerByID(custCode);
+            if(customer!=null){
                 break;
             }
             System.out.println("Customer ID not found. Please try again.");
         }
 
         FeastMenu menuItem;
-        while (true) {
-            String menuID = ConsoleInputter.getStr("Enter Set Menu ID: ");
-            menuItem = menuList.findMenuByID(menuID);
-            if (menuItem != null) {
+        while(true){
+            String menuID=ConsoleInputter.getStr("Enter Set Menu ID: ");
+            menuItem=menuList.findMenuByID(menuID);
+            if(menuItem!=null){
                 break;
             }
             System.out.println("Set Menu ID not found. Please try again.");
         }
 
-        int numTable = ConsoleInputter.getInt("Enter number of tables", 1, Integer.MAX_VALUE);
+        int numTable=ConsoleInputter.getInt("Enter number of tables", 1, Integer.MAX_VALUE);
 
         Date eventDate;
-        while (true) {
-            eventDate = ConsoleInputter.getDate("Enter event date (dd/MM/yyyy): ", "dd/MM/yyyy");
-            if (!eventDate.after(new Date())) {
+        while(true){
+            eventDate=ConsoleInputter.getDate("Enter event date (dd/MM/yyyy): ", "dd/MM/yyyy");
+            if(!eventDate.after(new Date())){
                 System.out.println("Invalid date! The event date must be in the future.");
                 continue;
             }
-            if (!isDuplicateOrder(customer.getCustCode(), menuItem.getMenuID(), eventDate)) {
+            if(!isDuplicateOrder(customer.getCustCode(), menuItem.getMenuID(), eventDate)){
                 break;
             }
             System.out.println("Duplicate order! This customer already booked this menu on the same date.");
@@ -81,12 +81,12 @@ public class OrderList {
         System.out.println("Price           : " + String.format("%,d Vnd", (int)menuItem.getPrice()));
         System.out.println("Ingredients:");
 
-        // Hiển thị ingredients theo từng phần
-        String[] categories = menuItem.getIngredients().split("#");
-        for (String category : categories) {
-            String cleanedCategory = category.trim();
-            if (cleanedCategory.startsWith("+ ")) {
-                cleanedCategory = cleanedCategory.substring(2);
+        // hiển thị ingredients theo từng phần
+        String[] categories=menuItem.getIngredients().split("#");
+        for(String category : categories){
+            String cleanedCategory=category.trim();
+            if(cleanedCategory.startsWith("+ ")){
+                cleanedCategory=cleanedCategory.substring(2);
             }
             System.out.println("+ " + cleanedCategory.replace(";", "; "));
         }
@@ -100,12 +100,12 @@ public class OrderList {
     
     
     // cập nhật đơn hàng
-    public void updateOrder(FeastMenuList menuList) {
+    public void updateOrder(FeastMenuList menuList){
         System.out.println("\n===== UPDATE ORDER =====");
         String orderID = ConsoleInputter.getStr("Enter Order ID: ").trim();
         Order order = findOrderByID(orderID);
 
-        if (order == null) {
+        if(order==null){
             System.out.println("Order not found!");
             return;
         }
@@ -113,23 +113,23 @@ public class OrderList {
         System.out.println("Current Order Information: ");
         System.out.println(order);
 
-        String newMenuID = ConsoleInputter.getStr("Enter new Set Menu ID (Press Enter to keep current): ").trim();
-        if (!newMenuID.isEmpty()) {
-            FeastMenu newMenu = menuList.findMenuByID(newMenuID);
-            if (newMenu != null) {
+        String newMenuID=ConsoleInputter.getStr("Enter new Set Menu ID (Press Enter to keep current): ").trim();
+        if (!newMenuID.isEmpty()){
+            FeastMenu newMenu=menuList.findMenuByID(newMenuID);
+            if(newMenu != null){
                 order.setMenuID(newMenuID);
                 order.setPrice(String.format("%,d", (int)newMenu.getPrice()));
                 order.setTotalCost(newMenu.getPrice() * order.getNumTable());
-            } else {
+            } else{
                 System.out.println("Invalid Set Menu ID. Keeping current value.");
             }
         }
 
-        String newNumTableStr = ConsoleInputter.getStr("Enter new number of tables (Press Enter to keep current): ").trim();
-        if (!newNumTableStr.isEmpty()) {
+        String newNumTableStr=ConsoleInputter.getStr("Enter new number of tables (Press Enter to keep current): ").trim();
+        if (!newNumTableStr.isEmpty()){
             try {
-                int newTableCount = Integer.parseInt(newNumTableStr);
-                if (newTableCount > 0) {
+                int newTableCount=Integer.parseInt(newNumTableStr);
+                if(newTableCount > 0){
                     order.setNumTable(newTableCount);
                     FeastMenu menu = menuList.findMenuByID(order.getMenuID());
                     order.setTotalCost(menu.getPrice() * newTableCount);
