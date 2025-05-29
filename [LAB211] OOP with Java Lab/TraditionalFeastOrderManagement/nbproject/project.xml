@@ -13,9 +13,15 @@
         </data>
         <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
             <word>danh</word>
+            <word>hàng</word>
             <word>khach</word>
+            <word>khách</word>
+            <word>mới</word>
             <word>sach</word>
+            <word>sách</word>
+            <word>thêm</word>
             <word>vao</word>
+            <word>vào</word>
         </spellchecker-wordlist>
     </configuration>
 </project>

@@ -8,19 +8,29 @@ public class Order{
     private String custCode; // mã khách hàng
     private String menuID; // mã thực đơn
     private int numTable; // số bàn đặt
+    private String price;  // giá tiền
     private Date eventDate; // ngày tổ chức
     private double totalCost; // tổng chi phí
 
     public Order(){
     }
     // Ctors
-    public Order(String orderID, String custCode, String menuID, int tableCount, Date eventDate, double totalCost){
+    public Order(String orderID, String custCode, String menuID, int tableCount, String price, Date eventDate, double totalCost){
         this.orderID=orderID;
         this.custCode=custCode;
         this.menuID=menuID;
         this.numTable=tableCount;
+        this.price=price;
         this.eventDate=eventDate;
         this.totalCost=totalCost;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     // Getters
@@ -77,7 +87,7 @@ public class Order{
     @Override
     public String toString(){
         SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy");
-        return String.format("ID: %s | Customer ID: %s | Menu ID: %s | Tables: %d | Event Date: %s | Total Cost: %.2f VND",
-                orderID, custCode, menuID, numTable, dateFormat.format(eventDate), totalCost);
+        return String.format("ID: %s | Event date: %s | Customer ID: %s | Set Menu: %s | Price: %s | Tables: %d | Cost: %,.0f",
+                orderID, dateFormat.format(eventDate), custCode, menuID, price, numTable, totalCost);
     }
 }

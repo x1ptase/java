@@ -7,13 +7,13 @@ public class Main{
     public static void main(String[] args){
         // khởi tạo danh sách khách hàng, thực đơn và đơn hàng từ file
         CustomerList customerList=new CustomerList();
-        customerList.readFromFile(); // dọc danh sách khách hàng từ file
+        customerList.readFromFile(); // đọc danh sách khách hàng từ file
         
         FeastMenuList menuList=new FeastMenuList();
-        menuList.readFromFile(); // dọc danh sách thực đơn từ file
+        menuList.readFromFile(); // đọc danh sách thực đơn từ file
 
         OrderList orderList=new OrderList();
-        orderList.readFromFile(); // dọc danh sách đơn hàng từ file
+        orderList.readFromFile(); // đọc danh sách đơn hàng từ file
 
         int choice;
         do{
@@ -45,9 +45,8 @@ public class Main{
                     System.out.println("Data has been saved successfully!");
                     break;
                 case 8:
-//                    orderList.displayOrders(customerList, menuList);
-                    orderList.displayOrders();
                     customerList.displayCustomers();
+                    orderList.displayOrders();
                     break;
                 case 9:
                     if(!orderList.isSaved() || !customerList.isSaved()){

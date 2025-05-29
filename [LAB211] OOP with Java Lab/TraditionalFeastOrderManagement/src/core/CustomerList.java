@@ -7,22 +7,22 @@ import java.util.Comparator;
 import java.io.*;
 
 public class CustomerList {
-    private ArrayList<Customer> customerList=new ArrayList<>();
-    private static final String FILE_NAME="src/data/customers.dat";
+    public ArrayList<Customer> customerList=new ArrayList<>();
+    public static final String FILE_NAME="src/data/customers.dat";
     public static final String custCodePattern="^[CGKcgk]\\d{4}";
     public static final String custNamePattern="^.{2,25}$";
     public static final String phonePattern = "^\\d{9}$|^\\d{11}$"; //^(03[2-9]|05[2-9]|08[1-9]|09[0-9])\\d{7}$
     public static final String emailPattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+]+\\.[a-zA-Z]{2,}$";
-    private boolean existed=true; // biến kiểm tra trạng thái lưu
+    private boolean existed=true;   // biến kiểm tra trạng thái lưu
 
     /**
-     * them khach hang moi vao danh sach
+     * thêm khách hàng mới vào danh sách
      */
     public void addNew(){
         System.out.println("\n===== ADD NEW CUSTOMER =====");
 
         while(true){
-            // Nhập mã khách hàng
+            // nhập mã khách hàng
             String custCode;
             do{
                 custCode=ConsoleInputter.getStr("New cust code", CustomerList.custCodePattern, "Pattern: CGK + 4 digits");
@@ -31,15 +31,15 @@ public class CustomerList {
                 }
             } while(isCustomerExist(custCode));
 
-            //nhap ten
-            String name=ConsoleInputter.getStr("New name", custNamePattern, "Name length 2-25!");
-            //nhap phone
+            // nhập tên
+            String custName=ConsoleInputter.getStr("New name", custNamePattern, "Name length 2-25!");
+            // nhập phone
             String phone=ConsoleInputter.getStr("New phone", phonePattern, "9 or 11 numbers!");
-            // nhap mail
+            // nhập email
             String email=ConsoleInputter.getStr("New email", emailPattern, "Unvalid email!");
 
             // tạo đối tượng khách hàng mới
-            Customer newCust=new Customer(custCode, name, phone, email);
+            Customer newCust=new Customer(custCode, custName, phone, email);
             customerList.add(newCust);
             System.out.println("Customer added successfully!");
 
@@ -50,25 +50,24 @@ public class CustomerList {
                 break;
             }
         }
-        existed=false; // dánh dấu dữ liệu đã thay đổi
-
+        existed=false; // đánh dấu dữ liệu đã thay đổi
     }
 
     // cập nhật thông tin khách hàng
     public void updateCustomer(){
         System.out.println("\n===== UPDATE CUSTOMER INFORMATION =====");
 
-        // Nhập mã khách hàng cần cập nhật
+        // nhập mã khách hàng cần cập nhật
         String custCode=ConsoleInputter.getStr("Enter Customer ID: ").trim();
-        Customer customer = findCustomerByID(custCode);
+        Customer customer=findCustomerByID(custCode);
 
-        if(customer==null){
+        if(customer == null){
             System.out.println("Customer not found!");
             return;
         }
-
+ 
         // hiển thị thông tin hiện tại của khách hàng
-        System.out.println("Current Information: " + customer);
+        System.out.println("Current Information: "+customer);
 
         // cập nhật tên khách hàng
         String newName=ConsoleInputter.getStr("Enter new name (Press Enter to keep current): ");
@@ -76,20 +75,20 @@ public class CustomerList {
             customer.setCustName(newName);
         }
 
-        // Cập nhật số điện thoại
+        // cập nhật số điện thoại
         String newPhone=ConsoleInputter.getStr("Enter new phone number (Press Enter to keep current): ");
         if (!newPhone.isEmpty() && ConsoleInputter.isValid(newPhone, phonePattern)){
             customer.setPhone(newPhone);
         }
 
-        // Cập nhật email
+        // cập nhật email
         String newEmail=ConsoleInputter.getStr("Enter new email (Press Enter to keep current): ");
         if(!newEmail.isEmpty() && ConsoleInputter.isValid(newEmail, emailPattern)){
             customer.setEmail(newEmail);
         }
 
         System.out.println("Customer information updated successfully!");
-        existed=false; // dánh dấu dữ liệu đã thay đổi
+        existed=false; // đánh dấu dữ liệu đã thay đổi
 
     }
 
@@ -129,7 +128,7 @@ public class CustomerList {
         } catch(IOException e){
             System.out.println("Error saving customer data: " + e.getMessage());
         }
-        existed=true; // dánh dấu dữ liệu đã được lưu
+        existed=true; // đánh dấu dữ liệu đã được lưu
 
     }
 
@@ -140,7 +139,7 @@ public class CustomerList {
             String line;
             while((line=br.readLine())!=null){
                 String[] parts=line.split(",");
-                if(parts.length==4){
+                if(parts.length == 4){
                     customerList.add(new Customer(parts[0].trim(), parts[1].trim(), parts[2].trim(), parts[3].trim()));
                 }
             }
@@ -183,17 +182,17 @@ public class CustomerList {
         }
 
         System.out.println("\n===== CUSTOMER LIST =====");
-        System.out.println("+---------------------------------------------------------------------------------------------------+");
-        System.out.println("| Code        | Customer Name            | Phone        | Email                                     |");
-        System.out.println("+---------------------------------------------------------------------------------------------------+");
+        System.out.println("+------------------------------------------------------------------------------------------+");
+        System.out.println("| Code        | Customer Name           | Phone        | Email                             |");
+        System.out.println("+------------------------------------------------------------------------------------------+");
         
         for(Customer c : customerList){
-            System.out.printf("| %-11s | %-23s | %-12s | %-42s |\n", 
+            System.out.printf("| %-11s | %-23s | %-12s | %-33s |\n", 
                 c.getCustCode(), 
                 c.getCustName(), 
                 c.getPhone(),
                 c.getEmail());
         }
-        System.out.println("+---------------------------------------------------------------------------------------------------+");
+        System.out.println("+------------------------------------------------------------------------------------------+");
     }
 }
