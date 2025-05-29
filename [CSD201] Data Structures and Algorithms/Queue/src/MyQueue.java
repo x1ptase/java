@@ -1,4 +1,4 @@
-public class MyQueue {
+public class MyQueue{
     Node front, rear; //head, tail
     int size;
     
@@ -27,7 +27,7 @@ public class MyQueue {
         size++;
     }
     
-    public void dequeue(){ //removeFirst
+    public void dequeue(){ // removeFirst
         if(isEmpty()){
             System.out.println("Queue is empty");
         } else{
