@@ -16,7 +16,7 @@ public class Guest implements Serializable {
     private Date startDate;
     private String coTenant;
 
-    public Guest() {
+    public Guest(){
     }
 
     public Guest(String nationalID, String fullName, Date birthdate, String gender,
@@ -27,12 +27,12 @@ public class Guest implements Serializable {
         this.gender = gender;
         this.phoneNumber = phoneNumber;
         this.roomID = roomID;
-        this.rentalDays = rentalDays; // int
+        this.rentalDays = rentalDays; 
         this.startDate = startDate;
         this.coTenant = coTenant;
     }
 
-    // Getters - Setters
+    // getters - setters
     public String getNationalID() {
         return nationalID;
     }
@@ -81,11 +81,11 @@ public class Guest implements Serializable {
         this.roomID = roomID;
     }
 
-    public int getRentalDays() { // Đổi từ String thành int
+    public int getRentalDays() {
         return rentalDays;
     }
 
-    public void setRentalDays(int rentalDays) { // Đổi từ String thành int
+    public void setRentalDays(int rentalDays) { 
         this.rentalDays = rentalDays;
     }
 
@@ -107,20 +107,20 @@ public class Guest implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        Guest g = (Guest) obj;
+        Guest g=(Guest)obj;
         return this.nationalID.equals(g.nationalID);
     }
 
     @Override
     public String toString() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
+        Calendar cal=Calendar.getInstance();
         cal.setTime(startDate);
-        cal.add(Calendar.DAY_OF_MONTH, rentalDays); // rentalDays là int
-        Date checkOut = cal.getTime();
+        cal.add(Calendar.DAY_OF_MONTH, rentalDays); 
+        Date checkOut=cal.getTime();
         return String.format(
                 "Full name: %s\nPhone number: %s\nBirth date: %s\nGender: %s\nRental room: %s\nCheck in: %s\nRental days: %d\nCheck out: %s\nCo-tenant: %s",
                 fullName, phoneNumber, sdf.format(birthdate), gender, roomID,
-                sdf.format(startDate), rentalDays, sdf.format(checkOut), coTenant.isEmpty() ? "null" : coTenant); // %d cho rentalDays
+                sdf.format(startDate), rentalDays, sdf.format(checkOut), coTenant.isEmpty() ? "null" : coTenant);
     }
 }
