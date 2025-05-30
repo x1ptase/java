@@ -99,28 +99,28 @@ public class RoomList extends ArrayList<Room>{
         }
     }
 
-    // Find room by ID
+    // find room by ID
     public Room findRoomByID(String roomID){
-        for (Room room : roomList) {
-            if (room.getRoomID().equalsIgnoreCase(roomID)) {
+        for(Room room : roomList){
+            if(room.getRoomID().equalsIgnoreCase(roomID)){
                 return room;
             }
         }
         return null;
     }
 
-    // Check if room exists
-    private boolean isRoomExist(String roomID) {
+    // check if room exists
+    private boolean isRoomExist(String roomID){
         return roomList.stream().anyMatch(room -> room.getRoomID().equalsIgnoreCase(roomID));
     }
 
-    // Function 9: Revenue Report by Room Type
-    public void revenueReportByRoomType(GuestList guestList) {
-        String roomType = ConsoleInputter.getStr("Enter room type: ");
-        double totalRevenue = 0;
-        ArrayList<Guest> matchingGuests = new ArrayList<>();
-        for (Guest guest : guestList.getGuestList()) {
-            Room room = findRoomByID(guest.getRoomID());
+    // FUNTION 9: Revenue Report by Room Type
+    public void revenueReportByRoomType(GuestList guestList){
+        String roomType=ConsoleInputter.getStr("Enter room type: ");
+        double totalRevenue=0;
+        ArrayList<Guest> matchingGuests=new ArrayList<>();
+        for(Guest guest : guestList.getGuestList()){
+            Room room=findRoomByID(guest.getRoomID());
             if (room != null && room.getRoomType().equalsIgnoreCase(roomType)) {
                 matchingGuests.add(guest);
                 totalRevenue += room.getDailyRate() * guest.getRentalDays();
