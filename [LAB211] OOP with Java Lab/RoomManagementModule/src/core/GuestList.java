@@ -17,36 +17,39 @@ public class GuestList {
     private boolean existed=true;
 
     // FUNCTION 3: Enter Guest Information
-    public void addNew(RoomList roomList) {
+    public void addNew(RoomList roomList){
         System.out.println("\n===== ADD intelligent New Guest =====");
-        String nationalID = ConsoleInputter.getStr("National ID (12 digits)", nationalIDPattern, "Must be 12 digits!");
-        if (isGuestExist(nationalID)) {
+        String nationalID=ConsoleInputter.getStr("National ID (12 digits)", nationalIDPattern, "Must be 12 digits!");
+        if(isGuestExist(nationalID)){
             System.out.println("National ID already exists!");
             return;
         }
-        String fullName = ConsoleInputter.getStr("Full name (2-25 chars)", namePattern, "Must be 2-25 chars starting with a letter!");
-        Date birthdate = ConsoleInputter.getDate("Birthdate (dd/MM/yyyy): ", "dd/MM/yyyy");
-        String gender = ConsoleInputter.getStr("Gender (M/F)", "[MF]", "Must be M or F!");
-        String phone = ConsoleInputter.getStr("Phone number (10 digits)", phonePattern, "Must be 10 digits!");
-        String roomID = ConsoleInputter.getStr("Desired Room ID", roomIDPattern, "Up to 5 chars, start with letter!");
-        Room room = roomList.findRoomByID(roomID);
-        if (room == null) {
+        String fullName=ConsoleInputter.getStr("Full name (2-25 chars)", namePattern, "Must be 2-25 chars starting with a letter!");
+        Date birthdate=ConsoleInputter.getDate("Birthdate (dd/MM/yyyy): ", "dd/MM/yyyy");
+        String gender=ConsoleInputter.getStr("Gender (M/F)", "[MF]", "Must be M or F!");
+        String phone=ConsoleInputter.getStr("Phone number: ", phonePattern, "9 or 11 numbers!");
+        String roomID=ConsoleInputter.getStr("Desired Room ID", roomIDPattern, "Up to 5 chars, start with letter!");
+        Room room=roomList.findRoomByID(roomID);
+        
+        if(room == null){
             System.out.println("Room ID does not exist!");
             return;
         }
-        if (findGuestByRoomID(roomID) != null) {
+        
+        if(findGuestByRoomID(roomID) != null){
             System.out.println("Room is already occupied!");
             return;
         }
-        int rentalDays = ConsoleInputter.getInt("Number of rental days", 1, Integer.MAX_VALUE);
-        Date startDate = ConsoleInputter.getDate("Start date (dd/MM/yyyy): ", "dd/MM/yyyy");
-        if (!startDate.after(new Date())) {
+        
+        int rentalDays=ConsoleInputter.getInt("Number of rental days", 1, Integer.MAX_VALUE);
+        Date startDate=ConsoleInputter.getDate("Start date (dd/MM/yyyy): ", "dd/MM/yyyy");
+        if(!startDate.after(new Date())){
             System.out.println("Start date must be in the future!");
             return;
         }
-        String coTenant = ConsoleInputter.getStr("Co-tenant name (optional, press Enter to skip): ");
+        String coTenant=ConsoleInputter.getStr("Co-tenant name (optional, press Enter to skip): ");
 
-        Guest guest = new Guest(nationalID, fullName, birthdate, gender, phone, roomID, rentalDays, startDate, coTenant);
+        Guest guest=new Guest(nationalID, fullName, birthdate, gender, phone, roomID, rentalDays, startDate, coTenant);
         guestList.add(guest);
         System.out.printf("Guest registered successfully for room %s\nRental from %s for %d days\n",
                 roomID, new SimpleDateFormat("dd/MM/yyyy").format(startDate), rentalDays);
@@ -184,7 +187,7 @@ public class GuestList {
 
     public Guest findGuestByNationalID(String nationalID) {
         for (Guest guest : guestList) {
-            if (guest.getNationalID().equals(nationalID)) {
+            if (guest.getGuestID().equals(nationalID)) {
                 return guest;
             }
         }
@@ -201,7 +204,7 @@ public class GuestList {
     }
 
     private boolean isGuestExist(String nationalID) {
-        return guestList.stream().anyMatch(guest -> guest.getNationalID().equals(nationalID));
+        return guestList.stream().anyMatch(guest -> guest.getGuestID().equals(nationalID));
     }
 
     public boolean isSaved() {

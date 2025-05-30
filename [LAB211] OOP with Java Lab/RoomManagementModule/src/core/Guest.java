@@ -6,13 +6,13 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Guest implements Serializable {
-    private String nationalID;
-    private String fullName;
-    private Date birthdate;
+    private String guestID;
+    private String guestName;
+    private Date doB;
     private String gender;
     private String phoneNumber;
     private String roomID;
-    private int rentalDays; // Đổi từ String thành int
+    private int rentalDays; 
     private Date startDate;
     private String coTenant;
 
@@ -21,9 +21,9 @@ public class Guest implements Serializable {
 
     public Guest(String nationalID, String fullName, Date birthdate, String gender,
                  String phoneNumber, String roomID, int rentalDays, Date startDate, String coTenant) {
-        this.nationalID = nationalID;
-        this.fullName = fullName;
-        this.birthdate = birthdate;
+        this.guestID = nationalID;
+        this.guestName = fullName;
+        this.doB = birthdate;
         this.gender = gender;
         this.phoneNumber = phoneNumber;
         this.roomID = roomID;
@@ -33,28 +33,28 @@ public class Guest implements Serializable {
     }
 
     // getters - setters
-    public String getNationalID() {
-        return nationalID;
+    public String getGuestID() {
+        return guestID;
     }
 
-    public void setNationalID(String nationalID) {
-        this.nationalID = nationalID;
+    public void setGuestID(String guestID) {
+        this.guestID = guestID;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getGuestName() {
+        return guestName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setGuestName(String guestName) {
+        this.guestName = guestName;
     }
 
-    public Date getBirthdate() {
-        return birthdate;
+    public Date getDoB() {
+        return doB;
     }
 
-    public void setBirthdate(Date birthdate) {
-        this.birthdate = birthdate;
+    public void setDoB(Date doB) {
+        this.doB = doB;
     }
 
     public String getGender() {
@@ -108,7 +108,7 @@ public class Guest implements Serializable {
     @Override
     public boolean equals(Object obj) {
         Guest g=(Guest)obj;
-        return this.nationalID.equals(g.nationalID);
+        return this.guestID.equals(g.guestID);
     }
 
     @Override
@@ -118,9 +118,8 @@ public class Guest implements Serializable {
         cal.setTime(startDate);
         cal.add(Calendar.DAY_OF_MONTH, rentalDays); 
         Date checkOut=cal.getTime();
-        return String.format(
-                "Full name: %s\nPhone number: %s\nBirth date: %s\nGender: %s\nRental room: %s\nCheck in: %s\nRental days: %d\nCheck out: %s\nCo-tenant: %s",
-                fullName, phoneNumber, sdf.format(birthdate), gender, roomID,
+        return String.format("Full name: %s\nPhone number: %s\nBirth date: %s\nGender: %s\nRental room: %s\nCheck in: %s\nRental days: %d\nCheck out: %s\nCo-tenant: %s",
+                guestName, phoneNumber, sdf.format(doB), gender, roomID,
                 sdf.format(startDate), rentalDays, sdf.format(checkOut), coTenant.isEmpty() ? "null" : coTenant);
     }
 }
