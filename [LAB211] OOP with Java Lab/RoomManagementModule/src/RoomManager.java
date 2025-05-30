@@ -21,16 +21,16 @@ public class RoomManager{
 
     public static int getUserChoice(){
         int choice;
-        while (true) {
-            try {
+        while(true){
+            try{
                 System.out.print("Please select an option (1-11): ");
                 choice = Integer.parseInt(inp.nextLine().trim());
-                if (choice >= 1 && choice <= 11) {
+                if(choice >= 1 && choice <= 11){
                     return choice;
-                } else {
+                } else{
                     System.out.println("Invalid input. Please enter a number between 1 and 11.");
                 }
-            } catch (NumberFormatException e) {
+            } catch(NumberFormatException e){
                 System.out.println("Invalid input. Please enter an integer.");
             }
         }

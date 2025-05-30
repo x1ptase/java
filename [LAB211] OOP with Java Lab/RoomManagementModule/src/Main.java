@@ -4,19 +4,19 @@ import tool.ConsoleInputter;
 
 public class Main {
     public static void main(String[] args) {
-        RoomList roomList = new RoomList();
-        GuestList guestList = new GuestList();
+        RoomList roomList=new RoomList();
+        GuestList guestList=new GuestList();
 
-        // Load initial data
+        // load initial data
         roomList.readFromFile();
         guestList.readFromFile();
 
         int choice;
-        do {
+        do{
             RoomManager.displayMenu();
-            choice = RoomManager.getUserChoice();
+            choice=RoomManager.getUserChoice();
 
-            switch (choice) {
+            switch(choice){
                 case 1:
                     roomList.readFromFile();
                     break;
@@ -49,10 +49,10 @@ public class Main {
                     System.out.println("Data has been saved successfully!");
                     break;
                 case 11:
-                    if (!guestList.isSaved()) {
+                    if(!guestList.isSaved()){
                         System.out.print("Do you want to save the data before exiting? (Y/N): ");
-                        String confirm = ConsoleInputter.getStr("").toUpperCase();
-                        if (confirm.equals("Y")) {
+                        String confirm=ConsoleInputter.getStr("").toUpperCase();
+                        if(confirm.equals("Y")){
                             guestList.saveToFile();
                             System.out.println("Data saved successfully.");
                         }
@@ -62,6 +62,6 @@ public class Main {
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
-        } while (choice != 11);
+        } while(choice != 11);
     }
 }

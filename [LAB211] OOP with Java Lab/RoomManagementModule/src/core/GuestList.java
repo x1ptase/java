@@ -67,8 +67,10 @@ public class GuestList {
         }
         System.out.println("Current Guest Information: ");
         System.out.println(guest);
-        String phone=ConsoleInputter.getStr("New phone number (9 or 11 digits, Enter to keep)", phonePattern, "Must be 10 digits or empty!");
-        if(!phone.isEmpty()) guest.setPhoneNumber(phone);
+        String newPhone=ConsoleInputter.getStr("Enter new phone number (Press Enter to keep current): ");
+        if(!newPhone.isEmpty() && ConsoleInputter.isValid(newPhone, phonePattern)){
+            guest.setPhoneNumber(newPhone);
+        }
         int rentalDays=ConsoleInputter.getInt("New rental days (Enter 0 to keep)", 0, Integer.MAX_VALUE);
         if(rentalDays > 0) guest.setRentalDays(rentalDays);
         String coTenant=ConsoleInputter.getStr("New co-tenant name (Enter to keep, 'none' to clear): ");
