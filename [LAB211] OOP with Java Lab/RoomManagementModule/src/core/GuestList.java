@@ -1,7 +1,6 @@
 package core;
 
 import tool.ConsoleInputter;
-
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,13 +8,13 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class GuestList {
-    private ArrayList<Guest> guestList = new ArrayList<>();
-    public static final String FILE_NAME = "src/data/guestInfo.dat";
-    public static final String nationalIDPattern = "^\\d{12}$";
-    public static final String namePattern = "^[a-zA-Z][a-zA-Z\\s]{1,24}$";
-    public static final String phonePattern = "^\\d{10}$";
+    private ArrayList<Guest> guestList=new ArrayList<>();
+    public static final String FILE_NAME="src/data/guestInfo.dat";
+    public static final String nationalIDPattern="^\\d{12}$";
+    public static final String namePattern = "^.{2,25}$";
+    public static final String phonePattern = "^\\d{9}$|^\\d{11}$";
     public static final String roomIDPattern = "^[A-Za-z]\\d{0,4}$";
-    private boolean existed = true;
+    private boolean existed=true;
 
     // FUNCTION 3: Enter Guest Information
     public void addNew(RoomList roomList) {
