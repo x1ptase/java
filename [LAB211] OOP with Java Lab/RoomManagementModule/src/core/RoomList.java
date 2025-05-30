@@ -121,12 +121,12 @@ public class RoomList extends ArrayList<Room>{
         ArrayList<Guest> matchingGuests=new ArrayList<>();
         for(Guest guest : guestList.getGuestList()){
             Room room=findRoomByID(guest.getRoomID());
-            if (room != null && room.getRoomType().equalsIgnoreCase(roomType)) {
+            if(room != null && room.getRoomType().equalsIgnoreCase(roomType)){
                 matchingGuests.add(guest);
-                totalRevenue += room.getDailyRate() * guest.getRentalDays();
+                totalRevenue+=room.getDailyRate()*guest.getRentalDays();
             }
         }
-        if (matchingGuests.isEmpty()) {
+        if(matchingGuests.isEmpty()){
             System.out.println("Invalid room type or no data found!");
             return;
         }
