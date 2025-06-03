@@ -141,50 +141,50 @@ public class OrderList{
             }
         }
 
-        String newEventDateStr = ConsoleInputter.getStr("Enter new event date (dd/MM/yyyy) (Press Enter to keep current): ").trim();
-        if (!newEventDateStr.isEmpty()) {
-            try {
-                Date newEventDate = ConsoleInputter.getDate("Enter new event date (dd/MM/yyyy): ", "dd/MM/yyyy");
-                if (newEventDate.after(new Date())) {
+        String newEventDateStr=ConsoleInputter.getStr("Enter new event date (dd/MM/yyyy) (Press Enter to keep current): ").trim();
+        if(!newEventDateStr.isEmpty()){
+            try{
+                Date newEventDate=ConsoleInputter.getDate("Enter new event date (dd/MM/yyyy): ", "dd/MM/yyyy");
+                if(newEventDate.after(new Date())){
                     order.setEventDate(newEventDate);
-                } else {
+                } else{
                     System.out.println("Invalid date. Keeping current value.");
                 }
-            } catch (Exception e) {
+            } catch(Exception e){
                 System.out.println("Invalid date format. Keeping current value.");
             }
         }
 
         System.out.println("Order updated successfully!");
-        existed = false;
+        existed=false;
     }
 
-    public boolean isSaved() {
+    public boolean isSaved(){
         return existed;
     }
 
-    public void saveToFile() {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_NAME))) {
-            for (Order o : orderList) {
+    public void saveToFile(){
+        try(BufferedWriter bw=new BufferedWriter(new FileWriter(FILE_NAME))){
+            for(Order o : orderList){
                 bw.write(o.getOrderID() + "," + dateFormat.format(o.getEventDate()) + "," + 
                         o.getCustCode() + "," + o.getMenuID() + "," + o.getPrice() + "," + 
                         o.getNumTable() + "," + o.getTotalCost());
                 bw.newLine();
             }
             System.out.println("Order data has been successfully saved to " + FILE_NAME);
-        } catch (IOException e) {
+        } catch(IOException e){
             System.out.println("Error saving order data: " + e.getMessage());
         }
-        existed = true;
+        existed=true;
     }
 
-    public void readFromFile() {
+    public void readFromFile(){
         orderList.clear();
-        try (BufferedReader br = new BufferedReader(new FileReader(FILE_NAME))) {
+        try(BufferedReader br=new BufferedReader(new FileReader(FILE_NAME))) {
             String line;
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts.length == 7) {
+            while((line=br.readLine()) != null){
+                String[] parts=line.split(",");
+                if(parts.length == 7){
                     orderList.add(new Order(
                         parts[0].trim(), // Order ID
                         parts[2].trim(), // Customer ID
@@ -197,16 +197,16 @@ public class OrderList{
                 }
             }
             System.out.println("Order data loaded successfully.");
-        } catch (IOException e) {
+        } catch(IOException e){
             System.out.println("No existing order data found.");
-        } catch (Exception e) {
+        } catch(Exception e){
             System.out.println("Error reading order data: " + e.getMessage());
         }
     }
 
-    private Order findOrderByID(String orderID) {
-        for (Order o : orderList) {
-            if (o.getOrderID().equalsIgnoreCase(orderID)) {
+    private Order findOrderByID(String orderID){
+        for(Order o : orderList){
+            if(o.getOrderID().equalsIgnoreCase(orderID)){
                 return o;
             }
         }
@@ -224,8 +224,8 @@ public class OrderList{
         return false;
     }
 
-    public void displayOrders() {
-        if (orderList.isEmpty()) {
+    public void displayOrders(){
+        if(orderList.isEmpty()){
             System.out.println("No orders available.");
             return;
         }
@@ -235,7 +235,7 @@ public class OrderList{
         System.out.println("| ID             | Event Date  | Customer ID | Set Menu | Price     | Tables |        Cost |");
         System.out.println("+------------------------------------------------------------------------------------------+");
         
-        for (Order o : orderList) {
+        for(Order o : orderList){
             System.out.printf("| %-14s | %-11s | %-11s | %-8s | %-8s | %-6d | %,11.0f |\n",
                 o.getOrderID(),
                 dateFormat.format(o.getEventDate()),
