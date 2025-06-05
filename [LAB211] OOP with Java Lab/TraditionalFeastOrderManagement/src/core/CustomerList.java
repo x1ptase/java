@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.io.*;
 
-public class CustomerList {
+public class CustomerList{
     public ArrayList<Customer> customerList=new ArrayList<>();
     public static final String FILE_NAME="src/data/customers.dat";
     public static final String custCodePattern="^[CGKcgk]\\d{4}";
@@ -77,7 +77,7 @@ public class CustomerList {
 
         // cập nhật số điện thoại
         String newPhone=ConsoleInputter.getStr("Enter new phone number (Press Enter to keep current): ");
-        if (!newPhone.isEmpty() && ConsoleInputter.isValid(newPhone, phonePattern)){
+        if(!newPhone.isEmpty() && ConsoleInputter.isValid(newPhone, phonePattern)){
             customer.setPhone(newPhone);
         }
 

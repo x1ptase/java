@@ -64,7 +64,7 @@ public class OrderList{
                                  numTable, priceStr, eventDate, totalCost);
         orderList.add(newOrder);
         
-        // Hiển thị thông tin đơn hàng theo form yêu cầu
+        // hiển thị thông tin đơn hàng theo form yêu cầu
         System.out.println("\nOrder placed successfully!");
         System.out.println("---------------------------------------------");
         System.out.println("Customer order information [Order ID: " + orderID + "]");
@@ -114,7 +114,7 @@ public class OrderList{
         System.out.println(order);
 
         String newMenuID=ConsoleInputter.getStr("Enter new Set Menu ID (Press Enter to keep current): ").trim();
-        if (!newMenuID.isEmpty()){
+        if(!newMenuID.isEmpty()){
             FeastMenu newMenu=menuList.findMenuByID(newMenuID);
             if(newMenu != null){
                 order.setMenuID(newMenuID);
@@ -133,10 +133,10 @@ public class OrderList{
                     order.setNumTable(newTableCount);
                     FeastMenu menu = menuList.findMenuByID(order.getMenuID());
                     order.setTotalCost(menu.getPrice() * newTableCount);
-                } else {
+                } else{
                     System.out.println("Invalid number of tables. Keeping current value.");
                 }
-            } catch (NumberFormatException e) {
+            } catch(NumberFormatException e){
                 System.out.println("Invalid input. Keeping current value.");
             }
         }
