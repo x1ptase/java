@@ -9,15 +9,15 @@ import java.util.Date;
 
 public class GuestList {
     private ArrayList<Guest> guestList=new ArrayList<>();
-    public static final String FILE_NAME="src/data/guestInfo.dat";
-    public static final String nationalIDPattern="^\\d{12}$";
-    public static final String namePattern = "^.{2,25}$";
-    public static final String phonePattern = "^\\d{9}$|^\\d{11}$";
-    public static final String roomIDPattern = "^[A-Za-z]\\d{0,4}$";
+    private static final String FILE_NAME="src/data/guestInfo.dat";
+    private static final String nationalIDPattern="^\\d{12}$";
+    private static final String namePattern = "^.{2,25}$";
+    private static final String phonePattern = "^\\d{9}$|^\\d{11}$";
+    private static final String roomIDPattern = "^[A-Za-z]\\d{0,4}$";
     private boolean existed=true;
 
     // FUNCTION 3: Enter Guest Information
-    public void addNew(RoomList roomList){
+    public void addGuest(RoomList roomList){
         System.out.println("\n===== ADD intelligent New Guest =====");
         String nationalID=ConsoleInputter.getStr("National ID (12 digits)", nationalIDPattern, "Must be 12 digits!");
         if(isGuestExist(nationalID)){

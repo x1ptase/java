@@ -24,7 +24,7 @@ public class Main {
                     roomList.displayAllRooms();
                     break;
                 case 3:
-                    guestList.addNew(roomList);
+                    guestList.addGuest(roomList);
                     break;
                 case 4:
                     guestList.updateGuest();
