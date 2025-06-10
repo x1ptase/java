@@ -24,7 +24,7 @@ public class RoomManager{
         while(true){
             try{
                 System.out.print("Please select an option (1-11): ");
-                choice = Integer.parseInt(inp.nextLine().trim());
+                choice=Integer.parseInt(inp.nextLine().trim());
                 if(choice >= 1 && choice <= 11){
                     return choice;
                 } else{
