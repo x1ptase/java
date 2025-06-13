@@ -103,7 +103,7 @@ public class RoomList extends ArrayList<Room> {
         int targetYear = cal.get(Calendar.YEAR);
 
         ArrayList<String[]> report = new ArrayList<>();
-        for (roomID g : gList) {
+        for (Guest g : gList) {
             float total = 0f;
             Date startDate = g.getStartDate();
             int rentalDays = g.getRentalDays();
@@ -143,7 +143,7 @@ public class RoomList extends ArrayList<Room> {
 
     public void revenueReport(GuestList gList) {
         HashMap<String, Float> revenueMap = new HashMap<>();
-        for (roomID guest : gList) {
+        for (Guest guest : gList) {
             Room roomRent = this.findRoom(guest.getRoomID());
             String roomType = roomRent.getRoomType();
             float guestRevenue = guest.getRentalDays() * roomRent.getDailyRate();

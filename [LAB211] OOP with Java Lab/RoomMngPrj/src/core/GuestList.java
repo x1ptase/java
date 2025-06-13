@@ -6,9 +6,9 @@ import java.util.Calendar;
 import java.util.Date;
 import tool.ConsoleInputter;
 
-public class GuestList extends ArrayList<roomID> {
-    private ArrayList<roomID> guestList=new ArrayList<>();
-    public static final String FILE_NAME = "src\\data\\guestInfor.dat";
+public class GuestList extends ArrayList<Guest> {
+    private ArrayList<Guest> guestList=new ArrayList<>();
+    public static final String FILE_NAME= "src\\data\\guestInfor.dat";
     private static final String nationalIDPattern = "^\\d{12}$";
     private static final String namePattern = "^[a-zA-Z ]{2,25}$";
     private static final String phonePattern = "^\\d{10}$"; 
@@ -16,81 +16,81 @@ public class GuestList extends ArrayList<roomID> {
     private boolean existed=true;
 
     public void addGuest(){
-        int age;
-        Date birthDate;
-        Date dateStart;
-        ArrayList<String> nameOfCoTenant = new ArrayList<>();
-        int rentalDate;
-        String roomID;
         String idGuest;
-        
         int pos;
-        do {
-            idGuest = ConsoleInputter.getStr("Enter Guest ID", nationalIDPattern, "Id is 12 digits");
-            pos = this.indexOf(new roomID(idGuest));
-            if (pos >= 0) {
+        do{
+            idGuest=ConsoleInputter.getStr("Enter Guest ID", nationalIDPattern, "Id is 12 digits");
+            pos=this.indexOf(new Guest(idGuest));
+            if(pos >= 0){
                 System.out.println("Id is exist");
             }
-        } while (pos >= 0);
-        String nameGuest = ConsoleInputter.getStr("Enter Guest Name", namePattern, "Name length have between 2 and 25");
+        } while(pos >= 0);
+        
+        int age;
+        Date doB;
+        String nameGuest=ConsoleInputter.getStr("Enter Guest Name", namePattern, "Name length have between 2 and 25");
         do {
-            birthDate = ConsoleInputter.getDate("Enter Guest Birthdate(dd/MM/yyyy)", "dd/MM/yyyy");
-
-            Calendar now = Calendar.getInstance();
-            Calendar birth = Calendar.getInstance();
-            birth.setTime(birthDate);
-            age = now.get(Calendar.YEAR) - birth.get(Calendar.YEAR);
-            if (age < 16) {
+            doB=ConsoleInputter.getDate("Enter Guest Birthdate(dd/MM/yyyy)", "dd/MM/yyyy");
+            Calendar now=Calendar.getInstance();
+            Calendar birth=Calendar.getInstance();
+            birth.setTime(doB);
+            age=now.get(Calendar.YEAR) - birth.get(Calendar.YEAR);
+            if(age < 16){
                 System.out.println("Guest must be at least 16 years old.");
                 return;
             }
-        } while (age < 16);
+        } while(age < 16);
 
-        boolean gender = ConsoleInputter.getBoolean("Is man?");
-        String phoneGuest = ConsoleInputter.getStr("Enter Guest Phone", phonePattern, "Phone have 10 digits");
+        boolean gender=ConsoleInputter.getBoolean("M/F");
+        String phoneGuest=ConsoleInputter.getStr("Enter Guest Phone", phonePattern, "Phone have 10 digits");
 
-        rentalDate = ConsoleInputter.getInt("Enter Rental Date", 1, Integer.MAX_VALUE);
+        int rentalDays;
+        rentalDays=ConsoleInputter.getInt("Enter Rental Date", 1, Integer.MAX_VALUE);
 
-        boolean dateValid = true;
-        do {
-            dateStart = ConsoleInputter.getDate("Enter Date Start(dd/MM/yyyy)", "dd/MM/yyyy");
+        Date dateStart;
+        boolean dateValid=true;
+        do{
+            dateStart=ConsoleInputter.getDate("Enter Date Start(dd/MM/yyyy)", "dd/MM/yyyy");
 
-            if (ConsoleInputter.isSameDay(dateStart, new Date())) {
-                dateValid = true;
+            if(ConsoleInputter.isSameDay(dateStart, new Date())){
+                dateValid=true;
                 break;
             }
-            dateValid = dateStart.after(new Date());
-        } while (!dateValid);
-
-        boolean isRen;
-        do {
-            roomID = ConsoleInputter.getStr("Enter Desired Room ID", roomIDPattern, "Room id have a character next 3 digits");
-            Room room = new Room(roomID);
-            isRen = room.isRented(this, dateStart, rentalDate);
-            if (isRen) {
+            dateValid=dateStart.after(new Date());
+        } while(!dateValid);
+        
+        String roomID;
+        boolean isRen; // thue
+        do{
+            roomID=ConsoleInputter.getStr("Enter Desired Room ID", roomIDPattern, "Room id have a character next 3 digits");
+            Room room=new Room(roomID);
+            isRen=room.isRented(this, dateStart, rentalDays);
+            if(isRen){
                 System.out.println("Room is not vacant");
             }
-        } while (isRen);
+        } while(isRen);
 
-        int numberCoTenant = ConsoleInputter.getInt("Enter number Co - Tenant", 0, Integer.MAX_VALUE);
-        for (int i = 0; i < numberCoTenant; i++) {
-            String nameCoTenant = ConsoleInputter.getStr(String.format("Enter Name Co-Tenant: %d", (i + 1)), namePattern, "Name length have between 2 and 25");
+        ArrayList<String> nameOfCoTenant=new ArrayList<>();
+        int numberCoTenant=ConsoleInputter.getInt("Enter number Co - Tenant", 0, Integer.MAX_VALUE);
+        for(int i=0; i<numberCoTenant; i++){
+            String nameCoTenant=ConsoleInputter.getStr(String.format("Enter Name Co-Tenant: %d", (i + 1)), namePattern, "Name length have between 2 and 25");
             nameOfCoTenant.add(nameCoTenant);
         }
 
-        roomID newGuest = new roomID(idGuest, nameGuest, birthDate, gender, phoneGuest, roomID, rentalDate, dateStart, nameOfCoTenant);
+        Guest newGuest=new Guest(idGuest, nameGuest, doB, gender, phoneGuest, roomID, rentalDays, dateStart, nameOfCoTenant);
         this.add(newGuest);
-        RoomList rl = new RoomList();
+        RoomList rl=new RoomList();
         rl.readFile(RoomList.fName);
         displayInfo(newGuest, rl.findRoom(roomID));
     }
 
-    public void updateGuest() {
-        String idCheck = ConsoleInputter.getStr("Enter Guest ID", nationalIDPattern, "Id has 12 degits");
-        for (roomID g : this) {
-            if (g.getGuestID().equalsIgnoreCase(idCheck)) {
+    public void updateGuest(){
+        System.out.println("\n===== UPDATE GUEST INFORMATION =====");
+        String guestID=ConsoleInputter.getStr("National ID (12 digits)", nationalIDPattern, "Must be 12 digits!");
+        for(Guest g : this){
+            if(g.getGuestID().equalsIgnoreCase(guestID)){
                 int rentalDate;
-                rentalDate = ConsoleInputter.getInt("Enter Rental Date", 1, Integer.MAX_VALUE);
+                rentalDate=ConsoleInputter.getInt("Enter Rental Date", 1, Integer.MAX_VALUE);
                 g.setRentalDays(rentalDate);
 
                 Date newStartDate;
@@ -147,7 +147,7 @@ public class GuestList extends ArrayList<roomID> {
 
     public void seacrchByID() {
         String idCheck = ConsoleInputter.getStr("Enter Guest ID", nationalIDPattern, "Id is 12 digits");
-        for (roomID thi : this) {
+        for (Guest thi : this) {
             if (thi.getGuestID().equalsIgnoreCase(idCheck)) {
 
                 RoomList rl = new RoomList();
@@ -159,12 +159,12 @@ public class GuestList extends ArrayList<roomID> {
 
     public void deleteGuest() {
         String idCheck = ConsoleInputter.getStr("Enter Guest ID", nationalIDPattern, "Id is 12 digits");
-        int pos = this.indexOf(new roomID(idCheck));
+        int pos = this.indexOf(new Guest(idCheck));
         if (pos < 0) {
             System.out.println("Guest is not exsited");
             return;
         }
-        roomID gPos = this.get(pos);
+        Guest gPos = this.get(pos);
         if (gPos.getStartDate().after(new Date())) {
             this.remove(gPos);
             System.out.println("delete successfull");
@@ -173,7 +173,7 @@ public class GuestList extends ArrayList<roomID> {
         }
     }
 
-    public void displayInfo(roomID g, Room r) {
+    public void displayInfo(Guest g, Room r) {
         System.out.println("----------------------------------------------------------------");
         System.out.println("Guest information [National ID: " + g.getGuestID() + "]");
         System.out.println("----------------------------------------------------------------");
@@ -225,7 +225,7 @@ public class GuestList extends ArrayList<roomID> {
                 "Guest ID", "Name", "Phone", "Gender", "Room ID", "Start Day", "Day");
         System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
 
-        for (roomID guest : this) {
+        for (Guest guest : this) {
             System.out.printf("%-15s | %-20s | %-12s | %-8s | %-12s | %-20s | %-8d\n",
                     guest.getGuestID(),
                     guest.getGuestName().toUpperCase(),
@@ -238,7 +238,7 @@ public class GuestList extends ArrayList<roomID> {
         System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
     }
 
-    // FUNCTION 10: Save roomID Information
+    // FUNCTION 10: Save Guest Information
     public void saveToFile(){
         try(ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream(FILE_NAME))){
             oos.writeObject(guestList);
@@ -252,7 +252,7 @@ public class GuestList extends ArrayList<roomID> {
     public void readFromFile(){
         guestList.clear();
         try(ObjectInputStream ois=new ObjectInputStream(new FileInputStream(FILE_NAME))){
-            guestList=(ArrayList<roomID>)ois.readObject();
+            guestList=(ArrayList<Guest>)ois.readObject();
             System.out.println("Guest data loaded successfully.");
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("No existing guest data found.");

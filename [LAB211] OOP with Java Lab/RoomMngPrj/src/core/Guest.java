@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class roomID implements Serializable{
+public class Guest implements Serializable{
     private String guestID;
     private String guestName;
     private Date doB;
@@ -17,14 +17,14 @@ public class roomID implements Serializable{
     private Date startDate;
     private ArrayList<String> coTenant = new ArrayList<>();
 
-    public roomID() {
+    public Guest(){
+    }
+    
+    public Guest(String guestID){
+        this.guestID=guestID;
     }
 
-    public roomID(String ID) {
-        this.guestID = ID;
-    }
-
-    public roomID(String guestID, String guestName, Date doB, boolean gender, String phone,
+    public Guest(String guestID, String guestName, Date doB, boolean gender, String phone,
             String roomID, int rentalDate, Date startDate, ArrayList<String> coTenant){
         this.guestID = guestID;
         this.guestName = guestName;
@@ -112,7 +112,7 @@ public class roomID implements Serializable{
 
      @Override
     public boolean equals(Object obj){
-        roomID g=(roomID)obj;
+        Guest g=(Guest)obj;
         return this.guestID.equals(g.guestID);
     }
 

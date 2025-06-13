@@ -88,7 +88,7 @@ public class Room {
             return false;
         }
 
-        for (roomID guest : list) {
+        for (Guest guest : list) {
             if (guest.getRoomID().trim().equalsIgnoreCase(this.roomID.trim())) {
                 Date startDate = guest.getStartDate();
                 int duration = guest.getRentalDays();
@@ -120,7 +120,7 @@ public class Room {
             return false;
         }
 
-        for (roomID guest : list) {
+        for (Guest guest : list) {
             if (guest.getRoomID().trim().equalsIgnoreCase(this.roomID.trim())) {
                 Date startDate = guest.getStartDate();
                 int duration = guest.getRentalDays();
