@@ -6,8 +6,8 @@ import java.util.Calendar;
 import java.util.Date;
 import tool.ConsoleInputter;
 
-public class GuestList extends ArrayList<Guest> {
-    private ArrayList<Guest> guestList=new ArrayList<>();
+public class GuestList extends ArrayList<roomID> {
+    private ArrayList<roomID> guestList=new ArrayList<>();
     public static final String FILE_NAME = "src\\data\\guestInfor.dat";
     private static final String nationalIDPattern = "^\\d{12}$";
     private static final String namePattern = "^[a-zA-Z ]{2,25}$";
@@ -27,7 +27,7 @@ public class GuestList extends ArrayList<Guest> {
         int pos;
         do {
             idGuest = ConsoleInputter.getStr("Enter Guest ID", nationalIDPattern, "Id is 12 digits");
-            pos = this.indexOf(new Guest(idGuest));
+            pos = this.indexOf(new roomID(idGuest));
             if (pos >= 0) {
                 System.out.println("Id is exist");
             }
@@ -78,7 +78,7 @@ public class GuestList extends ArrayList<Guest> {
             nameOfCoTenant.add(nameCoTenant);
         }
 
-        Guest newGuest = new Guest(idGuest, nameGuest, birthDate, gender, phoneGuest, roomID, rentalDate, dateStart, nameOfCoTenant);
+        roomID newGuest = new roomID(idGuest, nameGuest, birthDate, gender, phoneGuest, roomID, rentalDate, dateStart, nameOfCoTenant);
         this.add(newGuest);
         RoomList rl = new RoomList();
         rl.readFile(RoomList.fName);
@@ -87,11 +87,11 @@ public class GuestList extends ArrayList<Guest> {
 
     public void updateGuest() {
         String idCheck = ConsoleInputter.getStr("Enter Guest ID", nationalIDPattern, "Id has 12 degits");
-        for (Guest g : this) {
-            if (g.getID().equalsIgnoreCase(idCheck)) {
+        for (roomID g : this) {
+            if (g.getGuestID().equalsIgnoreCase(idCheck)) {
                 int rentalDate;
                 rentalDate = ConsoleInputter.getInt("Enter Rental Date", 1, Integer.MAX_VALUE);
-                g.setRentalDate(rentalDate);
+                g.setRentalDays(rentalDate);
 
                 Date newStartDate;
                 do {
@@ -109,7 +109,7 @@ public class GuestList extends ArrayList<Guest> {
                         System.out.println("Room is not vacant");
                     }
                 } while (isRen);
-                g.setDesiredRID(desiredRoomID);
+                g.setRoomID(desiredRoomID);
                 boolean isAdd;
                 if (g.getCoTenant().isEmpty()) {
                     isAdd = true;
@@ -138,7 +138,7 @@ public class GuestList extends ArrayList<Guest> {
                 }
                 RoomList rl = new RoomList();
                 rl.readFile(RoomList.fName);
-                displayInfo(g, rl.findRoom(g.getDesiredRID()));
+                displayInfo(g, rl.findRoom(g.getRoomID()));
                 return;
             }
         }
@@ -147,24 +147,24 @@ public class GuestList extends ArrayList<Guest> {
 
     public void seacrchByID() {
         String idCheck = ConsoleInputter.getStr("Enter Guest ID", nationalIDPattern, "Id is 12 digits");
-        for (Guest thi : this) {
-            if (thi.getID().equalsIgnoreCase(idCheck)) {
+        for (roomID thi : this) {
+            if (thi.getGuestID().equalsIgnoreCase(idCheck)) {
 
                 RoomList rl = new RoomList();
                 rl.readFile(RoomList.fName);
-                displayInfo(thi, rl.findRoom(thi.getDesiredRID()));
+                displayInfo(thi, rl.findRoom(thi.getRoomID()));
             }
         }
     }
 
     public void deleteGuest() {
         String idCheck = ConsoleInputter.getStr("Enter Guest ID", nationalIDPattern, "Id is 12 digits");
-        int pos = this.indexOf(new Guest(idCheck));
+        int pos = this.indexOf(new roomID(idCheck));
         if (pos < 0) {
             System.out.println("Guest is not exsited");
             return;
         }
-        Guest gPos = this.get(pos);
+        roomID gPos = this.get(pos);
         if (gPos.getStartDate().after(new Date())) {
             this.remove(gPos);
             System.out.println("delete successfull");
@@ -173,25 +173,25 @@ public class GuestList extends ArrayList<Guest> {
         }
     }
 
-    public void displayInfo(Guest g, Room r) {
+    public void displayInfo(roomID g, Room r) {
         System.out.println("----------------------------------------------------------------");
-        System.out.println("Guest information [National ID: " + g.getID() + "]");
+        System.out.println("Guest information [National ID: " + g.getGuestID() + "]");
         System.out.println("----------------------------------------------------------------");
         System.out.println("\n===== GUEST INFORMATION =====\n");
-        System.out.format("%-20s: %s\n", "Guest ID", g.getID());
-        System.out.format("%-20s: %s\n", "Guest Name", g.getName().toUpperCase());
-        System.out.format("%-20s: %s\n", "Birth Date", ConsoleInputter.dateStr(g.getBirthDate(), "dd/MM/yyyy"));
+        System.out.format("%-20s: %s\n", "Guest ID", g.getGuestID());
+        System.out.format("%-20s: %s\n", "Guest Name", g.getGuestName().toUpperCase());
+        System.out.format("%-20s: %s\n", "Birth Date", ConsoleInputter.dateStr(g.getDoB(), "dd/MM/yyyy"));
         System.out.format("%-20s: %s\n", "Gender", g.isGender() ? "Male" : "Female");
         System.out.format("%-20s: %s\n", "Phone", g.getPhone());
 
         System.out.println("\n===== RENTAL INFORMATION =====\n");
-        System.out.format("%-20s: %s\n", "Room ID", g.getDesiredRID().toUpperCase());
-        System.out.format("%-20s: %d days\n", "Rental Duration", g.getRentalDate());
+        System.out.format("%-20s: %s\n", "Room ID", g.getRoomID().toUpperCase());
+        System.out.format("%-20s: %d days\n", "Rental Duration", g.getRentalDays());
         System.out.format("%-20s: %s\n", "Check-in Date", ConsoleInputter.dateStr(g.getStartDate(), "dd/MM/yyyy"));
 
         Calendar cal = Calendar.getInstance();
         cal.setTime(g.getStartDate());
-        cal.add(Calendar.DATE, g.getRentalDate());
+        cal.add(Calendar.DATE, g.getRentalDays());
         Date checkoutDate = cal.getTime();
         System.out.format("%-20s: %s\n", "Check-out Date", ConsoleInputter.dateStr(checkoutDate, "dd/MM/yyyy"));
 
@@ -210,7 +210,7 @@ public class GuestList extends ArrayList<Guest> {
         System.out.format("%-20s:%,f\n", "Capacity", r.getCapacity());
         System.out.format("%-20s:%s\n", "Furniture", r.getFunrnitureDescription());
 
-        float totalCost = g.getRentalDate() * r.getDailyRate();
+        float totalCost = g.getRentalDays() * r.getDailyRate();
         System.out.format("\n%-20s: $%,f\n", "TOTAL COST", totalCost);
     }
 
@@ -225,20 +225,20 @@ public class GuestList extends ArrayList<Guest> {
                 "Guest ID", "Name", "Phone", "Gender", "Room ID", "Start Day", "Day");
         System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
 
-        for (Guest guest : this) {
+        for (roomID guest : this) {
             System.out.printf("%-15s | %-20s | %-12s | %-8s | %-12s | %-20s | %-8d\n",
-                    guest.getID(),
-                    guest.getName().toUpperCase(),
+                    guest.getGuestID(),
+                    guest.getGuestName().toUpperCase(),
                     guest.getPhone(),
                     guest.isGender() ? "Male" : "Female",
-                    guest.getDesiredRID().toUpperCase(),
+                    guest.getRoomID().toUpperCase(),
                     ConsoleInputter.dateStr(guest.getStartDate(), "dd/MM/yyyy"),
-                    guest.getRentalDate());
+                    guest.getRentalDays());
         }
         System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
     }
 
-    // FUNCTION 10: Save Guest Information
+    // FUNCTION 10: Save roomID Information
     public void saveToFile(){
         try(ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream(FILE_NAME))){
             oos.writeObject(guestList);
@@ -252,7 +252,7 @@ public class GuestList extends ArrayList<Guest> {
     public void readFromFile(){
         guestList.clear();
         try(ObjectInputStream ois=new ObjectInputStream(new FileInputStream(FILE_NAME))){
-            guestList=(ArrayList<Guest>)ois.readObject();
+            guestList=(ArrayList<roomID>)ois.readObject();
             System.out.println("Guest data loaded successfully.");
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("No existing guest data found.");
