@@ -49,7 +49,7 @@ public class GuestList extends ArrayList<Guest>{
             }
         } while(age < 16);
 
-        boolean gender=ConsoleInputter.getBoolean("Male/Female");
+        boolean gender=ConsoleInputter.getBoolean("Male OR Female");
         
         String phoneGuest=ConsoleInputter.getStr("Enter Guest Phone", phonePattern, "Phone must have 10 digits");
 
@@ -121,7 +121,7 @@ public class GuestList extends ArrayList<Guest>{
                
                 if(isAdd){
                     int numberAdd;
-                    numberAdd=ConsoleInputter.getInt("Number add", 0, Integer.MAX_VALUE);
+                    numberAdd=ConsoleInputter.getInt("Number add Co-Tenant", 0, Integer.MAX_VALUE);
 
                     for(int i=0; i<numberAdd; i++){
                         String nameCoTenant=ConsoleInputter.getStr("Enter Name Co-Tenant " + (i + 1));

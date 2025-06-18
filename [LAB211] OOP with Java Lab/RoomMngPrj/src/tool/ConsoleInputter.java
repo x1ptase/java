@@ -33,11 +33,12 @@ public class ConsoleInputter {
     */ 
     public static boolean getBoolean(String prompt){
         // xuất lời nhắc nhở cùng với giải thích cách nhập
-        System.out.print(prompt + " (Y/N, T/F, 1/0)?: "); 
+        //System.out.print(prompt + " (Y/N, T/F, 1/0)?: "); 
+        System.out.print(prompt + " (M/F, T/F, 1/0)?: "); 
         String data = sc.nextLine().trim().toUpperCase(); // lấy vào 1 chuỗi 
         char c = data.charAt(0); // lấy ký tự đầu tiên do user trả lời
         // trả trị true cho 3 trường hợp sau / ngược lại trả trị false
-        return c=='Y' || c=='T' || c=='1';
+        return c=='M' || c=='T' || c=='1';
     }
     /* Nhập số nguyên trong 1 khoảng [min,max]
        Cách dùng: int age = getInt("Age", 18,60);
