@@ -148,7 +148,7 @@ public class GuestList extends ArrayList<Guest>{
         System.out.println("No guest found with the requested ID!");
     }
 
-    public void seacrchByID(){
+    public void searchByID(){
         String idCheck=ConsoleInputter.getStr("Enter guestID", idPattern, "ID must has 12 digits");
         for(Guest thi : this){
             if(thi.getGuestID().equalsIgnoreCase(idCheck)){
@@ -239,7 +239,7 @@ public class GuestList extends ArrayList<Guest>{
         System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
     }
 
-    public void saveFile(String fName){
+    public void saveToFile(String fName){
         if(this.isEmpty()){
             System.out.println("List is empty!");
             return;

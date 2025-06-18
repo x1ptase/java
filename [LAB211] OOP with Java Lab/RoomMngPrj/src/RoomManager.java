@@ -1,20 +1,24 @@
-
 import tool.ConsoleInputter;
 import core.*;
 
-public class RoomManager {
+public class RoomManager{
+    public static void main(String[] args){
+        RoomList roomList=new RoomList();
+        GuestList guestList=new GuestList();
 
-    public static void main(String[] args) {
-        RoomList rList = new RoomList();
-        GuestList gList = new GuestList();
-
-        rList.readFromFile(RoomList.FILE_NAME);
-        gList.readFromFile(GuestList.FILE_NAME);
+         try{
+            roomList.readFromFile(RoomList.FILE_NAME);
+            guestList.readFromFile(GuestList.FILE_NAME);
+        } catch(Exception e){
+            System.out.println("Cannot read file: " + e.getMessage());
+            return;
+        }
+        
         int choice;
-        boolean changed = false;
-        boolean isSaved = false;
-        do {
-            choice = ConsoleInputter.intMenu(
+        boolean changed=false;
+        boolean isSaved=false;
+        do{
+            choice=ConsoleInputter.intMenu(
                     "Display Available Room List",
                     "Enter Guest Information",
                     "Update Guest Stay Information",
@@ -26,60 +30,67 @@ public class RoomManager {
                     "Revenue Report by Room Type",
                     "Save Guest Information",
                     "Exit");
-            if (choice >= 2 && choice <= 5) {
-                changed = true;
+            if(choice >= 2 && choice <= 5){
+                changed=true;
             }
-            switch (choice) {
-                case 1://Ok
-                    rList.displayAll();
+            
+            switch(choice){
+                case 1:
+                    roomList.displayAll();
                     ConsoleInputter.pause();
                     break;
                 case 2:
-                    gList.addGuest();//xong
+                    guestList.addGuest();
                     ConsoleInputter.pause();
                     break;
                 case 3:
-                    gList.updateGuest();//Xong
+                    guestList.updateGuest();
                     ConsoleInputter.pause();
                     break;
-                case 4://xong
-                    gList.seacrchByID();
+                case 4:
+                    guestList.searchByID();
                     ConsoleInputter.pause();
                     break;
-                case 6://xong
-                    gList.displayAll();
+                case 5:
+                    guestList.deleteGuest();
                     ConsoleInputter.pause();
                     break;
-                case 5://xong
-                    gList.deleteGuest();
+                case 6:
+                    guestList.displayAll();
                     ConsoleInputter.pause();
                     break;
-                case 7://xong
-                    rList.vacantRoomList(gList).displayAll();
+                case 7:
+                    roomList.vacantRoomList(guestList).displayAll();
                     ConsoleInputter.pause();
                     break;
-                case 8://xong
-                    rList.monthlyReport(gList);
+                case 8:
+                    roomList.monthlyReport(guestList);
                     ConsoleInputter.pause();
                     break;
-                case 9://xong
-                    rList.revenueReport(gList);
+                case 9:
+                    roomList.revenueReport(guestList);
                     ConsoleInputter.pause();
                     break;
-                case 10://xong
-                    gList.saveFile(GuestList.FILE_NAME);
+                case 10:
+                    guestList.saveToFile(GuestList.FILE_NAME);
                     ConsoleInputter.pause();
-                    isSaved = true;
+                    isSaved=true;
+                    changed=false;
+                    System.out.println("Saved guestInfor successfully!");
                     break;
                 case 11:
-                    if (changed && !isSaved) {
-                        boolean resp = tool.ConsoleInputter.getBoolean("Data changed. Save or not");
-                        if (resp) {
-                            gList.saveFile(GuestList.FILE_NAME);
+                    if(changed && !isSaved){
+                        boolean resp=tool.ConsoleInputter.getBoolean("Data changed. Do you want to save?");
+                        if(resp){
+                            guestList.saveToFile(GuestList.FILE_NAME);
+                            System.out.println("Saved guestInfor successfully!");
                         }
                     }
+                    System.out.println("Exiting the program. GOOD LUCK!");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
             }
-
-        } while (choice != 11);
+        } while(choice != 11);
     }
 }
