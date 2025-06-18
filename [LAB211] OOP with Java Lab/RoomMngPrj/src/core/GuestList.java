@@ -68,78 +68,78 @@ public class GuestList extends ArrayList<Guest>{
 
         boolean isRen;
         do{
-            desiredRoomID=ConsoleInputter.getStr("Enter Desired Room ID", desiredIDPattern, "Room id have a character next 3 digits");
+            desiredRoomID=ConsoleInputter.getStr("Enter Desired Room ID", desiredIDPattern, "RoomID must has a character next 3 digits");
             Room room=new Room(desiredRoomID);
             isRen=room.isRented(this, dateStart, rentalDate);
             if(isRen)
                 System.out.println("Room is not vacant");
         } while(isRen);
 
-        int numberCoTenant = ConsoleInputter.getInt("Enter number Co - Tenant", 0, Integer.MAX_VALUE);
-        for (int i = 0; i < numberCoTenant; i++) {
-            String nameCoTenant = ConsoleInputter.getStr(String.format("Enter Name Co-Tenant: %d", (i + 1)), namePattern, "Name length have between 2 and 25");
+        int numberCoTenant=ConsoleInputter.getInt("Enter number Co - Tenant", 0, Integer.MAX_VALUE);
+        for(int i=0; i<numberCoTenant; i++){
+            String nameCoTenant=ConsoleInputter.getStr(String.format("Enter Name Co-Tenant: %d", (i + 1)), namePattern, "Name length have between 2 and 25");
             nameOfCoTenant.add(nameCoTenant);
         }
 
-        Guest newGuest = new Guest(idGuest, nameGuest, doB, gender, phoneGuest, desiredRoomID, rentalDate, dateStart, nameOfCoTenant);
+        Guest newGuest=new Guest(idGuest, nameGuest, doB, gender, phoneGuest, desiredRoomID, rentalDate, dateStart, nameOfCoTenant);
         this.add(newGuest);
-        RoomList rl = new RoomList();
+        RoomList rl=new RoomList();
         rl.readFromFile(RoomList.FILE_NAME);
         displayInfo(newGuest, rl.findRoom(desiredRoomID));
     }
 
-    public void updateGuest() {
-        String idCheck = ConsoleInputter.getStr("Enter Guest ID", idPattern, "Id has 12 degits");
-        for (Guest g : this) {
-            if (g.getGuestID().equalsIgnoreCase(idCheck)) {
+    public void updateGuest(){
+        String idCheck=ConsoleInputter.getStr("Enter guestID", idPattern, "ID  must has 12 degits");
+        for(Guest g : this){
+            if(g.getGuestID().equalsIgnoreCase(idCheck)){
                 int rentalDate;
-                rentalDate = ConsoleInputter.getInt("Enter Rental Date", 1, Integer.MAX_VALUE);
+                rentalDate=ConsoleInputter.getInt("Enter Rental Date", 1, Integer.MAX_VALUE);
                 g.setRentalDate(rentalDate);
 
                 Date newStartDate;
-                do {
-                    newStartDate = ConsoleInputter.getDate("Enter new date", "dd/MM/yyyy");
+                do{
+                    newStartDate=ConsoleInputter.getDate("Enter new date", "dd/MM/yyyy");
                 } while (newStartDate.before(g.getStartDate()));
-
                 g.setStartDate(newStartDate);
+                
                 boolean isRen;
                 String desiredRoomID;
-                do {
-                    desiredRoomID = ConsoleInputter.getStr("Enter Desired Room ID", desiredIDPattern, "Room id have a character next 3 digits");
-                    Room room = new Room(desiredRoomID);
-                    isRen = room.isRented(this, newStartDate, rentalDate);
-                    if (isRen) {
+                do{
+                    desiredRoomID=ConsoleInputter.getStr("Enter Desired Room ID", desiredIDPattern, "RoomID must has a character next 3 digits");
+                    Room room=new Room(desiredRoomID);
+                    isRen=room.isRented(this, newStartDate, rentalDate);
+                    if(isRen) 
                         System.out.println("Room is not vacant");
-                    }
-                } while (isRen);
+                } while(isRen);
                 g.setDesiredRID(desiredRoomID);
+                
                 boolean isAdd;
-                if (g.getCoTenant().isEmpty()) {
-                    isAdd = true;
-                } else {
-                    isAdd = ConsoleInputter.getBoolean("Is add more Co-Tenant");
-                }
-                if (isAdd) {
+                if(g.getCoTenant().isEmpty())
+                    isAdd=true;
+                else
+                    isAdd=ConsoleInputter.getBoolean("Is add more Co-Tenant");
+               
+                if(isAdd){
                     int numberAdd;
-                    numberAdd = ConsoleInputter.getInt("Number add", 0, Integer.MAX_VALUE);
+                    numberAdd=ConsoleInputter.getInt("Number add", 0, Integer.MAX_VALUE);
 
-                    for (int i = 0; i < numberAdd; i++) {
-                        String nameCoTenant = ConsoleInputter.getStr("Enter Name Co-Tenant " + (i + 1));
+                    for(int i=0; i<numberAdd; i++){
+                        String nameCoTenant=ConsoleInputter.getStr("Enter Name Co-Tenant " + (i + 1));
                         g.getCoTenant().add(nameCoTenant);
                     }
-                } else {
-                    if (g.getCoTenant() == null) {
-                        System.out.println("No have Co_Tenant to remove");
+                } else{
+                    if(g.getCoTenant() == null){
+                        System.out.println("Not have Co-Tenant to remove");
                         return;
                     }
-                    boolean isStop = false;
-                    while (!isStop) {
-                        int removePos = ConsoleInputter.intMenu(g.getCoTenant().toArray());
+                    boolean isStop=false;
+                    while(!isStop){
+                        int removePos=ConsoleInputter.intMenu(g.getCoTenant().toArray());
                         g.getCoTenant().remove(removePos - 1);
-                        isStop = ConsoleInputter.getBoolean("Is stop?");
+                        isStop=ConsoleInputter.getBoolean("Do you want to stop?");
                     }
                 }
-                RoomList rl = new RoomList();
+                RoomList rl=new RoomList();
                 rl.readFromFile(RoomList.FILE_NAME);
                 displayInfo(g, rl.findRoom(g.getDesiredRID()));
                 return;
@@ -148,8 +148,8 @@ public class GuestList extends ArrayList<Guest>{
         System.out.println("No guest found with the requested ID!");
     }
 
-    public void seacrchByID() {
-        String idCheck = ConsoleInputter.getStr("Enter Guest ID", idPattern, "Id is 12 digits");
+    public void seacrchByID(){
+        String idCheck=ConsoleInputter.getStr("Enter Guest ID", idPattern, "Id is 12 digits");
         for (Guest thi : this) {
             if (thi.getGuestID().equalsIgnoreCase(idCheck)) {
 
