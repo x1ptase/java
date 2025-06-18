@@ -1,4 +1,3 @@
-
 package core;
 
 import java.io.Serializable;
@@ -6,27 +5,23 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Guest implements Serializable{
-    private String ID;
-    private String name;
-    private Date birthDate;
+    private String guestID;
+    private String guestName;
+    private Date doB;
     private boolean gender;
     private String phone;
-    private String DesiredRID;//Desired room ID
+    private String DesiredRID;
     private int rentalDate; // so ngay thue
-    private Date startDate;// ngay bat dau thue
-    private ArrayList<String> coTenant = new ArrayList<>();
+    private Date startDate;// ngay bat dau 
+    private ArrayList<String> coTenant=new ArrayList<>();
 
-    public Guest() {
-    }
-
-    public Guest(String ID) {
-        this.ID = ID;
+    public Guest(){
     }
 
     public Guest(String ID, String name, Date birthDate, boolean gender, String phone, String DesiredRID, int rentalDate, Date startDate, ArrayList<String> coTenant) {
-        this.ID = ID;
-        this.name = name;
-        this.birthDate = birthDate;
+        this.guestID = ID;
+        this.guestName = name;
+        this.doB = birthDate;
         this.gender = gender;
         this.phone = phone;
         this.DesiredRID = DesiredRID;
@@ -35,29 +30,32 @@ public class Guest implements Serializable{
         this.coTenant = coTenant;
     }
 
-
-    public String getID() {
-        return ID;
+    public Guest(String ID){
+        this.guestID=ID;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public String getGuestID() {
+        return guestID;
     }
 
-    public String getName() {
-        return name;
+    public void setGuestID(String guestID) {
+        this.guestID = guestID;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getGuestName() {
+        return guestName;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
+    public void setGuestName(String guestName) {
+        this.guestName = guestName;
     }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
+    public Date getDoB() {
+        return doB;
+    }
+
+    public void setDoB(Date doB) {
+        this.doB = doB;
     }
 
     public boolean isGender() {
@@ -110,8 +108,8 @@ public class Guest implements Serializable{
 
     @Override
     public boolean equals(Object obj) {
-        Guest g = (Guest) obj;
-        return this.getID().equalsIgnoreCase(g.getID());
+        Guest g=(Guest)obj;
+        return this.getGuestID().equalsIgnoreCase(g.getGuestID());
     }
 
 }

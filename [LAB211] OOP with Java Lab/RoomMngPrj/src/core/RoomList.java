@@ -104,7 +104,7 @@ public class RoomList extends ArrayList<Room> {
     for (Guest g : gList) {
         Room roomRent = this.findRoom(g.getDesiredRID());
         if (roomRent == null) {
-            System.out.println("Warning: Room " + g.getDesiredRID() + " not found for guest " + g.getID());
+            System.out.println("Warning: Room " + g.getDesiredRID() + " not found for guest " + g.getGuestID());
             continue;
         }
 

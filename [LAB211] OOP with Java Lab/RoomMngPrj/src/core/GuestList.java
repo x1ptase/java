@@ -92,7 +92,7 @@ public class GuestList extends ArrayList<Guest> {
     public void updateGuest() {
         String idCheck = ConsoleInputter.getStr("Enter Guest ID", idPattern, "Id has 12 degits");
         for (Guest g : this) {
-            if (g.getID().equalsIgnoreCase(idCheck)) {
+            if (g.getGuestID().equalsIgnoreCase(idCheck)) {
                 int rentalDate;
                 rentalDate = ConsoleInputter.getInt("Enter Rental Date", 1, Integer.MAX_VALUE);
                 g.setRentalDate(rentalDate);
@@ -152,7 +152,7 @@ public class GuestList extends ArrayList<Guest> {
     public void seacrchByID() {
         String idCheck = ConsoleInputter.getStr("Enter Guest ID", idPattern, "Id is 12 digits");
         for (Guest thi : this) {
-            if (thi.getID().equalsIgnoreCase(idCheck)) {
+            if (thi.getGuestID().equalsIgnoreCase(idCheck)) {
 
                 RoomList rl = new RoomList();
                 rl.readFile(RoomList.fName);
@@ -179,12 +179,12 @@ public class GuestList extends ArrayList<Guest> {
 
     public void displayInfo(Guest g, Room r) {
         System.out.println("----------------------------------------------------------------");
-        System.out.println("Guest information [National ID: " + g.getID() + "]");
+        System.out.println("Guest information [National ID: " + g.getGuestID() + "]");
         System.out.println("----------------------------------------------------------------");
         System.out.println("\n===== GUEST INFORMATION =====\n");
-        System.out.format("%-20s: %s\n", "Guest ID", g.getID());
-        System.out.format("%-20s: %s\n", "Guest Name", g.getName().toUpperCase());
-        System.out.format("%-20s: %s\n", "Birth Date", ConsoleInputter.dateStr(g.getBirthDate(), "dd/MM/yyyy"));
+        System.out.format("%-20s: %s\n", "Guest ID", g.getGuestID());
+        System.out.format("%-20s: %s\n", "Guest Name", g.getGuestName().toUpperCase());
+        System.out.format("%-20s: %s\n", "Birth Date", ConsoleInputter.dateStr(g.getDoB(), "dd/MM/yyyy"));
         System.out.format("%-20s: %s\n", "Gender", g.isGender() ? "Male" : "Female");
         System.out.format("%-20s: %s\n", "Phone", g.getPhone());
 
@@ -231,8 +231,8 @@ public class GuestList extends ArrayList<Guest> {
 
         for (Guest guest : this) {
             System.out.printf("%-15s | %-20s | %-12s | %-8s | %-12s | %-20s | %-8d\n",
-                    guest.getID(),
-                    guest.getName().toUpperCase(),
+                    guest.getGuestID(),
+                    guest.getGuestName().toUpperCase(),
                     guest.getPhone(),
                     guest.isGender() ? "Male" : "Female",
                     guest.getDesiredRID().toUpperCase(),
