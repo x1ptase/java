@@ -5,7 +5,6 @@ import java.util.Date;
 import tool.ConsoleInputter;
 
 public class Room {
-
     private String roomID;
     private String roomName;
     private String roomType;
@@ -13,10 +12,10 @@ public class Room {
     private float capacity;
     private String funrnitureDescription;
 
-    public Room() {
+    public Room(){
     }
 
-    public Room(String roomID) {
+    public Room(String roomID){
         this.roomID = roomID;
     }
 
@@ -78,64 +77,59 @@ public class Room {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        Room room = (Room) obj;
+    public boolean equals(Object obj){
+        Room room=(Room)obj;
         return this.getRoomID().equalsIgnoreCase(room.getRoomID());
     }
 
-    public boolean isRented(GuestList list, Date sDate, int rentals) {
-        if (list.isEmpty()) {
+    public boolean isRented(GuestList list, Date sDate, int rentals){
+        if(list.isEmpty()){
             return false;
         }
 
-        for (Guest guest : list) {
-            if (guest.getDesiredRID().trim().equalsIgnoreCase(this.roomID.trim())) {
-                Date startDate = guest.getStartDate();
-                int duration = guest.getRentalDate();
+        for(Guest guest : list){
+            if(guest.getDesiredRID().trim().equalsIgnoreCase(this.roomID.trim())){
+                Date startDate=guest.getStartDate();
+                int duration=guest.getRentalDate();
 
-                Calendar cal = Calendar.getInstance();
+                Calendar cal=Calendar.getInstance();
                 cal.setTime(startDate);
                 cal.add(Calendar.DATE, duration - 1);
-                Date endDate = cal.getTime();
+                Date endDate=cal.getTime();
 
-                for (int i = 0; i < rentals; i++) {
-                    Calendar checkCal = Calendar.getInstance();
+                for(int i=0; i<rentals; i++){
+                    Calendar checkCal=Calendar.getInstance();
                     checkCal.setTime(sDate);
                     checkCal.add(Calendar.DATE, i);
-                    Date checkDate = checkCal.getTime();
-                    if (ConsoleInputter.isSameDay(checkDate, startDate)) {
+                    Date checkDate=checkCal.getTime();
+                    if(ConsoleInputter.isSameDay(checkDate, startDate))
                         return true;
-                    }
-                    if (!checkDate.before(startDate) && !checkDate.after(endDate)) {
+                    if(!checkDate.before(startDate) && !checkDate.after(endDate))
                         return true;
-                    }
                 }
             }
         }
         return false;
     }
 
-    public boolean isRented(GuestList list, Date sDate) {
-        if (list.isEmpty()) {
+    public boolean isRented(GuestList list, Date sDate){
+        if(list.isEmpty()){
             return false;
         }
+        for(Guest guest : list){
+            if(guest.getDesiredRID().trim().equalsIgnoreCase(this.roomID.trim())){
+                Date startDate=guest.getStartDate();
+                int duration=guest.getRentalDate();
 
-        for (Guest guest : list) {
-            if (guest.getDesiredRID().trim().equalsIgnoreCase(this.roomID.trim())) {
-                Date startDate = guest.getStartDate();
-                int duration = guest.getRentalDate();
-
-                Calendar cal = Calendar.getInstance();
+                Calendar cal=Calendar.getInstance();
                 cal.setTime(startDate);
                 cal.add(Calendar.DATE, duration - 1);
-                Date endDate = cal.getTime();
+                Date endDate=cal.getTime();
 
-                if (!sDate.before(startDate) && !sDate.after(endDate)) {
+                if(!sDate.before(startDate) && !sDate.after(endDate))
                     return true;
-                }
             }
         }
         return false;
     }
-
 }//Room
