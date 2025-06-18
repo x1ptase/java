@@ -17,6 +17,10 @@ public class Guest implements Serializable{
 
     public Guest(){
     }
+    
+    public Guest(String ID){
+        this.guestID=ID;
+    }
 
     public Guest(String guestID, String guestName, Date doB, boolean gender, String phone, String DesiredRID, int rentalDate, Date startDate, ArrayList<String> coTenant) {
         this.guestID = guestID;
@@ -28,10 +32,6 @@ public class Guest implements Serializable{
         this.rentalDate = rentalDate;
         this.startDate = startDate;
         this.coTenant = coTenant;
-    }
-
-    public Guest(String ID){
-        this.guestID=ID;
     }
 
     public String getGuestID() {
