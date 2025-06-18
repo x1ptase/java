@@ -1,14 +1,15 @@
+
 import tool.ConsoleInputter;
 import core.*;
 
-public class RoomOrderManager {
-    public static void main(String[] args) {
-        RoomList roomList=new RoomList();
-        GuestList guestList=new GuestList();
+public class RoomManager {
 
-        roomList.readFile(RoomList.fName);
-        guestList.readFromFile();
-        
+    public static void main(String[] args) {
+        RoomList rList = new RoomList();
+        GuestList gList = new GuestList();
+
+        rList.readFile(RoomList.fName);
+        gList.readFromFile(GuestList.fname);
         int choice;
         boolean changed = false;
         boolean isSaved = false;
@@ -30,43 +31,43 @@ public class RoomOrderManager {
             }
             switch (choice) {
                 case 1://Ok
-                    roomList.displayAll();
+                    rList.displayAll();
                     ConsoleInputter.pause();
                     break;
                 case 2:
-                    guestList.addGuest();//xong
+                    gList.addGuest();//xong
                     ConsoleInputter.pause();
                     break;
                 case 3:
-                    guestList.updateGuest();//Xong
+                    gList.updateGuest();//Xong
                     ConsoleInputter.pause();
                     break;
                 case 4://xong
-                    guestList.seacrchByID();
+                    gList.seacrchByID();
                     ConsoleInputter.pause();
                     break;
                 case 6://xong
-                    guestList.displayAll();
+                    gList.displayAll();
                     ConsoleInputter.pause();
                     break;
                 case 5://xong
-                    guestList.deleteGuest();
+                    gList.deleteGuest();
                     ConsoleInputter.pause();
                     break;
                 case 7://xong
-                    roomList.vacantRoomList(guestList).displayAll();
+                    rList.vacantRoomList(gList).displayAll();
                     ConsoleInputter.pause();
                     break;
                 case 8://xong
-                    roomList.monthlyReport(guestList);
+                    rList.monthlyReport(gList);
                     ConsoleInputter.pause();
                     break;
                 case 9://xong
-                    roomList.revenueReport(guestList);
+                    rList.revenueReport(gList);
                     ConsoleInputter.pause();
                     break;
                 case 10://xong
-                    guestList.saveToFile();
+                    gList.saveFile(GuestList.fname);
                     ConsoleInputter.pause();
                     isSaved = true;
                     break;
@@ -74,7 +75,7 @@ public class RoomOrderManager {
                     if (changed && !isSaved) {
                         boolean resp = tool.ConsoleInputter.getBoolean("Data changed. Save or not");
                         if (resp) {
-                            guestList.saveToFile();
+                            gList.saveFile(GuestList.fname);
                         }
                     }
             }

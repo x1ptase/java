@@ -9,7 +9,6 @@ import java.util.HashMap;
 import tool.ConsoleInputter;
 
 public class RoomList extends ArrayList<Room> {
-
     public static String fName = "src\\data\\Active_Room_List.txt";
 
     public void readFile(String fName) {
@@ -95,37 +94,56 @@ public class RoomList extends ArrayList<Room> {
     }
 
     public void monthlyReport(GuestList gList) {
-        
-        Date monthYear = ConsoleInputter.getDate("Enter Month Report(MM/yyyy)", "MM/yyyy");
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(monthYear);
-        int targetMonth = cal.get(Calendar.MONTH);
-        int targetYear = cal.get(Calendar.YEAR);
+    Date monthYear = ConsoleInputter.getDate("Enter Month Report(MM/yyyy)", "MM/yyyy");
+    Calendar cal = Calendar.getInstance();
+    cal.setTime(monthYear);
+    int targetMonth = cal.get(Calendar.MONTH); // 0-based (0 = January)
+    int targetYear = cal.get(Calendar.YEAR);
 
-        ArrayList<String[]> report = new ArrayList<>();
-        for (Guest g : gList) {
-            float total = 0f;
-            Date startDate = g.getStartDate();
-            int rentalDays = g.getRentalDays();
-            Room roomRent = this.findRoom(g.getRoomID());
-            Calendar calG = Calendar.getInstance();
-            calG.setTime(startDate);
-            for (int i = 0; i < rentalDays; i++) {
-                int dayGuest = calG.get(Calendar.DATE);
-                int dayMonth = calG.get(Calendar.MONTH);
-                int dayYear = calG.get(Calendar.YEAR);
-                calG.add(dayGuest, i);
-                if (dayMonth == targetMonth && dayYear == targetYear) {
-                    total += roomRent.getDailyRate();
-                }
+    ArrayList<String[]> report = new ArrayList<>();
+    for (Guest g : gList) {
+        Room roomRent = this.findRoom(g.getDesiredRID());
+        if (roomRent == null) {
+            System.out.println("Warning: Room " + g.getDesiredRID() + " not found for guest " + g.getID());
+            continue;
+        }
+
+        float total = 0f;
+        Date startDate = g.getStartDate();
+        int rentalDays = g.getRentalDate();
+        Calendar calG = Calendar.getInstance();
+        calG.setTime(startDate);
+
+        // Kiểm tra từng ngày trong khoảng thời gian thuê
+        for (int i = 0; i < rentalDays; i++) {
+            // Lấy tháng và năm hiện tại của ngày đang kiểm tra
+            int dayMonth = calG.get(Calendar.MONTH);
+            int dayYear = calG.get(Calendar.YEAR);
+            if (dayMonth == targetMonth && dayYear == targetYear) {
+                total += roomRent.getDailyRate();
             }
+            // Tăng ngày lên 1
+            calG.add(Calendar.DATE, 1);
+        }
+
+        // Chỉ thêm vào báo cáo nếu có doanh thu
+        if (total > 0) {
             report.add(new String[]{
-                roomRent.getRoomID(), roomRent.getRoomName(), roomRent.getRoomType(),
-                String.format("%.2f", roomRent.getDailyRate()), String.format("%.2f", total)
+                roomRent.getRoomID(),
+                roomRent.getRoomName(),
+                roomRent.getRoomType(),
+                String.format("%.2f", roomRent.getDailyRate()),
+                String.format("%.2f", total)
             });
         }
+    }
+
+    if (report.isEmpty()) {
+        System.out.println("No revenue data for " + String.format("%02d/%d", targetMonth + 1, targetYear));
+    } else {
         displayMonthlyReport(report, targetMonth + 1, targetYear);
     }
+}
 
     private void displayMonthlyReport(ArrayList<String[]> report, int month, int year) {
         System.out.println("Monthly Revenue Report - " + String.format("%02d/%d", month, year));
@@ -144,9 +162,9 @@ public class RoomList extends ArrayList<Room> {
     public void revenueReport(GuestList gList) {
         HashMap<String, Float> revenueMap = new HashMap<>();
         for (Guest guest : gList) {
-            Room roomRent = this.findRoom(guest.getRoomID());
+            Room roomRent = this.findRoom(guest.getDesiredRID());
             String roomType = roomRent.getRoomType();
-            float guestRevenue = guest.getRentalDays() * roomRent.getDailyRate();
+            float guestRevenue = guest.getRentalDate() * roomRent.getDailyRate();
             revenueMap.put(roomType, guestRevenue);
         }
         displayRevenueByRoomType(revenueMap);

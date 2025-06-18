@@ -316,26 +316,25 @@ public class BSTree {
 
     }
 
-    void deleByMerging(int x) {
-        if (isEmpty()) {
+    void deleByMerging(int x){
+        if(isEmpty()){
             return;
         }
-
         Node father, child; // father is father of child
-        father = null;
-        child = root;
-        while (child != null) {
-            if (child.info == x) {
+        father=null;
+        child=root;
+        while(child != null){
+            if(child.info == x){
                 break;
             }
-            father = child;
-            if (x < child.info) {
-                child = child.left;
-            } else {
-                child = child.right;
+            father=child;
+            if(x < child.info){
+                child=child.left;
+            } else{
+                child=child.right;
             }
         }
-        if (child == null) {
+        if(child == null){
             return; // not found
         }
 

@@ -89,9 +89,9 @@ public class Room {
         }
 
         for (Guest guest : list) {
-            if (guest.getRoomID().trim().equalsIgnoreCase(this.roomID.trim())) {
+            if (guest.getDesiredRID().trim().equalsIgnoreCase(this.roomID.trim())) {
                 Date startDate = guest.getStartDate();
-                int duration = guest.getRentalDays();
+                int duration = guest.getRentalDate();
 
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(startDate);
@@ -121,9 +121,9 @@ public class Room {
         }
 
         for (Guest guest : list) {
-            if (guest.getRoomID().trim().equalsIgnoreCase(this.roomID.trim())) {
+            if (guest.getDesiredRID().trim().equalsIgnoreCase(this.roomID.trim())) {
                 Date startDate = guest.getStartDate();
-                int duration = guest.getRentalDays();
+                int duration = guest.getRentalDate();
 
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(startDate);

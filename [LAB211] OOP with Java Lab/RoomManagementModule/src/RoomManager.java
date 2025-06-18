@@ -5,12 +5,13 @@ public class RoomManager{
 
     public static void displayMenu(){
         System.out.println("\n========= ROOM MANAGEMENT MODULE =========");
-        System.out.println("1. Import Room Data from Text File");
-        System.out.println("2. Display Available Room List");
-        System.out.println("3. Enter Guest Information");
-        System.out.println("4. Update Guest Stay Information");
-        System.out.println("5. Search Guest by National ID");
-        System.out.println("6. Delete Guest Reservation Before Arrival");
+        System.out.println("0. Import Room Data from Text File");
+        System.out.println("1. Display Available Room List");
+        System.out.println("2. Enter Guest Information");
+        System.out.println("3. Update Guest Stay Information");
+        System.out.println("4. Search Guest by National ID");
+        System.out.println("5. Delete Guest Reservation Before Arrival");
+        System.out.println("6. Display All Guest");
         System.out.println("7. List Vacant Rooms");
         System.out.println("8. Monthly Revenue Report");
         System.out.println("9. Revenue Report by Room Type");
@@ -23,9 +24,9 @@ public class RoomManager{
         int choice;
         while(true){
             try{
-                System.out.print("Please select an option (1-11): ");
+                System.out.print("Please select an option (0-11): ");
                 choice=Integer.parseInt(inp.nextLine().trim());
-                if(choice >= 1 && choice <= 11){
+                if(choice >= 0 && choice <= 11){
                     return choice;
                 } else{
                     System.out.println("Invalid input. Please enter a number between 1 and 11.");

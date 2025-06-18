@@ -255,6 +255,10 @@ public class ConsoleInputter {
         String code = DateKeyGen();
         System.out.println("Code: " + code);
     } // main()   
+
+    public static boolean isValid(String newPhone, String phonePattern) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }// class ConsoleInputter
     
 
