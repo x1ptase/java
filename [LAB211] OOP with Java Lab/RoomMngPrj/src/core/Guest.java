@@ -18,10 +18,10 @@ public class Guest implements Serializable{
     public Guest(){
     }
 
-    public Guest(String ID, String name, Date birthDate, boolean gender, String phone, String DesiredRID, int rentalDate, Date startDate, ArrayList<String> coTenant) {
-        this.guestID = ID;
-        this.guestName = name;
-        this.doB = birthDate;
+    public Guest(String guestID, String guestName, Date doB, boolean gender, String phone, String DesiredRID, int rentalDate, Date startDate, ArrayList<String> coTenant) {
+        this.guestID = guestID;
+        this.guestName = guestName;
+        this.doB = doB;
         this.gender = gender;
         this.phone = phone;
         this.DesiredRID = DesiredRID;
