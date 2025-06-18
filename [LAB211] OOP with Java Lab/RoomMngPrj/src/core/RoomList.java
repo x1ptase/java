@@ -8,100 +8,93 @@ import java.util.Date;
 import java.util.HashMap;
 import tool.ConsoleInputter;
 
-public class RoomList extends ArrayList<Room> {
-    public static String fName = "src\\data\\Active_Room_List.txt";
-
-    public void readFile(String fName) {
-        try {
-            FileReader fr = new FileReader(fName);
-            BufferedReader bf = new BufferedReader(fr);
+public class RoomList extends ArrayList<Room>{
+    public static final String FILE_NAME="src\\data\\Active_Room_List.txt";
+    
+    public void readFromFile(String fName){
+        try{
+            FileReader fr=new FileReader(fName);
+            BufferedReader bf=new BufferedReader(fr);
             String line;
-            while ((line = bf.readLine()) != null) {
-                String parts[] = line.split(";");
-                if (parts.length == 6) {
-                    String roomID = parts[0];
-                    if (!containsRoomID(roomID)) {
+            while((line = bf.readLine()) != null){
+                String parts[]=line.split(";");
+                if(parts.length == 6){
+                    String roomID=parts[0];
+                    if(!containsRoomID(roomID)){
 
-                        String name = parts[1];
-                        String type = parts[2];
-                        float dailyRate = Float.parseFloat(parts[3]);
-                        float capacity = Float.parseFloat(parts[4]);
-                        String description = parts[5];
+                        String name=parts[1];
+                        String type=parts[2];
+                        float dailyRate=Float.parseFloat(parts[3]);
+                        float capacity=Float.parseFloat(parts[4]);
+                        String description=parts[5];
                         this.add(new Room(roomID, name, type, dailyRate, capacity, description));
                     }
-
                 }
             }
             fr.close();
             bf.close();
-        } catch (Exception e) {
+        } catch(Exception e){
             System.out.println(e);
         }
     }
 
-    private boolean containsRoomID(String roomID) {
-        for (Room r : this) {
-            if (r.getRoomID().equals(roomID)) {
+    private boolean containsRoomID(String roomID){
+        for(Room r : this){
+            if(r.getRoomID().equals(roomID)){
                 return true;
             }
         }
         return false;
     }
 
-    public void displayAll() {
+    public void displayAll(){
         System.out.println("------------------------------------------------------------------------------------------------------------------");
-
         System.out.format("%-6s | %-20s | %-9s | %-6s | %-9s | %-30s\n",
                 "RoomID", "RoomName", "Type", "Rate", "Capacity", "Furniture");
-
         System.out.println("------------------------------------------------------------------------------------------------------------------");
-
-        for (Room room : this) {
+        
+        for(Room room : this){
             System.out.format("%-6s | %-20s | %-9s | %-6.1f | %-9.2f | %-30s\n",
                     room.getRoomID(),
                     room.getRoomName(),
                     room.getRoomType(),
-                    (float) room.getDailyRate(),
+                    (float)room.getDailyRate(),
                     room.getCapacity(),
                     room.getFunrnitureDescription());
         }
-
         System.out.println("------------------------------------------------------------------------------------------------------------------");
     }
 
-    public Room findRoom(String id) {
-        int pos = this.indexOf(new Room(id));
-        if (pos < 0) {
+    public Room findRoom(String id){
+        int pos=this.indexOf(new Room(id));
+        if(pos < 0)
             return null;
-        } else {
+        else
             return this.get(pos);
-        }
-
     }
 
-    public RoomList vacantRoomList(GuestList gList) {
-        RoomList vaRoomList = new RoomList();
+    public RoomList vacantRoomList(GuestList gList){
+        RoomList vaRoomList=new RoomList();
         boolean isRen;
-        Date dateCheck =  ConsoleInputter.getDate("Enter date want to check(dd/MM/yyyy)", "dd/MM/yyyy");
-        for (Room r : this) {
-            isRen = r.isRented(gList, dateCheck);
-            if (!isRen) {
+        Date dateCheck=ConsoleInputter.getDate("Enter date want to check(dd/MM/yyyy)", "dd/MM/yyyy");
+        for(Room r : this){
+            isRen=r.isRented(gList, dateCheck);
+            if(!isRen){
                 vaRoomList.add(r);
             }
         }
-
         return vaRoomList;
     }
 
-    public void monthlyReport(GuestList gList) {
-    Date monthYear = ConsoleInputter.getDate("Enter Month Report(MM/yyyy)", "MM/yyyy");
-    Calendar cal = Calendar.getInstance();
-    cal.setTime(monthYear);
-    int targetMonth = cal.get(Calendar.MONTH); // 0-based (0 = January)
-    int targetYear = cal.get(Calendar.YEAR);
+    public void monthlyReport(GuestList gList){
+        Date monthYear=ConsoleInputter.getDate("Enter Month Report(MM/yyyy)", "MM/yyyy");
+        Calendar cal=Calendar.getInstance();
+        cal.setTime(monthYear);
+        int targetMonth=cal.get(Calendar.MONTH); // 0-based (0 = January)
+        int targetYear=cal.get(Calendar.YEAR);
 
-    ArrayList<String[]> report = new ArrayList<>();
-    for (Guest g : gList) {
+        ArrayList<String[]> report=new ArrayList<>();
+        for(Guest g : gList) {
         Room roomRent = this.findRoom(g.getDesiredRID());
         if (roomRent == null) {
             System.out.println("Warning: Room " + g.getDesiredRID() + " not found for guest " + g.getGuestID());

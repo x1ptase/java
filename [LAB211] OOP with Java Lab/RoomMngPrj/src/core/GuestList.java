@@ -85,7 +85,7 @@ public class GuestList extends ArrayList<Guest> {
         Guest newGuest = new Guest(idGuest, nameGuest, birthDate, gender, phoneGuest, desiredRoomID, rentalDate, dateStart, nameOfCoTenant);
         this.add(newGuest);
         RoomList rl = new RoomList();
-        rl.readFile(RoomList.fName);
+        rl.readFromFile(RoomList.FILE_NAME);
         displayInfo(newGuest, rl.findRoom(desiredRoomID));
     }
 
@@ -141,7 +141,7 @@ public class GuestList extends ArrayList<Guest> {
                     }
                 }
                 RoomList rl = new RoomList();
-                rl.readFile(RoomList.fName);
+                rl.readFromFile(RoomList.FILE_NAME);
                 displayInfo(g, rl.findRoom(g.getDesiredRID()));
                 return;
             }
@@ -155,7 +155,7 @@ public class GuestList extends ArrayList<Guest> {
             if (thi.getGuestID().equalsIgnoreCase(idCheck)) {
 
                 RoomList rl = new RoomList();
-                rl.readFile(RoomList.fName);
+                rl.readFromFile(RoomList.FILE_NAME);
                 displayInfo(thi, rl.findRoom(thi.getDesiredRID()));
             }
         }

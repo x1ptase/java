@@ -111,5 +111,4 @@ public class Guest implements Serializable{
         Guest g=(Guest)obj;
         return this.getGuestID().equalsIgnoreCase(g.getGuestID());
     }
-
-}
+} // guest

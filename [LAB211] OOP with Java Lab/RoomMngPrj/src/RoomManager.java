@@ -8,7 +8,7 @@ public class RoomManager {
         RoomList rList = new RoomList();
         GuestList gList = new GuestList();
 
-        rList.readFile(RoomList.fName);
+        rList.readFromFile(RoomList.FILE_NAME);
         gList.readFromFile(GuestList.fname);
         int choice;
         boolean changed = false;
