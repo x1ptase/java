@@ -94,22 +94,22 @@ public class RoomList extends ArrayList<Room>{
         int targetYear=cal.get(Calendar.YEAR);
 
         ArrayList<String[]> report=new ArrayList<>();
-        for(Guest g : gList) {
-        Room roomRent = this.findRoom(g.getDesiredRID());
-        if (roomRent == null) {
+        for(Guest g : gList){
+        Room roomRent=this.findRoom(g.getDesiredRID());
+        if(roomRent == null){
             System.out.println("Warning: Room " + g.getDesiredRID() + " not found for guest " + g.getGuestID());
             continue;
         }
 
-        float total = 0f;
-        Date startDate = g.getStartDate();
-        int rentalDays = g.getRentalDate();
-        Calendar calG = Calendar.getInstance();
+        float total=0f;
+        Date startDate=g.getStartDate();
+        int rentalDays=g.getRentalDate();
+        Calendar calG=Calendar.getInstance();
         calG.setTime(startDate);
 
-        // Kiểm tra từng ngày trong khoảng thời gian thuê
-        for (int i = 0; i < rentalDays; i++) {
-            // Lấy tháng và năm hiện tại của ngày đang kiểm tra
+        // kiem tra tung ngay trong khoang thoi gian thue
+        for(int i=0; i<rentalDays; i++){
+            // lay thang va nam hien tai cua ngay dang kiem tra
             int dayMonth = calG.get(Calendar.MONTH);
             int dayYear = calG.get(Calendar.YEAR);
             if (dayMonth == targetMonth && dayYear == targetYear) {
