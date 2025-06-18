@@ -20,9 +20,9 @@ public class Tester{
             switch(choice){
                 case 1:
                     System.out.print("Enter studentID: ");
-                    String code = inp.nextLine();
+                    String code=inp.nextLine();
                     System.out.print("Enter studentName: ");
-                    String name = inp.nextLine();
+                    String name=inp.nextLine();
                     System.out.print("Enter mark: ");
                     double mark=Double.parseDouble(inp.nextLine());
 
