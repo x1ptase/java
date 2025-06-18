@@ -11,70 +11,69 @@ import java.util.Calendar;
 import java.util.Date;
 import tool.ConsoleInputter;
 
-public class GuestList extends ArrayList<Guest> {
+public class GuestList extends ArrayList<Guest>{
+    private static final String idPattern="^\\d{12}$";
+    private static final String namePattern="^[a-zA-Z ]{2,25}$";
+    private static final String phonePattern="^\\d{10}$"; // 10 digits only
+    private static final String desiredIDPattern="^[a-zA-Z]\\d{3}$";
+    public static final String FILE_NAME="src\\data\\guestInfor.dat";
 
-    String idPattern = "^\\d{12}$";
-    String namePattern = "^[a-zA-Z ]{2,25}$";
-    String phonePattern = "^\\d{10}$"; // 10 digits only
-    String desiredIDPattern = "^[a-zA-Z]\\d{3}$";
-    public static String fname = "src\\data\\guestInfor.dat";
-
-    public void addGuest() {
-
+    public void addGuest(){
         int age;
-        Date birthDate;
+        Date doB;
         Date dateStart;
-        ArrayList<String> nameOfCoTenant = new ArrayList<>();
+        ArrayList<String> nameOfCoTenant=new ArrayList<>();
         int rentalDate;
         String desiredRoomID;
         String idGuest;
+        
         int pos;
-        do {
-            idGuest = ConsoleInputter.getStr("Enter Guest ID", idPattern, "Id is 12 digits");
-            pos = this.indexOf(new Guest(idGuest));
-            if (pos >= 0) {
-                System.out.println("Id is exist");
-            }
-        } while (pos >= 0);
-        String nameGuest = ConsoleInputter.getStr("Enter Guest Name", namePattern, "Name length have between 2 and 25");
-        do {
-            birthDate = ConsoleInputter.getDate("Enter Guest Birthdate(dd/MM/yyyy)", "dd/MM/yyyy");
+        do{
+            idGuest=ConsoleInputter.getStr("Enter guestID", idPattern, "ID is 12 digits");
+            pos=this.indexOf(new Guest(idGuest));
+            if(pos >= 0)
+                System.out.println("ID is exist");
+        } while(pos >= 0);
+        
+        String nameGuest=ConsoleInputter.getStr("Enter guestName", namePattern, "Name length have between 2 and 25");
+        do{
+            doB=ConsoleInputter.getDate("Enter Guest Birthdate(dd/MM/yyyy)", "dd/MM/yyyy");
 
-            Calendar now = Calendar.getInstance();
-            Calendar birth = Calendar.getInstance();
-            birth.setTime(birthDate);
-            age = now.get(Calendar.YEAR) - birth.get(Calendar.YEAR);
-            if (age < 16) {
+            Calendar now=Calendar.getInstance();
+            Calendar birth=Calendar.getInstance();
+            birth.setTime(doB);
+            age=now.get(Calendar.YEAR) - birth.get(Calendar.YEAR);
+            if(age < 16){
                 System.out.println("Guest must be at least 16 years old.");
                 return;
             }
-        } while (age < 16);
+        } while(age < 16);
 
-        boolean gender = ConsoleInputter.getBoolean("Is man?");
-        String phoneGuest = ConsoleInputter.getStr("Enter Guest Phone", phonePattern, "Phone have 10 digits");
+        boolean gender=ConsoleInputter.getBoolean("Male/Female");
+        
+        String phoneGuest=ConsoleInputter.getStr("Enter Guest Phone", phonePattern, "Phone must have 10 digits");
 
-        rentalDate = ConsoleInputter.getInt("Enter Rental Date", 1, Integer.MAX_VALUE);
+        rentalDate=ConsoleInputter.getInt("Enter Rental Date", 1, Integer.MAX_VALUE);
 
-        boolean dateValid = true;
-        do {
-            dateStart = ConsoleInputter.getDate("Enter Date Start(dd/MM/yyyy)", "dd/MM/yyyy");
+        boolean dateValid=true;
+        do{
+            dateStart=ConsoleInputter.getDate("Enter Date Start(dd/MM/yyyy)", "dd/MM/yyyy");
 
-            if (ConsoleInputter.isSameDay(dateStart, new Date())) {
-                dateValid = true;
+            if(ConsoleInputter.isSameDay(dateStart, new Date())){
+                dateValid=true;
                 break;
             }
-            dateValid = dateStart.after(new Date());
-        } while (!dateValid);
+            dateValid=dateStart.after(new Date());
+        } while(!dateValid);
 
         boolean isRen;
-        do {
-            desiredRoomID = ConsoleInputter.getStr("Enter Desired Room ID", desiredIDPattern, "Room id have a character next 3 digits");
-            Room room = new Room(desiredRoomID);
-            isRen = room.isRented(this, dateStart, rentalDate);
-            if (isRen) {
+        do{
+            desiredRoomID=ConsoleInputter.getStr("Enter Desired Room ID", desiredIDPattern, "Room id have a character next 3 digits");
+            Room room=new Room(desiredRoomID);
+            isRen=room.isRented(this, dateStart, rentalDate);
+            if(isRen)
                 System.out.println("Room is not vacant");
-            }
-        } while (isRen);
+        } while(isRen);
 
         int numberCoTenant = ConsoleInputter.getInt("Enter number Co - Tenant", 0, Integer.MAX_VALUE);
         for (int i = 0; i < numberCoTenant; i++) {
@@ -82,7 +81,7 @@ public class GuestList extends ArrayList<Guest> {
             nameOfCoTenant.add(nameCoTenant);
         }
 
-        Guest newGuest = new Guest(idGuest, nameGuest, birthDate, gender, phoneGuest, desiredRoomID, rentalDate, dateStart, nameOfCoTenant);
+        Guest newGuest = new Guest(idGuest, nameGuest, doB, gender, phoneGuest, desiredRoomID, rentalDate, dateStart, nameOfCoTenant);
         this.add(newGuest);
         RoomList rl = new RoomList();
         rl.readFromFile(RoomList.FILE_NAME);

@@ -9,7 +9,7 @@ public class RoomManager {
         GuestList gList = new GuestList();
 
         rList.readFromFile(RoomList.FILE_NAME);
-        gList.readFromFile(GuestList.fname);
+        gList.readFromFile(GuestList.FILE_NAME);
         int choice;
         boolean changed = false;
         boolean isSaved = false;
@@ -67,7 +67,7 @@ public class RoomManager {
                     ConsoleInputter.pause();
                     break;
                 case 10://xong
-                    gList.saveFile(GuestList.fname);
+                    gList.saveFile(GuestList.FILE_NAME);
                     ConsoleInputter.pause();
                     isSaved = true;
                     break;
@@ -75,7 +75,7 @@ public class RoomManager {
                     if (changed && !isSaved) {
                         boolean resp = tool.ConsoleInputter.getBoolean("Data changed. Save or not");
                         if (resp) {
-                            gList.saveFile(GuestList.fname);
+                            gList.saveFile(GuestList.FILE_NAME);
                         }
                     }
             }
