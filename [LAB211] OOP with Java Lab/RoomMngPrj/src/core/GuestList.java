@@ -149,34 +149,32 @@ public class GuestList extends ArrayList<Guest>{
     }
 
     public void seacrchByID(){
-        String idCheck=ConsoleInputter.getStr("Enter Guest ID", idPattern, "Id is 12 digits");
-        for (Guest thi : this) {
-            if (thi.getGuestID().equalsIgnoreCase(idCheck)) {
-
-                RoomList rl = new RoomList();
+        String idCheck=ConsoleInputter.getStr("Enter guestID", idPattern, "ID must has 12 digits");
+        for(Guest thi : this){
+            if(thi.getGuestID().equalsIgnoreCase(idCheck)){
+                RoomList rl=new RoomList();
                 rl.readFromFile(RoomList.FILE_NAME);
                 displayInfo(thi, rl.findRoom(thi.getDesiredRID()));
             }
         }
     }
 
-    public void deleteGuest() {
-        String idCheck = ConsoleInputter.getStr("Enter Guest ID", idPattern, "Id is 12 digits");
-        int pos = this.indexOf(new Guest(idCheck));
-        if (pos < 0) {
+    public void deleteGuest(){
+        String idCheck=ConsoleInputter.getStr("Enter guestID", idPattern, "ID must has 12 digits");
+        int pos=this.indexOf(new Guest(idCheck));
+        if(pos < 0){
             System.out.println("Guest is not exsited");
             return;
         }
-        Guest gPos = this.get(pos);
-        if (gPos.getStartDate().after(new Date())) {
+        Guest gPos=this.get(pos);
+        if(gPos.getStartDate().after(new Date())){
             this.remove(gPos);
-            System.out.println("delete successfull");
-        } else {
+            System.out.println("Delete successfully");
+        } else
             System.out.println("Guest's reservation has not started yet. Cannot delete.");
-        }
     }
 
-    public void displayInfo(Guest g, Room r) {
+    public void displayInfo(Guest g, Room r){
         System.out.println("----------------------------------------------------------------");
         System.out.println("Guest information [National ID: " + g.getGuestID() + "]");
         System.out.println("----------------------------------------------------------------");
@@ -192,15 +190,15 @@ public class GuestList extends ArrayList<Guest>{
         System.out.format("%-20s: %d days\n", "Rental Duration", g.getRentalDate());
         System.out.format("%-20s: %s\n", "Check-in Date", ConsoleInputter.dateStr(g.getStartDate(), "dd/MM/yyyy"));
 
-        Calendar cal = Calendar.getInstance();
+        Calendar cal=Calendar.getInstance();
         cal.setTime(g.getStartDate());
         cal.add(Calendar.DATE, g.getRentalDate());
-        Date checkoutDate = cal.getTime();
-        System.out.format("%-20s: %s\n", "Check-out Date", ConsoleInputter.dateStr(checkoutDate, "dd/MM/yyyy"));
+        Date checkoutDate=cal.getTime();
+        System.out.format("%-20s: %s\n", "Check out Date", ConsoleInputter.dateStr(checkoutDate, "dd/MM/yyyy"));
 
-        if (g.getCoTenant() != null && !g.getCoTenant().isEmpty()) {
+        if(g.getCoTenant() != null && !g.getCoTenant().isEmpty()){
             System.out.println("\n===== CO-TENANTS =====\n");
-            for (int i = 0; i < g.getCoTenant().size(); i++) {
+            for(int i=0; i<g.getCoTenant().size(); i++){
                 System.out.format("%-20s: %s\n", "Co-tenant " + (i + 1), g.getCoTenant().get(i));
             }
         }
@@ -213,12 +211,12 @@ public class GuestList extends ArrayList<Guest>{
         System.out.format("%-20s:%,f\n", "Capacity", r.getCapacity());
         System.out.format("%-20s:%s\n", "Furniture", r.getFunrnitureDescription());
 
-        float totalCost = g.getRentalDate() * r.getDailyRate();
+        float totalCost=g.getRentalDate() * r.getDailyRate();
         System.out.format("\n%-20s: $%,f\n", "TOTAL COST", totalCost);
     }
 
-    public void displayAll() {
-        if (this.isEmpty()) {
+    public void displayAll(){
+        if(this.isEmpty()){
             System.out.println("No guests in the list.");
             return;
         }
@@ -228,7 +226,7 @@ public class GuestList extends ArrayList<Guest>{
                 "Guest ID", "Name", "Phone", "Gender", "Room ID", "Start Day", "Day");
         System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
 
-        for (Guest guest : this) {
+        for(Guest guest : this){
             System.out.printf("%-15s | %-20s | %-12s | %-8s | %-12s | %-20s | %-8d\n",
                     guest.getGuestID(),
                     guest.getGuestName().toUpperCase(),
@@ -241,42 +239,41 @@ public class GuestList extends ArrayList<Guest>{
         System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
     }
 
-    public void saveFile(String fName) {
-        if (this.isEmpty()) {
-            System.out.println("Empty list.");
+    public void saveFile(String fName){
+        if(this.isEmpty()){
+            System.out.println("List is empty!");
             return;
         }
-        try ( ObjectOutputStream fo = new ObjectOutputStream(new FileOutputStream(fName))) {
-            for (Guest cust : this) {
+        try(ObjectOutputStream fo=new ObjectOutputStream(new FileOutputStream(fName))){
+            for(Guest cust : this){
                 fo.writeObject(cust);
             }
             System.out.println("Saved successfully to file.");
-        } catch (Exception e) {
+        } catch(Exception e){
             System.out.println(e);
         }
     }
 
-    public void readFromFile(String fName) {
+    public void readFromFile(String fName){
         this.clear();
-        try {
-            File f = new File(fName);
-            if (!f.exists()) {
+        try{
+            File f=new File(fName);
+            if(!f.exists()){
                 System.out.println("File does not exist.");
                 return;
             }
-
-            try ( ObjectInputStream fi = new ObjectInputStream(new FileInputStream(f))) {
-                while (true) {
-                    try {
-                        Guest cust = (Guest) fi.readObject();
+            try(ObjectInputStream fi=new ObjectInputStream(new FileInputStream(f))){
+                while(true){
+                    try{
+                        Guest cust=(Guest)fi.readObject();
                         this.add(cust);
-                    } catch (EOFException e) {
+                    } catch(EOFException e){
                         break;
                     }
                 }
-                System.out.println("Read successfully from file.");
+                System.out.println("Read file is successfully!");
             }
-        } catch (Exception e) {
+        } catch(Exception e){
             System.out.println(e);
         }
     }
