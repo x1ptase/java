@@ -110,17 +110,16 @@ public class RoomList extends ArrayList<Room>{
         // kiem tra tung ngay trong khoang thoi gian thue
         for(int i=0; i<rentalDays; i++){
             // lay thang va nam hien tai cua ngay dang kiem tra
-            int dayMonth = calG.get(Calendar.MONTH);
-            int dayYear = calG.get(Calendar.YEAR);
-            if (dayMonth == targetMonth && dayYear == targetYear) {
-                total += roomRent.getDailyRate();
+            int dayMonth=calG.get(Calendar.MONTH);
+            int dayYear=calG.get(Calendar.YEAR);
+            if(dayMonth == targetMonth && dayYear == targetYear){
+                total+=roomRent.getDailyRate();
             }
-            // Tăng ngày lên 1
+            // tang ngay len 1
             calG.add(Calendar.DATE, 1);
         }
-
-        // Chỉ thêm vào báo cáo nếu có doanh thu
-        if (total > 0) {
+        // chi them vao report neu co tien
+        if(total > 0){
             report.add(new String[]{
                 roomRent.getRoomID(),
                 roomRent.getRoomName(),
@@ -131,51 +130,49 @@ public class RoomList extends ArrayList<Room>{
         }
     }
 
-    if (report.isEmpty()) {
+    if(report.isEmpty())
         System.out.println("No revenue data for " + String.format("%02d/%d", targetMonth + 1, targetYear));
-    } else {
+    else
         displayMonthlyReport(report, targetMonth + 1, targetYear);
-    }
 }
 
-    private void displayMonthlyReport(ArrayList<String[]> report, int month, int year) {
+    private void displayMonthlyReport(ArrayList<String[]> report, int month, int year){
         System.out.println("Monthly Revenue Report - " + String.format("%02d/%d", month, year));
         System.out.println("---------------------------------------------------------------------");
         System.out.printf("%-6s | %-20s | %-9s | %-8s | %-8s%n",
                 "RoomID", "Room Name", "Room type", "DailyRate", "Amount");
         System.out.println("---------------------------------------------------------------------");
 
-        for (String[] r : report) {
+        for(String[] r : report){
             System.out.printf("%-6s | %-20s | %-9s | %-8s | %-8s%n",
                     r[0], r[1], r[2], r[3], r[4]);
         }
         System.out.println("---------------------------------------------------------------------");
     }
 
-    public void revenueReport(GuestList gList) {
-        HashMap<String, Float> revenueMap = new HashMap<>();
-        for (Guest guest : gList) {
-            Room roomRent = this.findRoom(guest.getDesiredRID());
-            String roomType = roomRent.getRoomType();
-            float guestRevenue = guest.getRentalDate() * roomRent.getDailyRate();
+    public void revenueReport(GuestList gList){
+        HashMap<String, Float> revenueMap=new HashMap<>();
+        for(Guest guest : gList){
+            Room roomRent=this.findRoom(guest.getDesiredRID());
+            String roomType=roomRent.getRoomType();
+            float guestRevenue=guest.getRentalDate() * roomRent.getDailyRate();
             revenueMap.put(roomType, guestRevenue);
         }
         displayRevenueByRoomType(revenueMap);
     }
 
-    private void displayRevenueByRoomType(HashMap<String, Float> revenueByType) {
+    private void displayRevenueByRoomType(HashMap<String, Float> revenueByType){
         System.out.println("Revenue Report by Room Type");
         System.out.println("---------------------------");
         System.out.printf("%-12s | %-10s\n", "Room type", "Amount");
         System.out.println("---------------------------");
 
-        if (revenueByType.isEmpty()) {
+        if(revenueByType.isEmpty())
             System.out.println("No revenue data available.");
-        } else {
-            for(HashMap.Entry<String,Float> entry : revenueByType.entrySet()) {
+        else
+            for(HashMap.Entry<String,Float> entry : revenueByType.entrySet()){
                 System.out.printf("%-12s | %-10.2f\n",entry.getKey(), entry.getValue());
             }
-        }
         System.out.println("---------------------------");
     }
 }//RoomList
