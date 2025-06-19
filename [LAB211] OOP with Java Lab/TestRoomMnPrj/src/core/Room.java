@@ -15,7 +15,6 @@ public class Room implements Serializable{
     }
     
     // c-tor
-
     public Room(String roomID, String roomName, String roomType, 
             float dailyRate, float capacity, String furnitureDescription) {
         this.roomID = roomID;
@@ -24,6 +23,11 @@ public class Room implements Serializable{
         this.dailyRate = dailyRate;
         this.capacity = capacity;
         this.furnitureDescription = furnitureDescription;
+    }
+    
+    // ham de so sanh voi method
+    public Room(String roomID){
+        this.roomID=roomID;
     }
 
     public String getRoomID() {
