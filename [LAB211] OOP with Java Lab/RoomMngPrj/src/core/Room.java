@@ -10,7 +10,7 @@ public class Room {
     private String roomType;
     private float dailyRate;
     private float capacity;
-    private String funrnitureDescription; // mo ta noi that 
+    private String furnitureDescription; // mo ta noi that 
 
     public Room(){
     }
@@ -19,13 +19,13 @@ public class Room {
         this.roomID = roomID;
     }
 
-    public Room(String roomID, String roomName, String roomType, float dailyRate, float capacity, String funrnitureDescription) {
+    public Room(String roomID, String roomName, String roomType, float dailyRate, float capacity, String furnitureDescription) {
         this.roomID = roomID;
         this.roomName = roomName;
         this.roomType = roomType;
         this.dailyRate = dailyRate;
         this.capacity = capacity;
-        this.funrnitureDescription = funrnitureDescription;
+        this.furnitureDescription = furnitureDescription;
     }
 
     public String getRoomID() {
@@ -68,12 +68,12 @@ public class Room {
         this.capacity = capacity;
     }
 
-    public String getFunrnitureDescription() {
-        return funrnitureDescription;
+    public String getFurnitureDescription() {
+        return furnitureDescription;
     }
 
-    public void setFunrnitureDescription(String funrnitureDescription) {
-        this.funrnitureDescription = funrnitureDescription;
+    public void setFurnitureDescription(String furnitureDescription) {
+        this.furnitureDescription = furnitureDescription;
     }
 
     @Override
@@ -112,6 +112,7 @@ public class Room {
         return false;
     }
     
+    // kiem tra dung 1 ngay duy nhat
     public boolean isRented(GuestList list, Date sDate){
         if(list.isEmpty()){
             return false;

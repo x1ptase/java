@@ -73,18 +73,31 @@ public class RoomList extends ArrayList<Room>{
             return this.get(pos);
     }
 
-    public RoomList vacantRoomList(GuestList gList){
-        RoomList vaRoomList=new RoomList();
-        boolean isRen;
-        Date dateCheck=ConsoleInputter.getDate("Enter date want to check(dd/MM/yyyy)", "dd/MM/yyyy");
-        for(Room r : this){
-            isRen=r.isRented(gList, dateCheck);
-            if(!isRen){
+    public RoomList vacantRoomList(GuestList gList) {
+        RoomList vaRoomList = new RoomList();
+        Date dateCheck = ConsoleInputter.getDate("Enter date want to check (dd/MM/yyyy)", "dd/MM/yyyy");
+        // xac thuc ngay nhap vao
+        if (dateCheck == null) {
+            System.out.println("Invalid date input. Returning empty room list.");
+            return vaRoomList;
+        }
+
+        for (Room r : this) {
+            // Gọi isRented với rentals = 1 để kiểm tra một ngày duy nhất
+            // goi isRented voi rentals = 1 de kiem tra mot ngay duy nhat
+            boolean isRen = r.isRented(gList, dateCheck, 1);
+            if (!isRen) {
                 vaRoomList.add(r);
             }
         }
-        return vaRoomList;
-    }
+
+        // kiem tra danh sach trong
+        if (vaRoomList.isEmpty()) {
+            System.out.println("All rooms have currently been rented out; no rooms are available.");
+        }
+
+    return vaRoomList;
+}
 
     public void monthlyReport(GuestList gList){
         Date monthYear=ConsoleInputter.getDate("Enter Month Report(MM/yyyy)", "MM/yyyy");

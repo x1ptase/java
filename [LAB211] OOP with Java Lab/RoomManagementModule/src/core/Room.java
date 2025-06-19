@@ -82,54 +82,34 @@ public class Room {
         return this.getRoomID().equalsIgnoreCase(room.getRoomID());
     }
 
-    public boolean isRented(GuestList list, Date sDate, int rentals){
-        if(list.isEmpty()){
+    public boolean isRented(GuestList list, Date startDate, int rentals) {
+        if (list == null || list.isEmpty() || startDate == null || rentals <= 0) {
             return false;
         }
 
-        for(Guest guest : list){
-            if(guest.getDesiredRID().trim().equalsIgnoreCase(this.roomID.trim())){
-                Date startDate=guest.getStartDate();
-                int duration=guest.getRentalDate();
+        // tinh ngay ket thuc cua khoang thoi gian can kiem tra
+        Calendar checkCal = Calendar.getInstance();
+        checkCal.setTime(startDate);
+        checkCal.add(Calendar.DATE, rentals - 1);
+        Date checkEndDate = checkCal.getTime();
 
-                Calendar cal=Calendar.getInstance();
-                cal.setTime(startDate);
-                cal.add(Calendar.DATE, duration - 1);
-                Date endDate=cal.getTime();
+        for (Guest guest : list) {
+            if (guest.getDesiredRID().trim().equalsIgnoreCase(this.roomID.trim())) {
+                Date guestStartDate = guest.getStartDate();
+                int guestDuration = guest.getRentalDate();
 
-                for(int i=0; i<rentals; i++){
-                    Calendar checkCal=Calendar.getInstance();
-                    checkCal.setTime(sDate);
-                    checkCal.add(Calendar.DATE, i);
-                    Date checkDate=checkCal.getTime();
-                    if(ConsoleInputter.isSameDay(checkDate, startDate))
-                        return true;
-                    if(!checkDate.before(startDate) && !checkDate.after(endDate))
-                        return true;
+                // tinh ngay ket thuc cua khach
+                Calendar guestCal = Calendar.getInstance();
+                guestCal.setTime(guestStartDate);
+                guestCal.add(Calendar.DATE, guestDuration - 1);
+                Date guestEndDate = guestCal.getTime();
+
+                // kiem tra giao nhau cua 2 khoang thoi gian
+                if (!checkEndDate.before(guestStartDate) && !guestEndDate.before(startDate)) {
+                    return true; // co giao nhau --> phong duoc thue
                 }
             }
         }
-        return false;
-    }
-
-    public boolean isRented(GuestList list, Date sDate){
-        if(list.isEmpty()){
-            return false;
-        }
-        for(Guest guest : list){
-            if(guest.getDesiredRID().trim().equalsIgnoreCase(this.roomID.trim())){
-                Date startDate=guest.getStartDate();
-                int duration=guest.getRentalDate();
-
-                Calendar cal=Calendar.getInstance();
-                cal.setTime(startDate);
-                cal.add(Calendar.DATE, duration - 1);
-                Date endDate=cal.getTime();
-
-                if(!sDate.before(startDate) && !sDate.after(endDate))
-                    return true;
-            }
-        }
-        return false;
-    }
+    return false; // khong giao nhau --> phong trong
+}
 }//Room
