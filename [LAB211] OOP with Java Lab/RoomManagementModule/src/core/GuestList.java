@@ -209,7 +209,7 @@ public class GuestList extends ArrayList<Guest>{
         System.out.format("%-20s:%s\n", "Room Type", r.getRoomType());
         System.out.format("%-20s:%,f\n", "Daily Rate", r.getDailyRate());
         System.out.format("%-20s:%,f\n", "Capacity", r.getCapacity());
-        System.out.format("%-20s:%s\n", "Furniture", r.getFunrnitureDescription());
+        System.out.format("%-20s:%s\n", "Furniture", r.getFurnitureDescription());
 
         float totalCost=g.getRentalDate() * r.getDailyRate();
         System.out.format("\n%-20s: $%,f\n", "TOTAL COST", totalCost);

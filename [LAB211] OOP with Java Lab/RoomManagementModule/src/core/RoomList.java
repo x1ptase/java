@@ -60,7 +60,7 @@ public class RoomList extends ArrayList<Room>{
                     room.getRoomType(),
                     (float)room.getDailyRate(),
                     room.getCapacity(),
-                    room.getFunrnitureDescription());
+                    room.getFurnitureDescription());
         }
         System.out.println("------------------------------------------------------------------------------------------------------------------");
     }

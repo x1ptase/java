@@ -68,7 +68,7 @@ public class Room {
         this.capacity = capacity;
     }
 
-    public String getFunrnitureDescription() {
+    public String getFurnitureDescription() {
         return funrnitureDescription;
     }
 
