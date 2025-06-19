@@ -10,7 +10,7 @@ public class Room {
     private String roomType;
     private float dailyRate;
     private float capacity;
-    private String funrnitureDescription;
+    private String funrnitureDescription; // mo ta noi that 
 
     public Room(){
     }
@@ -111,7 +111,7 @@ public class Room {
         }
         return false;
     }
-
+    
     public boolean isRented(GuestList list, Date sDate){
         if(list.isEmpty()){
             return false;

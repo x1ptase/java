@@ -2,137 +2,177 @@ package core;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import tool.ConsoleInputter;
 
 public class RoomList extends ArrayList<Room>{
-    private ArrayList<Room> roomList=new ArrayList<>();
-    public static final String FILE_NAME="src/data/Active_Room_List.txt";
-
-    // FUNCTION 1: Import Room Data from Text File
-    public void readFromFile(){
-        roomList.clear();
-        int successCount=0, failCount=0;
-        try(BufferedReader br=new BufferedReader(new FileReader(FILE_NAME))){
+    public static final String FILE_NAME="src\\data\\Active_Room_List.txt";
+    
+    public void readFromFile(String fName){
+        try{
+            FileReader fr=new FileReader(fName);
+            BufferedReader bf=new BufferedReader(fr);
             String line;
-            while((line=br.readLine()) != null){
-                String[] parts=line.split(";");
-                if (parts.length != 6){
-                    failCount++;
-                    continue;
-                }
-                String roomID=parts[0].trim();
-                String roomName=parts[1].trim();
-                String roomType=parts[2].trim();
-                String dailyRateStr=parts[3].trim();
-                String capacityStr=parts[4].trim();
-                String furniture=parts[5].trim();
+            while((line = bf.readLine()) != null){
+                String parts[]=line.split(";");
+                if(parts.length == 6){
+                    String roomID=parts[0];
+                    if(!containsRoomID(roomID)){
 
-                // validation
-                if(isRoomExist(roomID)){
-                    failCount++;
-                    continue;
+                        String name=parts[1];
+                        String type=parts[2];
+                        float dailyRate=Float.parseFloat(parts[3]);
+                        float capacity=Float.parseFloat(parts[4]);
+                        String description=parts[5];
+                        this.add(new Room(roomID, name, type, dailyRate, capacity, description));
+                    }
                 }
-                double dailyRate;
-                int capacity;
-                try{
-                    dailyRate=Double.parseDouble(dailyRateStr);
-                    capacity=Integer.parseInt(capacityStr);
-                } catch(NumberFormatException e){
-                    failCount++;
-                    continue;
-                }
-                if(dailyRate <= 0 || capacity <= 0){
-                    failCount++;
-                    continue;
-                }
-
-                roomList.add(new Room(roomID, roomName, roomType, dailyRate, capacity, furniture));
-                successCount++;
             }
-            System.out.printf("%d rooms successfully loaded.\n%d entries failed.\n", successCount, failCount);
-        } catch(IOException e){
-            System.out.println("Cannot read data from Active_Room_List.txt. Please check it.");
-            failCount++;
+            fr.close();
+            bf.close();
+        } catch(Exception e){
+            System.out.println(e);
         }
     }
 
-    // FUNCTION 2: Display Available Room List
-    public void displayAllRooms(){
-        if(roomList.isEmpty()){
-            System.out.println("Room list is currently empty, not loaded yet.");
-            return;
+    private boolean containsRoomID(String roomID){
+        for(Room r : this){
+            if(r.getRoomID().equals(roomID)){
+                return true;
+            }
         }
+        return false;
+    }
+
+    public void displayAll(){
+        System.out.println("------------------------------------------------------------------------------------------------------------------");
+        System.out.format("%-6s | %-20s | %-9s | %-6s | %-9s | %-30s\n",
+                "RoomID", "RoomName", "Type", "Rate", "Capacity", "Furniture");
+        System.out.println("------------------------------------------------------------------------------------------------------------------");
         
-        System.out.println("\nActive Room List");
-        System.out.printf("%-8s | %-16s | %-10s | %-8s | %-8s | %s\n",
-                "RoomID", "RoomName", "Type", "Rate", "Capacity", "Furniture");
-        System.out.println("-------------------------------------------------------------------------------------------------");
-        for (Room room : roomList) {
-            System.out.printf("%-8s | %-16s | %-10s | %-8.2f | %-8d | %s\n",
-                    room.getRoomID(), room.getRoomName(), room.getRoomType(),
-                    room.getDailyRate(), room.getCapacity(), room.getFurniture());
+        for(Room room : this){
+            System.out.format("%-6s | %-20s | %-9s | %-6.1f | %-9.2f | %-30s\n",
+                    room.getRoomID(),
+                    room.getRoomName(),
+                    room.getRoomType(),
+                    (float)room.getDailyRate(),
+                    room.getCapacity(),
+                    room.getFunrnitureDescription());
         }
+        System.out.println("------------------------------------------------------------------------------------------------------------------");
     }
 
-    // FUNCTION 7: List Vacant Rooms
-    public void listVacantRooms(GuestList guestList){
-        ArrayList<Room> vacantRooms=new ArrayList<>();
-        for(Room room : roomList){
-            if(guestList.findGuestByRoomID(room.getRoomID()) == null){
-                vacantRooms.add(room);
+    public Room findRoom(String id){
+        int pos=this.indexOf(new Room(id));
+        if(pos < 0)
+            return null;
+        else
+            return this.get(pos);
+    }
+
+    public RoomList vacantRoomList(GuestList gList){
+        RoomList vaRoomList=new RoomList();
+        boolean isRen;
+        Date dateCheck=ConsoleInputter.getDate("Enter date want to check(dd/MM/yyyy)", "dd/MM/yyyy");
+        for(Room r : this){
+            isRen=r.isRented(gList, dateCheck);
+            if(!isRen){
+                vaRoomList.add(r);
             }
         }
-        if(vacantRooms.isEmpty()){
-            System.out.println("All rooms are currently rented out — no availability at the moment!");
-            return;
-        }
-        System.out.println("\nAvailable Room List");
-        System.out.printf("%-8s | %-16s | %-10s | %-8s | %-8s | %s\n",
-                "RoomID", "RoomName", "Type", "Rate", "Capacity", "Furniture");
-        System.out.println("-------------------------------------------------------------------------------------------------");
-        for(Room room : roomList){
-            System.out.printf("%-8s | %-16s | %-10s | %-8.2f | %-8d | %s\n",
-                    room.getRoomID(), room.getRoomName(), room.getRoomType(),
-                    room.getDailyRate(), room.getCapacity(), room.getFurniture());
-        }
+        return vaRoomList;
     }
 
-    // find room by ID
-    public Room findRoomByID(String roomID){
-        for(Room room : roomList){
-            if(room.getRoomID().equalsIgnoreCase(roomID)){
-                return room;
+    public void monthlyReport(GuestList gList){
+        Date monthYear=ConsoleInputter.getDate("Enter Month Report(MM/yyyy)", "MM/yyyy");
+        Calendar cal=Calendar.getInstance();
+        cal.setTime(monthYear);
+        int targetMonth=cal.get(Calendar.MONTH); // 0-based (0 = January)
+        int targetYear=cal.get(Calendar.YEAR);
+
+        ArrayList<String[]> report=new ArrayList<>();
+        for(Guest g : gList){
+        Room roomRent=this.findRoom(g.getDesiredRID());
+        if(roomRent == null){
+            System.out.println("Warning: Room " + g.getDesiredRID() + " not found for guest " + g.getGuestID());
+            continue;
+        }
+
+        float total=0f;
+        Date startDate=g.getStartDate();
+        int rentalDays=g.getRentalDate();
+        Calendar calG=Calendar.getInstance();
+        calG.setTime(startDate);
+
+        // kiem tra tung ngay trong khoang thoi gian thue
+        for(int i=0; i<rentalDays; i++){
+            // lay thang va nam hien tai cua ngay dang kiem tra
+            int dayMonth=calG.get(Calendar.MONTH);
+            int dayYear=calG.get(Calendar.YEAR);
+            if(dayMonth == targetMonth && dayYear == targetYear){
+                total+=roomRent.getDailyRate();
             }
+            // tang ngay len 1
+            calG.add(Calendar.DATE, 1);
         }
-        return null;
+        // chi them vao report neu co tien
+        if(total > 0){
+            report.add(new String[]{
+                roomRent.getRoomID(),
+                roomRent.getRoomName(),
+                roomRent.getRoomType(),
+                String.format("%.2f", roomRent.getDailyRate()),
+                String.format("%.2f", total)
+            });
+        }
     }
 
-    // check if room exists
-    private boolean isRoomExist(String roomID){
-        return roomList.stream().anyMatch(room -> room.getRoomID().equalsIgnoreCase(roomID));
-    }
-
-    // FUNTION 9: Revenue Report by Room Type
-    public void revenueReportByRoomType(GuestList guestList){
-        String roomType=ConsoleInputter.getStr("Enter room type: ");
-        double totalRevenue=0;
-        ArrayList<Guest> matchingGuests=new ArrayList<>();
-        for(Guest guest : guestList.getGuestList()){
-            Room room=findRoomByID(guest.getRoomID());
-            if(room != null && room.getRoomType().equalsIgnoreCase(roomType)){
-                matchingGuests.add(guest);
-                totalRevenue+=room.getDailyRate()*guest.getRentalDays();
-            }
-        }
-        if(matchingGuests.isEmpty()){
-            System.out.println("Invalid room type or no data found!");
-            return;
-        }
-        System.out.println("\nRevenue Report by Room Type");
-        System.out.printf("%-10s | %s\n", "RoomType", "Amount");
-        System.out.println("--------------------------------");
-        System.out.printf("%-10s | %.2f\n", roomType, totalRevenue);
-    }
+    if(report.isEmpty())
+        System.out.println("No revenue data for " + String.format("%02d/%d", targetMonth + 1, targetYear));
+    else
+        displayMonthlyReport(report, targetMonth + 1, targetYear);
 }
+
+    private void displayMonthlyReport(ArrayList<String[]> report, int month, int year){
+        System.out.println("Monthly Revenue Report - " + String.format("%02d/%d", month, year));
+        System.out.println("---------------------------------------------------------------------");
+        System.out.printf("%-6s | %-20s | %-9s | %-8s | %-8s%n",
+                "RoomID", "Room Name", "Room type", "DailyRate", "Amount");
+        System.out.println("---------------------------------------------------------------------");
+
+        for(String[] r : report){
+            System.out.printf("%-6s | %-20s | %-9s | %-8s | %-8s%n",
+                    r[0], r[1], r[2], r[3], r[4]);
+        }
+        System.out.println("---------------------------------------------------------------------");
+    }
+
+    public void revenueReport(GuestList gList){
+        HashMap<String, Float> revenueMap=new HashMap<>();
+        for(Guest guest : gList){
+            Room roomRent=this.findRoom(guest.getDesiredRID());
+            String roomType=roomRent.getRoomType();
+            float guestRevenue=guest.getRentalDate() * roomRent.getDailyRate();
+            revenueMap.put(roomType, guestRevenue);
+        }
+        displayRevenueByRoomType(revenueMap);
+    }
+
+    private void displayRevenueByRoomType(HashMap<String, Float> revenueByType){
+        System.out.println("Revenue Report by Room Type");
+        System.out.println("---------------------------");
+        System.out.printf("%-12s | %-10s\n", "Room type", "Amount");
+        System.out.println("---------------------------");
+
+        if(revenueByType.isEmpty())
+            System.out.println("No revenue data available.");
+        else
+            for(HashMap.Entry<String,Float> entry : revenueByType.entrySet()){
+                System.out.printf("%-12s | %-10.2f\n",entry.getKey(), entry.getValue());
+            }
+        System.out.println("---------------------------");
+    }
+}//RoomList

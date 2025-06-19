@@ -1,38 +1,39 @@
 package core;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.Date;
 
-public class Guest implements Serializable {
+public class Guest implements Serializable{
     private String guestID;
     private String guestName;
     private Date doB;
-    private String gender;
-    private String phoneNumber;
-    private String roomID;
-    private int rentalDays; 
-    private Date startDate;
-    private String coTenant;
+    private boolean gender;
+    private String phone;
+    private String DesiredRID;
+    private int rentalDate; // so ngay thue
+    private Date startDate;// ngay bat dau 
+    private ArrayList<String> coTenant=new ArrayList<>();
 
     public Guest(){
     }
+    
+    public Guest(String ID){
+        this.guestID=ID;
+    }
 
-    public Guest(String nationalID, String fullName, Date birthdate, String gender,
-                 String phoneNumber, String roomID, int rentalDays, Date startDate, String coTenant) {
-        this.guestID = nationalID;
-        this.guestName = fullName;
-        this.doB = birthdate;
+    public Guest(String guestID, String guestName, Date doB, boolean gender, String phone, String DesiredRID, int rentalDate, Date startDate, ArrayList<String> coTenant) {
+        this.guestID = guestID;
+        this.guestName = guestName;
+        this.doB = doB;
         this.gender = gender;
-        this.phoneNumber = phoneNumber;
-        this.roomID = roomID;
-        this.rentalDays = rentalDays; 
+        this.phone = phone;
+        this.DesiredRID = DesiredRID;
+        this.rentalDate = rentalDate;
         this.startDate = startDate;
         this.coTenant = coTenant;
     }
 
-    // getters - setters
     public String getGuestID() {
         return guestID;
     }
@@ -57,36 +58,36 @@ public class Guest implements Serializable {
         this.doB = doB;
     }
 
-    public String getGender() {
+    public boolean isGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(boolean gender) {
         this.gender = gender;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getRoomID() {
-        return roomID;
+    public String getDesiredRID() {
+        return DesiredRID;
     }
 
-    public void setRoomID(String roomID) {
-        this.roomID = roomID;
+    public void setDesiredRID(String DesiredRID) {
+        this.DesiredRID = DesiredRID;
     }
 
-    public int getRentalDays() {
-        return rentalDays;
+    public int getRentalDate() {
+        return rentalDate;
     }
 
-    public void setRentalDays(int rentalDays) { 
-        this.rentalDays = rentalDays;
+    public void setRentalDate(int rentalDate) {
+        this.rentalDate = rentalDate;
     }
 
     public Date getStartDate() {
@@ -97,29 +98,17 @@ public class Guest implements Serializable {
         this.startDate = startDate;
     }
 
-    public String getCoTenant() {
+    public ArrayList<String> getCoTenant() {
         return coTenant;
     }
 
-    public void setCoTenant(String coTenant) {
+    public void setCoTenant(ArrayList<String> coTenant) {
         this.coTenant = coTenant;
     }
 
     @Override
     public boolean equals(Object obj) {
         Guest g=(Guest)obj;
-        return this.guestID.equals(g.guestID);
+        return this.getGuestID().equalsIgnoreCase(g.getGuestID());
     }
-
-    @Override
-    public String toString() {
-        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
-        Calendar cal=Calendar.getInstance();
-        cal.setTime(startDate);
-        cal.add(Calendar.DAY_OF_MONTH, rentalDays); 
-        Date checkOut=cal.getTime();
-        return String.format("Full name: %s\nPhone number: %s\nBirth date: %s\nGender: %s\nRental room: %s\nCheck in: %s\nRental days: %d\nCheck out: %s\nCo-tenant: %s",
-                guestName, phoneNumber, sdf.format(doB), gender, roomID,
-                sdf.format(startDate), rentalDays, sdf.format(checkOut), coTenant.isEmpty() ? "null" : coTenant);
-    }
-}
+} // guest

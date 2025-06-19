@@ -1,39 +1,96 @@
-import java.util.Scanner;
+import tool.ConsoleInputter;
+import core.*;
 
 public class RoomManager{
-    private static final Scanner inp=new Scanner(System.in);
+    public static void main(String[] args){
+        RoomList roomList=new RoomList();
+        GuestList guestList=new GuestList();
 
-    public static void displayMenu(){
-        System.out.println("\n========= ROOM MANAGEMENT MODULE =========");
-        System.out.println("0. Import Room Data from Text File");
-        System.out.println("1. Display Available Room List");
-        System.out.println("2. Enter Guest Information");
-        System.out.println("3. Update Guest Stay Information");
-        System.out.println("4. Search Guest by National ID");
-        System.out.println("5. Delete Guest Reservation Before Arrival");
-        System.out.println("6. Display All Guest");
-        System.out.println("7. List Vacant Rooms");
-        System.out.println("8. Monthly Revenue Report");
-        System.out.println("9. Revenue Report by Room Type");
-        System.out.println("10. Save Guest Information");
-        System.out.println("11. Quit");
-        System.out.println("=========================================");
-    }
-
-    public static int getUserChoice(){
-        int choice;
-        while(true){
-            try{
-                System.out.print("Please select an option (0-11): ");
-                choice=Integer.parseInt(inp.nextLine().trim());
-                if(choice >= 0 && choice <= 11){
-                    return choice;
-                } else{
-                    System.out.println("Invalid input. Please enter a number between 1 and 11.");
-                }
-            } catch(NumberFormatException e){
-                System.out.println("Invalid input. Please enter an integer.");
-            }
+         try{
+            roomList.readFromFile(RoomList.FILE_NAME);
+            guestList.readFromFile(GuestList.FILE_NAME);
+        } catch(Exception e){
+            System.out.println("Cannot read file: " + e.getMessage());
+            return;
         }
+        
+        int choice;
+        boolean changed=false;
+        boolean isSaved=false;
+        do{
+            choice=ConsoleInputter.intMenu(
+                    "Display Available Room List",
+                    "Enter Guest Information",
+                    "Update Guest Stay Information",
+                    "Search Guest by National ID",
+                    "Delete Guest Reservation Before Arrival",
+                    "Display All Guest",
+                    "List Vacant Rooms",
+                    "Monthly Revenue Report",
+                    "Revenue Report by Room Type",
+                    "Save Guest Information",
+                    "Exit");
+            if(choice >= 2 && choice <= 5){
+                changed=true;
+            }
+            
+            switch(choice){
+                case 1:
+                    roomList.displayAll();
+                    ConsoleInputter.pause();
+                    break;
+                case 2:
+                    guestList.addGuest();
+                    ConsoleInputter.pause();
+                    break;
+                case 3:
+                    guestList.updateGuest();
+                    ConsoleInputter.pause();
+                    break;
+                case 4:
+                    guestList.searchByID();
+                    ConsoleInputter.pause();
+                    break;
+                case 5:
+                    guestList.deleteGuest();
+                    ConsoleInputter.pause();
+                    break;
+                case 6:
+                    guestList.displayAll();
+                    ConsoleInputter.pause();
+                    break;
+                case 7:
+                    roomList.vacantRoomList(guestList).displayAll();
+                    ConsoleInputter.pause();
+                    break;
+                case 8:
+                    roomList.monthlyReport(guestList);
+                    ConsoleInputter.pause();
+                    break;
+                case 9:
+                    roomList.revenueReport(guestList);
+                    ConsoleInputter.pause();
+                    break;
+                case 10:
+                    guestList.saveToFile(GuestList.FILE_NAME);
+                    ConsoleInputter.pause();
+                    isSaved=true;
+                    changed=false;
+                    System.out.println("Saved guestInfor successfully!");
+                    break;
+                case 11:
+                    if(changed && !isSaved){
+                        boolean resp=tool.ConsoleInputter.getBoolean("Data changed. Do you want to save?");
+                        if(resp){
+                            guestList.saveToFile(GuestList.FILE_NAME);
+                            System.out.println("Saved guestInfor successfully!");
+                        }
+                    }
+                    System.out.println("Exiting the program. GOOD LUCK!");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        } while(choice != 11);
     }
 }

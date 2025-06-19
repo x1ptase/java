@@ -1,25 +1,31 @@
 package core;
 
+import java.util.Calendar;
+import java.util.Date;
+import tool.ConsoleInputter;
+
 public class Room {
-    private String roomID; // ID room
-    private String roomName; // name room
-    private String roomType; // type room
-    private double dailyRate; // price
-    private int capacity; // people
-    private String furniture; // room description 
-    
-    
+    private String roomID;
+    private String roomName;
+    private String roomType;
+    private float dailyRate;
+    private float capacity;
+    private String funrnitureDescription;
+
     public Room(){
-        
     }
 
-    public Room(String roomID, String roomName, String roomType, double dailyRate, int capacity, String furniture) {
+    public Room(String roomID){
+        this.roomID = roomID;
+    }
+
+    public Room(String roomID, String roomName, String roomType, float dailyRate, float capacity, String funrnitureDescription) {
         this.roomID = roomID;
         this.roomName = roomName;
         this.roomType = roomType;
         this.dailyRate = dailyRate;
         this.capacity = capacity;
-        this.furniture = furniture;
+        this.funrnitureDescription = funrnitureDescription;
     }
 
     public String getRoomID() {
@@ -46,42 +52,84 @@ public class Room {
         this.roomType = roomType;
     }
 
-    public double getDailyRate() {
+    public float getDailyRate() {
         return dailyRate;
     }
 
-    public void setDailyRate(double dailyRate) {
+    public void setDailyRate(float dailyRate) {
         this.dailyRate = dailyRate;
     }
 
-    public int getCapacity() {
+    public float getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(int capacity) {
+    public void setCapacity(float capacity) {
         this.capacity = capacity;
     }
 
-    public String getFurniture() {
-        return furniture;
+    public String getFunrnitureDescription() {
+        return funrnitureDescription;
     }
 
-    public void setFurniture(String furniture) {
-        this.furniture = furniture;
+    public void setFunrnitureDescription(String funrnitureDescription) {
+        this.funrnitureDescription = funrnitureDescription;
     }
-
 
     @Override
-    public boolean equals(Object obj) {
-        Room rm=(Room)obj;
-        return this.roomID.equals(rm.roomID);
+    public boolean equals(Object obj){
+        Room room=(Room)obj;
+        return this.getRoomID().equalsIgnoreCase(room.getRoomID());
     }
-    
-    @Override
-    public String toString() {
-       return String.format("RoomID: %s | RoomName: %s | Type: %s | Rate: %.0f | Capacity: %d | Furniture: %s",
-                roomID, roomName, roomType, dailyRate, capacity, furniture);
+
+    public boolean isRented(GuestList list, Date sDate, int rentals){
+        if(list.isEmpty()){
+            return false;
+        }
+
+        for(Guest guest : list){
+            if(guest.getDesiredRID().trim().equalsIgnoreCase(this.roomID.trim())){
+                Date startDate=guest.getStartDate();
+                int duration=guest.getRentalDate();
+
+                Calendar cal=Calendar.getInstance();
+                cal.setTime(startDate);
+                cal.add(Calendar.DATE, duration - 1);
+                Date endDate=cal.getTime();
+
+                for(int i=0; i<rentals; i++){
+                    Calendar checkCal=Calendar.getInstance();
+                    checkCal.setTime(sDate);
+                    checkCal.add(Calendar.DATE, i);
+                    Date checkDate=checkCal.getTime();
+                    if(ConsoleInputter.isSameDay(checkDate, startDate))
+                        return true;
+                    if(!checkDate.before(startDate) && !checkDate.after(endDate))
+                        return true;
+                }
+            }
+        }
+        return false;
     }
-    
-    
-}
+
+    public boolean isRented(GuestList list, Date sDate){
+        if(list.isEmpty()){
+            return false;
+        }
+        for(Guest guest : list){
+            if(guest.getDesiredRID().trim().equalsIgnoreCase(this.roomID.trim())){
+                Date startDate=guest.getStartDate();
+                int duration=guest.getRentalDate();
+
+                Calendar cal=Calendar.getInstance();
+                cal.setTime(startDate);
+                cal.add(Calendar.DATE, duration - 1);
+                Date endDate=cal.getTime();
+
+                if(!sDate.before(startDate) && !sDate.after(endDate))
+                    return true;
+            }
+        }
+        return false;
+    }
+}//Room

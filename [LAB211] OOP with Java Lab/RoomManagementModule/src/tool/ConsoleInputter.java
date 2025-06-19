@@ -12,6 +12,7 @@
 // Lớp này được để trong gói tools- Thường dùng chữ thường cho tên gói
 package tool; 
 // Đưa vào (import) để sử dụng lớp Scanner trong gói java.util
+import java.io.IOException;
 import java.util.Scanner; 
 import java.util.Date; // lớp mô tả cho ngày tháng
 import java.text.DateFormat; // lớp mô tả dạng ngày tháng
@@ -32,11 +33,12 @@ public class ConsoleInputter {
     */ 
     public static boolean getBoolean(String prompt){
         // xuất lời nhắc nhở cùng với giải thích cách nhập
-        System.out.print(prompt + " (Y/N, T/F, 1/0)?: "); 
+        //System.out.print(prompt + " (Y/N, T/F, 1/0)?: "); 
+        System.out.print(prompt + " (M/F, T/F, 1/0)?: "); 
         String data = sc.nextLine().trim().toUpperCase(); // lấy vào 1 chuỗi 
         char c = data.charAt(0); // lấy ký tự đầu tiên do user trả lời
         // trả trị true cho 3 trường hợp sau / ngược lại trả trị false
-        return c=='Y' || c=='T' || c=='1';
+        return c=='M' || c=='T' || c=='1';
     }
     /* Nhập số nguyên trong 1 khoảng [min,max]
        Cách dùng: int age = getInt("Age", 18,60);
@@ -44,7 +46,7 @@ public class ConsoleInputter {
     public static int getInt(String prompt, int min, int max){
         int result = 0;
         do{
-            System.out.print(prompt + "[" + min + ", " + max + "]: ");
+             System.out.print(prompt + "[" + min + ", " + max + "]: ");
             result = Integer.parseInt(sc.nextLine().trim());
             if (result < min || result > max )
                 System.out.println("Value range: " + "[" + min + ", " + max + "]" );          
@@ -66,8 +68,7 @@ public class ConsoleInputter {
     }
     // Nhập 1 chuỗi bất kỳ
     public static String getStr(String prompt){
-        System.out.print(prompt); // xuất lời nhắc nhở
-//        System.out.println(prompt + ": ");
+        System.out.print(prompt + ": "); // xuất lời nhắc nhở
         return sc.nextLine().trim(); 
     }
     /* Nhập 1 chuỗi theo mẫu quy định (pattern). Vì pattern có nhiều dạng nên
@@ -89,12 +90,6 @@ public class ConsoleInputter {
         } while (!valid); // lặp lại nếu data không trùng mẫu
         return data; 
     }
-    // Hàm kiểm tra chuỗi có hợp lệ theo biểu thức chính quy (regex)
-    public static boolean isValid(String input, String regex) {
-        if (input==null) return false;
-        return input.matches(regex);
-    }
-
     /* Nhập Date theo mẫu dd-MM-yyyy hoặc MM-dd-yyyy, .... Cách dủng
        Date d = getDate("Date of birth:", "dd-MM-yyyy");
        Ở đây hành vi parse(...) của lớp DateFormat được dùng. Hành vi này sẽ 
@@ -113,13 +108,12 @@ public class ConsoleInputter {
         // Tạo DateFormat formatter với date format trong tham sồ
         DateFormat formatter = new SimpleDateFormat(dateFormat);
         do{
-            System.out.print(prompt); // xuất lời nhắc
-            // System.out.println(prompt + ": ");
+            System.out.print(prompt + ": "); // xuất lời nhắc
             dateStr = sc.nextLine().trim(); // nhập data
             try{ // phân tích String -> Date. 
                 // Hành vi parse sẽ tự động điều chỉnh phù hợp. 
                 //Thí dụ 32-12-2024 sẽ chuyển thành 01/01/2025 
-                
+                 
                 d = formatter.parse(dateStr); 
             }
             catch (ParseException e){ // nếu phân tích có lỗi xuất thông báo
@@ -155,13 +149,24 @@ public class ConsoleInputter {
     /*Menu trả về số int mà người dùng chọn. 
     * Cách dùng: int choice = intMenu("Add", "Search", "Remove");
     */
-    public static int intMenu (Object... options){
-       // int choice;
-        int n= options.length ; // số mục trong menu
-        for (int i=0; i< n; i++) // xuất các options
-            System.out.println((i+1) + "-" + options[i]);
-        return getInt("Choose ", 1, n); // User bị buộc nhập số phù hợp 1..n
+    public static int intMenu(Object... options) {
+        int n = options.length;
+        for (int i = 0; i < n; i++) {
+            System.out.println((i + 1) + " - " + options[i]);
+        }
+
+        int choice = -1;
+        do {
+            try {
+                choice = getInt("Choose", 1, n);
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please enter a number.");
+            }
+        } while (choice < 1 || choice > n);
+
+        return choice;
     }
+
     /*Menu trả về object mà người dùng chọn 
      Cách dùng: String objChoice = (String)objMenu("Add", "Search", "Remove");
     */
@@ -170,12 +175,30 @@ public class ConsoleInputter {
         return options[choice-1];
     }   
     
-    // sinh key dựa trên ngày tháng
-    public static String dateKeyGen(){
-        Date now=new Date(); // lấy ngày hiện tại
-        // chuyển thành dạng chuỗi theo mẫu
-        SimpleDateFormat f=new SimpleDateFormat("yyyyMMddhhmmss");
-        return f.format(now);
+    
+    
+    // sinh key dua tren ngay thang
+    public static String DateKeyGen(){
+        Date now = new Date();// lay ngay hien tai
+        //chuyen thanh dang chuoi theo mau
+        SimpleDateFormat f =  new SimpleDateFormat("yyyMMddhhmmss");
+        return f.format(now);   
+    }
+ 
+    //Pause
+    public static void pause() {
+    System.out.println("Press Enter to continue...");
+    sc.nextLine();
+    }
+    
+    public static boolean isSameDay(Date d1, Date d2) {
+        Calendar c1 = Calendar.getInstance();
+        Calendar c2 = Calendar.getInstance();
+        c1.setTime(d1);
+        c2.setTime(d2);
+        return c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR)
+                && c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH)
+                && c1.get(Calendar.DAY_OF_MONTH) == c2.get(Calendar.DAY_OF_MONTH);
     }
     // TESTS
     public static void main (String[] args){
@@ -208,7 +231,7 @@ public class ConsoleInputter {
         System.out.println("Phone 2 input: " + str);
         
         // Test xuất Date, truy xuất thành phần của Date
-        Date d = new Date(); //Lấy ngày hiện hành trong máy tính 
+        Date d = new Date();  //Lấy ngày hiện hành trong máy tính 
         System.out.println(d);
         System.out.println("MM-dd-yyyy: " +dateStr(d, "MM-dd-yyyy"));
         System.out.println("dd-MM-yyyy: " + dateStr(d, "dd-MM-yyyy"));
@@ -228,8 +251,15 @@ public class ConsoleInputter {
         String objChoice = (String)objMenu("Add", "Search", "Remove", 
                                              "Update", "Print");
         System.out.println("User choice (obj): " + objChoice);       
-        // test kinh mã tự dộng
-        String code=dateKeyGen();
+        
+        // test sinh ma tu dong
+        String code = DateKeyGen();
         System.out.println("Code: " + code);
     } // main()   
+
+    public static boolean isValid(String newPhone, String phonePattern) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }// class ConsoleInputter
+    
+
