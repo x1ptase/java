@@ -36,5 +36,83 @@ public class Guest implements Serializable{
     public Guest(String guestID){
         this.guestID=guestID;
     }
+
+    public String getGuestID() {
+        return guestID;
+    }
+
+    public String getGuestName() {
+        return guestName;
+    }
+
+    public String getDoB() {
+        return doB;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getDesiredRoomID() {
+        return desiredRoomID;
+    }
+
+    public int getRentalDays() {
+        return rentalDays;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public ArrayList<String> getCoTenant() {
+        return coTenant;
+    }
+
+    public void setGuestID(String guestID) {
+        this.guestID = guestID;
+    }
+
+    public void setGuestName(String guestName) {
+        this.guestName = guestName;
+    }
+
+    public void setDoB(String doB) {
+        this.doB = doB;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setDesiredRoomID(String desiredRoomID) {
+        this.desiredRoomID = desiredRoomID;
+    }
+
+    public void setRentalDays(int rentalDays) {
+        this.rentalDays = rentalDays;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setCoTenant(ArrayList<String> coTenant) {
+        this.coTenant = coTenant;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Guest guest=(Guest)obj;
+        return this.getGuestID().equalsIgnoreCase(guest.getGuestID());
+    } 
     
-}
+} // Guest

@@ -85,5 +85,4 @@ public class Room implements Serializable{
         return this.getRoomID().equalsIgnoreCase(room.getRoomID());
     }   
     
-    
 } // Room
