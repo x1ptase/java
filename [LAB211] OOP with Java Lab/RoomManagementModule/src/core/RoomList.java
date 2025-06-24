@@ -12,32 +12,78 @@ public class RoomList extends ArrayList<Room>{
     public static final String FILE_NAME="src\\data\\Active_Room_List.txt";
     
     public void readFromFile(String fName){
+        int successCount=0;
+        int failureCount=0;
         try{
             FileReader fr=new FileReader(fName);
             BufferedReader bf=new BufferedReader(fr);
             String line;
             while((line = bf.readLine()) != null){
-                String parts[]=line.split(";");
+                String[] parts=line.split(";");
                 if(parts.length == 6){
-                    String roomID=parts[0];
-                    if(!containsRoomID(roomID)){
+                    String roomID=parts[0].trim();
+                    String name=parts[1].trim();
+                    String type=parts[2].trim();
+                    String dailyRateStr=parts[3].trim();
+                    String capacityStr=parts[4].trim();
+                    String description=parts[5].trim();
 
-                        String name=parts[1];
-                        String type=parts[2];
-                        float dailyRate=Float.parseFloat(parts[3]);
-                        float capacity=Float.parseFloat(parts[4]);
-                        String description=parts[5];
-                        this.add(new Room(roomID, name, type, dailyRate, capacity, description));
+                    // check roomID trung lap
+                    if(containsRoomID(roomID)){
+                        System.out.println("Duplicate RoomID: " + line);
+                        failureCount++;
+                        continue;
                     }
+
+                    // ngay hop le
+                    float dailyRate;
+                    try{
+                        dailyRate=Float.parseFloat(dailyRateStr);
+                        if(dailyRate <= 0){
+                            System.out.println("DailyRate must be positive: " + line);
+                            failureCount++;
+                            continue;
+                        }
+                    } catch(NumberFormatException e){
+                        System.out.println("Invalid DailyRate format: " + line);
+                        failureCount++;
+                        continue;
+                    }
+
+                    // suc chua hop le
+                    int capacity;
+                    try{
+                        capacity=Integer.parseInt(capacityStr);
+                        if(capacity <= 0){
+                            System.out.println("Capacity must be a positive integer: " + line);
+                            failureCount++;
+                            continue;
+                        }
+                    } catch(NumberFormatException e){
+                        System.out.println("Invalid Capacity format: " + line);
+                        failureCount++;
+                        continue;
+                    }
+
+                    // them phong hop le
+                    this.add(new Room(roomID, name, type, dailyRate, (float) capacity, description));
+                    successCount++;
+                } else {
+                    System.out.println("Invalid line format (requires 6 fields): " + line);
+                    failureCount++;
                 }
             }
-            fr.close();
             bf.close();
+            fr.close();
         } catch(Exception e){
-            System.out.println(e);
+            System.out.println("Error reading file: " + e.getMessage());
+            failureCount++;
         }
-    }
 
+        System.out.println(successCount + " rooms successfully loaded.");
+        System.out.println(failureCount + " entries failed.");
+    }
+    
     private boolean containsRoomID(String roomID){
         for(Room r : this){
             if(r.getRoomID().equals(roomID)){

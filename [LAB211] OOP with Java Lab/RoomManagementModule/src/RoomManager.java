@@ -6,7 +6,7 @@ public class RoomManager{
         RoomList roomList=new RoomList();
         GuestList guestList=new GuestList();
 
-         try{
+        try{
             roomList.readFromFile(RoomList.FILE_NAME);
             guestList.readFromFile(GuestList.FILE_NAME);
         } catch(Exception e){
@@ -18,7 +18,8 @@ public class RoomManager{
         boolean changed=false;
         boolean isSaved=false;
         do{
-            choice=ConsoleInputter.intMenu(
+            choice = ConsoleInputter.intMenu(
+                    "Import Data From File", 
                     "Display Available Room List",
                     "Enter Guest Information",
                     "Update Guest Stay Information",
@@ -30,58 +31,67 @@ public class RoomManager{
                     "Revenue Report by Room Type",
                     "Save Guest Information",
                     "Exit");
-            if(choice >= 2 && choice <= 5){
-                changed=true;
+            if (choice >= 2 && choice <= 5) {
+                changed = true;
             }
-            
-            switch(choice){
-                case 1:
-                    roomList.displayAll();
+
+            switch (choice) {
+                case 1: 
+                    try {
+                        roomList.clear(); // xoa ds phong hien tai truoc khi doc lai
+                        roomList.readFromFile(RoomList.FILE_NAME);
+                    } catch (Exception e) {
+                        System.out.println("Error importing room data: " + e.getMessage());
+                    }
                     ConsoleInputter.pause();
                     break;
                 case 2:
-                    guestList.addGuest();
+                    roomList.displayAll();
                     ConsoleInputter.pause();
                     break;
                 case 3:
-                    guestList.updateGuest();
+                    guestList.addGuest();
                     ConsoleInputter.pause();
                     break;
                 case 4:
-                    guestList.searchByID();
+                    guestList.updateGuest();
                     ConsoleInputter.pause();
                     break;
                 case 5:
-                    guestList.deleteGuest();
+                    guestList.searchByID();
                     ConsoleInputter.pause();
                     break;
                 case 6:
-                    guestList.displayAll();
+                    guestList.deleteGuest();
                     ConsoleInputter.pause();
                     break;
                 case 7:
-                    roomList.vacantRoomList(guestList).displayAll();
+                    guestList.displayAll();
                     ConsoleInputter.pause();
                     break;
                 case 8:
-                    roomList.monthlyReport(guestList);
+                    roomList.vacantRoomList(guestList).displayAll();
                     ConsoleInputter.pause();
                     break;
                 case 9:
-                    roomList.revenueReport(guestList);
+                    roomList.monthlyReport(guestList);
                     ConsoleInputter.pause();
                     break;
                 case 10:
-                    guestList.saveToFile(GuestList.FILE_NAME);
+                    roomList.revenueReport(guestList);
                     ConsoleInputter.pause();
-                    isSaved=true;
-                    changed=false;
-                    System.out.println("Saved guestInfor successfully!");
                     break;
                 case 11:
-                    if(changed && !isSaved){
-                        boolean resp=tool.ConsoleInputter.getBoolean("Data changed. Do you want to save?");
-                        if(resp){
+                    guestList.saveToFile(GuestList.FILE_NAME);
+                    ConsoleInputter.pause();
+                    isSaved = true;
+                    changed = false;
+                    System.out.println("Saved guestInfor successfully!");
+                    break;
+                case 12:
+                    if (changed && !isSaved) {
+                        boolean resp = ConsoleInputter.getBoolean("Data changed. Do you want to save?");
+                        if (resp) {
                             guestList.saveToFile(GuestList.FILE_NAME);
                             System.out.println("Saved guestInfor successfully!");
                         }
@@ -91,6 +101,6 @@ public class RoomManager{
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
-        } while(choice != 11);
+        } while (choice != 12);
     }
 }
