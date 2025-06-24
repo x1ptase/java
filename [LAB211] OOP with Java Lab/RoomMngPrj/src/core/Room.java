@@ -12,7 +12,7 @@ public class Room implements Serializable{
     private float capacity; // suc chua
     private String furnitureDescription; // mo ta noi that
     
-    //c-tor
+    //c-tor default
     public Room(){
     }
     
@@ -87,6 +87,7 @@ public class Room implements Serializable{
         return this.getRoomID().equalsIgnoreCase(room.getRoomID());
     }   
 
+    // kiem tra phong 
     public boolean isRented(GuestList list, Date startDate, int rentals){
         if(list == null || list.isEmpty() || startDate == null || rentals <= 0){
             return false; // khong co thong tin dat phong --> phong trong
@@ -110,11 +111,11 @@ public class Room implements Serializable{
                 guestCal.add(Calendar.DATE, guestDuration - 1);
                 Date guestEndDate=guestCal.getTime();
                 
-                /*  guestStartDate=21/6/25 guestDuration=3 --> guestEndDate=23/6/25
-                *   21/6 - 23/6
-                *   20/6 - 22/6
-                *   checkEndDate(22/6) khong truoc guestStartDate(21/6) true
-                *   guestEndDate(23/6) khong truoc startDate(20/6) true
+                /*  guestStartDate=24/6/25 guestDuration=3 --> guestEndDate=26/6/25
+                *   24/6 - 26/6
+                *   23/6 - 25/6
+                *   checkEndDate(25/6) khong truoc guestStartDate(24/6) true
+                *   guestEndDate(26/6) khong truoc startDate(23/6) true
                 */
                 
                 // kiem tra giao nhau cua 2 khoang thoi gian

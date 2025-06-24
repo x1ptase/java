@@ -163,7 +163,7 @@ public class GuestList extends ArrayList<Guest>{
                 Date newStartDate;
                 do{
                     newStartDate=ConsoleInputter.getDate("Enter new date", "dd/MM/yyyy");
-                } while (newStartDate.before(g.getStartDate()));
+                } while(newStartDate.before(g.getStartDate()));
                 g.setStartDate(newStartDate);
                 
                 boolean isRen;
@@ -233,6 +233,7 @@ public class GuestList extends ArrayList<Guest>{
             return;
         }
         Guest gPos=this.get(pos);
+        // chi xoa duoc if startDate o tuong lai (chua nhan phong)
         if(gPos.getStartDate().after(new Date())){
             this.remove(gPos);
             System.out.println("Delete successfully");

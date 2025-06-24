@@ -15,7 +15,7 @@ public class Guest implements Serializable{
     private Date startDate; // ngay nhan phong
     private ArrayList<String> coTenant=new ArrayList<>(); // roomMate
     
-    // c-tor
+    // c-tor default
     public Guest(){
     }
 
