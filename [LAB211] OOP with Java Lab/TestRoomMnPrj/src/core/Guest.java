@@ -7,8 +7,8 @@ import java.util.Date;
 public class Guest implements Serializable{
     private String guestID; // cccd
     private String guestName; 
-    private String doB;
-    private String gender;
+    private Date doB;
+    private boolean gender;
     private String phoneNumber;
     private String desiredRoomID; // ma phong
     private int rentalDays; // so ngay thue
@@ -20,8 +20,8 @@ public class Guest implements Serializable{
     }
 
     // c-tor
-    public Guest(String guestID, String guestName, String doB, String gender, 
-            String phoneNumber, String desiredRoomID, int rentalDays, Date startDate) {
+    public Guest(String guestID, String guestName, Date doB, boolean gender, 
+            String phoneNumber, String desiredRoomID, int rentalDays, Date startDate, ArrayList<String> coTenant) {
         this.guestID = guestID;
         this.guestName = guestName;
         this.doB = doB;
@@ -30,6 +30,7 @@ public class Guest implements Serializable{
         this.desiredRoomID = desiredRoomID;
         this.rentalDays = rentalDays;
         this.startDate = startDate;
+        this.coTenant = coTenant;
     }
     
     // ham de so sanh voi method
@@ -45,11 +46,11 @@ public class Guest implements Serializable{
         return guestName;
     }
 
-    public String getDoB() {
+    public Date getDoB() {
         return doB;
     }
 
-    public String getGender() {
+    public boolean isGender() {
         return gender;
     }
 
@@ -81,11 +82,11 @@ public class Guest implements Serializable{
         this.guestName = guestName;
     }
 
-    public void setDoB(String doB) {
+    public void setDoB(Date doB) {
         this.doB = doB;
     }
 
-    public void setGender(String gender) {
+    public void setGender(boolean gender) {
         this.gender = gender;
     }
 

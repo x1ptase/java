@@ -1,6 +1,8 @@
 package core;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Room implements Serializable{
     private String roomID;
@@ -84,5 +86,44 @@ public class Room implements Serializable{
         Room room=(Room)obj;
         return this.getRoomID().equalsIgnoreCase(room.getRoomID());
     }   
+
+    public boolean isRented(GuestList list, Date startDate, int rentals){
+        if(list == null || list.isEmpty() || startDate == null || rentals <= 0){
+            return false; // khong co thong tin dat phong --> phong trong
+        }
+
+        // tinh ngay ket thuc cua khoang thoi gian can kiem tra
+        Calendar checkCal=Calendar.getInstance();
+        checkCal.setTime(startDate);
+        checkCal.add(Calendar.DATE, rentals - 1); // rentals=3, startDate + 2 days
+        Date checkEndDate=checkCal.getTime();
+
+        for(Guest guest : list){
+            // kiem tra ma phong: guest && current
+            if(guest.getDesiredRoomID().trim().equalsIgnoreCase(this.roomID.trim())){
+                Date guestStartDate=guest.getStartDate();
+                int guestDuration=guest.getRentalDays();
+
+                // tinh ngay ket thuc cua khach
+                Calendar guestCal=Calendar.getInstance();
+                guestCal.setTime(guestStartDate);
+                guestCal.add(Calendar.DATE, guestDuration - 1);
+                Date guestEndDate=guestCal.getTime();
+                
+                /*  guestStartDate=21/6/25 guestDuration=3 --> guestEndDate=23/6/25
+                *   21/6 - 23/6
+                *   20/6 - 22/6
+                *   checkEndDate(22/6) khong truoc guestStartDate(21/6) true
+                *   guestEndDate(23/6) khong truoc startDate(20/6) true
+                */
+                
+                // kiem tra giao nhau cua 2 khoang thoi gian
+                if(!checkEndDate.before(guestStartDate) && !guestEndDate.before(startDate)){
+                    return true; // co giao nhau --> phong duoc thue
+                }
+            }
+        }
+        return false; // khong giao nhau --> phong trong
+    }
     
 } // Room

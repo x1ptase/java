@@ -40,7 +40,7 @@ public class RoomList extends ArrayList<Room> {
         } catch(Exception e){
             System.out.println(e);
         }
-    }
+    } // readFromFile()
     
     // Function 2: Display Available Room List 
     public void displayAll() {
@@ -59,12 +59,20 @@ public class RoomList extends ArrayList<Room> {
                     room.getFurnitureDescription());
         }
         System.out.println("------------------------------------------------------------------------------------------------------------------");
-    }
+    } // displayAll()
+    
+    public Room findRoom(String ID){
+        int pos=this.indexOf(new Room(ID));
+        if(pos < 0)
+            return null;
+        else
+            return this.get(pos);
+    } // findRoom()
    
-    // Function 7
+    // Function 7: List Vacant Rooms
         
-    // Function 8
+    // Function 8: Monthly Revenue Report
         
-    // Function 9
+    // Function 9: Revenue Report by Room Type
      
 } // RoomList

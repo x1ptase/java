@@ -11,6 +11,17 @@ import tool.ConsoleInputter;
 public class RoomList extends ArrayList<Room>{
     public static final String FILE_NAME="src\\data\\Active_Room_List.txt";
     
+    // kiem tra roomID da ton tai hay chua
+    private boolean containsRoomID(String roomID){
+        for(Room r : this){
+            if(r.getRoomID().equals(roomID)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    // Function 0
     public void readFromFile(String fName){
         try{
             FileReader fr=new FileReader(fName);
@@ -21,7 +32,6 @@ public class RoomList extends ArrayList<Room>{
                 if(parts.length == 6){
                     String roomID=parts[0];
                     if(!containsRoomID(roomID)){
-
                         String name=parts[1];
                         String type=parts[2];
                         float dailyRate=Float.parseFloat(parts[3]);
@@ -36,17 +46,10 @@ public class RoomList extends ArrayList<Room>{
         } catch(Exception e){
             System.out.println(e);
         }
-    }
+    } // readFromFile()
 
-    private boolean containsRoomID(String roomID){
-        for(Room r : this){
-            if(r.getRoomID().equals(roomID)){
-                return true;
-            }
-        }
-        return false;
-    }
-
+    
+    // Function 1
     public void displayAll(){
         System.out.println("------------------------------------------------------------------------------------------------------------------");
         System.out.format("%-6s | %-20s | %-9s | %-6s | %-9s | %-30s\n",
@@ -63,7 +66,7 @@ public class RoomList extends ArrayList<Room>{
                     room.getFurnitureDescription());
         }
         System.out.println("------------------------------------------------------------------------------------------------------------------");
-    }
+    } // displayAll()
 
     public Room findRoom(String id){
         int pos=this.indexOf(new Room(id));
@@ -71,21 +74,34 @@ public class RoomList extends ArrayList<Room>{
             return null;
         else
             return this.get(pos);
-    }
+    } // findRoom()
 
-    public RoomList vacantRoomList(GuestList gList){
-        RoomList vaRoomList=new RoomList();
-        boolean isRen;
-        Date dateCheck=ConsoleInputter.getDate("Enter date want to check(dd/MM/yyyy)", "dd/MM/yyyy");
-        for(Room r : this){
-            isRen=r.isRented(gList, dateCheck);
-            if(!isRen){
-                vaRoomList.add(r);
-            }
+    
+    // Function 7
+    public RoomList vacantRoomList(GuestList gList) {
+        RoomList vaRoomList = new RoomList();
+        Date dateCheck = ConsoleInputter.getDate("Enter date want to check (dd/MM/yyyy)", "dd/MM/yyyy");
+        // xac thuc ngay nhap vao
+        if(dateCheck == null){
+            System.out.println("Invalid date input. Returning empty room list.");
+            return vaRoomList;
         }
+
+        for(Room r : this){
+            // goi isRented voi rentals=1 de kiem tra mot ngay duy nhat
+            boolean isRen=r.isRented(gList, dateCheck, 1);
+            if(!isRen)
+                vaRoomList.add(r);
+        }
+        // kiem tra danh sach trong
+        if (vaRoomList.isEmpty()){
+            System.out.println("All rooms have currently been rented out; no rooms are available.");
+        }
+
         return vaRoomList;
     }
 
+    // Function 8
     public void monthlyReport(GuestList gList){
         Date monthYear=ConsoleInputter.getDate("Enter Month Report(MM/yyyy)", "MM/yyyy");
         Calendar cal=Calendar.getInstance();
@@ -95,15 +111,15 @@ public class RoomList extends ArrayList<Room>{
 
         ArrayList<String[]> report=new ArrayList<>();
         for(Guest g : gList){
-        Room roomRent=this.findRoom(g.getDesiredRID());
+        Room roomRent=this.findRoom(g.getDesiredRoomID());
         if(roomRent == null){
-            System.out.println("Warning: Room " + g.getDesiredRID() + " not found for guest " + g.getGuestID());
+            System.out.println("Warning: Room " + g.getDesiredRoomID() + " not found for guest " + g.getGuestID());
             continue;
         }
 
         float total=0f;
         Date startDate=g.getStartDate();
-        int rentalDays=g.getRentalDate();
+        int rentalDays=g.getRentalDays();
         Calendar calG=Calendar.getInstance();
         calG.setTime(startDate);
 
@@ -134,8 +150,8 @@ public class RoomList extends ArrayList<Room>{
         System.out.println("No revenue data for " + String.format("%02d/%d", targetMonth + 1, targetYear));
     else
         displayMonthlyReport(report, targetMonth + 1, targetYear);
-}
-
+    }
+    
     private void displayMonthlyReport(ArrayList<String[]> report, int month, int year){
         System.out.println("Monthly Revenue Report - " + String.format("%02d/%d", month, year));
         System.out.println("---------------------------------------------------------------------");
@@ -150,12 +166,13 @@ public class RoomList extends ArrayList<Room>{
         System.out.println("---------------------------------------------------------------------");
     }
 
+    // Function 9
     public void revenueReport(GuestList gList){
         HashMap<String, Float> revenueMap=new HashMap<>();
         for(Guest guest : gList){
-            Room roomRent=this.findRoom(guest.getDesiredRID());
+            Room roomRent=this.findRoom(guest.getDesiredRoomID());
             String roomType=roomRent.getRoomType();
-            float guestRevenue=guest.getRentalDate() * roomRent.getDailyRate();
+            float guestRevenue=guest.getRentalDays() * roomRent.getDailyRate();
             revenueMap.put(roomType, guestRevenue);
         }
         displayRevenueByRoomType(revenueMap);

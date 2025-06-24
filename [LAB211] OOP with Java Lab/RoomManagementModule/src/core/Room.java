@@ -87,7 +87,6 @@ public class Room {
             return false;
         }
 
-        // tinh ngay ket thuc cua khoang thoi gian can kiem tra
         Calendar checkCal = Calendar.getInstance();
         checkCal.setTime(startDate);
         checkCal.add(Calendar.DATE, rentals - 1);
@@ -98,18 +97,16 @@ public class Room {
                 Date guestStartDate = guest.getStartDate();
                 int guestDuration = guest.getRentalDate();
 
-                // tinh ngay ket thuc cua khach
                 Calendar guestCal = Calendar.getInstance();
                 guestCal.setTime(guestStartDate);
                 guestCal.add(Calendar.DATE, guestDuration - 1);
                 Date guestEndDate = guestCal.getTime();
 
-                // kiem tra giao nhau cua 2 khoang thoi gian
                 if (!checkEndDate.before(guestStartDate) && !guestEndDate.before(startDate)) {
-                    return true; // co giao nhau --> phong duoc thue
+                    return true; 
                 }
             }
         }
-    return false; // khong giao nhau --> phong trong
+    return false; 
 }
 }//Room
