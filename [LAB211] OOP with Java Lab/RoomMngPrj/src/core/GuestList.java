@@ -59,7 +59,7 @@ public class GuestList extends ArrayList<Guest>{
         System.out.format("\n%-20s: $%,f\n", "TOTAL COST", totalCost);
     }
 
-    // Function 2
+    // Function 3
     public void addGuest(){
         // ID
         String guestID;
@@ -151,7 +151,7 @@ public class GuestList extends ArrayList<Guest>{
         
     } // addGuest()
      
-    // Function 3
+    // Function 4
     public void updateGuest(){
         String idCheck=ConsoleInputter.getStr("Enter guestID", IDPattern, "ID  must has 12 degits");
         for(Guest g : this){
@@ -212,7 +212,7 @@ public class GuestList extends ArrayList<Guest>{
         System.out.println("No guest found with the requested ID!");
     }
 
-    // Function 4
+    // Function 5
     public void searchByID(){
         String idCheck=ConsoleInputter.getStr("Enter guestID", IDPattern, "ID must has 12 digits");
         for(Guest thi : this){

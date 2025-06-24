@@ -19,6 +19,7 @@ public class RoomManager{
         boolean isSaved=false;
         do{
             choice=ConsoleInputter.intMenu(
+                    "Import Room Data from Test File",
                     "Display Available Room List",
                     "Enter Guest Information",
                     "Update Guest Stay Information",
@@ -30,55 +31,60 @@ public class RoomManager{
                     "Revenue Report by Room Type",
                     "Save Guest Information",
                     "Exit");
-            if(choice >= 2 && choice <= 5){
+            if(choice >= 3 && choice <= 6){
                 changed=true;
             }
             
             switch(choice){
-                case 1:
-                    roomList.displayAll();
+                case 1: 
+                    roomList.clear(); // xoa ds phong hien tai truoc khi doc lai --> k bi xung dot, trung lap
+                    roomList.readFromFile(RoomList.FILE_NAME);
                     ConsoleInputter.pause();
                     break;
                 case 2:
-                    guestList.addGuest();
+                    roomList.displayAll();
                     ConsoleInputter.pause();
                     break;
                 case 3:
-                    guestList.updateGuest();
+                    guestList.addGuest();
                     ConsoleInputter.pause();
                     break;
                 case 4:
-                    guestList.searchByID();
+                    guestList.updateGuest();
                     ConsoleInputter.pause();
                     break;
                 case 5:
-                    guestList.deleteGuest();
+                    guestList.searchByID();
                     ConsoleInputter.pause();
                     break;
                 case 6:
-                    guestList.displayAll();
+                    guestList.deleteGuest();
                     ConsoleInputter.pause();
                     break;
                 case 7:
-                    roomList.vacantRoomList(guestList).displayAll();
+                    guestList.displayAll();
                     ConsoleInputter.pause();
                     break;
                 case 8:
-                    roomList.monthlyReport(guestList);
+                    roomList.vacantRoomList(guestList).displayAll();
                     ConsoleInputter.pause();
                     break;
                 case 9:
-                    roomList.revenueReport(guestList);
+                    roomList.monthlyReport(guestList);
                     ConsoleInputter.pause();
                     break;
                 case 10:
+                    roomList.revenueReport(guestList);
+                    ConsoleInputter.pause();
+                    break;
+                case 11:
                     guestList.saveToFile(GuestList.FILE_NAME);
                     ConsoleInputter.pause();
                     isSaved=true;
                     changed=false; // k con thay doi nua
                     System.out.println("Saved guestInfor successfully!");
                     break;
-                case 11:
+                case 12:
                     if(changed && !isSaved){
                         boolean resp=tool.ConsoleInputter.getBoolean("Data changed. Do you want to save?");
                         if(resp){
@@ -91,6 +97,6 @@ public class RoomManager{
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
-        } while(choice != 11);
+        } while(choice != 12);
     }
 }

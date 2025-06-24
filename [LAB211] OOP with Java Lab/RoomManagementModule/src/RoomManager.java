@@ -31,7 +31,7 @@ public class RoomManager{
                     "Revenue Report by Room Type",
                     "Save Guest Information",
                     "Exit");
-            if (choice >= 2 && choice <= 5) {
+            if (choice >= 3 && choice <= 6) {
                 changed = true;
             }
 

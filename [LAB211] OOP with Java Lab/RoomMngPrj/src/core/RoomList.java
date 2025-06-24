@@ -21,35 +21,82 @@ public class RoomList extends ArrayList<Room>{
         return false;
     }
     
-    // Function 0
+    // Function 1
     public void readFromFile(String fName){
+        int successCount=0;
+        int failureCount=0;
         try{
             FileReader fr=new FileReader(fName);
             BufferedReader bf=new BufferedReader(fr);
             String line;
             while((line = bf.readLine()) != null){
-                String parts[]=line.split(";");
+                String[] parts=line.split(";");
                 if(parts.length == 6){
-                    String roomID=parts[0];
-                    if(!containsRoomID(roomID)){
-                        String name=parts[1];
-                        String type=parts[2];
-                        float dailyRate=Float.parseFloat(parts[3]);
-                        float capacity=Float.parseFloat(parts[4]);
-                        String description=parts[5];
-                        this.add(new Room(roomID, name, type, dailyRate, capacity, description));
+                    String roomID=parts[0].trim();
+                    String name=parts[1].trim();
+                    String type=parts[2].trim();
+                    String dailyRateStr=parts[3].trim();
+                    String capacityStr=parts[4].trim();
+                    String description=parts[5].trim();
+
+                    // check roomID trung lap
+                    if(containsRoomID(roomID)){
+                        System.out.println("Duplicate RoomID: " + line);
+                        failureCount++;
+                        continue;
                     }
+
+                    // ngay hop le
+                    float dailyRate;
+                    try{
+                        dailyRate=Float.parseFloat(dailyRateStr);
+                        if(dailyRate <= 0){
+                            System.out.println("DailyRate must be positive: " + line);
+                            failureCount++;
+                            continue;
+                        }
+                    } catch(NumberFormatException e){
+                        System.out.println("Invalid DailyRate format: " + line);
+                        failureCount++;
+                        continue;
+                    }
+
+                    // suc chua hop le
+                    int capacity;
+                    try{
+                        capacity=Integer.parseInt(capacityStr);
+                        if(capacity <= 0){
+                            System.out.println("Capacity must be a positive integer: " + line);
+                            failureCount++;
+                            continue;
+                        }
+                    } catch(NumberFormatException e){
+                        System.out.println("Invalid Capacity format: " + line);
+                        failureCount++;
+                        continue;
+                    }
+
+                    // them phong hop le
+                    this.add(new Room(roomID, name, type, dailyRate, (float) capacity, description));
+                    successCount++;
+                } else {
+                    System.out.println("Invalid line format (requires 6 fields): " + line);
+                    failureCount++;
                 }
             }
-            fr.close();
             bf.close();
+            fr.close();
         } catch(Exception e){
-            System.out.println(e);
+            System.out.println("Error reading file: " + e.getMessage());
+            failureCount++;
         }
+
+        System.out.println(successCount + " rooms successfully loaded.");
+        System.out.println(failureCount + " entries failed.");
     } // readFromFile()
 
     
-    // Function 1
+    // Function 2
     public void displayAll(){
         System.out.println("------------------------------------------------------------------------------------------------------------------");
         System.out.format("%-6s | %-20s | %-9s | %-6s | %-9s | %-30s\n",
@@ -77,7 +124,7 @@ public class RoomList extends ArrayList<Room>{
     } // findRoom()
 
     
-    // Function 7
+    // Function 8
     public RoomList vacantRoomList(GuestList gList) {
         RoomList vaRoomList=new RoomList();
         Date dateCheck=ConsoleInputter.getDate("Enter date want to check (dd/MM/yyyy)", "dd/MM/yyyy");
@@ -101,7 +148,7 @@ public class RoomList extends ArrayList<Room>{
         return vaRoomList;
     }
 
-    // Function 8
+    // Function 9
     public void monthlyReport(GuestList gList){
         Date monthYear=ConsoleInputter.getDate("Enter Month Report(MM/yyyy)", "MM/yyyy");
         Calendar cal=Calendar.getInstance();
@@ -167,7 +214,7 @@ public class RoomList extends ArrayList<Room>{
         System.out.println("---------------------------------------------------------------------");
     }
 
-    // Function 9
+    // Function 10
     public void revenueReport(GuestList gList){
         HashMap<String, Float> revenueMap=new HashMap<>();
         for(Guest guest : gList){
