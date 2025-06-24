@@ -79,8 +79,8 @@ public class RoomList extends ArrayList<Room>{
     
     // Function 7
     public RoomList vacantRoomList(GuestList gList) {
-        RoomList vaRoomList = new RoomList();
-        Date dateCheck = ConsoleInputter.getDate("Enter date want to check (dd/MM/yyyy)", "dd/MM/yyyy");
+        RoomList vaRoomList=new RoomList();
+        Date dateCheck=ConsoleInputter.getDate("Enter date want to check (dd/MM/yyyy)", "dd/MM/yyyy");
         // xac thuc ngay nhap vao
         if(dateCheck == null){
             System.out.println("Invalid date input. Returning empty room list.");
@@ -94,7 +94,7 @@ public class RoomList extends ArrayList<Room>{
                 vaRoomList.add(r);
         }
         // kiem tra danh sach trong
-        if (vaRoomList.isEmpty()){
+        if(vaRoomList.isEmpty()){
             System.out.println("All rooms have currently been rented out; no rooms are available.");
         }
 
@@ -111,12 +111,12 @@ public class RoomList extends ArrayList<Room>{
 
         ArrayList<String[]> report=new ArrayList<>();
         for(Guest g : gList){
-        Room roomRent=this.findRoom(g.getDesiredRoomID());
-        if(roomRent == null){
-            System.out.println("Warning: Room " + g.getDesiredRoomID() + " not found for guest " + g.getGuestID());
-            continue;
+            Room roomRent=this.findRoom(g.getDesiredRoomID());
+            if(roomRent == null){
+                System.out.println("Warning: Room " + g.getDesiredRoomID() + " not found for guest " + g.getGuestID());
+                continue;
         }
-
+            
         float total=0f;
         Date startDate=g.getStartDate();
         int rentalDays=g.getRentalDays();
@@ -150,7 +150,8 @@ public class RoomList extends ArrayList<Room>{
         System.out.println("No revenue data for " + String.format("%02d/%d", targetMonth + 1, targetYear));
     else
         displayMonthlyReport(report, targetMonth + 1, targetYear);
-    }
+    
+    } // monthlyReport()
     
     private void displayMonthlyReport(ArrayList<String[]> report, int month, int year){
         System.out.println("Monthly Revenue Report - " + String.format("%02d/%d", month, year));

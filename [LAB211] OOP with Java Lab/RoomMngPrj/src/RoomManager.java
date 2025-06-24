@@ -6,7 +6,7 @@ public class RoomManager{
         RoomList roomList=new RoomList();
         GuestList guestList=new GuestList();
 
-         try{
+        try{
             roomList.readFromFile(RoomList.FILE_NAME);
             guestList.readFromFile(GuestList.FILE_NAME);
         } catch(Exception e){
@@ -75,7 +75,7 @@ public class RoomManager{
                     guestList.saveToFile(GuestList.FILE_NAME);
                     ConsoleInputter.pause();
                     isSaved=true;
-                    changed=false;
+                    changed=false; // k con thay doi nua
                     System.out.println("Saved guestInfor successfully!");
                     break;
                 case 11:
