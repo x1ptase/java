@@ -79,7 +79,7 @@ public class RoomList extends ArrayList<Room>{
                     // them phong hop le
                     this.add(new Room(roomID, name, type, dailyRate, (float) capacity, description));
                     successCount++;
-                } else {
+                } else{
                     System.out.println("Invalid line format (requires 6 fields): " + line);
                     failureCount++;
                 }
@@ -191,7 +191,7 @@ public class RoomList extends ArrayList<Room>{
                 String.format("%.2f", total)
             });
         }
-    }
+    } // monthlyReport()
 
     if(report.isEmpty())
         System.out.println("No revenue data for " + String.format("%02d/%d", targetMonth + 1, targetYear));
@@ -224,7 +224,7 @@ public class RoomList extends ArrayList<Room>{
             revenueMap.put(roomType, guestRevenue);
         }
         displayRevenueByRoomType(revenueMap);
-    }
+    } //revenueReport()
 
     private void displayRevenueByRoomType(HashMap<String, Float> revenueByType){
         System.out.println("Revenue Report by Room Type");

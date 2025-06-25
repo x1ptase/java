@@ -61,7 +61,7 @@ public class RoomManager{
                     guestList.deleteGuest();
                     ConsoleInputter.pause();
                     break;
-                case 7:
+                case 7: // tu them vao (khong co trong de)
                     guestList.displayAll();
                     ConsoleInputter.pause();
                     break;

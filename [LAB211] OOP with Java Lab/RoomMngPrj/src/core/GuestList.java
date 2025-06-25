@@ -153,19 +153,22 @@ public class GuestList extends ArrayList<Guest>{
      
     // Function 4
     public void updateGuest(){
-        String idCheck=ConsoleInputter.getStr("Enter guestID", IDPattern, "ID  must has 12 degits");
+        String IDCheck=ConsoleInputter.getStr("Enter guestID", IDPattern, "ID  must has 12 degits");
         for(Guest g : this){
-            if(g.getGuestID().equalsIgnoreCase(idCheck)){
+            if(g.getGuestID().equalsIgnoreCase(IDCheck)){
+                //  updateID
                 int rentalDate;
                 rentalDate=ConsoleInputter.getInt("Enter Rental Date", 1, Integer.MAX_VALUE);
                 g.setRentalDays(rentalDate);
-
+                
+                // updateDate
                 Date newStartDate;
                 do{
                     newStartDate=ConsoleInputter.getDate("Enter new date", "dd/MM/yyyy");
                 } while(newStartDate.before(g.getStartDate()));
                 g.setStartDate(newStartDate);
                 
+                // updateRoom
                 boolean isRen;
                 String desiredRoomID;
                 do{
@@ -177,11 +180,12 @@ public class GuestList extends ArrayList<Guest>{
                 } while(isRen);
                 g.setDesiredRoomID(desiredRoomID);
                 
+                // update coTenant
                 boolean isAdd;
                 if(g.getCoTenant().isEmpty())
                     isAdd=true;
                 else
-                    isAdd=ConsoleInputter.getBoolean("Is add more Co-Tenant");
+                    isAdd=ConsoleInputter.getBoolean("Is add more Co-Tenant?");
                
                 if(isAdd){
                     int numberAdd;
@@ -224,7 +228,7 @@ public class GuestList extends ArrayList<Guest>{
         }
     }
 
-    // Function 5
+    // Function 6
     public void deleteGuest(){
         String idCheck=ConsoleInputter.getStr("Enter guestID", IDPattern, "ID must has 12 digits");
         int pos=this.indexOf(new Guest(idCheck));
@@ -241,7 +245,7 @@ public class GuestList extends ArrayList<Guest>{
             System.out.println("Guest's reservation has not started yet. Cannot delete.");
     }
 
-    // Function 6
+    // Function 7 (Them vao cho de theo doi)
     public void displayAll(){
         if(this.isEmpty()){
             System.out.println("No guests in the list.");
@@ -266,6 +270,7 @@ public class GuestList extends ArrayList<Guest>{
         System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
     }
 
+    // Function 11
     public void saveToFile(String fName){
         if(this.isEmpty()){
             System.out.println("List is empty!");
