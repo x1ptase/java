@@ -81,7 +81,7 @@ public class RoomManager{
                     guestList.saveToFile(GuestList.FILE_NAME);
                     ConsoleInputter.pause();
                     isSaved=true;
-                    changed=false; // k con thay doi nua
+                    changed=false; // k con thay doI
                     System.out.println("Saved guestInfor successfully!");
                     break;
                 case 12:
