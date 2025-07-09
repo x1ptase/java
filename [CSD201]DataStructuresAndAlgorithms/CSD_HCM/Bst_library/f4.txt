@@ -1,0 +1,5 @@
+Book List: (B001,Java,5,1) (B002,Java,3,2) (B003,Java,4,3) (B004,CSHARP,2,1) (B005,CSHARP,3,2) (B006,Python,1,1) (B007,Python,6,3) (B008,DOTNET,2,2) (B009,Ruby,5,3) (B010,PHP,7,4) 
+Request  : (Java,2) (Java,1) (CSHARP,3) (CSHARP,5) (Python,1) (DOTNET,2) (Ruby,5) (NotExist,1) 
+Book List: (B001,Java,2,1) (B002,Java,3,2) (B003,Java,4,3) (B004,CSHARP,2,1) (B007,Python,6,3) (B010,PHP,7,4) 
+Request  : Empty
+Number of books remaining: 24 

@@ -1,0 +1,204 @@
+// Vui long doc cai nay:
+// NEU NHU BAN CO COPYPASTE THI XIN HAY DOC DE!!! Moi de co yeu cau IF ELSE DIEU KIEN KHAC NHAU nen mu quang copy se lam cho 0 diem + 2tr6, copypaste chi de tham khao va dung co' steal to sell nhe'. Mai yeu
+// Author: MinThichBao
+// Update: 12/12/2024
+
+//===== PHAN 1: LINKED LIST OPERATIONS =====
+// 1.1. Them vao dau linked list
+void addFirst(String id, int value) {
+    Node newNode = new Node(new Item(id, value));
+    if (isEmpty()) {
+        head = tail = newNode;
+    } else {
+        newNode.next = head;
+        head = newNode;
+    }
+}
+
+// 1.2. Them vao cuoi linked list
+void addLast(String id, int value) {
+    Node newNode = new Node(new Item(id, value));
+    if (isEmpty()) {
+        head = tail = newNode;
+    } else {
+        tail.next = newNode;
+        tail = newNode;
+    }
+}
+
+// 1.3. Them vao vi tri k
+void insertAt(String id, int value, int k) {
+    if (k < 0) return;
+    if (k == 0) {
+        addFirst(id, value);
+        return;
+    }
+    Node p = head;
+    int count = 0;
+    while (p != null && count < k-1) {
+        p = p.next;
+        count++;
+    }
+    if (p == null) return;
+    Node newNode = new Node(new Item(id, value));
+    newNode.next = p.next;
+    p.next = newNode;
+}
+
+//===== PHAN 2: QUEUE OPERATIONS =====
+// 2.1. Them vao queue
+void enQueue(String id, int value) {
+    Node newNode = new Node(new Item(id, value));
+    if (isEmpty()) {
+        front = rear = newNode;
+    } else {
+        rear.next = newNode;
+        rear = newNode;
+    }
+}
+
+// 2.2. Lay ra khoi queue
+Item deQueue() {
+    if (isEmpty()) return null;
+    Item item = front.info;
+    front = front.next;
+    if (front == null) rear = null;
+    return item;
+}
+
+//===== PHAN 3: STACK OPERATIONS =====
+// 3.1. Them vao stack
+void push(String id, int value) {
+    Node newNode = new Node(new Item(id, value));
+    if (isEmpty()) {
+        top = newNode;
+    } else {
+        newNode.next = top;
+        top = newNode;
+    }
+}
+
+// 3.2. Lay ra khoi stack
+Item pop() {
+    if (isEmpty()) return null;
+    Item item = top.info;
+    top = top.next;
+    return item;
+}
+
+//===== PHAN 4: BST OPERATIONS =====
+// 4.1. Them vao BST
+void insert(Node root, Item item) {
+    if (root == null) {
+        root = new Node(item);
+        return;
+    }
+    if (item.value < root.info.value) {
+        if (root.left == null) root.left = new Node(item);
+        else insert(root.left, item);
+    } else {
+        if (root.right == null) root.right = new Node(item);
+        else insert(root.right, item);
+    }
+}
+
+// 4.2. Tim kiem trong BST
+Node search(Node root, String id) {
+    if (root == null) return null;
+    if (root.info.id.equals(id)) return root;
+    Node left = search(root.left, id);
+    if (left != null) return left;
+    return search(root.right, id);
+}
+
+//===== PHAN 5: CAC HAM XU LY CHINH =====
+// 5.1. Ham xu ly cho Store Management
+private int processOrder(Item request) {
+    Node p = itemList.head;
+    while (p != null) {
+        if (p.info.id.equals(request.id)) {
+            int processAmount = Math.min(request.amount, p.info.amount);
+            if (processAmount > 0) {
+                p.info.amount -= processAmount;
+                return processAmount * p.info.price;
+            }
+            break;
+        }
+        p = p.next;
+    }
+    return 0;
+}
+
+// 5.2. Ham xu ly cho Hotel Booking
+private boolean processBooking(Room request) {
+    Node p = roomList.head;
+    while (p != null) {
+        if (p.info.id.equals(request.id) && p.info.status.equals("Available")) {
+            p.info.status = "Booked";
+            return true;
+        }
+        p = p.next;
+    }
+    return false;
+}
+
+// Method to rent a room based on the request
+void rent(Room t) throws Exception {
+    Node current = roomList.head;
+    Room tmp = null;
+    Room firstValidRoom = null;
+    while(current != null) {
+        if(current.info.getStatus() == 0) {
+            if(current.info.getSize() >= t.getSize()) {
+                if(current.info.getPrice() <= t.getPrice()) {
+                    if (firstValidRoom == null){
+                        firstValidRoom= current.info;
+                    }
+                    tmp = current.info;
+                    break;
+                }
+            }
+        }
+        current = current.next;
+    }
+    
+    while(current != null) {
+        if(current.info.getStatus() == 0) {
+            if(current.info.getSize() >= t.getSize()) {
+                if(current.info.getPrice() <= t.getPrice()) {
+                    if(current.info.getPrice() < tmp.getPrice()) {
+                        tmp = current.info;
+                    }
+                }
+            }
+        }
+        current = current.next;
+    }        
+    if(tmp != null) {
+        tmp.setStatus(1); 
+    }             
+}
+
+// 5.3. Ham xu ly cho Moving House
+private boolean loadToTruck(Item item) {
+    if (currentWeight + item.weight > maxWeight) return false;
+    push(item.id, item.weight);
+    currentWeight += item.weight;
+    return true;
+}
+
+// 5.4. Ham xu ly cho Library Management
+private boolean borrowBook(Book request) {
+    Node book = search(root, request.id);
+    if (book != null && book.info.quantity > 0) {
+        book.info.quantity--;
+        if (book.info.quantity == 0) {
+            // Remove from BST
+            deleteNode(root, book.info.id);
+        }
+        return true;
+    }
+    return false;
+}
+
+// Khong lam ma doi co an thi vao thi dung ghi tieng viet vao nhe -- mjnthep -- 

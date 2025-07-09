@@ -1,0 +1,4 @@
+ItemList Inventory: (Stove, 10, 2, 0) (Lamp, 5, 1, 1) (Table, 80, 3, 0) (Sofa, 50, 2, 0) (TV, 20, 1, 1) (Chair, 7, 1, 0) 
+Truck Contents: (Pot, 10, 1, 1) (Bed, 100, 2, 0) 
+ItemList Inventory: (Stove, 10, 2, 0) (Table, 80, 3, 0) (Sofa, 50, 2, 0) (Chair, 7, 1, 0) 
+Truck Contents: (TV, 20, 1, 1) (Lamp, 5, 1, 1) (Pot, 10, 1, 1) (Bed, 100, 2, 0) 
