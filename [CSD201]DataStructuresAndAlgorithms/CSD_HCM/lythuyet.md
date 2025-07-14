@@ -174,8 +174,8 @@ Khi bạn gọi `addLast` để thêm `Room4`, quá trình sẽ như sau:
 
 ### 2.2. Các Phép Toán Cơ Bản
 
-- **Push:** Thêm một phần tử vào đỉnh stack.
-- **Pop:** Loại bỏ phần tử ở đỉnh stack.
+- **Push:** Thêm một phần tử vào đỉnh stack. **(addFirst)**
+- **Pop:** Loại bỏ phần tử ở đỉnh stack. **(removeFirst)**
 - **Peek/Top:** Xem phần tử ở đỉnh stack mà không loại bỏ nó.
 - **isEmpty:** Kiểm tra stack có rỗng không.
 
@@ -226,8 +226,8 @@ Stack:
 
 ### 3.2. Các Phép Toán Cơ Bản
 
-- **Enqueue:** Thêm một phần tử vào cuối queue.
-- **Dequeue:** Loại bỏ phần tử ở đầu queue.
+- **Enqueue:** Thêm một phần tử vào cuối queue. **(addLast)**
+- **Dequeue:** Loại bỏ phần tử ở đầu queue. **(removeFirst)**
 - **Front/Peek:** Xem phần tử ở đầu queue mà không loại bỏ nó.
 - **isEmpty:** Kiểm tra queue có rỗng không.
 
