@@ -79,27 +79,27 @@ Các Constructor
 - **Tạo Node Mới:** Nếu điều kiện thỏa mãn, một node mới được tạo ra với dữ liệu là một đối tượng `Room` mới. Tham số `next` của node mới được thiết lập là `null` bởi vì nó sẽ là node cuối cùng trong danh sách.
 
     ```java
-    Node newNode = new Node(new Room(code, status, size, price));
+    Node p=new Node(new Room(code, status, size, price));
     ```
 
 - **Kiểm Tra Danh Sách Rỗng:** Nếu danh sách liên kết đơn đang rỗng (`isEmpty()` trả về `true`), node mới vừa tạo sẽ trở thành cả `head` và `tail` của danh sách.
 
     ```java
-    if (isEmpty()) {
-        head = tail = newNode;
+    if(isEmpty()){
+        head=tail=p;
     }
     ```
 
 - **Thêm Node vào Cuối Danh Sách:** Nếu danh sách không rỗng, node hiện tại ở cuối danh sách (`tail`) sẽ được liên kết với node mới bằng cách gán `tail.next = newNode`. Sau đó, `tail` được cập nhật để trỏ đến node mới.
 
     ```java
-    else {
-        tail.next = newNode;
-        tail = newNode;
+    else{
+        tail.next=p;
+        tail=p;
     }
     ```
 
-### Hiểu Rõ Hơn về `tail.next = newNode`
+### Hiểu Rõ Hơn về `tail.next=p`
 
 Hãy tưởng tượng danh sách liên kết đơn như sau trước khi thêm node mới:
 
