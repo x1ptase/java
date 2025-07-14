@@ -61,13 +61,13 @@ Các Constructor
 - Liên hệ bài thi PE:
 ```
     void addLast(String code, int status, int size, int price) { 
-        if (size > 0 && price > 0) {
-            Node newNode = new Node(new Room(code, status, size, price));
-            if (isEmpty()) {
-                head = tail = newNode;
-            } else {
-                tail.next = newNode;
-                tail = newNode;
+        if(size > 0 && price > 0){
+            Node p=new Node(new Room(code, status, size, price));
+            if(isEmpty()){
+                head=tail=p;
+            } else{
+                tail.next=p;
+                tail=p;
             }
         }
 }
