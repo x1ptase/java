@@ -1,0 +1,2 @@
+Car Queue: (C001,green,10925.0) (C006,black,28000.0) (C003,silver,99000.09) (C004,pink,31111.99) (C005,yellow,2600.0) (C009,silver,1498.0) (C007,red,19999.0) 
+Car BST: (C001,green,10925.0) (C003,silver,99000.09) (C004,pink,31111.99) (C005,yellow,2600.0) (C006,black,28000.0) (C007,red,19999.0) (C009,silver,1498.0) 

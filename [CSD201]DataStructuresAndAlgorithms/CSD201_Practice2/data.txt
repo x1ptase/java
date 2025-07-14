@@ -1,0 +1,8 @@
+Book IDs:
+C001       C006       C003       C004       C005       C009       C007
+green   black        silver      pink      yellow     silver    red 
+10925.0        28000.0        99000.09        31111.99       2600.0        1498.0        19999.0
+Search Task ID:
+C009
+Delete Task ID:
+C009
