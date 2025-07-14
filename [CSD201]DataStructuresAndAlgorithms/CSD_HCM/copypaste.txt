@@ -41,25 +41,35 @@ void insertAt(String id, int value, int k){
 }
 
 //===== PHAN 2: QUEUE OPERATIONS =====
-// 2.1. Them vao queue
-void enQueue(String id, int value) {
-    Node newNode = new Node(new Item(id, value));
-    if (isEmpty()) {
-        front = rear = newNode;
-    } else {
-        rear.next = newNode;
-        rear = newNode;
+// 2.1. Them vao queue   // addLast
+void enQueue(String id, int value){
+    Node p=new Node(new Item(id, value));
+    if(isEmpty()){
+        front=rear=p;
+    } else{
+        rear.next=p;
+	rear=p;
     }
 }
 
 // 2.2. Lay ra khoi queue
-Item deQueue() {
-    if (isEmpty()) return null;
-    Item item = front.info;
-    front = front.next;
-    if (front == null) rear = null;
+Item deQueue(){
+    if(isEmpty()) return null;
+    Item item=front.info;
+    front=front.next;
+    if(front == null) rear=null;
     return item;
 }
+//HCM
+ public Car dequeue(){
+        Car tmp=front.info;
+        front=front.next;
+        if(front == null){
+            rear=null;
+        }
+        this.length--;
+        return null; //if no book 
+    }
 
 //===== PHAN 3: STACK OPERATIONS =====
 // 3.1. Them vao stack
