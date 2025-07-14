@@ -1,48 +1,43 @@
-// Vui long doc cai nay:
-// NEU NHU BAN CO COPYPASTE THI XIN HAY DOC DE!!! Moi de co yeu cau IF ELSE DIEU KIEN KHAC NHAU nen mu quang copy se lam cho 0 diem + 2tr6, copypaste chi de tham khao va dung co 'steal to sell nhe'. Mai yeu
-// Author: MinThichBao
-// Update: 12/12/2024
-
 //===== PHAN 1: LINKED LIST OPERATIONS =====
 // 1.1. Them vao dau linked list
 void addFirst(String id, int value) {
-    Node newNode = new Node(new Item(id, value));
-    if (isEmpty()) {
-        head = tail = newNode;
-    } else {
-        newNode.next = head;
-        head = newNode;
+    Node p=new Node(new Item(id, value));
+    if(isEmpty()){
+        head=tail=p;
+    } else{
+        p.next=head;
+        head=p;
     }
 }
 
 // 1.2. Them vao cuoi linked list
 void addLast(String id, int value) {
-    Node newNode = new Node(new Item(id, value));
-    if (isEmpty()) {
-        head = tail = newNode;
-    } else {
-        tail.next = newNode;
-        tail = newNode;
+    Node p=new Node(new Item(id, value));
+    if(isEmpty()){
+        head=tail=p;
+    } else{
+	tail.next=p;
+	tail=p;
     }
 }
 
 // 1.3. Them vao vi tri k
-void insertAt(String id, int value, int k) {
-    if (k < 0) return;
-    if (k == 0) {
+void insertAt(String id, int value, int k){
+    if(k < 0) return;
+    if(k == 0){
         addFirst(id, value);
         return;
     }
-    Node p = head;
-    int count = 0;
-    while (p != null && count < k-1) {
-        p = p.next;
+    Node p=head;
+    int count=0;
+    while(p != null && count < k-1){
+        p=p.next;
         count++;
     }
-    if (p == null) return;
-    Node newNode = new Node(new Item(id, value));
-    newNode.next = p.next;
-    p.next = newNode;
+    if(p == null) return;
+    Node newNode=new Node(new Item(id, value));
+    newNode.next=p.next;
+    p.next=newNode;
 }
 
 //===== PHAN 2: QUEUE OPERATIONS =====

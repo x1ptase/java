@@ -116,49 +116,49 @@ Khi bạn gọi `addLast` để thêm `Room4`, quá trình sẽ như sau:
 1. **Tạo Node Mới:** `Room4` được tạo và `Room4.next` được đặt là `NULL`.
   
 2. **Liên Kết Node Cuối Cùng với Node Mới:**
-    - `tail.next = newNode;` tức là `Room3.next = Room4;`
+    - `tail.next=p;` tức là `Room3.next = Room4;`
     - Bây giờ, danh sách trở thành:
       ```
       Head -> [Room1 | Next] -> [Room2 | Next] -> [Room3 | Next] -> [Room4 | Next] -> NULL
       ```
   
-3. **Cập Nhật Tail:** `tail = newNode;` tức là `tail` bây giờ trỏ đến `Room4`.
+3. **Cập Nhật Tail:** `tail=p;` tức là `tail` bây giờ trỏ đến `Room4`.
 
 
 
 ---------------------------
 2. **Node trong Danh Sách Liên Kết Đôi:**
    ```java
-    class Node {
+    class Node{
         Room info;
         Node prev;
         Node next;
         
-        Node(Room x, Node p, Node n) {
-            info = x;
-            prev = p;
-            next = n;
+        Node(Room x, Node p, Node n){
+            info=x;
+            prev=p;
+            next=n;
         }
         
-        Node(Room x) {
+        Node(Room x){
             this(x, null, null);
         }
     }
    ```
 3. **Node trong Cây Nhị Phân:**
    ```java
-   class Node {
+   class Node{
        Room info;
        Node left;
        Node right;
        
-       Node(Room x, Node l, Node r) {
-           info = x;
-           left = l;
-           right = r;
+       Node(Room x, Node l, Node r){
+           info=x;
+           left=l;
+           right=r;
        }
        
-       Node(Room x) {
+       Node(Room x){
            this(x, null, null);
        }
    }
