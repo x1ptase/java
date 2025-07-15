@@ -34,15 +34,13 @@ class FruitList {
     }
 
     void addLast(String type, int amount, int price) {
-//        Node newNode = new Node(new Fruit(type, amount, price));
-//        if (isEmpty()) {
-//            head = tail = newNode;
-//        } else {
-//            tail.next = newNode;
-//            tail = newNode;
-//        }
-    }
-
+        Node p=new Node(new Fruit(type, amount, price));
+        if(isEmpty()){
+            head=tail=p;
+        } else{
+            tail.next=p;
+            tail=p;
+        }
 }
 
 class RequestQueue {
