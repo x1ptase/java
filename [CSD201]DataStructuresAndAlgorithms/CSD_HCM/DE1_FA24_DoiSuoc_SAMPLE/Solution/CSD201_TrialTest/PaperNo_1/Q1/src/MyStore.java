@@ -81,15 +81,15 @@ class RequestQueue {
     }
 
     Fruit deQueue() {
-//        if (isEmpty()) {
-//            return null;
-//        }
-//        Fruit tmp = front.info;
-//        front = front.next;
-//        if (front == null) {
-//            rear = null;
-//        }
-//        return tmp;
+        Fruit tmp = new Fruit();
+        //You should write here appropriate statements to complete this function.
+        //--------------------------------------------------------
+          if(isEmpty()) return null;
+          tmp=front.info;
+          front=front.next;
+          if(front == null) rear=null;
+        //---------------------------------------------------------
+        return tmp;
     }
 
 }
@@ -159,10 +159,10 @@ class MyStore {
         RandomAccessFile f = new RandomAccessFile(fname, "rw");
         ftraverse(f);
 
-        // Sử dụng hàm purchase cho một phần tử đầu tiên của queue
-        Fruit t = RQueue.deQueue();
-        if (t != null) {
-            purchase(t);
+        // sử dụng hàm purchase cho một phần tử đầu tiên của queue
+        Fruit req=RQueue.deQueue();
+        if(req != null){
+            purchase(req);
         }
 
         ftraverse(f);
@@ -212,8 +212,7 @@ class MyStore {
         f.close();
     }
 
-    // Thêm hàm purchase để tính toán và trả về số tiền
-
+    // thêm hàm purchase để tính toán và trả về số tiền
     private int purchase(Fruit request) {
         Node p = FList.head;
         while (p != null) {
