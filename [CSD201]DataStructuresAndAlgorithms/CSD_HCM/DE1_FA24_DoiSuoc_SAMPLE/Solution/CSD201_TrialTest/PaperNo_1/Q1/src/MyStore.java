@@ -70,14 +70,13 @@ class RequestQueue {
     }
 
     void enQueue(String type, int amount) {
-//        Node newNode = new Node(new Fruit(type, amount, 0));
-//        if (isEmpty()) {
-//            front = rear = newNode;
-//        } else {
-//            rear.next = newNode;
-//            rear = newNode;
-//        }
-          
+          Node p=new Node(new Fruit(type, amount));
+          if(isEmpty()){
+              front=rear=p;
+          } else{
+              rear.next=p;
+              rear=p;
+          }
     }
 
     Fruit deQueue() {
