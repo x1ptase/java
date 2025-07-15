@@ -1,4 +1,3 @@
-
 /* This program contains 2 parts: (1) and (2)
    YOUR TASK IS TO COMPLETE THE PART  (2)  ONLY
  */
@@ -41,6 +40,8 @@ class FruitList {
             tail.next=p;
             tail=p;
         }
+    }
+
 }
 
 class RequestQueue {
@@ -70,25 +71,25 @@ class RequestQueue {
     }
 
     void enQueue(String type, int amount) {
-          Node p=new Node(new Fruit(type, amount));
-          if(isEmpty()){
-              front=rear=p;
-          } else{
-              rear.next=p;
-              rear=p;
-          }
+        Node p=new Node(new Fruit(type, amount));
+        if(isEmpty()){
+            front=rear=p;
+        } else{
+            rear.next=p;
+            rear=p;
+        }
     }
 
     Fruit deQueue() {
-        if (isEmpty()) {
-            return null;
-        }
-        Fruit tmp = front.info;
-        front = front.next;
-        if (front == null) {
-            rear = null;
-        }
-        return tmp;
+//        if (isEmpty()) {
+//            return null;
+//        }
+//        Fruit tmp = front.info;
+//        front = front.next;
+//        if (front == null) {
+//            rear = null;
+//        }
+//        return tmp;
     }
 
 }
