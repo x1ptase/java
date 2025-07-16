@@ -210,7 +210,7 @@ class House {
         ftraverse(f);
         //You should write here appropriate statements to complete this function.
         //----------------------------------------------------------------------
-truck.push(list.deleteFirstFragile());
+        truck.push(list.deleteFirstFragile());
         //----------------------------------------------------------------------
         ftraverse(f);
         f.close();

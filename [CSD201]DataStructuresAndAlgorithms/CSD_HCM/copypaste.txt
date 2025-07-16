@@ -74,12 +74,12 @@ Item deQueue(){
 //===== PHAN 3: STACK OPERATIONS =====
 // 3.1. Them vao stack
 void push(String id, int value) {
-    Node newNode = new Node(new Item(id, value));
+    Node p=new Node(new Item(id, value));
     if (isEmpty()) {
-        top = newNode;
-    } else {
-        newNode.next = top;
-        top = newNode;
+        head=p;
+    } else{
+        p.next=head;
+        head=p;
     }
 }
 
