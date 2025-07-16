@@ -205,5 +205,3 @@ private boolean borrowBook(Book request) {
     }
     return false;
 }
-
-// Khong lam ma doi co an thi vao thi dung ghi tieng viet vao nhe -- mjnthep -- 
