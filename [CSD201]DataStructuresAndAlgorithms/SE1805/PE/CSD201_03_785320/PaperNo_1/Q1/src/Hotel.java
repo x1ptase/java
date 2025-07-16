@@ -33,7 +33,15 @@ class dataList {
     void addLast(String code, int status, int size, int price) {
         //You should write here appropriate statements to complete this function.
         //--------------------------------------------------------
-
+        if(size > 0 && price > 0){
+            Node p=new Node(new Room(code, status, size, price));
+            if(isEmpty()){
+                head=tail=p;
+            } else{
+                tail.next=p;
+                tail=p;
+            }
+        }
         //---------------------------------------------------------
     }
 
@@ -68,7 +76,15 @@ class requestQueue {
     void enQueue(int size, int price) {
         //You should write here appropriate statements to complete this function.
         //--------------------------------------------------------
-
+        if(size > 0 && price > 0){
+            Node p=new Node(new Room(size, price));
+            if(isEmpty()){
+                front=rear=p;
+            } else{
+                rear.next=p;
+                rear=p;
+            }
+        }
         //---------------------------------------------------------
     }
 
@@ -76,7 +92,10 @@ class requestQueue {
         Room tmp = new Room();
         //You should write here appropriate statements to complete this function.
         //--------------------------------------------------------
-
+        if(isEmpty()) return null;
+        tmp=front.info;
+        front=front.next;
+        if(front == null) rear=null;
         //---------------------------------------------------------
         return tmp;
     }
@@ -141,7 +160,36 @@ class Hotel {
     void rent(Room t) throws Exception {
         //You should write here appropriate statements to complete this function.
         //--------------------------------------------------------
-
+        Node p=dList.head;
+        Room bestRoom=null;
+        while(p != null){
+            if(p.info.getStatus() == 0){
+                if(p.info.getSize() >= t.getSize()){
+                    if(p.info.getPrice() <= t.getPrice()){
+                        bestRoom=p.info;
+                        break;
+                    }
+                }
+            }
+            p=p.next;
+        }
+        
+        while(p != null){
+            if(p.info.getStatus() == 0){
+                if(p.info.getSize() >= t.getSize()){
+                    if(p.info.getPrice() <= t.getPrice()){
+                        if(p.info.getPrice() <= bestRoom.getPrice()){
+                            bestRoom=p.info;
+                        }
+                    }
+                }
+            }
+            p=p.next;
+        }
+        
+        if(bestRoom != null){
+            bestRoom.setStatus(1);
+        }
         //---------------------------------------------------------
     }
 
@@ -156,7 +204,8 @@ class Hotel {
         ftraverse(f);
         //You should write here appropriate statements to complete this function.
         //--------------------------------------------------------
-
+        Room req=RQueue.deQueue();
+        rent(req);
         //---------------------------------------------------------
         ftraverse(f);
         f.close();
@@ -173,7 +222,11 @@ class Hotel {
         ftraverse(f);
         //You should write here appropriate statements to complete this function.
         //--------------------------------------------------------
-
+        Room req=RQueue.deQueue();
+        while(req != null){
+            rent(req);
+            req=RQueue.deQueue();
+        }
         //---------------------------------------------------------
         ftraverse(f);
         f.close();
@@ -191,7 +244,19 @@ class Hotel {
         int result = 0;
         //You should write here appropriate statements to complete this function.
         //--------------------------------------------------------
-
+        Room req=RQueue.deQueue();
+        while(req != null){
+            rent(req);
+            req=RQueue.deQueue();
+        }
+        
+        Node p=dList.head;
+        while(p != null){
+            if(p.info.getStatus() == 1){
+                result+=p.info.getPrice();
+            }
+            p=p.next;
+        }
         //---------------------------------------------------------
         ftraverse(f);
         f.writeBytes("Total Revenue: " + result + " ");
