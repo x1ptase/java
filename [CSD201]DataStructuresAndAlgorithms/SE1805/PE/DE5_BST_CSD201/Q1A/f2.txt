@@ -1,0 +1,6 @@
+Student BST (Inorder Traversal):
+(S001,John,3.8,CS,100.0) (S002,Mary,3.5,Business,150.0) (S003,David,3.9,CS,200.0) (S004,Sarah,3.2,IT,120.0) (S005,Michael,3.7,Engineering,180.0) 
+Scholarship List:
+(S003,David,3.9,CS,500.0) (S001,John,3.8,CS,600.0) (S005,Michael,3.7,Engineering,450.0) 
+
+Student with highest GPA: (S003,David,3.9,CS,200.0)

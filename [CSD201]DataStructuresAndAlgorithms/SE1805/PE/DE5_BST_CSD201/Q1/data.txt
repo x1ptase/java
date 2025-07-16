@@ -1,0 +1,10 @@
+S001 S002 S003 S004 S005
+John Mary David Sarah Michael
+3.8 3.5 3.9 3.2 3.7
+CS Business CS IT Engineering
+100.0 150.0 200.0 120.0 180.0
+S003 S001 S005
+David John Michael
+3.9 3.8 3.7
+CS CS Engineering
+500.0 600.0 450.0
