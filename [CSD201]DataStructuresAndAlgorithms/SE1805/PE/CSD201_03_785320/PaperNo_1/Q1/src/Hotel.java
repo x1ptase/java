@@ -33,15 +33,7 @@ class dataList {
     void addLast(String code, int status, int size, int price) {
         //You should write here appropriate statements to complete this function.
         //--------------------------------------------------------
-        if(size > 0 && price > 0){
-            Node p=new Node(new Room(code, status, size, price));
-            if(isEmpty()){
-                head=tail=p;
-            } else{
-                tail.next=p;
-                tail=p;
-            }
-        }
+
         //---------------------------------------------------------
     }
 
@@ -76,15 +68,7 @@ class requestQueue {
     void enQueue(int size, int price) {
         //You should write here appropriate statements to complete this function.
         //--------------------------------------------------------
-        if(size > 0 && price > 0){
-            Node p=new Node(new Room(size, price));
-            if(isEmpty()){
-                front=rear=p;
-            } else{
-                rear.next=p;
-                rear=p;
-            }
-        }
+
         //---------------------------------------------------------
     }
 
@@ -92,10 +76,7 @@ class requestQueue {
         Room tmp = new Room();
         //You should write here appropriate statements to complete this function.
         //--------------------------------------------------------
-        if(isEmpty()) return null;
-        tmp=front.info;
-        front=front.next;
-        if(front == null) rear=null;
+
         //---------------------------------------------------------
         return tmp;
     }
