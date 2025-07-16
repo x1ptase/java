@@ -205,3 +205,44 @@ private boolean borrowBook(Book request) {
     }
     return false;
 }
+
+// 5.5. Ham deleteFirstFragile() STACK
+Node deleteFirstFragile(){
+    Node result=null;
+    //=================
+    Node tmp=head;
+    Node prevTmp=null;
+
+    while(tmp != null){
+        if(tmp.info.getFragile() == 1){
+            result=tmp;
+            if(tmp == head){
+	        head=head.next;
+            } else if(tmp == tail){
+                tail=prevTmp;
+		tail.next=null;
+            } else{
+		prevTmp.next=tmp.next;
+	    }
+            break;
+        }
+        prevTmp=tmp;
+	tmp=tmp.next;
+    }
+    //==================
+    return result;
+}
+truck.push(list.deleteFirstFragile());
+
+Node tmp=list.head;
+while(tmp != null){
+    if(tmp.info.getFragile() == 1)
+	truck.push(list.deleteFirstFragile());
+	tmp=tmp.next;
+}
+
+Node tmp2=truck.head;
+while(tmp2 != null){
+    totalWeight+=tmp2.info.getWeight();
+    tmp2=tmp2.next;
+}

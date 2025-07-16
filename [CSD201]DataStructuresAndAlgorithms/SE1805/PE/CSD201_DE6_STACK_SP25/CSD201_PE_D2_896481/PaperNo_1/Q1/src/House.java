@@ -22,7 +22,7 @@ class ItemList {
         Node result = null;
         //You should write here appropriate statements to complete this function.
         //----------------------------------------------------------------------
-
+        
         //----------------------------------------------------------------------
         return result;
     }
@@ -42,7 +42,7 @@ class ItemList {
     void addLast(String name, int weight, int length, int fragile) {
         //You should write here appropriate statements to complete this function.
         //----------------------------------------------------------------------
-        
+ 
         //----------------------------------------------------------------------
     }
 
