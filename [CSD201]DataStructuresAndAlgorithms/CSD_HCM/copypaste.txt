@@ -206,7 +206,9 @@ private boolean borrowBook(Book request) {
     return false;
 }
 
-// 5.5. Ham deleteFirstFragile() STACK
+
+===STACK===
+// 5.5. Ham deleteFirstFragile()
 Node deleteFirstFragile(){
     Node result=null;
     //=================
@@ -226,7 +228,7 @@ Node deleteFirstFragile(){
 	    }
             break;
         }
-        prevp=tmp;
+        prevp=p;
 	p=p.next;
     }
     //==================
@@ -234,16 +236,16 @@ Node deleteFirstFragile(){
 }
 truck.push(list.deleteFirstFragile());
 
-Node tmp=list.head;
-while(tmp != null){
-    if(tmp.info.getFragile() == 1){
-	truck.push(list.deleteFirstFragile());
+Node p=list.head;
+while(p != null){
+    if(p.info.getFragile() == 1){
+        truck.push(list.deleteFirstFragile());
     }
-    tmp=tmp.next;
+    p=p.next;
 }
-
-Node tmp2=truck.head;
-while(tmp2 != null){
-    totalWeight+=tmp2.info.getWeight();
-    tmp2=tmp2.next;
+        
+Node tmp=truck.head;
+while(tmp != null){
+    totalWeight+=tmp.info.getWeight();
+    tmp=tmp.next;
 }
