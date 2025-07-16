@@ -22,7 +22,25 @@ class ItemList {
         Node result = null;
         //You should write here appropriate statements to complete this function.
         //----------------------------------------------------------------------
+        Node p=head;
+        Node prev=null;
         
+        while(p != null){
+            if(p.info.getFragile() == 1){
+                result=p;
+                if(p == head){
+                    head=head.next;
+                } else if(p == tail){
+                    tail=prev;
+                    tail.next=null;
+                } else{
+                    prev.next=p.next;
+                }
+                break;
+            }
+            prev=p;
+            p=p.next;
+        }
         //----------------------------------------------------------------------
         return result;
     }
@@ -42,7 +60,15 @@ class ItemList {
     void addLast(String name, int weight, int length, int fragile) {
         //You should write here appropriate statements to complete this function.
         //----------------------------------------------------------------------
- 
+        if(weight > 0 && length > 0){
+            Node p=new Node(new Item(name, weight, length, fragile));
+            if(isEmpty()){
+                head=tail=p;
+            } else{
+                tail.next=p;
+                tail=p;
+            }
+        }
         //----------------------------------------------------------------------
     }
 
@@ -79,7 +105,15 @@ class Truck {
     void push(String name, int weight, int length, int fragile) {
         //You should write here appropriate statements to complete this function.
         //----------------------------------------------------------------------
-
+        if(weight > 0 && length > 0){
+            Node p=new Node(new Item(name, weight, length, fragile));
+            if(isEmpty()){
+                head=p;
+            } else{
+                p.next=head;
+                head=p;
+            }
+        }
         //----------------------------------------------------------------------
     }
 
@@ -169,7 +203,7 @@ class House {
         ftraverse(f);
         //You should write here appropriate statements to complete this function.
         //----------------------------------------------------------------------
-
+        truck.push(list.deleteFirstFragile());
         //----------------------------------------------------------------------
         ftraverse(f);
         f.close();
@@ -187,7 +221,14 @@ class House {
         ftraverse(f);
         //You should write here appropriate statements to complete this function.
         //----------------------------------------------------------------------
-
+        Node p=list.head;
+        while(p != null){
+            if(p.info.getFragile() == 1){
+                truck.push(list.deleteFirstFragile());
+            }
+            p=p.next;
+        }
+        
         //----------------------------------------------------------------------
         ftraverse(f);
         f.close();
@@ -205,7 +246,19 @@ class House {
         int totalWeight = 0;
         //You should write here appropriate statements to complete this function.
         //----------------------------------------------------------------------
-
+        Node p=list.head;
+        while(p != null){
+            if(p.info.getFragile() == 1){
+                truck.push(list.deleteFirstFragile());
+            }
+            p=p.next;
+        }
+        
+        Node tmp=truck.head;
+        while(tmp != null){
+            totalWeight+=tmp.info.getWeight();
+            tmp=tmp.next;
+        }
         //----------------------------------------------------------------------
         ftraverse(f);
         f.writeBytes("Total weight: " + totalWeight + " ");

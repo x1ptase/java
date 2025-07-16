@@ -210,24 +210,24 @@ private boolean borrowBook(Book request) {
 Node deleteFirstFragile(){
     Node result=null;
     //=================
-    Node tmp=head;
-    Node prevTmp=null;
+    Node p=head;
+    Node prev=null;
 
-    while(tmp != null){
-        if(tmp.info.getFragile() == 1){
-            result=tmp;
-            if(tmp == head){
+    while(p != null){
+        if(p.info.getFragile() == 1){
+            result=p;
+            if(p == head){
 	        head=head.next;
-            } else if(tmp == tail){
-                tail=prevTmp;
+            } else if(p == tail){
+                tail=prev;
 		tail.next=null;
             } else{
-		prevTmp.next=tmp.next;
+		prev.next=p.next;
 	    }
             break;
         }
-        prevTmp=tmp;
-	tmp=tmp.next;
+        prevp=tmp;
+	p=p.next;
     }
     //==================
     return result;
@@ -236,9 +236,10 @@ truck.push(list.deleteFirstFragile());
 
 Node tmp=list.head;
 while(tmp != null){
-    if(tmp.info.getFragile() == 1)
+    if(tmp.info.getFragile() == 1){
 	truck.push(list.deleteFirstFragile());
-	tmp=tmp.next;
+    }
+    tmp=tmp.next;
 }
 
 Node tmp2=truck.head;
