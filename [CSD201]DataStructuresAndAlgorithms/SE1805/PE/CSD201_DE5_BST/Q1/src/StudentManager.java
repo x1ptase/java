@@ -70,18 +70,49 @@ class StudentBST {
         // Implement this function - Find student with highest GPA
         // --------------------------------------------------------
         // YOUR CODE HERE
-        
-        // --------------------------------------------------------
-        return null; // Change this return statement as needed
+        if(root == null){
+            return null;
+        }
+        return findHighestGPA(root);
+    }
+    private Student findHighestGPA(TreeNode node){
+        if(node == null){
+            return null;
+        }
+        // khoi tao sv co gpa cao nhat la sv hien tai
+        Student highestGPAStudent=node.info;
+        // tim sv co gpa cao nhat o cay ben trai
+        Student leftHighest=findHighestGPA(node.left);
+        if(leftHighest != null && leftHighest.getGpa() > highestGPAStudent.getGpa()){
+            highestGPAStudent=leftHighest;
+        }
+        // tim sv co gpa cao nhat o cay con ben phai
+        Student rightHighest=findHighestGPA(node.right);
+        if(rightHighest != null && rightHighest.getGpa() > highestGPAStudent.getGpa()){
+            highestGPAStudent=rightHighest;
+        }
+        return highestGPAStudent;
     }
 
     // Count students with GPA greater than or equal to threshold
     int countByGPA(double threshold) {
         // Implement this function - Count students with GPA >= threshold
         // --------------------------------------------------------
-        // YOUR CODE HERE
-        // --------------------------------------------------------
-        return 0; // Change this return statement as needed
+         return countByGPA(root, threshold);
+    }
+
+    private int countByGPA(TreeNode node, double threshold){
+        if(node == null){
+            return 0;
+        }
+
+        int count=0;
+        // kiem tra neu sv hien tai co gpa >= nguong )threshold
+        if(node.info.getGpa() >= threshold){
+            count=1;
+        }
+        // de quy dem ca cay con ben trai va phai
+        return count + countByGPA(node.left, threshold) + countByGPA(node.right, threshold);
     }
 
     // Count students by major
@@ -103,9 +134,13 @@ class StudentBST {
     boolean updateStudentBalance(String id, double amount) {
         // Implement this function - Update balance of student with given ID
         // --------------------------------------------------------
-        // YOUR CODE HERE
-        // --------------------------------------------------------
-        return false; // Change this return statement as needed
+        TreeNode node=search(root, id);
+        if(node == null){
+            return false;
+        }
+        // cong them so tien vao tai khoan sinh vien
+        node.info.addToBalance(amount);
+        return true;
     }
 
     void loadDataStudents(int k) {
@@ -174,9 +209,39 @@ class ScholarshipList {
     ListNode removeById(String id) {
         // Implement this function - Remove student with given ID from list
         // --------------------------------------------------------
-        // YOUR CODE HERE
+         if(isEmpty()){
+            return null;
+        }
+        // TH xoa node dau tien
+        if(head.info.getId().equals(id)){
+            ListNode removedNode=head;
+            head=head.next;
+            if(head == null){
+                tail=null;
+            }
+            return removedNode;
+        }
+
+        // tim node can xoa
+        ListNode current=head;
+        while(current.next != null && !current.next.info.getId().equals(id)){
+            current=current.next;
+        }
+        // neu khong tim thay id
+        if(current.next == null){
+            return null;
+        }
+        // luu node can xoa
+        ListNode removedNode=current.next;
+        // xoa node khoi ds
+        current.next=current.next.next;
+        // neu node bi xoa la tail, update tail
+        if(removedNode == tail){
+            tail=current;
+        }
+        
+        return removedNode;
         // --------------------------------------------------------
-        return null; // Change this return statement as needed
     }
 
     // Load initial scholarship data from data.txt file (from line k+5)
@@ -301,6 +366,8 @@ class StudentManager {
         // Count students with GPA >= 3.5
         // --------------------------------------------------------
         // YOUR CODE HERE
+        int count=studentBST.countByGPA(3.5);
+        f.writeBytes("" + count);
         // --------------------------------------------------------
 
         f.close();
@@ -320,7 +387,17 @@ class StudentManager {
 
         // Process scholarships - remove from list and add to student balance
         // --------------------------------------------------------
-        // YOUR CODE HERE
+        while(!scholarshipList.isEmpty()){
+            // lay sv dau tien trong ds hoc bong
+            ListNode student=scholarshipList.head;
+            String studentId=student.info.getId();
+            double scholarshipAmount=student.info.getBalance();
+            // update so tien trong tai khoan cua sv trong BST
+            studentBST.updateStudentBalance(studentId, scholarshipAmount);
+            // xoa sv khoi ds hoc bong
+            scholarshipList.removeById(studentId);
+        }
+        
         // --------------------------------------------------------
 
         ftraverse(f);
