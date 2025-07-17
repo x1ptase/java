@@ -38,9 +38,7 @@ class StudentBST {
             root=p;
             return;
         }
-        TreeNode parent;
-        TreeNode current;
-        
+        TreeNode parent, current;
         current=root;
         parent=null;
         
@@ -51,7 +49,7 @@ class StudentBST {
                 current.info.setMajor(major);
                 current.info.setBalance(balance);
                 return;
-            }
+            } 
             parent=current;
             if(p.info.getId().compareTo(current.info.getId()) < 0){
                 current=current.left;
@@ -61,9 +59,9 @@ class StudentBST {
         }
         if(p.info.getId().compareTo(parent.info.getId()) < 0){
             parent.left=p;
-            } else{
-                parent.right=p;
-            }
+        } else{
+            parent.right=p;
+        }
         // --------------------------------------------------------
     }
 
