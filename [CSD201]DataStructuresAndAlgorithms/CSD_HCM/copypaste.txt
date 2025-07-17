@@ -92,6 +92,8 @@ Item pop() {
 }
 
 //===== PHAN 4: BST OPERATIONS =====
+*phai tim key
+
 // 4.1. Them vao BST
 void insert(Node root, Item item) {
     if (root == null) {
@@ -106,6 +108,45 @@ void insert(Node root, Item item) {
         else insert(root.right, item);
     }
 }
+
+======BST======
+    void insert(String id, String name, double gpa, String major, double balance) {
+        // Implement this function - Insert a new student to the BST
+        // If the ID already exists, update the student's information
+        // --------------------------------------------------------
+        TreeNode p=new TreeNode(new Student(id, name, gpa, major, balance));
+        if(root == null){
+            root=p;
+            return;
+        }
+        TreeNode parent;
+        TreeNode current;
+        
+        current=root;
+        parent=null;
+        
+        while(current != null){
+            if(current.info.getId().equals(p.info.getId())){
+                current.info.setName(name);
+                current.info.setGpa(gpa);
+                current.info.setMajor(major);
+                current.info.setBalance(balance);
+                return;
+            }
+            parent=current;
+            if(p.info.getId().compareTo(current.info.getId()) < 0){
+                current=current.left;
+            } else{
+                current=current.right;
+            }
+        }
+        if(p.info.getId().compareTo(parent.info.getId()) < 0){
+            parent.left=p;
+        } else{
+            parent.right=p;
+        }
+        // --------------------------------------------------------
+    }
 
 // 4.2. Tim kiem trong BST
 Node search(Node root, String id) {

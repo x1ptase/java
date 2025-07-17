@@ -33,6 +33,37 @@ class StudentBST {
         // If the ID already exists, update the student's information
         // --------------------------------------------------------
         // YOUR CODE HERE
+        TreeNode p=new TreeNode(new Student(id, name, gpa, major, balance));
+        if(root == null){
+            root=p;
+            return;
+        }
+        TreeNode parent;
+        TreeNode current;
+        
+        current=root;
+        parent=null;
+        
+        while(current != null){
+            if(current.info.getId().equals(p.info.getId())){
+                current.info.setName(name);
+                current.info.setGpa(gpa);
+                current.info.setMajor(major);
+                current.info.setBalance(balance);
+                return;
+            }
+            parent=current;
+            if(p.info.getId().compareTo(current.info.getId()) < 0){
+                current=current.left;
+            } else{
+                current=current.right;
+            }
+        }
+        if(p.info.getId().compareTo(parent.info.getId()) < 0){
+            parent.left=p;
+            } else{
+                parent.right=p;
+            }
         // --------------------------------------------------------
     }
 
@@ -41,6 +72,7 @@ class StudentBST {
         // Implement this function - Find student with highest GPA
         // --------------------------------------------------------
         // YOUR CODE HERE
+        
         // --------------------------------------------------------
         return null; // Change this return statement as needed
     }
@@ -119,6 +151,13 @@ class ScholarshipList {
         // Implement this function - add a new student to the end of the linked list
         // --------------------------------------------------------
         // YOUR CODE HERE
+        ListNode p=new ListNode(new Student(id, name, gpa, major, scholarshipAmount));
+        if(isEmpty()){
+            head=tail=p;
+        } else{
+            tail.next=p;
+            tail=p;
+        }
         // --------------------------------------------------------
     }
 
