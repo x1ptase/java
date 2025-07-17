@@ -3,4 +3,4 @@ Student BST (Inorder Traversal):
 Scholarship List:
 (S003,David,3.9,CS,500.0) (S001,John,3.8,CS,600.0) (S005,Michael,3.7,Engineering,450.0) 
 
-Student with highest GPA: (S003,David,3.9,CS,200.0)
+Student with highest GPA: null
