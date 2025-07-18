@@ -162,6 +162,7 @@ class Hotel {
         //--------------------------------------------------------
         Node p=dList.head;
         Room bestRoom=null;
+        
         while(p != null){
             if(p.info.getStatus() == 0){
                 if(p.info.getSize() >= t.getSize()){
@@ -178,9 +179,8 @@ class Hotel {
             if(p.info.getStatus() == 0){
                 if(p.info.getSize() >= t.getSize()){
                     if(p.info.getPrice() <= t.getPrice()){
-                        if(p.info.getPrice() <= bestRoom.getPrice()){
+                        if(p.info.getPrice() <= bestRoom.getPrice())
                             bestRoom=p.info;
-                        }
                     }
                 }
             }

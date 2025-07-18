@@ -1,0 +1,37 @@
+/*
+=====Linked List && Queue=====
+void addLast(String code, int status, int size, int price) {
+        //You should write here appropriate statements to complete this function.
+        //--------------------------------------------------------
+        if(size > 0 && price > 0){
+            Node p=new Node(new Room(code, status, size, price));
+            if(isEmpty()){
+                head=tail=p;
+            } else{
+                tail.next=p;
+                tail=p;
+            }
+        }
+        //---------------------------------------------------------
+    }
+
+void enQueue(int size, int price) {
+        //You should write here appropriate statements to complete this function.
+        //--------------------------------------------------------
+        if(size > 0 && price > 0){
+            Node p=new Node(new Room(size, price));
+            if(isEmpty()){
+                front=rear=p;
+            } else{
+                rear.next=p;
+                rear=p;
+            }
+        }
+        //---------------------------------------------------------
+    }
+
+
+
+
+
+*/
