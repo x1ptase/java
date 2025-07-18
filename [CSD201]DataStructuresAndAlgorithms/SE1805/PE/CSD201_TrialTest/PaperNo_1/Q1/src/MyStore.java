@@ -167,7 +167,7 @@ class MyStore {
         //You should write here appropriate statements to complete this function.
         //--------------------------------------------------------
         Fruit req=RQueue.deQueue();
-        if(req != null){
+        while(req != null){
             purchase(req);
         }
         //---------------------------------------------------------
@@ -186,7 +186,11 @@ class MyStore {
         ftraverse(f);
         //You should write here appropriate statements to complete this function.
         //--------------------------------------------------------
-        
+        Fruit req=RQueue.deQueue();
+        while(req != null){
+            purchase(req);
+            req=RQueue.deQueue();
+        }
         //---------------------------------------------------------
         ftraverse(f);
         f.close();
@@ -204,7 +208,11 @@ class MyStore {
         int S = 0;
         //You should write here appropriate statements to complete this function.
         //--------------------------------------------------------
-
+        Fruit req=RQueue.deQueue();
+        while(req != null){
+            S+=purchase(req);
+            req=RQueue.deQueue();
+        }
         //---------------------------------------------------------
         f.writeBytes("Money     : " + S + " ");
         f.close();

@@ -211,16 +211,16 @@ class MyStore {
         f.writeBytes("Money     : " + S + "\r\n");
         f.close();
     }
-
-    // thêm hàm purchase để tính toán và trả về số tiền
+    
+    // them ham purchase de tinh toan va tra ve so tien
     private int purchase(Fruit request){
         Node p=FList.head;
         while(p != null){
             if(p.info.getType().equals(request.getType())){
                 // Only purchase if the fruit exists and can be bought
-                if (!request.getType().equals("M") && !request.getType().equals("F")) {
-                    int purchaseAmount = Math.min(request.getAmount(), p.info.getAmount());
-                    if (purchaseAmount > 0) {
+                if(!request.getType().equals("M") && !request.getType().equals("F")){
+                    int purchaseAmount=Math.min(request.getAmount(), p.info.getAmount());
+                    if(purchaseAmount > 0){
                         // Update the remaining amount in the fruit list
                         p.info.setAmount(p.info.getAmount() - purchaseAmount);
                         // Calculate and return the money
@@ -229,7 +229,7 @@ class MyStore {
                 }
                 break;
             }
-            p = p.next;
+            p=p.next;
         }
         return 0;
     }

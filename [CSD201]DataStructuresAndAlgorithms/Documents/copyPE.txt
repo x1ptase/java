@@ -30,8 +30,474 @@ void enQueue(int size, int price) {
         //---------------------------------------------------------
     }
 
+  Room deQueue() {
+        Room tmp = new Room();
+        //You should write here appropriate statements to complete this function.
+        //--------------------------------------------------------
+        if(isEmpty()) return null;
+        tmp=front.info;
+        front=front.next;
+        if(front == null) rear=null;
+        //---------------------------------------------------------
+        return tmp;
+    }
+
+   void rent(Room t) throws Exception {
+        //You should write here appropriate statements to complete this function.
+        //--------------------------------------------------------
+        Node p=dList.head;
+        Room bestRoom=null;
+        while(p != null){
+            if(p.info.getStatus() == 0){
+                if(p.info.getSize() >= t.getSize()){
+                    if(p.info.getPrice() <= t.getPrice()){
+                        bestRoom=p.info;
+                        break;
+                    }
+                }
+            }
+            p=p.next;
+        }
+        
+        while(p != null){
+            if(p.info.getStatus() == 0){
+                if(p.info.getSize() >= t.getSize()){
+                    if(p.info.getPrice() <= t.getPrice()){
+                        if(p.info.getPrice() <= bestRoom.getPrice()){
+                            bestRoom=p.info;
+                        }
+                    }
+                }
+            }
+            p=p.next;
+        }
+        
+        if(bestRoom != null){
+            bestRoom.setStatus(1);
+        }
+        //---------------------------------------------------------
+    }
+
+===f2()===Serve the first request in the requestQueue
+//You should write here appropriate statements to complete this function.
+        //--------------------------------------------------------
+        Room req=RQueue.deQueue();
+        rent(req);
+        //---------------------------------------------------------
 
 
+        //You should write here appropriate statements to complete this function.
+        //--------------------------------------------------------
+        Room req=RQueue.deQueue();
+        while(req != null){
+            rent(req);
+            req=RQueue.deQueue();
+        }
+        //---------------------------------------------------------
 
+===f3()===Serve all requests in the requestQueue
+        //You should write here appropriate statements to complete this function.
+        //--------------------------------------------------------
+        Room req=RQueue.deQueue();
+        while(req != null){
+            rent(req);
+            req=RQueue.deQueue();
+        }
+        //---------------------------------------------------------
 
+====f4()===Compute the total revenue (money) of the Hotel after serving all the request
+in the queue
+ //You should write here appropriate statements to complete this function.
+        //--------------------------------------------------------
+        Room req=RQueue.deQueue();
+        while(req != null){
+            rent(req);
+            req=RQueue.deQueue();
+        }
+        
+        Node p=dList.head;
+        while(p != null){
+            if(p.info.getStatus() == 1){
+                result+=p.info.getPrice();
+            }
+            p=p.next;
+        }
+        //---------------------------------------------------------
+
+=====Linked List && Queue=====
+void addLast(String type, int amount, int price) {
+        //You should write here appropriate statements to complete this function.
+        //--------------------------------------------------------
+        Node p=new Node(new Fruit(type, amount, price));
+        if(isEmpty()){
+            head=tail=p;
+        } else{
+            tail.next=p;
+            tail=p;
+        }
+        //---------------------------------------------------------
+    }
+
+void enQueue(String type, int amount) {
+        //You should write here appropriate statements to complete this function.
+        //--------------------------------------------------------
+        Node p=new Node(new Fruit(type, amount));
+        if(isEmpty()){
+            front=rear=p;
+        } else{
+            rear.next=p;
+            rear=p;
+        }
+        //---------------------------------------------------------
+    }
+
+    Fruit deQueue() {
+        Fruit tmp = new Fruit();
+        //You should write here appropriate statements to complete this function.
+        //--------------------------------------------------------
+        if(isEmpty()) return null;
+        tmp=front.info;
+        front=front.next;
+        if(front == null) rear=null;
+        //---------------------------------------------------------
+        return tmp;
+    }
+ // them ham purchase de tinh toan va tra ve so tien
+    private int purchase(Fruit request){
+        Node p=FList.head;
+        while(p != null){
+            if(p.info.getType().equals(request.getType())){
+                // Only purchase if the fruit exists and can be bought
+                if(!request.getType().equals("M") && !request.getType().equals("F")){
+                    int purchaseAmount=Math.min(request.getAmount(), p.info.getAmount());
+                    if(purchaseAmount > 0){
+                        // Update the remaining amount in the fruit list
+                        p.info.setAmount(p.info.getAmount() - purchaseAmount);
+                        // Calculate and return the money
+                        return purchaseAmount * p.info.getPrice();
+                    }
+                }
+                break;
+            }
+            p=p.next;
+        }
+        return 0;
+    }
+
+=====f2()=====
+//You should write here appropriate statements to complete this function.
+        //--------------------------------------------------------
+        Fruit req=RQueue.deQueue();
+        while(req != null){
+            purchase(req);
+        }
+        //---------------------------------------------------------
+
+=====f3()======
+//You should write here appropriate statements to complete this function.
+        //--------------------------------------------------------
+        Fruit req=RQueue.deQueue();
+        while(req != null){
+            purchase(req);
+            req=RQueue.deQueue();
+        }
+        //---------------------------------------------------------
+
+=====f4()======
+int S = 0;
+        //You should write here appropriate statements to complete this function.
+        //--------------------------------------------------------
+        Fruit req=RQueue.deQueue();
+        while(req != null){
+            S+=purchase(req);
+            req=RQueue.deQueue();
+        }
+        //---------------------------------------------------------
+
+=====Linked List && Stack=====
+void addLast(String name, int weight, int length, int fragile) {
+        //You should write here appropriate statements to complete this function.
+        //----------------------------------------------------------------------
+        if(weight > 0 && length > 0){
+            Node p=new Node(new Item(name, weight, length, fragile));
+            if(isEmpty()){
+                head=tail=p;
+            } else{
+                tail.next=p;
+                tail=p;
+            }
+        }
+        //----------------------------------------------------------------------
+    }
+
+void push(String name, int weight, int length, int fragile) {
+        //You should write here appropriate statements to complete this function.
+        //----------------------------------------------------------------------
+        if(weight > 0 && length > 0){
+            Node p=new Node(new Item(name, weight, length, fragile));
+            if(isEmpty()){
+                head=p;
+            } else{
+                p.next=head;
+                head=p;
+            }
+        }
+        //----------------------------------------------------------------------
+    }
+
+Node deleteFirstFragile() {
+        Node result = null;
+        //You should write here appropriate statements to complete this function.
+        //----------------------------------------------------------------------
+        Node p=head;
+        Node prev=null;
+        
+        while(p != null){
+            if(p.info.getFragile() == 1){
+                result=p;
+                if(p == head){
+                    head=head.next;
+                } else if(p == tail){
+                    tail=prev;
+                    tail.next=null;
+                } else{
+                    prev.next=p.next;
+                }
+                break;
+            }
+            prev=p;
+            p=p.next;
+        }
+        //----------------------------------------------------------------------
+        return result;
+    }
+
+====f2()====Load the first fragile item onto the truck
+truck.push(list.deleteFirstFragile());
+
+====f3()====Load all fragile items onto the truck
+//You should write here appropriate statements to complete this function.
+        //----------------------------------------------------------------------
+        Node p=list.head;
+        while(p != null){
+            if(p.info.getFragile() == 1){
+                truck.push(list.deleteFirstFragile());
+            }
+            p=p.next;
+        }
+        //----------------------------------------------------------------------
+
+====f4()====Compute total weight of items on the truck
+//You should write here appropriate statements to complete this function.
+        //----------------------------------------------------------------------
+        Node p=list.head;
+        while(p != null){
+            if(p.info.getFragile() == 1){
+                truck.push(list.deleteFirstFragile());
+            }
+            p=p.next;
+        }
+        
+        Node tmp=truck.head;
+        while(tmp != null){
+            totalWeight+=tmp.info.getWeight();
+            tmp=tmp.next;
+        }
+
+=====Linked List && BST======
+void insert(String id, String name, double gpa, String major, double balance) {
+        // Implement this function - Insert a new student to the BST
+        // If the ID already exists, update the student's information
+        // --------------------------------------------------------
+        // YOUR CODE HERE
+        TreeNode p=new TreeNode(new Student(id, name, gpa, major, balance));
+        if(root == null){
+            root=p;
+            return;
+        }
+        TreeNode parent, current;
+        current=root;
+        parent=null;
+        
+        while(current != null){
+            if(current.info.getId().equals(p.info.getId())){
+                current.info.setName(name);
+                current.info.setGpa(gpa);
+                current.info.setMajor(major);
+                current.info.setBalance(balance);
+                return;
+            } 
+            parent=current;
+            if(p.info.getId().compareTo(current.info.getId()) < 0){
+                current=current.left;
+            } else{
+                current=current.right;
+            }
+        }
+        if(p.info.getId().compareTo(parent.info.getId()) < 0){
+            parent.left=p;
+        } else{
+            parent.right=p;
+        }
+        // --------------------------------------------------------
+    }
+
+// Find student with highest GPA
+    Student findHighestGPA() {
+        // Implement this function - Find student with highest GPA
+        // --------------------------------------------------------
+        // YOUR CODE HERE
+        if(root == null){
+            return null;
+        }
+        return findHighestGPA(root);
+    }
+    private Student findHighestGPA(TreeNode node){
+        if(node == null){
+            return null;
+        }
+        // khoi tao sv co gpa cao nhat la sv hien tai
+        Student highestGPAStudent=node.info;
+        // tim sv co gpa cao nhat o cay ben trai
+        Student leftHighest=findHighestGPA(node.left);
+        if(leftHighest != null && leftHighest.getGpa() > highestGPAStudent.getGpa()){
+            highestGPAStudent=leftHighest;
+        }
+        // tim sv co gpa cao nhat o cay con ben phai
+        Student rightHighest=findHighestGPA(node.right);
+        if(rightHighest != null && rightHighest.getGpa() > highestGPAStudent.getGpa()){
+            highestGPAStudent=rightHighest;
+        }
+        return highestGPAStudent;
+    }
+
+    // Count students with GPA greater than or equal to threshold
+    int countByGPA(double threshold) {
+        // Implement this function - Count students with GPA >= threshold
+        // --------------------------------------------------------
+         return countByGPA(root, threshold);
+    }
+
+    private int countByGPA(TreeNode node, double threshold){
+        if(node == null){
+            return 0;
+        }
+
+        int count=0;
+        // kiem tra neu sv hien tai co gpa >= nguong )threshold
+        if(node.info.getGpa() >= threshold){
+            count=1;
+        }
+        // de quy dem ca cay con ben trai va phai
+        return count + countByGPA(node.left, threshold) + countByGPA(node.right, threshold);
+    }
+
+    // Count students by major
+    int countByMajor(String major) {
+        return countByMajor(root, major);
+    }
+    
+    private int countByMajor(TreeNode p, String major) {
+        if (p == null) return 0;
+        
+        int count = 0;
+        if (p.info.getMajor().equals(major))
+            count = 1;
+            
+        return count + countByMajor(p.left, major) + countByMajor(p.right, major);
+    }
+
+    // Update student balance in BST
+    boolean updateStudentBalance(String id, double amount) {
+        // Implement this function - Update balance of student with given ID
+        // --------------------------------------------------------
+        TreeNode node=search(root, id);
+        if(node == null){
+            return false;
+        }
+        // cong them so tien vao tai khoan sinh vien
+        node.info.addToBalance(amount);
+        return true;
+    }
+
+void addLast(String id, String name, double gpa, String major, double scholarshipAmount) {
+        // Implement this function - add a new student to the end of the linked list
+        // --------------------------------------------------------
+        // YOUR CODE HERE
+        ListNode p=new ListNode(new Student(id, name, gpa, major, scholarshipAmount));
+        if(isEmpty()){
+            head=tail=p;
+        } else{
+            tail.next=p;
+            tail=p;
+        }
+        // --------------------------------------------------------
+    }
+
+// Remove a student from scholarship list by ID
+    ListNode removeById(String id) {
+        // Implement this function - Remove student with given ID from list
+        // --------------------------------------------------------
+         if(isEmpty()){
+            return null;
+        }
+        // TH xoa node dau tien
+        if(head.info.getId().equals(id)){
+            ListNode removedNode=head;
+            head=head.next;
+            if(head == null){
+                tail=null;
+            }
+            return removedNode;
+        }
+
+        // tim node can xoa
+        ListNode current=head;
+        while(current.next != null && !current.next.info.getId().equals(id)){
+            current=current.next;
+        }
+        // neu khong tim thay id
+        if(current.next == null){
+            return null;
+        }
+        // luu node can xoa
+        ListNode removedNode=current.next;
+        // xoa node khoi ds
+        current.next=current.next.next;
+        // neu node bi xoa la tail, update tail
+        if(removedNode == tail){
+            tail=current;
+        }
+        
+        return removedNode;
+        // --------------------------------------------------------
+    }
+====f2()=====
+// Find student with highest GPA
+        // --------------------------------------------------------
+        Student highestGPA=studentBST.findHighestGPA();
+        // --------------------------------------------------------
+
+=====f3()=====
+ // Count students with GPA >= 3.5
+        // --------------------------------------------------------
+        // YOUR CODE HERE
+        int count=studentBST.countByGPA(3.5);
+        f.writeBytes("" + count);
+        // --------------------------------------------------------
+
+=====f4()====
+        // Process scholarships - remove from list and add to student balance
+        // --------------------------------------------------------
+        while(!scholarshipList.isEmpty()){
+            // lay sv dau tien trong ds hoc bong
+            ListNode student=scholarshipList.head;
+            String studentId=student.info.getId();
+            double scholarshipAmount=student.info.getBalance();
+            // update so tien trong tai khoan cua sv trong BST
+            studentBST.updateStudentBalance(studentId, scholarshipAmount);
+            // xoa sv khoi ds hoc bong
+            scholarshipList.removeById(studentId);
+        }
+        // --------------------------------------------------------
 */

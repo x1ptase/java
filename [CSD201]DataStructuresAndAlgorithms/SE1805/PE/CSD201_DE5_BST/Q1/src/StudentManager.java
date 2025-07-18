@@ -341,15 +341,12 @@ class StudentManager {
             g123.delete();
         }
         java.io.RandomAccessFile f = new java.io.RandomAccessFile(fname, "rw");
-
         ftraverse(f);
-
         // Find student with highest GPA
         // --------------------------------------------------------
-        Student highestGPA = studentBST.findHighestGPA();
-        f.writeBytes("\r\nStudent with highest GPA: " + highestGPA + "\r\n");
+        Student highestGPA=studentBST.findHighestGPA();
         // --------------------------------------------------------
-
+        f.writeBytes("\r\nStudent with highest GPA: " + highestGPA + "\r\n");
         f.close();
     }
 
@@ -362,7 +359,6 @@ class StudentManager {
             g123.delete();
         }
         java.io.RandomAccessFile f = new java.io.RandomAccessFile(fname, "rw");
-
         // Count students with GPA >= 3.5
         // --------------------------------------------------------
         // YOUR CODE HERE
@@ -397,7 +393,6 @@ class StudentManager {
             // xoa sv khoi ds hoc bong
             scholarshipList.removeById(studentId);
         }
-        
         // --------------------------------------------------------
 
         ftraverse(f);
