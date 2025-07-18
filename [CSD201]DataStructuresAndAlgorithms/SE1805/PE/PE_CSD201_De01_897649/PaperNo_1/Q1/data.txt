@@ -1,0 +1,4 @@
+Data for test:
+9	15	5   	12   	7   	3	18	11	2
+V   	M   	B   	N   	A   	T	H	P	D
+true  	true   false	true   true   	true	false	true	false

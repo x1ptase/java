@@ -500,4 +500,46 @@ void addLast(String id, String name, double gpa, String major, double scholarshi
             scholarshipList.removeById(studentId);
         }
         // --------------------------------------------------------
+====DOUBLE LINKEDLIST===
+public void addFirst(Car x){
+        Node p=new Node(x, null, null);
+        if(isEmpty()) {
+            header=trailer=p;
+        } else{
+            p.next=header;
+            header.prev=p;
+            header=p;
+        } size++;
+    }
+
+    public void addLast(Car x){
+        Node p=new Node(x, null, null);
+        if(isEmpty()){
+            header=trailer=p;
+        } else{
+            trailer.next=p;
+            p.prev=trailer;
+            trailer=p;
+        } size++;
+    }
+    
+    public void removeFirst(){
+        if (isEmpty()) return;
+        if(header==trailer){
+            header=trailer=null;
+        } else{
+            header=header.next;
+            header.prev=null;
+        } size--;
+    }
+
+    public void removeLast(){
+        if(isEmpty()) return;
+        if(header==trailer){
+            header=trailer=null;
+        } else{
+            trailer=trailer.prev;
+            trailer.next=null;
+        } size--;
+    }
 */

@@ -1,0 +1,2 @@
+(2,D,false) (3,T,true) (5,B,false) (7,A,true) (9,V,true) (11,P,true) (12,N,true) (15,M,true) (18,H,false) 
+(15,M,true)(12,N,true)(11,P,true)(9,V,true)(7,A,true)(3,T,true)
