@@ -52,8 +52,9 @@
         </ul>
 
         <%-- forEach: forEach khong lay gia tri tu Scriplet only Scope--%>
+        <c:set var="colors" value="red, blue, green"/> 
         <ul>
-            <c:forEach var="color" items="${colors}">
+            <c:forEach var="color" items="${colors.split(',')}">
             <li>${color}</li>
             </c:forEach>
         </ul>
