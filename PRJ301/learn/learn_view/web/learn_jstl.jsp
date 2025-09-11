@@ -23,7 +23,7 @@
         <p>
           <c:choose>
             <c:when test="${day == 0}">Sunday</c:when>
-            <c:when test="${day == 1}">Monday</c:when>
+            <c:when test="${day == 1}"><span style="color: red">Monday</span></c:when>
             <c:when test="${day == 2}">Tuesday</c:when>
             <c:when test="${day == 3}">Wednesday</c:when>
             <c:when test="${day == 4}">Thursday</c:when>
@@ -41,7 +41,17 @@
             <p>Error: ${catchException.message}</p>
         </c:if>
             
-        <%-- forEach: duyet mang --%>
+        <%-- for: duyet mang--%>
+        <%
+            String[] colors={"red", "blue", "green"};
+        %>
+        <ul>
+            <% for(int i=0; i < colors.length; i++){ %>
+                <li><%= colors[i] %></li>
+            <% }%>
+        </ul>
+
+        <%-- forEach: forEach khong lay gia tri tu Scriplet only Scope--%>
         <ul>
             <c:forEach var="color" items="${colors}">
             <li>${color}</li>
