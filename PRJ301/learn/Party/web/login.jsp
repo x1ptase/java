@@ -13,6 +13,7 @@
     </head>
     <body>
         <h1>Login</h1>
+        <p style="color: red">${error}</p>
         <form action="login" method="POST">
             Username: <input type="text" name="username" value="" /></br>
             Password: <input style="margin-left: 4px; margin-top: 5px" type="password" name="password" value="" /></br>

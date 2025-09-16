@@ -6,7 +6,6 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,8 +16,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author x1pta
  */
-@WebServlet("/login")
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "ListServlet", urlPatterns = {"/list"})
+public class ListServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +36,10 @@ public class LoginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");            
+            out.println("<title>Servlet ListServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ListServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,10 +57,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // chuyen tiep request ve lai trang login.jsp
-        RequestDispatcher dispatcher=request.getRequestDispatcher("login.jsp");
-        dispatcher.forward(request, response);
-        
+        processRequest(request, response);
     }
 
     /**
@@ -75,26 +71,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username=request.getParameter("username");
-        String password=request.getParameter("password");
-        
-        if(authenticate(username, password)){
-            response.sendRedirect("list");
-        } else {
-            request.setAttribute("error", "Invalid username or password!");
-            
-            RequestDispatcher dispatcher=request.getRequestDispatcher("login.jsp");
-            dispatcher.forward(request, response);
-}
-
-    }
-    
-    /**
-     * Phuong thuc kiem tra thong tin dang nhap (gia lap)
-     */
-    private boolean authenticate(String username, String password){
-        // kiem tra username va password co trung khop khong
-        return "admin".equals(username) && "12345".equals(password);
+        processRequest(request, response);
     }
 
     /**
