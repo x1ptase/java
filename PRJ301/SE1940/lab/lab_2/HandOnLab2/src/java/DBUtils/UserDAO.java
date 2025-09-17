@@ -100,7 +100,7 @@ public class UserDAO{
     } // end getUserList
    
     public boolean addUser(User user) throws Exception{
-        PrepareStatement preStm=null;
+        PreparedStatement preStm=null;
         Connection cnn=null;
         try{
             cnn=getConnection();
@@ -129,12 +129,12 @@ public class UserDAO{
     } // end addUser
     
     public boolean updateUser(User user) throws Exception{
-        PrepareStatement preStm=null;
+        PreparedStatement preStm=null;
         Connection cnn=null;
         try{
             cnn=getConnection();
             String sql="Update Registration Set Password=?, LastName=?, isAdmin=? Where UserName=?";
-            preStm=(PrepareStatement) cnn.prepareStatement(sql);
+            preStm=cnn.prepareStatement(sql);
             preStm.setString(1, user.getPassword());
             preStm.setString(2, user.getLastName());
             preStm.setBoolean(3, user.isIsAdmin());
@@ -153,12 +153,12 @@ public class UserDAO{
     } // end updateUser
     
     public boolean deleteUser(String userName) throws Exception{
-        PreparedStament preStm=null;
+        PreparedStatement preStm=null;
         Connection cnn=null;
         try{
             cnn=getConnection();
             String sql="delete Registration Where UserName=?";
-            preStm=(PreparedStament) cnn.prepareStatement(sql);
+            preStm=cnn.prepareStatement(sql);
             preStm.setString(1, userName);
             return preStm.executeUpdate() > 0;
         } catch(Exception ex){
