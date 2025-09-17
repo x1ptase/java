@@ -6,8 +6,8 @@ import java.sql.ResultSet;
 public class ItemDAO{
     public Connection getConnection() throws Exception{
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        String url="jdbc:sqlserver://localhost:1433;database=SampleDB";
-        Connection connection=DriverManager.getConnection(url, "sa", "1");
+        String url="jdbc:sqlserver://localhost:1433;databaseName=SampleDB";
+        Connection connection=DriverManager.getConnection(url, "sa", "12345");
         return connection;
     } // end Connection
     //---------------------------------------------------------------------

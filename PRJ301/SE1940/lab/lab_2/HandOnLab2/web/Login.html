@@ -10,7 +10,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <h3 style="color: red">Sorry! username or password invailid</h3>
-        <a href="login.html">Back to login</a>
+        <h1>Login</h1>
+        <form name="LoginServlet" action="LoginServlet" method="POST">
+            Username<input type="text" name="Username" value="" />
+            Password<input type="password" name="Password" value="" />
+        </form>
     </body>
 </html>

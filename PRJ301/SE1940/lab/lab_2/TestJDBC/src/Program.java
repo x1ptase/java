@@ -8,7 +8,7 @@ public class Program{
         System.out.println("3.Update item");
         System.out.println("4.Remove item");
         System.out.println("Others: Exit");
-        System.out.println("Enter choice:");
+        System.out.print("Enter choice:");
     } // end printMenu
     public static void main(String[] args) {
         try{
