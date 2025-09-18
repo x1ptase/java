@@ -32,17 +32,16 @@ public class UserDAO{
         boolean isAdmin;
         try{
             cnn=getConnection();
-            String sql=
-                    "select LastName, isAdmin from Registration where [UserName]=? and [Password]=?";
-            preStm=cnn.prepareCall(sql);
+            String sql = "SELECT LastName, isAdmin FROM Registration WHERE UserName=? AND Password=?";
+            preStm = cnn.prepareStatement(sql);
             preStm.setString(1, userName);
             preStm.setString(2, password);
-            rs=preStm.executeQuery();
-            while(rs.next()){
-                lastName=rs.getString(1);
-                isAdmin=rs.getBoolean(2);
-                user=new User(userName, password, lastName, isAdmin);
-            } // end while
+            rs = preStm.executeQuery();
+            if (rs.next()) { 
+                lastName = rs.getString("LastName");
+                isAdmin = rs.getBoolean("isAdmin");
+                user = new User(userName, password, lastName, isAdmin);
+            }
         } catch(Exception ex){
             throw ex;
         } finally{
@@ -69,7 +68,7 @@ public class UserDAO{
         try{
             cnn=getConnection();
             String sql=
-                    "select Username, Password, LastName, isAdmin from Registration";
+                    "SELECT UserName, Password, LastName, isAdmin from Registration";
             preStm=cnn.prepareStatement(sql);
             rs=preStm.executeQuery();
             while(rs.next()){

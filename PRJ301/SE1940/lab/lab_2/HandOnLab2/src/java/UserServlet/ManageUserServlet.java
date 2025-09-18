@@ -81,4 +81,25 @@ public class ManageUserServlet extends HttpServlet{
             out.println("Error:" + ex.getMessage());
         }
     }
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            processRequest(request, response);
+        } catch (Exception e) {
+            throw new ServletException(e);
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            processRequest(request, response);
+        } catch (Exception e) {
+            throw new ServletException(e);
+        }
+    }
+
 } // end class

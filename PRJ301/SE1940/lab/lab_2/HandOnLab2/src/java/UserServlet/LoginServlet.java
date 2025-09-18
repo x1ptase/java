@@ -61,4 +61,23 @@ public class LoginServlet extends HttpServlet{
             out.close();
         }
     }
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            processRequest(request, response);
+        } catch (Exception e) {
+            throw new ServletException(e);
+        }
+    }
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            processRequest(request, response);
+        } catch (Exception e) {
+            throw new ServletException(e);
+        }
+    }
 }
