@@ -36,21 +36,21 @@ public class LoginServlet extends HttpServlet{
                 UserDAO userDAO=new UserDAO();
                 User user=userDAO.login(userName, password);
                 if(user != null){
-                    out.println("Welcome to " + user.getLastName() + " !!!</br>");
-                    if(user.isIsAdmin() == true){
-                        out.println("You are loged successfully in with administrator role." + "</br>");
+                    out.println("Welcome " + user.getLastName() + " !!!</br>");
+                    if(user.isIsAdmin()){
+                        out.println("You are logged successfully in with administrator role.</br>");
                         out.println("<a href='ProcessUserServlet?action=view'>View user list</a></br>");
                         out.println("<a href='ProcessUserServlet?action=add'>Add new user</a></br>");
                         out.println("<a href='ProcessUserServlet?action=update'>Update user</a></br>");
                         out.println("<a href='ProcessUserServlet?action=delete'>Delete user</a></br>");
-                    } else{
-                        out.println("You are logged sucessfully in with normal role." + "</br>");
+                    } else {
+                        out.println("You are logged successfully in with normal role.</br>");
                         out.println("<a href='ProcessUserServlet?action=view'>View user list</a></br>");
                     }
-                } else{
-                    out.println("Login has failed. </br>");
+                } else {
+                    out.println("Login has failed.</br>");
                     out.println("<a href='Login.html'>Back to login</a>");
-                }   
+                }
             } catch(Exception ex){
                 out.println("Something went wrong. Error :" + ex.getMessage());
             }

@@ -20,3 +20,12 @@ SELECT * FROM Registration WHERE UserName='U002' AND Password='111';
 
 DELETE FROM Registration
 WHERE UserName = 'sa' AND Password = '12345';
+
+INSERT INTO Registration (UserName, Password, LastName, isAdmin)
+VALUES ('sa', '12345', 'System Admin', 1);
+
+INSERT INTO Registration (UserName, Password, LastName, isAdmin)
+VALUES ('U006', '123', 'test', 1);
+
+DELETE FROM Registration
+WHERE UserName = 'U006' AND Password = '123';

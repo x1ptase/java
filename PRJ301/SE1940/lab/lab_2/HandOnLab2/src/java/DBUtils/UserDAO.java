@@ -92,9 +92,6 @@ public class UserDAO{
                 cnn.close();
             }
         }
-        if(userList.isEmpty()){
-            return null;
-        }
         return userList;
     } // end getUserList
    
@@ -156,7 +153,7 @@ public class UserDAO{
         Connection cnn=null;
         try{
             cnn=getConnection();
-            String sql="delete Registration Where UserName=?";
+            String sql="DELETE FROM Registration WHERE UserName=?";
             preStm=cnn.prepareStatement(sql);
             preStm.setString(1, userName);
             return preStm.executeUpdate() > 0;

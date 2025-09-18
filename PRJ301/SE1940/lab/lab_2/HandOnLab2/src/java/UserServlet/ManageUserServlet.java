@@ -50,16 +50,14 @@ public class ManageUserServlet extends HttpServlet{
                 } else{
                     out.println("<h3>Something went wrong!</h3></br>");
                 }
-            } else{
+            } else if(action.equals("add")){
                 password=request.getParameter("txtPassword");
                 lastName=request.getParameter("txtLastName");
                 String admin=request.getParameter("chkIsAdmin");
                 if(admin == null){
                     isAdmin=false;
                 }
-            }
-            User user=new User(userName, password, lastName, isAdmin);
-            if(action.equals("add")){
+                User user=new User(userName, password, lastName, isAdmin);
                 out.println("<h1>UserManagement - Add new user" + "</h1>");
                 if(userDAO.addUser(user) == true){
                     out.println("User has been added successfully</br>");
@@ -67,6 +65,13 @@ public class ManageUserServlet extends HttpServlet{
                     out.println("<h3>Something went wrong!</h3></br>");
                 }
             } else if(action.equals("update")){
+                password=request.getParameter("txtPassword");
+                lastName=request.getParameter("txtLastName");
+                String admin=request.getParameter("chkIsAdmin");
+                if(admin == null){
+                    isAdmin=false;
+                }
+                User user=new User(userName, password, lastName, isAdmin);
                 out.println("<h1>Users Management - Update user" + "</h1>");
                 if(userDAO.updateUser(user) == true){
                     out.println("User has been updated successfully</br>");
@@ -101,5 +106,6 @@ public class ManageUserServlet extends HttpServlet{
             throw new ServletException(e);
         }
     }
+    
 
 } // end class

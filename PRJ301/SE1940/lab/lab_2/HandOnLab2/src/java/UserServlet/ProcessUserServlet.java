@@ -1,6 +1,4 @@
-
 package UserServlet;
-
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -40,10 +38,11 @@ public class ProcessUserServlet extends HttpServlet{
             } else if(action.equals("delete")){
                 response.sendRedirect("DeleteUser.html");
             }
-            out.println("</body");
-            out.println("</html");
+            
+            out.println("</body>");
+            out.println("</html>");
         } catch(Exception ex){
-            out.println("\n");
+            out.println("Error: " + ex.getMessage());
         }
     }
     
@@ -57,4 +56,13 @@ public class ProcessUserServlet extends HttpServlet{
         }
     }
 
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            processRequest(request, response);
+        } catch (Exception e) {
+            throw new ServletException(e);
+        }
+    }
 }
