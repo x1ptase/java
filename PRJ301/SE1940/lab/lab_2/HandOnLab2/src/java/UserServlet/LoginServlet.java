@@ -43,11 +43,11 @@ public class LoginServlet extends HttpServlet{
                         out.println("<a href='ProcessUserServlet?action=add'>Add new user</a></br>");
                         out.println("<a href='ProcessUserServlet?action=update'>Update user</a></br>");
                         out.println("<a href='ProcessUserServlet?action=delete'>Delete user</a></br>");
-                    } else {
+                    } else{
                         out.println("You are logged successfully in with normal role.</br>");
                         out.println("<a href='ProcessUserServlet?action=view'>View user list</a></br>");
                     }
-                } else {
+                } else{
                     out.println("Login has failed.</br>");
                     out.println("<a href='Login.html'>Back to login</a>");
                 }
@@ -64,19 +64,20 @@ public class LoginServlet extends HttpServlet{
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
+            throws ServletException, IOException{
+        try{
             processRequest(request, response);
-        } catch (Exception e) {
+        } catch(Exception e){
             throw new ServletException(e);
         }
     }
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
+            throws ServletException, IOException{
+        try{
             processRequest(request, response);
-        } catch (Exception e) {
+        } catch(Exception e){
             throw new ServletException(e);
         }
     }
