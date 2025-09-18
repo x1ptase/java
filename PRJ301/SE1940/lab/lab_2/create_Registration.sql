@@ -29,3 +29,5 @@ VALUES ('U006', '123', 'test', 1);
 
 DELETE FROM Registration
 WHERE UserName = 'U006' AND Password = '123';
+
+SELECT * FROM Registration WHERE UserName='U009' AND Password='123';
