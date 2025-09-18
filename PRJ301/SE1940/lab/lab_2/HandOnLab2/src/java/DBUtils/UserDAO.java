@@ -37,10 +37,10 @@ public class UserDAO{
             preStm.setString(1, userName);
             preStm.setString(2, password);
             rs = preStm.executeQuery();
-            if (rs.next()) { 
-                lastName = rs.getString("LastName");
-                isAdmin = rs.getBoolean("isAdmin");
-                user = new User(userName, password, lastName, isAdmin);
+            if(rs.next()){ 
+                lastName=rs.getString("LastName");
+                isAdmin=rs.getBoolean("isAdmin");
+                user=new User(userName, password, lastName, isAdmin);
             }
         } catch(Exception ex){
             throw ex;

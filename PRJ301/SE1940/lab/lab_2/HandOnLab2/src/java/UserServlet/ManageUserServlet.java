@@ -17,10 +17,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name="ManageUserServlet", urlPatterns={"/ManageUserServlet"})
 public class ManageUserServlet extends HttpServlet{
-    protected void processRequest (HttpServletRequest request,
+    protected void processRequest(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException, Exception{
-        String userName, password = null, lastName = null;
+        String userName, password=null, lastName=null;
         boolean isAdmin=true;
         String action;
         response.setContentType("text/html;charset=UTF-8");
@@ -89,23 +89,21 @@ public class ManageUserServlet extends HttpServlet{
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
+            throws ServletException, IOException{
+        try{
             processRequest(request, response);
-        } catch (Exception e) {
+        } catch (Exception e){
             throw new ServletException(e);
         }
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
+            throws ServletException, IOException{
+        try{
             processRequest(request, response);
-        } catch (Exception e) {
+        } catch (Exception e){
             throw new ServletException(e);
         }
     }
-    
-
 } // end class

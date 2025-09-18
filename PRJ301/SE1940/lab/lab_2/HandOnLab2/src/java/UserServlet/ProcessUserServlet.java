@@ -48,20 +48,20 @@ public class ProcessUserServlet extends HttpServlet{
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
+            throws ServletException, IOException{
+        try{
             processRequest(request, response);
-        } catch (Exception e) {
+        } catch(Exception e){
             throw new ServletException(e);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
+            throws ServletException, IOException{
+        try{
             processRequest(request, response);
-        } catch (Exception e) {
+        } catch(Exception e){
             throw new ServletException(e);
         }
     }
