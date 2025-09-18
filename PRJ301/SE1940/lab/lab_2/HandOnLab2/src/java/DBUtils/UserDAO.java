@@ -1,6 +1,5 @@
 package DBUtils;
 
-import DBUtils.User;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -11,6 +10,7 @@ import java.util.List;
 
 public class UserDAO{
     protected Connection conn;
+    public User log;
         public Connection getConnection() throws ClassNotFoundException, SQLException{
             try{    
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
