@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <context-param>
+        <param-name>intial</param-name>
+        <param-value>5</param-value>
+    </context-param>
+    <servlet>
+        <servlet-name>InitCounter</servlet-name>
+        <servlet-class>InitServlet.InitCounter</servlet-class>
+        <init-param>
+            <description>init parameter</description>
+            <param-name>initial</param-name>
+            <param-value>5</param-value>
+        </init-param>
+    </servlet>
+    <servlet>
+        <servlet-name>EndServlet</servlet-name>
+        <servlet-class>InitServlet.EndServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InitServletConfig</servlet-name>
+        <servlet-class>InitServlet.InitServletConfig</servlet-class>
+        <init-param>
+            <description>initial parameter</description>
+            <param-name>initial</param-name>
+            <param-value>5</param-value>
+        </init-param>
+    </servlet>
+    <servlet>
+        <servlet-name>MiddleServlet</servlet-name>
+        <servlet-class>InitServlet.MiddleServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>InitCounter</servlet-name>
+        <url-pattern>/InitCounter</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EndServlet</servlet-name>
+        <url-pattern>/EndServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InitServletConfig</servlet-name>
+        <url-pattern>/InitServletConfig</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MiddleServlet</servlet-name>
+        <url-pattern>/MiddleServlet</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>
