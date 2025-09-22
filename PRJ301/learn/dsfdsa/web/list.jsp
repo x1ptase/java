@@ -1,10 +1,11 @@
 <%-- 
     Document   : list
-    Created on : Sep 22, 2025, 2:42:45 PM
-    Author     : x1pta
+    Created on : May 27, 2025, 9:20:40 PM
+    Author     : hiepn
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>

@@ -6,7 +6,7 @@ package model;
 
 /**
  *
- * @author x1pta
+ * @author hiepn
  */
 public class Person {
     private int id;
