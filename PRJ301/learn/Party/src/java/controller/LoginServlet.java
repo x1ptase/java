@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -19,16 +20,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -45,7 +36,8 @@ public class LoginServlet extends HttpServlet {
             out.println("</html>");
         }
     }
-
+    
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -79,8 +71,11 @@ public class LoginServlet extends HttpServlet {
         String password=request.getParameter("password");
         
         if(authenticate(username, password)){
-            response.sendRedirect("list");
-        } else {
+            HttpSession session=request.getSession();
+            session.setAttribute("username", username);
+            
+            response.sendRedirect("list.jsp");
+        } else{
             request.setAttribute("error", "Invalid username or password!");
             
             RequestDispatcher dispatcher=request.getRequestDispatcher("login.jsp");

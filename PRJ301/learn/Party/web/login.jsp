@@ -16,7 +16,7 @@
         <p style="color: red">${error}</p>
         <form action="login" method="POST">
             Username: <input type="text" name="username" value="" /></br>
-            Password: <input style="margin-left: 4px; margin-top: 5px" type="password" name="password" value="" /></br>
+            Password: <input style="margin: 5px 0 5px 4px" type="password" name="password" value="" /></br>
             <input type="submit" value="Login" />
         </form>
     </body>
