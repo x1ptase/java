@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dal;
 
 import java.sql.Connection;
@@ -11,21 +7,26 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author x1pta
+ * Lớp quản lý kết nối CSDL
  */
 public class DBContext {
-    protected Connection connection;
-    public DBContext()
-    {
+    private static final String URL = "jdbc:sqlserver://localhost:1433;databaseName=PartyDB";
+    private static final String USER = "sa";
+    private static final String PASSWORD = "12345";
+
+    static {
         try {
-            String user = "sa";
-            String pass = "12345";
-            String url = "jdbc:sqlserver://localhost:1433;databaseName=PartyDB";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            connection = DriverManager.getConnection(url, user, pass);
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException e) {
+            Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, "Cannot load JDBC driver", e);
         }
+    }
+
+    /**
+     * Mỗi lần gọi sẽ trả về một Connection mới.
+     * Gọi xong nhớ đóng bằng try-with-resources hoặc conn.close().
+     */
+    public Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 }
