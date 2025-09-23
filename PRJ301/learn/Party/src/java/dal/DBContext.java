@@ -23,8 +23,9 @@ public class DBContext {
     }
 
     /**
-     * Mỗi lần gọi sẽ trả về một Connection mới.
-     * Gọi xong nhớ đóng bằng try-with-resources hoặc conn.close().
+     * Mỗi lần gọi sẽ trả về một Connection mới.Gọi xong nhớ đóng bằng try-with-resources hoặc conn.close().
+     * @return 
+     * @throws java.sql.SQLException
      */
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);

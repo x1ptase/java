@@ -32,8 +32,7 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
+        try(PrintWriter out=response.getWriter()) {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -46,8 +45,6 @@ public class LoginServlet extends HttpServlet {
         }
     } 
 
-    
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.
      *
@@ -59,8 +56,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        // Chuyển tiếp request đến trang login.jsp
-        RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+        RequestDispatcher dispatcher=request.getRequestDispatcher("login.jsp");
         dispatcher.forward(request, response);
         
     } 
@@ -76,29 +72,25 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        String username=request.getParameter("username");
+        String password=request.getParameter("password");
         
-        if(authenticate(username, password)) {
-            HttpSession session = request.getSession();
+        if(authenticate(username, password)){
+            HttpSession session=request.getSession();
             session.setAttribute("username", username);
             
             response.sendRedirect("list");
-        } else {
+        } else{
             request.setAttribute("error", "Invalid username or password!");
-            
+      
             // Chuyển tiếp request về lại trang login.jsp để hiển thị thông báo
-            RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+            RequestDispatcher dispatcher=request.getRequestDispatcher("login.jsp");
             dispatcher.forward(request, response);
         }
 
     }
     
-    /**
-    * Phương thức kiểm tra thông tin đăng nhập (giả lập).
-    */
     private boolean authenticate(String username, String password) {
-        // Kiểm tra username và password có trùng khớp không (mô phỏng kiểm tra với DB)
         return "admin".equals(username) && "12345".equals(password);
     }
 

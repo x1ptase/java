@@ -6,9 +6,9 @@
     <title>Add New Member</title>
 </head>
 <body>
-    <h2 style="text-align:center;">Add New Member</h2>
-
-    <form action="add" method="post" style="width:300px; margin:0 auto;">
+    <h2>Add New Member</h2>
+    
+    <form action="add" method="post">
         <label>Name:</label><br>
         <input type="text" name="name" required><br><br>
 
@@ -16,7 +16,7 @@
         <input type="number" name="age" min="0" required><br><br>
 
         <input type="submit" value="Add">
-        <a href="list">Cancel</a>
+        <a href="list" style="margin: 0 0 0 10px">Cancel</a>
     </form>
 </body>
 </html>

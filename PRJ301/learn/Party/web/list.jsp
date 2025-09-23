@@ -6,10 +6,22 @@
     <meta charset="UTF-8">
     <title>Party Members</title>
     <style>
-        table { border-collapse: collapse; width: 70%; margin: 20px auto; }
-        th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
-        th { background: #f0f0f0; }
-        .actions form { display: inline; }
+        table{
+            border-collapse: collapse; 
+            width: 70%; 
+            margin: 20px auto;
+        }
+        th, td{
+            border: 1px solid #ccc; 
+            padding: 8px; 
+            text-align: center;
+        }
+        th{
+            background: #f0f0f0; 
+        }
+        .actions form{ 
+            display: inline;
+        }
     </style>
 </head>
 <body>
@@ -29,7 +41,7 @@
                 <td>${p.age}</td>
                 <td class="actions">
                     <a href="edit?id=${p.id}">Edit</a>
-                    |
+      
                     <form action="delete" method="post" style="display:inline;">
                         <input type="hidden" name="id" value="${p.id}">
                         <input type="submit" value="Delete"

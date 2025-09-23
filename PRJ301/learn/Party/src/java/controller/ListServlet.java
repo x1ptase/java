@@ -2,12 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package controller;
 
 import dal.PersonDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,16 +30,15 @@ public class ListServlet extends HttpServlet {
     throws ServletException, IOException {
         
         // Lấy data
-        PersonDAO personDAO = new PersonDAO();
+        PersonDAO personDAO=new PersonDAO();
         ArrayList<Person> persons;
-        try {
-            persons = personDAO.getAllPersons();
+        try{
+            persons=personDAO.getAllPersons();
             request.setAttribute("persons", persons);
         
-            // Chuyển tiếp request đến trang list.jsp
-            RequestDispatcher dispatcher = request.getRequestDispatcher("list.jsp");
+            RequestDispatcher dispatcher=request.getRequestDispatcher("list.jsp");
             dispatcher.forward(request, response);
-        } catch (SQLException ex) {
+        } catch(SQLException ex){
             Logger.getLogger(ListServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     } 

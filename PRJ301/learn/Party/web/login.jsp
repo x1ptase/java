@@ -3,7 +3,6 @@
     Created on : Sep 22, 2025, 2:42:53 PM
     Author     : x1pta
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -18,7 +17,7 @@
         </c:if>
         <form action="login" method="POST">
             Username: <input type="text" name="username" value="" /></br>
-            Password: <input type="password" name="password" value="" /></br>
+            Password: <input style="margin: 10px 0 10px 4px" type="password" name="password" value="" /></br>
             <input type="submit" value="Login" />
         </form>
     </body>

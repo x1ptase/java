@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Person;
 
-@WebServlet(name = "EditServlet", urlPatterns = {"/edit"})
+@WebServlet(name="EditServlet", urlPatterns={"/edit"})
 public class EditServlet extends HttpServlet {
 
     @Override
@@ -23,14 +23,14 @@ public class EditServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         try {
-            int id = Integer.parseInt(request.getParameter("id"));
+            int id=Integer.parseInt(request.getParameter("id"));
 
-            PersonDAO personDAO = new PersonDAO();
-            Person person = personDAO.getPersonByID(id);
+            PersonDAO personDAO=new PersonDAO();
+            Person person=personDAO.getPersonByID(id);
 
             request.setAttribute("person", person);
             request.getRequestDispatcher("edit.jsp").forward(request, response);
-        } catch (SQLException ex) {
+        } catch(SQLException ex){
             Logger.getLogger(EditServlet.class.getName()).log(Level.SEVERE, null, ex);
             throw new ServletException(ex);
         }
@@ -44,16 +44,16 @@ public class EditServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         try {
-            int id = Integer.parseInt(request.getParameter("id"));
-            String name = request.getParameter("name");
-            int age = Integer.parseInt(request.getParameter("age"));
+            int id=Integer.parseInt(request.getParameter("id"));
+            String name=request.getParameter("name");
+            int age=Integer.parseInt(request.getParameter("age"));
 
-            Person person = new Person(id, name, age);
-            PersonDAO personDAO = new PersonDAO();
+            Person person=new Person(id, name, age);
+            PersonDAO personDAO=new PersonDAO();
             personDAO.updatePerson(person);
 
             response.sendRedirect("list");
-        } catch (SQLException ex) {
+        } catch(SQLException ex){
             Logger.getLogger(EditServlet.class.getName()).log(Level.SEVERE, null, ex);
             throw new ServletException(ex);
         }
