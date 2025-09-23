@@ -1,5 +1,5 @@
-<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="model.Person"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,16 +7,20 @@
     <title>Edit Member</title>
 </head>
 <body>
-    <h1>Edit Member</h1>
-    <%
-        Person person = (Person) request.getAttribute("person");
-    %>
-    <form action="edit" method="POST">
-        <input type="hidden" name="id" value="<%= person.getId() %>" />
-        Name: <input type="text" name="name" value="<%= person.getName() %>" /><br>
-        Age: <input type="text" name="age" value="<%= person.getAge() %>" /><br>
-        <input type="submit" value="Update" />
+    <h2 style="text-align:center;">Edit Member</h2>
+
+    <form action="edit" method="post" style="width:300px; margin:0 auto;">
+        <!-- giữ ID trong hidden -->
+        <input type="hidden" name="id" value="${person.id}">
+
+        <label>Name:</label><br>
+        <input type="text" name="name" value="${person.name}" required><br><br>
+
+        <label>Age:</label><br>
+        <input type="number" name="age" value="${person.age}" min="0" required><br><br>
+
+        <input type="submit" value="Update">
+        <a href="list">Cancel</a>
     </form>
-    <a href="list">Back to List</a>
 </body>
 </html>

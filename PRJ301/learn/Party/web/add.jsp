@@ -1,22 +1,22 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Add Member</title>
+    <meta charset="UTF-8">
+    <title>Add New Member</title>
 </head>
 <body>
-    <h1>Add New Member</h1>
-    <form action="add" method="post">
-        <label for="name">Name:</label><br>
-        <input type="text" id="name" name="name" required><br><br>
+    <h2 style="text-align:center;">Add New Member</h2>
 
-        <label for="age">Age:</label><br>
-        <input type="number" id="age" name="age" required><br><br>
+    <form action="add" method="post" style="width:300px; margin:0 auto;">
+        <label>Name:</label><br>
+        <input type="text" name="name" required><br><br>
 
-        <input type="submit" value="Add Member">
+        <label>Age:</label><br>
+        <input type="number" name="age" min="0" required><br><br>
+
+        <input type="submit" value="Add">
+        <a href="list">Cancel</a>
     </form>
-
-    <p><a href="list">Back to list</a></p>
 </body>
 </html>

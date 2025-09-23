@@ -2,12 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package controller;
 
 import dal.PersonDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,18 +36,26 @@ public class AddServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8"); // đọc input UTF-8
+        response.setContentType("text/html; charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+
         String name = request.getParameter("name");
         int age = Integer.parseInt(request.getParameter("age"));
-        
-        Person person = new Person(name, age);
-        
-        PersonDAO personDAO = new PersonDAO();
+
+        Person p = new Person();
+        p.setName(name);
+        p.setAge(age);
+
+        PersonDAO dao = new PersonDAO();
         try {
-            personDAO.addPerson(person);
-            response.sendRedirect("list");
+            dao.addPerson(p);
         } catch (SQLException ex) {
             Logger.getLogger(AddServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        response.sendRedirect("list");
     }
+
 }
