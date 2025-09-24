@@ -1,71 +1,125 @@
 package DBUtils;
 
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAO {
-    private Connection conn;
-
-    public UserDAO() throws Exception {
-        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        String url = "jdbc:sqlserver://localhost:1433;databaseName=SampleDB";
-        conn = DriverManager.getConnection(url, "sa", "12345");
-    }
-
-    public boolean checkLogin(String username, String password) throws Exception {
-        String sql = "SELECT * FROM Registration WHERE username=? AND password=?";
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setString(1, username);
-        ps.setString(2, password);
-        ResultSet rs = ps.executeQuery();
+    // <editor-fold defaultstate="collapsed" desc="getConnection Method">
+    public static Connection getConnection() throws Exception {
         try {
-            return rs.next();
-        } finally {
-            if (rs != null) rs.close();
-            if (ps != null) ps.close();
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String connectionString = "jdbc:sqlserver://localhost:1433;databaseName=SampleDB";
+            Connection cnn = DriverManager.getConnection(connectionString, "sa", "123");
+            return cnn;
+        } catch (ClassNotFoundException | SQLException ex) {
+            throw ex;
         }
     }
+    // </editor-fold>
 
-    public List<User> searchUser(String keyword) throws Exception {
-        List<User> list = new ArrayList<>();
-        String sql = "SELECT * FROM Registration WHERE lastname LIKE ?";
-        PreparedStatement ps = null;
+    // <editor-fold defaultstate="collapsed" desc="login Method">
+    public User login(String userName, String password) throws Exception {
+        User user = null;
+        Connection cnn = null;
+        PreparedStatement preStmt = null;
         ResultSet rs = null;
+        String lastName;
+        boolean isAdmin;
+
         try {
-            ps = conn.prepareStatement(sql);
-            ps.setString(1, "%" + keyword + "%");
-            rs = ps.executeQuery();
+            cnn = getConnection();
+            String sql = "select LastName, isAdmin from Registration where [UserName]=? and [Password]=?";
+            preStmt = cnn.prepareStatement(sql);
+            preStmt.setString(1, userName);
+            preStmt.setString(2, password);
+            rs = preStmt.executeQuery();
             while (rs.next()) {
-                User u = new User(
-                    rs.getInt("ID"), // Use actual column name, e.g., "ID"
-                    rs.getString("username"),
-                    rs.getString("password"),
-                    rs.getString("lastname"),
-                    rs.getBoolean("role")
-                );
-                list.add(u);
+                lastName = rs.getString(1);
+                isAdmin = rs.getBoolean(2);
+                user = new User(userName, password, lastName, isAdmin);
             }
+        } catch (Exception ex) {
+            throw ex;
         } finally {
-            if (rs != null) rs.close();
-            if (ps != null) ps.close();
+            if (rs != null) {
+                rs.close();
+            }
+            if (preStmt != null) {
+                preStmt.close();
+            }
+            if (cnn != null) {
+                cnn.close();
+            }
         }
-        return list;
+        return user;
     }
+    // </editor-fold>
 
-    public void removeUser(int id) throws Exception {
-        String sql = "DELETE FROM Registration WHERE ID=?"; // Use actual column name
-        PreparedStatement ps = null;
+    // <editor-fold defaultstate="collapsed" desc="searchUserByLastName Method">
+    public List<User> searchUserByLastName(String searchValue) throws Exception {
+        String userName, password, lastName;
+        boolean isAdmin;
+        Connection cnn = null;
+        PreparedStatement preStmt = null;
+        ResultSet rs = null;
+        List<User> userList = new ArrayList<>();
+
         try {
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1, id);
-            ps.executeUpdate();
+            cnn = getConnection();
+            String sql = "select UserName, Password, LastName, isAdmin from Registration " +
+                        "where LastName like ? + '%'";
+            preStmt = cnn.prepareStatement(sql);
+            preStmt.setString(1, searchValue);
+            rs = preStmt.executeQuery();
+            while (rs.next()) {
+                userName = rs.getString(1);
+                password = rs.getString(2);
+                lastName = rs.getString(3);
+                isAdmin = rs.getBoolean(4);
+                userList.add(new User(userName, password, lastName, isAdmin));
+            }
+        } catch (Exception ex) {
+            throw ex;
         } finally {
-            if (ps != null) ps.close();
+            if (rs != null) {
+                rs.close();
+            }
+            if (preStmt != null) {
+                preStmt.close();
+            }
+            if (cnn != null) {
+                cnn.close();
+            }
+        }
+        if (userList.isEmpty()) {
+            return null;
+        }
+        return userList;
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="deleteUser Method">
+    public boolean deleteUser(String userName) throws Exception {
+        PreparedStatement preStmt = null;
+        Connection cnn = null;
+
+        try {
+            cnn = getConnection();
+            String sql = "delete from Registration where UserName=?";
+            preStmt = cnn.prepareStatement(sql);
+            preStmt.setString(1, userName);
+            return preStmt.executeUpdate() > 0;
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (preStmt != null) {
+                preStmt.close();
+            }
+            if (cnn != null) {
+                cnn.close();
+            }
         }
     }
-
-    // Add method to close connection
-    public void close() throws Exception {
-        if (conn != null) conn.close();
-    }
+    // </editor-fold>
 }

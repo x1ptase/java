@@ -1,34 +1,56 @@
 package DBUtils;
 
 public class User {
-    private int userId; // Changed from id to userId
     private String username;
     private String password;
     private String lastname;
-    private boolean role;
+    private boolean isAdmin;
 
     public User() {}
 
-    public User(int userId, String username, String password, String lastname, boolean role) {
-        this.userId = userId;
+    public User(String username, String password, String lastname, boolean isAdmin) {
         this.username = username;
         this.password = password;
         this.lastname = lastname;
-        this.role = role;
+        this.isAdmin = isAdmin;
     }
 
-    public int getUserId() { return userId; } // Changed from getId
-    public void setUserId(int userId) { this.userId = userId; } // Changed from setId
+    public String getUsername() {
+        return username;
+    }
 
-    public String getUsername() { return username; }
-    public void setUsername(String username) { this.username = username; }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
+    public String getPassword() {
+        return password;
+    }
 
-    public String getLastname() { return lastname; }
-    public void setLastname(String lastname) { this.lastname = lastname; }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-    public boolean isRole() { return role; }
-    public void setRole(boolean role) { this.role = role; }
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public boolean isIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "UserName:%s, Password:%s, LastName:%s, isAdmin:%s" +
+                        username, password, lastname, isAdmin);
+    } 
 }

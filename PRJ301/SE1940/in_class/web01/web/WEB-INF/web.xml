@@ -12,7 +12,7 @@
     
     <welcome-file-list>
         <welcome-file>
-            Add.jsp
+            session.jsp
         </welcome-file>
     </welcome-file-list>
 </web-app>
