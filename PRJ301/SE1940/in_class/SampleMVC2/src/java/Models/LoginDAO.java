@@ -12,7 +12,7 @@ import Models.Entities.User;
  */
 public class LoginDAO {
     public boolean validate(User user){
-        return user.getName().equals("sa") &&
-                user.getPassword().equals("12345");
+        return user.getName().equals("admin") &&
+                user.getPassword().equals("123");
     }
 }
