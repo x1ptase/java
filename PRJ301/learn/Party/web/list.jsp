@@ -5,29 +5,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Party Members</title>
-    <style>
-        table{
-            border-collapse: collapse; 
-            width: 70%; 
-            margin: 20px auto;
-        }
-        th, td{
-            border: 1px solid #ccc; 
-            padding: 8px; 
-            text-align: center;
-        }
-        th{
-            background: #f0f0f0; 
-        }
-        .actions form{ 
-            display: inline;
-        }
-    </style>
 </head>
 <body>
-    <h2 style="text-align:center">Party Members</h2>
-
-    <table>
+    <h2>Party Members</h2>
+    <table border="1">
         <tr>
             <th>ID</th>
             <th>Name</th>
@@ -51,9 +32,6 @@
             </tr>
         </c:forEach>
     </table>
-
-    <div style="text-align:center; margin-top:20px;">
-        <a href="add.jsp">Add New Member</a>
-    </div>
+    <a href="add.jsp">Add New Member</a>
 </body>
 </html>
