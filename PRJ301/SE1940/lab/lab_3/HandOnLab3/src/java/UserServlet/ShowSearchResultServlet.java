@@ -7,7 +7,8 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 public class ShowSearchResultServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -34,8 +35,8 @@ public class ShowSearchResultServlet extends HttpServlet {
                 out.println("<td>" + u.getUsername() + "</td>");
                 out.println("<td>" + u.getPassword() + "</td>");
                 out.println("<td>" + u.getLastname() + "</td>");
-                out.println("<td>" + u.isRole() + "</td>");
-                out.println("<td><a href='RemoveServlet?ID=" + u.getId() + "'>Delete</a></td>"); // Use actual column name
+                out.println("<td>" + u.isIsAdmin() + "</td>");
+                out.println("<td><a href='RemoveServlet?ID=" + u.getUsername() + "'>Delete</a></td>");
                 out.println("</tr>");
             }
             out.println("</table>");
@@ -44,5 +45,17 @@ public class ShowSearchResultServlet extends HttpServlet {
         out.println("</body>");
         out.println("</html>");
         out.close();
+    }
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 }

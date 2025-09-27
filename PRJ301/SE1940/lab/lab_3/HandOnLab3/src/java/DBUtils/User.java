@@ -50,7 +50,7 @@ public class User {
     @Override
     public String toString() {
         return String.format(
-                "UserName:%s, Password:%s, LastName:%s, isAdmin:%s" +
+                "UserName:%s, Password:%s, LastName:%s, isAdmin:%s",
                         username, password, lastname, isAdmin);
     } 
 }

@@ -10,7 +10,7 @@ public class UserDAO {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String connectionString = "jdbc:sqlserver://localhost:1433;databaseName=SampleDB";
-            Connection cnn = DriverManager.getConnection(connectionString, "sa", "123");
+            Connection cnn = DriverManager.getConnection(connectionString, "sa", "12345");
             return cnn;
         } catch (ClassNotFoundException | SQLException ex) {
             throw ex;
@@ -68,17 +68,22 @@ public class UserDAO {
         try {
             cnn = getConnection();
             String sql = "select UserName, Password, LastName, isAdmin from Registration " +
-                        "where LastName like ? + '%'";
+                        "where LastName like ?";
             preStmt = cnn.prepareStatement(sql);
-            preStmt.setString(1, searchValue);
+            String searchPattern = "%" + searchValue + "%";
+            preStmt.setString(1, searchPattern);
+            System.out.println("SQL Query: " + sql);
+            System.out.println("Search Pattern: " + searchPattern);
             rs = preStmt.executeQuery();
             while (rs.next()) {
                 userName = rs.getString(1);
                 password = rs.getString(2);
                 lastName = rs.getString(3);
                 isAdmin = rs.getBoolean(4);
+                System.out.println("Found user: " + userName + ", " + lastName);
                 userList.add(new User(userName, password, lastName, isAdmin));
             }
+            System.out.println("Total users found: " + userList.size());
         } catch (Exception ex) {
             throw ex;
         } finally {
@@ -91,9 +96,6 @@ public class UserDAO {
             if (cnn != null) {
                 cnn.close();
             }
-        }
-        if (userList.isEmpty()) {
-            return null;
         }
         return userList;
     }

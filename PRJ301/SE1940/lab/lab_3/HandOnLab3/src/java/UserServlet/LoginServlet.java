@@ -1,7 +1,8 @@
 package UserServlet;
 
-import DBUtils.UserDAO;
 import DBUtils.User;
+import DBUtils.UserDAO;
+
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,9 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 @WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
-    private final String searchPage = "search.html";
+    private final String searchPage = "Search.html";
     private final String invalidPage = "Invalid.html";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -23,7 +25,7 @@ public class LoginServlet extends HttpServlet {
 
         try {
             UserDAO userDao = new UserDAO();
-            User user = userDAO.login(userName, password);
+            User user = userDao.login(username, password);
 
             if (user != null) {
                 url = searchPage;

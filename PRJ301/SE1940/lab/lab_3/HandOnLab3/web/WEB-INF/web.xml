@@ -13,7 +13,7 @@
         <url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
 
-    <servlet>f
+    <servlet>
         <servlet-name>ProcessServlet</servlet-name>
         <servlet-class>UserServlet.ProcessServlet</servlet-class>
     </servlet>
