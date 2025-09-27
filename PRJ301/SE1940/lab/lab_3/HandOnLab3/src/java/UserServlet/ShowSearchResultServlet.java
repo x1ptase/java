@@ -27,7 +27,12 @@ public class ShowSearchResultServlet extends HttpServlet {
             out.println("<h3>No record found!</h3>");
         } else {
             out.println("<table border='1'>");
-            out.println("<tr><th>No.</th><th>Username</th><th>Password</th><th>Lastname</th><th>Role</th></tr>");
+            out.println("<tr><th>No.</th>"
+                    + "<th>Username</th>"
+                    + "<th>Password</th>"
+                    + "<th>Lastname</th>"
+                    + "<th>Role</th>"
+                    + "<th></th></tr>");
             int no = 1;
             for (User u : list) {
                 out.println("<tr>");

@@ -1,0 +1,1 @@
+Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
