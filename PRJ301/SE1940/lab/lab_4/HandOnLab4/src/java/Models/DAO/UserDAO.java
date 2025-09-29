@@ -64,9 +64,9 @@ public class UserDAO {
         ResultSet rs=null;
         String lastName, password;
         boolean isAdmin;
-        
         try{
             cnn=getConnection();
+        
             String sql=
                     "select Password, LastName, isAdmin from Resgistration where [UserName]=?";
             preStm=cnn.prepareStatement(sql);
