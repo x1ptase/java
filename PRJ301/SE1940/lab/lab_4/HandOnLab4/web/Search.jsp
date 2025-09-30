@@ -15,12 +15,12 @@
     </head>
     <body>
         <%
-            String lastName=null, searchValue=null;
-            User userLoggedIn=(User)session.getAttribute("userLoggedIn");
-            if(userLoggedIn != null){
-                lastName=userLoggedIn.getLastName();
+            String lastName = null, searchValue = null;
+            User userLoggedIn = (User) session.getAttribute("userLoggedIn");
+            if (userLoggedIn != null) {
+                lastName = userLoggedIn.getLastName();
             }
-            searchValue=request.getParameter("txtSearchValue");
+            searchValue = request.getParameter("txtSearchValue");
         %>    
         <h3>Welcome to <text style="color: red"><%=lastName%></text></h3>
         <h1>Search user by last name</h1>
@@ -30,8 +30,52 @@
             <input type="submit" value="Search" name="action" />
         </form>
     </body>
-        <%
-        
-        %>  
-    
+    <%
+        UserDAO userDAO = new UserDAO();
+        List<User> userList = (List<User>) request.getAttribute("SearchResult");
+        if (userList != null) {
+    %>
+                <table border="1">
+                    <thread>
+                        <tr>
+                            <th>No.</th>
+                            <th>UserName</th>
+                            <th>Password</th>
+                            <th>LastName</th>
+                            <th>Role</th>
+                            <th colspan="2">Action</th>
+                        </tr>
+                    </thread>
+                        <tbody>
+                        <%
+                            int count = 0;
+                            for(User user : userList){
+                        %>
+                        
+                            <tr>
+                                <td><%=(++count)%></td>
+                                <td><%=user.getUserName()%></td>
+                                <td><%=user.getPassword()%></td>
+                                <td><%=user.getLastName()%></td>
+                                <td><input type="checkbox" <%if (user.isIsAdmin()) { %> checked <% }%> /></td>
+                                <td><a href=UserController?action=Delete&UserName=<%=user.getUserName()%>&txtSearchValue=<%=searchValue%>>
+                                        Delete</td>
+                                <td><a href=UserController?action=Details&UserName=<%=user.getUserName()%>&txtSearchValue=<%=searchValue%>>
+                                        View</td>
+                            </tr>
+                        <%
+                            } // end for
+                        %>
+                        </tbody>
+                </table>
+                <h3>Number of users found: <%=userList.size()%></h3>
+    <%
+        } // end if
+        else if (searchValue != null) {
+    %>
+                <h3>No users were found.</h3>
+    <%
+        }
+    %>
+    <a href="Login.html"></a>Back<br/>
 </html>
