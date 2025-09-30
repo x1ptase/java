@@ -8,19 +8,21 @@ import Models.DAO.UserDAO;
 import Models.DTO.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author x1pta
  */
-public class SearchController extends HttpServlet {
-    private final String searchPage="Search.jsp";
+public class UpdateController extends HttpServlet {
+    private final String displayMessagePage="DisplayMessage.jsp";
+    private final String loginPage="Login.html";
+    private final String userController="UserController";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,20 +35,40 @@ public class SearchController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url, searchValue;
+        String userName, password, lastName;
+        boolean isAdmin=true;
+        String message=null;
         PrintWriter out=response.getWriter();
-        url=searchPage;
+        String url=loginPage;
         
         try{
-            searchValue=request.getParameter("txtSearchValue");
-            if(!searchValue.isEmpty()){
+            HttpSession session=request.getSession();
+            User userLoggedIn=(User) session.getAttribute("userLoggedIn");
+            userName=request.getParameter("txtUserName");
+            password=request.getParameter("txtPassword");
+            lastName=request.getParameter("txtLastName");
+            String admin=request.getParameter("chkIsAdmin");
+            if(admin == null){
+                isAdmin=false;
+            }
+            if(!userName.isEmpty()){
+                User user=new User(userName, password, lastName, isAdmin);
                 UserDAO userDAO=new UserDAO();
-                List<User> userList=userDAO.searchUserByLastName(searchValue);
-                request.setAttribute("SearchResult", userList);
+                if(userDAO.updateUser(user) == true){
+                    if(userLoggedIn.isIsAdmin()){
+                        url=userController + "?action=Search";
+                    }
+                } else{
+                    url=displayMessagePage;
+                    message="The user '" + userName + "' has been updated successfully";
+                }
             }
         } catch(Exception ex){
             log(ex.getMessage());
         } finally{
+            request.setAttribute("action", "Update User");
+            request.setAttribute("page", "Search.jsp");
+            request.setAttribute("message", message);
             RequestDispatcher rd=request.getRequestDispatcher(url);
             rd.forward(request, response);
             out.close();

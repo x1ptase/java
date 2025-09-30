@@ -4,23 +4,27 @@
  */
 package Controllers.User;
 
-import Models.DAO.UserDAO;
-import Models.DTO.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author x1pta
  */
-public class SearchController extends HttpServlet {
-    private final String searchPage="Search.jsp";
+public class UserController extends HttpServlet {
+    private final String loginPage="Login.html";
+    // Controllers
+    private static final String searchController="SearchController";
+    private static final String userDetailsController="UserDetailsController";
+    private static final String createController="CreateController";
+    private static final String deleteController="DeleteController";
+    private static final String updateController="UpdateController";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,23 +37,30 @@ public class SearchController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url, searchValue;
-        PrintWriter out=response.getWriter();
-        url=searchPage;
+        String action=request.getParameter("action");
+        String url=null;
         
         try{
-            searchValue=request.getParameter("txtSearchValue");
-            if(!searchValue.isEmpty()){
-                UserDAO userDAO=new UserDAO();
-                List<User> userList=userDAO.searchUserByLastName(searchValue);
-                request.setAttribute("SearchResult", userList);
+            HttpSession session=request.getSession();
+            boolean isLoggedIn=(session.getAttribute("userLoggedIn") != null);
+            if(action.equalsIgnoreCase("create")){
+                url=createController;
+            } else if(isLoggedIn){
+                if(action.equalsIgnoreCase("Delete")){
+                    url=deleteController;
+                } else if(action.equalsIgnoreCase("Update")){
+                    url=updateController;
+                } else if(action.equalsIgnoreCase("Search")){
+                    url=searchController;
+                } else if(action.equalsIgnoreCase("Details")){
+                    url=userDetailsController;
+                }
+            } else{
+                url=loginPage;
             }
-        } catch(Exception ex){
-            log(ex.getMessage());
         } finally{
             RequestDispatcher rd=request.getRequestDispatcher(url);
             rd.forward(request, response);
-            out.close();
         }
     }
 

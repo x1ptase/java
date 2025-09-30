@@ -7,8 +7,6 @@ package Controllers.User;
 import Models.DAO.UserDAO;
 import Models.DTO.User;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,8 +17,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author x1pta
  */
-public class SearchController extends HttpServlet {
-    private final String searchPage="Search.jsp";
+public class UserDetailsController extends HttpServlet {
+    private final String userDetailsPage="UserDetails.jsp";
+    private final String displayMessagePage="DisplayMessage.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,23 +32,30 @@ public class SearchController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url, searchValue;
-        PrintWriter out=response.getWriter();
-        url=searchPage;
+        String url=displayMessagePage;
+        String message=null;
+        User user;
         
         try{
-            searchValue=request.getParameter("txtSearchValue");
-            if(!searchValue.isEmpty()){
-                UserDAO userDAO=new UserDAO();
-                List<User> userList=userDAO.searchUserByLastName(searchValue);
-                request.setAttribute("SearchResult", userList);
+            String userName=request.getParameter("UserName");
+            UserDAO userDAO=new UserDAO();
+            if(!userName.isEmpty()){
+                user=userDAO.getUserByUserName(userName);
+                if(user != null){
+                    request.setAttribute("userDetails", user);
+                    url=userDetailsPage;
+                } else{
+                    message="The user '" + userName + "' not found.";
+                    request.setAttribute("action", "User Details");
+                    request.setAttribute("page", "Search.jsp");
+                    request.setAttribute("message", message);
+                }
             }
         } catch(Exception ex){
             log(ex.getMessage());
         } finally{
             RequestDispatcher rd=request.getRequestDispatcher(url);
             rd.forward(request, response);
-            out.close();
         }
     }
 

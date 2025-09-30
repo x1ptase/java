@@ -16,6 +16,18 @@
         <servlet-name>DeleteController</servlet-name>
         <servlet-class>Controllers.User.DeleteController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateController</servlet-name>
+        <servlet-class>Controllers.User.UpdateController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserDetailsController</servlet-name>
+        <servlet-class>Controllers.User.UserDetailsController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserController</servlet-name>
+        <servlet-class>Controllers.User.UserController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -31,6 +43,18 @@
     <servlet-mapping>
         <servlet-name>DeleteController</servlet-name>
         <url-pattern>/DeleteController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateController</servlet-name>
+        <url-pattern>/UpdateController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserDetailsController</servlet-name>
+        <url-pattern>/UserDetailsController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserController</servlet-name>
+        <url-pattern>/UserController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
