@@ -57,6 +57,7 @@ public class UserDAO {
     }
     // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="getUserByUserName method">
     public User getUserByUserName(String userName) throws Exception{
         User user=null;
         Connection cnn=null;
@@ -94,6 +95,7 @@ public class UserDAO {
         }
         return user;
     }
+    // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="searchUserByLastName Method">
     public List<User> searchUserByLastName(String searchValue) throws Exception {
@@ -140,6 +142,7 @@ public class UserDAO {
     }
     // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="addUser Method">
     public boolean addUser(User user) throws Exception{
         PreparedStatement preStm=null;
         Connection cnn=null;
@@ -164,6 +167,7 @@ public class UserDAO {
             }
         }
     }
+    // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="deleteUser Method">
     public boolean deleteUser(String userName) throws Exception {
@@ -183,6 +187,33 @@ public class UserDAO {
                 preStmt.close();
             }
             if (cnn != null) {
+                cnn.close();
+            }
+        }
+    }
+    // </editor-fold>
+    
+    public boolean updateUser(User user) throws Exception{
+        PreparedStatement preStm=null;
+        Connection cnn=null;
+        
+        try{
+            cnn=getConnection();
+            String sql=
+                    "UPDATE Registration Set Password=?, LastName=?, isAdmin=? WHERE UserName=?";
+            preStm=cnn.prepareStatement(sql);
+            preStm.setString(1, user.getPassword());
+            preStm.setString(2, user.getLastName());
+            preStm.setBoolean(3, user.isIsAdmin());
+            preStm.setString(4, user.getUserName());
+            return preStm.executeUpdate() > 0;
+        } catch(Exception ex){
+            throw ex;
+        } finally{
+            if(preStm != null){
+                preStm.close();
+            }
+            if(cnn != null){
                 cnn.close();
             }
         }
