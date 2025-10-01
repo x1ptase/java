@@ -54,6 +54,8 @@ public class UserController extends HttpServlet {
                     url=searchController;
                 } else if(action.equalsIgnoreCase("Details")){
                     url=userDetailsController;
+                } else if(action.equalsIgnoreCase("UpdateAdmin")){
+                    url=updateController;
                 }
             } else{
                 url=loginPage;

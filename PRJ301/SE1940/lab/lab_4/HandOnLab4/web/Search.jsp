@@ -57,7 +57,7 @@
                                 <td><%=user.getUserName()%></td>
                                 <td><%=user.getPassword()%></td>
                                 <td><%=user.getLastName()%></td>
-                                <td><input type="checkbox" <%if (user.isIsAdmin()) { %> checked <% }%> /></td>
+                                <td><input type="checkbox" <%if (user.isIsAdmin()) { %> checked <% }%> onchange="updateAdminStatus('<%=user.getUserName()%>', this.checked)" /></td>
                                 <td><a href="UserController?action=Delete&UserName=<%=user.getUserName()%>&txtSearchValue=<%=searchValue%>">Delete</a></td>
                                 <td><a href="UserController?action=Update&UserName=<%=user.getUserName()%>&txtSearchValue=<%=searchValue%>">Update</a></td>
                             </tr>

@@ -17,9 +17,9 @@
             UserName <input type="text" name="txtUserName" placeholder="Enter user name"/><br/>
             Password <input type="password" name="txtPassword" placeholder="Enter password"/><br/>
             LastName <input type="text" name="txtLastName" placeholder="Enter last name" /><br/>
-            <input type="checkbox" name="chkIsAdmin" disabled="true"/>isAdmin<br/>
+            <input type="checkbox" name="chkIsAdmin"/>isAdmin<br/>
             <input type="submit" value="Create" name="action" />
-            <a href="Login.html">Back</a><br/>
+            <a href="Login.html">Back to login</a><br/>
         </form>
     </body>
 </html>

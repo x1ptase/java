@@ -48,19 +48,29 @@ public class UpdateController extends HttpServlet {
             password=request.getParameter("txtPassword");
             lastName=request.getParameter("txtLastName");
             String admin=request.getParameter("chkIsAdmin");
-            if(admin == null){
+            if(admin == null || admin.equals("off")){
                 isAdmin=false;
             }
             if(!userName.isEmpty()){
-                User user=new User(userName, password, lastName, isAdmin);
                 UserDAO userDAO=new UserDAO();
-                if(userDAO.updateUser(user) == true){
-                    if(userLoggedIn.isIsAdmin()){
-                        url=userController + "?action=Search";
+                User existingUser = userDAO.getUserByUserName(userName);
+                if(existingUser != null){
+                    // If only admin status is being updated, keep existing password and lastName
+                    if(password == null || password.isEmpty()){
+                        password = existingUser.getPassword();
                     }
-                } else{
-                    url=displayMessagePage;
-                    message="The user '" + userName + "' has been updated successfully";
+                    if(lastName == null || lastName.isEmpty()){
+                        lastName = existingUser.getLastName();
+                    }
+                    User user=new User(userName, password, lastName, isAdmin);
+                    if(userDAO.updateUser(user) == true){
+                        if(userLoggedIn.isIsAdmin()){
+                            url=userController + "?action=Search&txtSearchValue=" + request.getParameter("txtSearchValue");
+                        }
+                    } else{
+                        url=displayMessagePage;
+                        message="The user '" + userName + "' has been updated successfully";
+                    }
                 }
             }
         } catch(Exception ex){
