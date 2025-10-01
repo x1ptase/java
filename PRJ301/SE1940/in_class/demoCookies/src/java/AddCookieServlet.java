@@ -2,28 +2,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controllers.User;
 
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author x1pta
  */
-public class UserController extends HttpServlet {
-    private final String loginPage="Login.html";
-    // Controllers
-    private static final String searchController="SearchController";
-    private static final String userDetailsController="UserDetailsController";
-    private static final String createController="CreateController";
-    private static final String deleteController="DeleteController";
-    private static final String updateController="UpdateController";
+public class AddCookieServlet extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,32 +29,26 @@ public class UserController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String action=request.getParameter("action");
-        String url=null;
-        
-        try{
-            HttpSession session=request.getSession();
-            boolean isLoggedIn=(session.getAttribute("userLoggedIn") != null);
-            if(action.equalsIgnoreCase("create")){
-                url=createController;
-            } else if(isLoggedIn){
-                if(action.equalsIgnoreCase("Delete")){
-                    url=deleteController;
-                } else if(action.equalsIgnoreCase("Update")){
-                    url=updateController;
-                } else if(action.equalsIgnoreCase("Search")){
-                    url=searchController;
-                } else if(action.equalsIgnoreCase("Details")){
-                    url=userDetailsController;
-                } else if(action.equalsIgnoreCase("UpdateAdmin")){
-                    url=updateController;
-                }
-            } else{
-                url=loginPage;
-            }
+        PrintWriter out=response.getWriter();
+        try {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Add</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Adding Cookie processing</h1>");
+            
+            String sName=request.getParameter("txtName");
+            Cookie cookie=new Cookie("userName", sName);
+            cookie.setMaxAge(60*5);
+            response.addCookie(cookie);
+            out.println("<a href='PrintCookieServlet'>Print Cookie</a>");
+            
+            out.println("</body>");
+            out.println("</html");
         } finally{
-            RequestDispatcher rd=request.getRequestDispatcher(url);
-            rd.forward(request, response);
+            out.close();
         }
     }
 
