@@ -52,7 +52,7 @@ public class UpdateCartController extends HttpServlet {
                 url=cartController + "?action=View Cart";
             }
         } catch(Exception ex){
-            log("Update Controller has error: " + ex.getMessage());
+            log("UpdateCartController has error:" + ex.getMessage());
         } finally{
             RequestDispatcher rd=request.getRequestDispatcher(url);
             rd.forward(request, response);

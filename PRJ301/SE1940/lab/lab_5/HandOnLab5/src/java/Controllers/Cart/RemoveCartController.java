@@ -48,7 +48,7 @@ public class RemoveCartController extends HttpServlet {
                 url=cartController + "?action=View Cart";
             }
         } catch(Exception ex){
-            log("RemoveCartController has error: " + ex.getMessage());
+            log("RemoveCartController has error:" + ex.getMessage());
         } finally{
             RequestDispatcher rd=request.getRequestDispatcher(url);
             rd.forward(request, response);

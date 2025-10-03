@@ -58,7 +58,7 @@ public class ViewCartController extends HttpServlet {
             }
             request.setAttribute("Cart", itemsInCart);
         } catch(Exception ex){
-            log("ViewCartServlet has error: " + ex.getMessage());
+            log("ViewCartController has error:" + ex.getMessage());
         } finally{
             RequestDispatcher rd=request.getRequestDispatcher(url);
             rd.forward(request, response);
