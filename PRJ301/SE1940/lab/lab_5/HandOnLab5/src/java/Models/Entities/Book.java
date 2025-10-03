@@ -50,6 +50,4 @@ public class Book {
     public String toString() {
         return String.format("%s, %s, %.2f", id, title, unitPrice);
     }
-    
-    
 }
