@@ -56,7 +56,7 @@ public class CartItem {
         this.unitPrice = unitPrice;
     }
     
-    private double getSubTotal(){
+    public double getSubTotal(){
         return quantity*unitPrice;
     }
 

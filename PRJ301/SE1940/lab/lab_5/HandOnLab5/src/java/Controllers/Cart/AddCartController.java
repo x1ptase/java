@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
  * @author x1pta
  */
 public class AddCartController extends HttpServlet {
-    private final String bookController="BookCOntroller";
+    private final String bookController="BookController";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -53,24 +53,22 @@ public class AddCartController extends HttpServlet {
             if(item == null){
                 item=new CartItem(seletedBook.getId(),
                     seletedBook.getTitle(), 1, seletedBook.getUnitPrice());
-                itemsInCart.put(item.getItemName(), item);
+                itemsInCart.put(seletedBook.getId(), item);
                 message="The book " + item.getItemName() + 
-                        "has been added to cart successfully.";
+                        " has been added to cart successfully.";
             } else{
                 item.setQuantity(item.getQuantity() + 1);
                 message="The cart has been updated successfully.";
             }
-            url=bookController + "?action=ViewBookList";
-            request.setAttribute("Message", "<h4>" + message + "<h4>");
+            url="/" + bookController + "?action=ViewBookList";
+            request.setAttribute("Message", "<h4>" + message + "</h4>");
        } catch(Exception ex){
             log("AddCartController has error:" + ex.getMessage());
         } finally{
             RequestDispatcher rd=request.getRequestDispatcher(url);
             rd.forward(request, response);
         }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    } // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -108,5 +106,4 @@ public class AddCartController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

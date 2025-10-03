@@ -38,7 +38,9 @@ public class CartController extends HttpServlet {
         
         try{
             action=request.getParameter("action");
-            if(action.equals("Add")){
+            if(action == null || action.trim().isEmpty()){
+                url=viewCartController;
+            } else if(action.equals("Add")){
                 url=addCartController;
             } else if(action.equals("View Cart")){
                 url=viewCartController;
@@ -52,7 +54,7 @@ public class CartController extends HttpServlet {
         } catch(Exception ex){
             log("CartController has error:" + ex.getMessage());
         } finally{
-            RequestDispatcher rd=request.getRequestDispatcher(url);
+            RequestDispatcher rd=request.getRequestDispatcher("/" + url);
             rd.forward(request, response);
         }
     }

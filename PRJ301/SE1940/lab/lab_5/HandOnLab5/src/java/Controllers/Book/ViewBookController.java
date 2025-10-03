@@ -37,10 +37,23 @@ public class ViewBookController extends HttpServlet {
             BookDAO bookDAO=new BookDAO();
             List<Book> bookList=bookDAO.getBookList();
             request.setAttribute("BookList", bookList);
-            RequestDispatcher rd=request.getRequestDispatcher(url);
-            rd.forward(request, response);
         } catch(Exception ex){
             log("ViewBookController has error:" + ex.getMessage());
-        }      
+        } finally{
+            RequestDispatcher rd=request.getRequestDispatcher(url);
+            rd.forward(request, response);
+        }     
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 }
