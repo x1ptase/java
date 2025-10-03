@@ -6,12 +6,11 @@ package Controllers.Cart;
 
 import Models.Entities.CartItem;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,8 +20,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author x1pta
  */
-public class ViewCartController extends HttpServlet {
-    private final String viewCartPage="ViewCart.jsp";
+public class SaveCartController extends HttpServlet {
+    private final String cartController="CartController";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -35,31 +34,27 @@ public class ViewCartController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url=viewCartPage;
-        List<CartItem> itemsInCart=null;
-        HashMap<String, CartItem> cart=null;
-        Cookie cookieCart=null;
+        String url=null;
+        String message=null;
+        HashMap<String, CartItem> itemsInCart=null;
         
         try{
-            CartUtil cartUtils=new CartUtil();
-            HttpSession sessionCart=request.getSession();
-            cart=(HashMap<String, CartItem>) sessionCart.getAttribute("Cart");
-            if(cart == null){
-                cookieCart=cartUtils.getCookieByName(request, "Cart");
-                if(cookieCart != null){
-                    cart=cartUtils.getCartFromCookie(cookieCart);
-                    if(cart != null){
-                        itemsInCart=new ArrayList<CartItem>(cart.values());
-                        sessionCart.setAttribute("Cart", cart);
-                    }
-                }
+            HttpSession shoppingCart=request.getSession();
+            itemsInCart=(HashMap<String, CartItem>) shoppingCart.getAttribute("Cart");
+            CartUtil cart=new CartUtil();
+            if(itemsInCart != null){
+                String strItemsInCart=cart.convertCartToString
+                                (new ArrayList<CartItem> (itemsInCart.values()));
+                cart.saveCartToCookie(request, response, strItemsInCart);
+                message="Your cart has been saved successfully.";
             } else{
-                itemsInCart=new ArrayList<CartItem>(cart.values());
+                message="Your cart is empty.";
             }
-            request.setAttribute("Cart", itemsInCart);
+            url=cartController + "?action=View Cart";
         } catch(Exception ex){
-            log("ViewCartServlet has error: " + ex.getMessage());
+            log("SaveCartController has error:" + ex.getMessage());
         } finally{
+            request.setAttribute("Message", "<h4>" + message + "<h4>");
             RequestDispatcher rd=request.getRequestDispatcher(url);
             rd.forward(request, response);
         }

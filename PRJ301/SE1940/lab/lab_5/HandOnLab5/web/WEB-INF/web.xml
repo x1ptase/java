@@ -16,6 +16,22 @@
         <servlet-name>ViewCartController</servlet-name>
         <servlet-class>Controllers.Cart.ViewCartController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RemoveCartController</servlet-name>
+        <servlet-class>Controllers.Cart.RemoveCartController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCartController</servlet-name>
+        <servlet-class>Controllers.Cart.UpdateCartController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SaveCartController</servlet-name>
+        <servlet-class>Controllers.Cart.SaveCartController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CartController</servlet-name>
+        <servlet-class>Controllers.Cart.CartController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewBookController</servlet-name>
         <url-pattern>/ViewBookController</url-pattern>
@@ -31,6 +47,22 @@
     <servlet-mapping>
         <servlet-name>ViewCartController</servlet-name>
         <url-pattern>/ViewCartController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveCartController</servlet-name>
+        <url-pattern>/RemoveCartController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCartController</servlet-name>
+        <url-pattern>/UpdateCartController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaveCartController</servlet-name>
+        <url-pattern>/SaveCartController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartController</servlet-name>
+        <url-pattern>/CartController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
