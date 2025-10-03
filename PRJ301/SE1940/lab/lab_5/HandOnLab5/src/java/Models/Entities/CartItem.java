@@ -8,16 +8,16 @@ package Models.Entities;
  *
  * @author x1pta
  */
-public class CarItem {
+public class CartItem {
     private String itemId;
     private String itemName;
     private int quantity;
     private double unitPrice;
 
-    public CarItem() {
+    public CartItem() {
     }
 
-    public CarItem(String itemId, String itemName, int quantity, double unitPrice) {
+    public CartItem(String itemId, String itemName, int quantity, double unitPrice) {
         this.itemId = itemId;
         this.itemName = itemName;
         this.quantity = quantity;

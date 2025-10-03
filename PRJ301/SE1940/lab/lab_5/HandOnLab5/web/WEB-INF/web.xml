@@ -4,9 +4,33 @@
         <servlet-name>ViewBookController</servlet-name>
         <servlet-class>Controllers.Book.ViewBookController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BookController</servlet-name>
+        <servlet-class>Controllers.Book.BookController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddCartController</servlet-name>
+        <servlet-class>Controllers.Cart.AddCartController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewCartController</servlet-name>
+        <servlet-class>Controllers.Cart.ViewCartController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewBookController</servlet-name>
         <url-pattern>/ViewBookController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookController</servlet-name>
+        <url-pattern>/BookController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddCartController</servlet-name>
+        <url-pattern>/AddCartController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewCartController</servlet-name>
+        <url-pattern>/ViewCartController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

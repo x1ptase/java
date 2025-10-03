@@ -7,7 +7,6 @@ package Controllers.Book;
 import Models.DAO.BookDAO;
 import Models.Entities.Book;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
