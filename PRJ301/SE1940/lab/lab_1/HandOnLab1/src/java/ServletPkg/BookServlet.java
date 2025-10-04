@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author x1pta
  */
-public class LoginServlet extends HttpServlet {
+public class BookServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,22 +30,48 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String userName=request.getParameter("txtUserName");
-        String password=request.getParameter("txtPassword");
+        String id=request.getParameter("txtId");
+        String title=request.getParameter("txtTitle");
+        String author=request.getParameter("txtPublisher");
+        double price=Double.parseDouble(request.getParameter("txtPrice"));
+        int quantity=Integer.parseInt(request.getParameter("txtQuantity"));
+        double subTotal=price*quantity;
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Login</title>");            
+            out.println("<title>AddBook</title>");            
             out.println("</head>");
             out.println("<body>");
-            if(userName.equals("admin") && password.equals("admin")){
-                out.println("<h3>User logged in: " + userName + "<h3>");
-                out.println("<a href='CreateBook.html'>Click here to create book</a>");
-            } else{
-                response.sendRedirect("LoginFailed.html");
-            }
+            out.println("<h1>Book Details</h1>");
+            // create table
+            StringBuilder strBookDetail=new StringBuilder();
+            strBookDetail.append("<table border='1'>");
+            strBookDetail.append("<thead>");
+            strBookDetail.append("<tr>");
+            strBookDetail.append("<th>BookId</th>");
+            strBookDetail.append("<th>Title</th>");
+            strBookDetail.append("<th>Publisher</th>");
+            strBookDetail.append("<th>Price</th>");
+            strBookDetail.append("<th>Quantity</th>");
+            strBookDetail.append("<th>SubTotal</th>");
+            strBookDetail.append("</tr>");
+            strBookDetail.append("</thead>");
+            strBookDetail.append("<tbody>");
+            strBookDetail.append("<tr>");
+            strBookDetail.append("<td>" + id + ".</td>");
+            strBookDetail.append("<td>" + title + "</td>");
+            strBookDetail.append("<td>" + author + "</td>");
+            strBookDetail.append("<td>" + price + "</td>");
+            strBookDetail.append("<td>" + quantity + "</td>");
+            strBookDetail.append("<td>" + subTotal + "</td>");
+            strBookDetail.append("</tr>");
+            strBookDetail.append("</tbody>");
+            strBookDetail.append("</table>");
+            
+            out.println(strBookDetail.toString());
+            out.println("<a href='CreateBook.html'>Back</a><br/>");
             out.println("</body>");
             out.println("</html>");
         } finally{
