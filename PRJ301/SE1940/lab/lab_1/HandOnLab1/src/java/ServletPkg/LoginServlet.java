@@ -2,9 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+package ServletPkg;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author KIET-PC
+ * @author x1pta
  */
-public class BookServlet extends HttpServlet {
+public class LoginServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -28,51 +30,26 @@ public class BookServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String id = request.getParameter("id");
-        String title = request.getParameter("title");
-        String author = request.getParameter("publish");
-        double price = Double.parseDouble(request.getParameter("price"));
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-        double subTotal = price * quantity;
+        String userName=request.getParameter("txtUserName");
+        String password=request.getParameter("txtPassword");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>AddBook</title>");
+            out.println("<title>Servlet LoginServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Book Details</h1>");
-
-            
-            StringBuilder strBookDetail = new StringBuilder();
-            strBookDetail.append("<table border='1'>");
-            strBookDetail.append("<thead>");
-            strBookDetail.append("<tr>");
-            strBookDetail.append("<th>BookId</th>");
-            strBookDetail.append("<th>Title</th>");
-            strBookDetail.append("<th>Publisher</th>");
-            strBookDetail.append("<th>Price</th>");
-            strBookDetail.append("<th>Quantity</th>");
-            strBookDetail.append("<th>SubTotal</th>");
-            strBookDetail.append("</tr>");
-            strBookDetail.append("</thead>");
-            strBookDetail.append("<tbody>");
-            strBookDetail.append("<tr>");
-            strBookDetail.append("<td>" + id + ".</td>");
-            strBookDetail.append("<td>" + title + "</td>");
-            strBookDetail.append("<td>" + author + "</td>");
-            strBookDetail.append("<td>" + price + "</td>");
-            strBookDetail.append("<td>" + quantity + "</td>");
-            strBookDetail.append("<td>" + subTotal + "</td>");
-            strBookDetail.append("</tr>");
-            strBookDetail.append("</tbody>");
-            strBookDetail.append("</table>");
-
-            out.println(strBookDetail.toString());
-            out.println("<a href='CreateBook.html'>Back</a><br>");
+            if(userName.equals("admin") && password.equals("admin")){
+                out.println("<h3>User logged in: " + userName + "<h3>");
+                out.println("<a href='CreateBook.html'>Click here to create book</a>");
+            } else{
+                response.sendRedirect("LoginFailed.html");
+            }
             out.println("</body>");
             out.println("</html>");
+        } finally{
+            out.close();
         }
     }
 
