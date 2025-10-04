@@ -22,7 +22,7 @@ public class MainController extends HttpServlet {
     private static final String VIEW_CART="viewCart.jsp";
     private static final String CHANGE="Change";
     private static final String CHANGE_CONTROLLER="ChangeController";
-    private static final String REMOVE="remove";
+    private static final String REMOVE="Remove";
     private static final String REMOVE_CONTROLLER="RemoveController";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
