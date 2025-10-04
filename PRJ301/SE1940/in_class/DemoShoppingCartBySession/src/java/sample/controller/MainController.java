@@ -2,24 +2,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controllers.Cart;
+package sample.controller;
 
-import Models.Entities.CartItem;
 import java.io.IOException;
-import java.util.HashMap;
-import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author x1pta
  */
-public class RemoveCartController extends HttpServlet {
-    private final String cartController="CartController";
+public class MainController extends HttpServlet {
+    private static final String ADD="Add";
+    private static final String ADD_TO_CART_CONTROLLER="AddToCartController";
+    private static final String VIEW="View";
+    private static final String VIEW_CART="viewCart.jsp";
+    private static final String CHANGE="Change";
+    private static final String CHANGE_CONTROLLER="ChangeController";
+    private static final String REMOVE="remove";
+    private static final String REMOVE_CONTROLLER="RemoveController";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,25 +36,24 @@ public class RemoveCartController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url=cartController;
-        String itemId, message;
-        HashMap<String, CartItem> cart=null;
-        
+        String url=null;
         try{
-            itemId=request.getParameter("ItemId");
-            if(itemId != null){
-                HttpSession sessionCart=request.getSession();
-                cart=(HashMap<String, CartItem>) sessionCart.getAttribute("Cart");
-                cart.remove(itemId);
-                message="The book " + itemId + " hs been removed successfully.";
-                request.setAttribute("Messgae", "<h4>" + message + "<h4>");
-                url=cartController + "?action=View Cart";
+            String action=request.getParameter("action");
+            if(ADD.equals(action)){
+               url=ADD_TO_CART_CONTROLLER;
+            } else if(VIEW.equals(action)){
+                url=VIEW_CART;
+            } else if(CHANGE.equals(action)){
+                url=CHANGE_CONTROLLER;
+            } else if(REMOVE.equals(action)){
+                url=REMOVE_CONTROLLER;
+            } else{
+                request.setAttribute("ERROR", "Your action not support");
             }
         } catch(Exception ex){
-            log("RemoveCartController has error:" + ex.getMessage());
+            log("Error at MainContr: " + ex.toString());
         } finally{
-            RequestDispatcher rd=request.getRequestDispatcher(url);
-            rd.forward(request, response);
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

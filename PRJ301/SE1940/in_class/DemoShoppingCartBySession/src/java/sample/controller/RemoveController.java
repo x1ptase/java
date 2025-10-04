@@ -2,24 +2,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controllers.Cart;
+package sample.controller;
 
-import Models.Entities.CartItem;
 import java.io.IOException;
-import java.util.HashMap;
+import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import sample.product.CartDTO;
 
 /**
  *
  * @author x1pta
  */
-public class RemoveCartController extends HttpServlet {
-    private final String cartController="CartController";
+public class RemoveController extends HttpServlet {
+    private static final String VIEWCART="viewCart.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,22 +32,27 @@ public class RemoveCartController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url=cartController;
-        String itemId, message;
-        HashMap<String, CartItem> cart=null;
+        String url=VIEWCART;
         
         try{
-            itemId=request.getParameter("ItemId");
-            if(itemId != null){
-                HttpSession sessionCart=request.getSession();
-                cart=(HashMap<String, CartItem>) sessionCart.getAttribute("Cart");
-                cart.remove(itemId);
-                message="The book " + itemId + " hs been removed successfully.";
-                request.setAttribute("Messgae", "<h4>" + message + "<h4>");
-                url=cartController + "?action=View Cart";
+            String id=request.getParameter("id");
+            HttpSession session=request.getSession();
+            CartDTO cart=(CartDTO) session.getAttribute("CART");
+            if(cart != null){
+                if(cart.getCart().containsKey(id)){
+                    boolean check=cart.remove(id);
+                    if(check){
+                        if(cart.getCart().isEmpty()){
+                            session.setAttribute("CART", null);
+                        } else{
+                            session.setAttribute("CART", cart);
+                        }
+                        url=VIEWCART;
+                    }
+                }
             }
         } catch(Exception ex){
-            log("RemoveCartController has error:" + ex.getMessage());
+            log("Error at AddToCartController:" + ex.toString());
         } finally{
             RequestDispatcher rd=request.getRequestDispatcher(url);
             rd.forward(request, response);

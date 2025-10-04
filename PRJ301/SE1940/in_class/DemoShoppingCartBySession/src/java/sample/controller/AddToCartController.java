@@ -2,24 +2,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controllers.Cart;
+package sample.controller;
 
-import Models.Entities.CartItem;
 import java.io.IOException;
-import java.util.HashMap;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import sample.product.CartDTO;
+import sample.product.ProductDTO;
 
 /**
  *
  * @author x1pta
  */
-public class RemoveCartController extends HttpServlet {
-    private final String cartController="CartController";
+public class AddToCartController extends HttpServlet {
+    private static final String SUCCESS="viewProduct.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,25 +32,38 @@ public class RemoveCartController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url=cartController;
-        String itemId, message;
-        HashMap<String, CartItem> cart=null;
+        String url=null;
         
         try{
-            itemId=request.getParameter("ItemId");
-            if(itemId != null){
-                HttpSession sessionCart=request.getSession();
-                cart=(HashMap<String, CartItem>) sessionCart.getAttribute("Cart");
-                cart.remove(itemId);
-                message="The book " + itemId + " hs been removed successfully.";
-                request.setAttribute("Messgae", "<h4>" + message + "<h4>");
-                url=cartController + "?action=View Cart";
+            String cmbProduct=request.getParameter("cmbName");
+            String tmp[]=cmbProduct.split("-");
+            String id=tmp[0];
+            String name=tmp[1];
+            double price=Double.parseDouble(tmp[2]);
+            int quantity=Integer.parseInt(request.getParameter("cmbQuantity"));
+            HttpSession session=request.getSession();
+            CartDTO cart=(CartDTO) session.getAttribute("CART");
+            if(cart == null){
+                cart=new CartDTO();
+            }
+            boolean check=cart.add(new ProductDTO(id, name, price, quantity));
+            if(check){
+                session.setAttribute("CART", cart);
+                request.setAttribute("MESSAGE", "You added " + tmp[1] + ". quantity: " + quantity);
+                url=SUCCESS;
             }
         } catch(Exception ex){
-            log("RemoveCartController has error:" + ex.getMessage());
+            log("Error at AddToCartController:" + ex.toString());
+            request.setAttribute("ERROR", "Error occurred while adding to cart: " + ex.getMessage());
+            url = SUCCESS; // Set default URL in case of error
         } finally{
-            RequestDispatcher rd=request.getRequestDispatcher(url);
-            rd.forward(request, response);
+            if(url != null){
+                RequestDispatcher rd=request.getRequestDispatcher(url);
+                rd.forward(request, response);
+            } else {
+                // Fallback if URL is still null
+                response.sendRedirect("viewProduct.jsp");
+            }
         }
     }
 
