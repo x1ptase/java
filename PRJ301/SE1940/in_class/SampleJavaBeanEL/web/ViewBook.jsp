@@ -13,13 +13,20 @@
     </head>
     <body>
         <h1>View Book</h1>
+        <jsp:scriptlet>
+            String id=request.getParameter("id");
+            String title=request.getParameter("title");
+            int quantity=Integer.parseInt(request.getParameter("quantity"));
+            double price=Double.parseDouble(request.getParameter("price"));
+            double total=quantity*price;
+        </jsp:scriptlet>
         <jsp:useBean id="book" class="Models.BookBean" scope="session"/>
-        <jsp:setProperty name="book" property="*"/>
-
+        <jsp:setProperty name="book" property="id" value='<%=id%>'/>
+        <jsp:setProperty name="book" property="title" value='<%=title%>'/>
+        <jsp:setProperty name="book" property="quantity" value='<%=quantity%>'/>
+        <jsp:setProperty name="book" property="price" value='<%=price%>'/>
         <h3>Book Information</h3>
-        <p style="color: green">
-            Id: ${book.id}, Title: ${book.title}, Quantity: ${book.quantity}, Price: ${book.price}, Total: ${book.quantity * book.price}
-        </p>
-        <a href="CreateBook.jsp">Back to Create</a>
+        <p style="color: green"><%=book.toString()%>, Total:<%=total%></p>
+        <a href="BookDetail.jsp">Book Detail</a>
     </body>
 </html>
