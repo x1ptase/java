@@ -9,7 +9,8 @@ public class Program{
         System.out.println("4.Remove item");
         System.out.println("Others: Exit");
         System.out.print("Enter choice:");
-    } // end printMenu
+    }
+    
     public static void main(String[] args) {
         try{
             String itemID, itemName;
@@ -44,9 +45,9 @@ public class Program{
                 } else{
                     System.exit(0);
                 }
-            } // end while
+            }
         } catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-    } // end main
-} // end Program
+    }
+}
