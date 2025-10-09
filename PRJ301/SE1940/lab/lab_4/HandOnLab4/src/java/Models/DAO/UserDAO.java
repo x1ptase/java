@@ -193,6 +193,7 @@ public class UserDAO {
     }
     // </editor-fold>
     
+    // <editor-fold defaultstate="collapsed" desc="updateUser Method">
     public boolean updateUser(User user) throws Exception{
         PreparedStatement preStm=null;
         Connection cnn=null;
