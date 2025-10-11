@@ -4,11 +4,13 @@
  */
 package Models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author x1pta
  */
-public class BookBean {
+public class BookBean implements Serializable {
     private String id;
     private String title;
     private int quantity;
