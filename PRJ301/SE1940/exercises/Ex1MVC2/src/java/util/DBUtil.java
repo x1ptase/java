@@ -8,9 +8,9 @@ import java.sql.SQLException;
  * Database utility class for managing database connections
  */
 public class DBUtil {
-    private static final String DB_URL = "jdbc:sqlserver://localhost:1433;databaseName=SaleDB;encrypt=false;trustServerCertificate=true";
+    private static final String DB_URL = "jdbc:sqlserver://localhost:1433;databaseName=SaleDB";
     private static final String DB_USER = "sa";
-    private static final String DB_PASSWORD = "123456";
+    private static final String DB_PASSWORD = "12345";
     
     /**
      * Get database connection

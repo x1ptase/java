@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Main Controller Servlet - handles all requests using MVC2 pattern
- * @author x1pta
  */
 @WebServlet(name = "MainController", urlPatterns = {"/MainController"})
 public class MainController extends HttpServlet {
@@ -53,10 +52,10 @@ public class MainController extends HttpServlet {
         try {
             switch (action) {
                 case "viewList":
-                    url = viewProductList(request, response);
+                    url = ViewProductList(request, response);
                     break;
                 case "viewDetail":
-                    url = viewProductDetail(request, response);
+                    url = ViewProductDetail(request, response);
                     break;
                 case "updateProduct":
                     url = updateProduct(request, response);
@@ -72,8 +71,7 @@ public class MainController extends HttpServlet {
                     break;
             }
         } catch (Exception e) {
-            request.setAttribute("error", "An error occurred: " + e.getMessage());
-            url = "/error.jsp";
+           log("Error:" + e.getMessage());
         }
         
         if (url != null && !url.isEmpty()) {
@@ -232,5 +230,13 @@ public class MainController extends HttpServlet {
      */
     private String showAddProductForm(HttpServletRequest request, HttpServletResponse response) {
         return "/addNewProduct.jsp";
+    }
+
+    private String ViewProductList(HttpServletRequest request, HttpServletResponse response) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private String ViewProductDetail(HttpServletRequest request, HttpServletResponse response) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
