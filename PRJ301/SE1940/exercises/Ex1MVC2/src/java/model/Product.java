@@ -15,9 +15,11 @@ public class Product {
         this.unitPrice = unitPrice;
         this.quantity = quantity;
     }
-
-    public Product(String trim, double unitPrice, int quantity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    
+    public Product(String productName, double unitPrice, int quantity) {
+        this.productName = productName;
+        this.unitPrice = unitPrice;
+        this.quantity = quantity;
     }
 
     public int getProductID() {

@@ -7,20 +7,53 @@
     
     <display-name>Product Management System</display-name>
     
-    <!-- Main Controller Servlet -->
+    <!-- View Product Controller -->
     <servlet>
-        <servlet-name>MainController</servlet-name>
-        <servlet-class>controller.MainController</servlet-class>
+        <servlet-name>ViewProductController</servlet-name>
+        <servlet-class>controller.ViewProductController</servlet-class>
     </servlet>
     
     <servlet-mapping>
-        <servlet-name>MainController</servlet-name>
-        <url-pattern>/MainController</url-pattern>
+        <servlet-name>ViewProductController</servlet-name>
+        <url-pattern>/ViewProductController</url-pattern>
+    </servlet-mapping>
+    
+    <!-- Update Product Controller -->
+    <servlet>
+        <servlet-name>UpdateProductController</servlet-name>
+        <servlet-class>controller.UpdateProductController</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>UpdateProductController</servlet-name>
+        <url-pattern>/UpdateProductController</url-pattern>
+    </servlet-mapping>
+    
+    <!-- Add Product Controller -->
+    <servlet>
+        <servlet-name>AddProductController</servlet-name>
+        <servlet-class>controller.AddProductController</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>AddProductController</servlet-name>
+        <url-pattern>/AddProductController</url-pattern>
+    </servlet-mapping>
+    
+    <!-- Delete Product Controller -->
+    <servlet>
+        <servlet-name>DeleteProductController</servlet-name>
+        <servlet-class>controller.DeleteProductController</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>DeleteProductController</servlet-name>
+        <url-pattern>/DeleteProductController</url-pattern>
     </servlet-mapping>
     
     <!-- Welcome File -->
     <welcome-file-list>
-        <welcome-file>ViewProductList.jsp</welcome-file>
+        <welcome-file>ViewProductController?action=viewList</welcome-file>
     </welcome-file-list>
     
 </web-app>
