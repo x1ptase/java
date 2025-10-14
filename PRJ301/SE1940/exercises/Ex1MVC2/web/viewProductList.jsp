@@ -1,5 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" import="java.util.*, model.Product" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,8 +6,9 @@
     <title>Product List</title>
 </head>
 <body>
-    <a href="MainController?action=createNew">Create New</a>
-    
+    <h1>Product List</h1>
+    <p><a href="MainController?action=createNew">Create New</a></p>
+
     <table border="1">
         <thead>
             <tr>
@@ -20,27 +20,28 @@
             </tr>
         </thead>
         <tbody>
-            <c:choose>
-                <c:when test="${not empty products}">
-                    <c:forEach var="product" items="${products}">
-                        <tr>
-                            <td>${product.productID}</td>
-                            <td>${product.productName}</td>
-                            <td>${product.unitPrice}</td>
-                            <td>${product.quantity}</td>
-                            <td>
-                                <a href="MainController?action=viewDetail&productId=${product.productID}">Edit</a>
-                                <a href="MainController?action=viewDetail&productId=${product.productID}">Details</a>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                </c:when>
-                <c:otherwise>
-                    <tr>
-                        <td colspan="5">No products found</td>
-                    </tr>
-                </c:otherwise>
-            </c:choose>
+        <%
+            List<Product> products=(List<Product>) request.getAttribute("products");
+            if(products != null && !products.isEmpty()){
+                for(Product product : products){
+        %>
+            <tr>
+                <td><%= product.getProductID() %></td>
+                <td><%= product.getProductName() %></td>
+                <td><%= product.getUnitPrice() %></td>
+                <td><%= product.getQuantity() %></td>
+                <td>
+                    <a href="MainController?action=viewDetail&productId=<%= product.getProductID() %>">Edit | Details</a>
+                </td>
+            </tr>
+        <%
+                }
+            } else{
+        %>
+            <tr>
+                <td colspan="5">No products found</td>
+            </tr>
+        <% } %>
         </tbody>
     </table>
 </body>

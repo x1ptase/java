@@ -51,9 +51,8 @@
         <url-pattern>/DeleteProductController</url-pattern>
     </servlet-mapping>
     
-    <!-- Welcome File -->
     <welcome-file-list>
-        <welcome-file>ViewProductController?action=viewList</welcome-file>
+        <welcome-file>MainController</welcome-file>
     </welcome-file-list>
     
 </web-app>

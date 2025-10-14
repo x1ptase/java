@@ -30,6 +30,14 @@ public class Product {
         this.productID = productID;
     }
 
+    public int getProductId() {
+        return productID;
+    }
+
+    public void setProductId(int productId) {
+        this.productID = productId;
+    }
+
     public String getProductName() {
         return productName;
     }
@@ -58,5 +66,4 @@ public class Product {
     public String toString() {
         return String.format("%d, %s, %.2f, %s", productID, productName, unitPrice, quantity);
     }
-    
 }

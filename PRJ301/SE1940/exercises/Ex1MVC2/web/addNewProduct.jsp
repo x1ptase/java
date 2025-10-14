@@ -1,5 +1,4 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,18 +6,24 @@
     <title>Add New Product</title>
 </head>
 <body>
-    <h1>Product</h1>
-    
-    <c:if test="${not empty error}">
-        <div>${error}</div>
-    </c:if>
-    <c:if test="${not empty message}">
-        <div>${message}</div>
-    </c:if>
-    
+    <h1>Add New Product</h1>
+    <%
+    String error=(String) request.getAttribute("error");
+    String message=(String) request.getAttribute("message");
+    if(error != null){
+    %>
+    <div style="color:red"><%= error %></div>
+    <%
+    }
+    if(message != null){
+    %>
+    <div style="color:green"><%= message %></div>
+    <%
+    }
+    %>
     <form action="MainController" method="post">
         <input type="hidden" name="action" value="addProduct"/>
-        
+
         <div>
             <label for="productName">ProductName:</label>
             <input type="text" id="productName" name="productName" required/>
@@ -33,7 +38,6 @@
         </div>
         <button type="submit">Create</button>
     </form>
-    
     <p><a href="MainController?action=viewList">Back to List</a></p>
 </body>
 </html>
