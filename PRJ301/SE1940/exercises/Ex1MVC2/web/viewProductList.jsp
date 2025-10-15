@@ -7,7 +7,9 @@
 </head>
 <body>
     <h1>Product List</h1>
-    <p><a href="MainController?action=createNew">Create New</a></p>
+    <p>
+        <a href="AddNewProductController?action=showForm">Create New</a>
+    </p>
 
     <table border="1">
         <thead>
