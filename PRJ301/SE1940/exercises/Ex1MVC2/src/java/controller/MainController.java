@@ -56,6 +56,12 @@ public class MainController extends HttpServlet {
                 case "viewDetail":
                     url=viewProductDetail(request, response);
                     break;
+                case "showAddForm":
+                    url=showAddProductForm(request, response);
+                    break;
+                case "searchProducts":
+                    url=searchProducts(request, response);
+                    break;
                 default:
                     url=viewProductList(request, response);
                     break;
@@ -110,6 +116,49 @@ public class MainController extends HttpServlet {
         } catch(Exception ex){
             request.setAttribute("error", "Error loading product details: " + ex.getMessage());
             return "/ViewProductList.jsp";
+        }
+    }
+    
+    /**
+     * Show add product form
+     */
+    private String showAddProductForm(HttpServletRequest request, HttpServletResponse response){
+        return "/AddNewProduct.jsp";
+    }
+    
+    
+    /**
+     * Search products
+     */
+    private String searchProducts(HttpServletRequest request, HttpServletResponse response){
+        try{
+            String searchTerm=request.getParameter("searchTerm");
+            if(searchTerm != null && !searchTerm.trim().isEmpty()){
+                // For now, get all products and filter in memory
+                // In a real application, you would implement search in the DAO
+                List<Product> allProducts=productDAO.getAllProducts();
+                List<Product> filteredProducts=new java.util.ArrayList<>();
+                
+                String searchLower=searchTerm.toLowerCase();
+                for(Product product : allProducts){
+                    if(product.getProductName().toLowerCase().contains(searchLower)){
+                        filteredProducts.add(product);
+                    }
+                }
+                
+                request.setAttribute("products", filteredProducts);
+                request.setAttribute("searchTerm", searchTerm);
+                request.setAttribute("searchResult", "Found " + filteredProducts.size() + " product(s)");
+            } else{
+                request.setAttribute("error", "Please enter a search term");
+                return "/MainController?action=viewList";
+            }
+            
+            return "/ViewProductList.jsp";
+            
+        } catch(Exception ex){
+            request.setAttribute("error", "Error searching products: " + ex.getMessage());
+            return "/MainController?action=viewList";
         }
     }
 }

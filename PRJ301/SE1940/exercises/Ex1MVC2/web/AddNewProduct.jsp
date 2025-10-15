@@ -13,22 +13,22 @@
     </head>
     <body>
         <h1>Add New Product</h1>
-        <% if (request.getAttribute("error") != null) { %>
-        <p style="color: red;"><%= request.getAttribute("error") %></p>
+        <% if(request.getAttribute("error") != null){%>
+        <p style="color: red;"><%= request.getAttribute("error")%></p>
         <% } %>
 
-        <% if (request.getAttribute("success") != null) { %>
+        <% if(request.getAttribute("success") != null){%>
             <p style="color: green;"><%= request.getAttribute("success") %></p>
         <% } %>
 
-        <form action="AddNewProductController" method="post">
+        <form action="<%= request.getContextPath() %>/AddNewProductController" method="post">
             <input type="hidden" name="action" value="addProduct">
             Product Name: <input type="text" name="productName" 
-                            value="<%= request.getAttribute("productName") != null ? request.getAttribute("productName") : "" %>" 
-                            required><br/>
+                                value="<%= request.getAttribute("productName") != null ? request.getAttribute("productName") : "" %>" 
+                                required><br/>
             Unit Price: <input type="number" name="unitPrice" 
-                                  value="<%= request.getAttribute("unitPrice") != null ? request.getAttribute("unitPrice") : "" %>" 
-                                  step="0.01" min="0" required><br/>
+                                value="<%= request.getAttribute("unitPrice") != null ? request.getAttribute("unitPrice") : "" %>" 
+                                step="0.01" min="0" required><br/>
             Quantity: <input type="number" name="quantity" 
                                 value="<%= request.getAttribute("quantity") != null ? request.getAttribute("quantity") : "" %>" 
                                 min="0" required><br/>

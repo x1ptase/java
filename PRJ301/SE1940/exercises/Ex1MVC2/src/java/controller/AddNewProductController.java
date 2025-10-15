@@ -21,7 +21,7 @@ public class AddNewProductController extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        productDAO = new ProductDAO();
+        productDAO=new ProductDAO();
     }
     
     @Override
@@ -92,7 +92,7 @@ public class AddNewProductController extends HttpServlet {
                 request.setAttribute("productName", productName);
                 request.setAttribute("unitPrice", unitPriceStr);
                 request.setAttribute("quantity", quantityStr);
-                return "/AddProductForm.jsp";
+                return "/AddNewProduct.jsp";
             }
             
             if (unitPriceStr == null || unitPriceStr.trim().isEmpty()) {
@@ -100,7 +100,7 @@ public class AddNewProductController extends HttpServlet {
                 request.setAttribute("productName", productName);
                 request.setAttribute("unitPrice", unitPriceStr);
                 request.setAttribute("quantity", quantityStr);
-                return "/AddProductForm.jsp";
+                return "/AddNewProduct.jsp";
             }
             
             if (quantityStr == null || quantityStr.trim().isEmpty()) {
@@ -122,7 +122,7 @@ public class AddNewProductController extends HttpServlet {
                     request.setAttribute("productName", productName);
                     request.setAttribute("unitPrice", unitPriceStr);
                     request.setAttribute("quantity", quantityStr);
-                    return "/AddProductForm.jsp";
+                    return "/AddNewProduct.jsp";
                 }
             } catch (NumberFormatException ex) {
                 request.setAttribute("error", "Unit price must be a valid number");
@@ -149,18 +149,35 @@ public class AddNewProductController extends HttpServlet {
                 return "/AddNewProduct.jsp";
             }
             
+            // Test database connection first
+            System.out.println("Testing database connection...");
+            boolean connectionOK = productDAO.testConnection();
+            if (!connectionOK) {
+                request.setAttribute("error", "Database connection failed. Please check your database configuration.");
+                request.setAttribute("productName", productName);
+                request.setAttribute("unitPrice", unitPriceStr);
+                request.setAttribute("quantity", quantityStr);
+                return "/AddNewProduct.jsp";
+            }
+            
             // Create new product
             Product newProduct = new Product(productName.trim(), unitPrice, quantity);
             
             // Add product to database
+            System.out.println("Attempting to add product: " + newProduct.toString());
             boolean success = productDAO.addProduct(newProduct);
+            System.out.println("Add product result: " + success);
             
             if (success) {
                 request.setAttribute("success", "Product added successfully!");
                 // Redirect to product list after successful addition
                 return "/MainController?action=viewList";
             } else {
-                request.setAttribute("error", "Failed to add product. Please try again.");
+                String dbError = productDAO.getLastErrorMessage();
+                String msg = (dbError != null && !dbError.isEmpty())
+                        ? ("Failed to add product: " + dbError)
+                        : "Failed to add product. Please check database connection and try again.";
+                request.setAttribute("error", msg);
                 request.setAttribute("productName", productName);
                 request.setAttribute("unitPrice", unitPriceStr);
                 request.setAttribute("quantity", quantityStr);
