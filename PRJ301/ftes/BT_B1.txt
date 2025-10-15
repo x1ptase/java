@@ -1,0 +1,5 @@
+Mô tả:
+Xây dựng một ứng dụng web đơn giản (Webapp) với Context Path là /login, trong đó có một Servlet với UrlPattern là /process. Người dùng sẽ nhập Username và Password, hệ thống so sánh với tài khoản mẫu. Nếu khớp sẽ báo đăng nhập thành công, ngược lại báo thất bại.
+
+Yêu cầu:Viết Webapp: Context Path: /login UrlPattern: /process Input: Username, Password So sánh với tài khoản mẫu: Username: "Admin" Password: "123" Nếu đúng → hiển thị "Login Successfully!!!" Nếu sai → hiển thị "Login Failed!!"
+Output mong đợi:Khi đăng nhập đúng tài khoản "Admin" / "123" → "Login Successfully!!!" Khi đăng nhập sai → "Login Failed!!"
