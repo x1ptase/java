@@ -6,7 +6,7 @@
 <%@page import="Models.DTO.User" %>
 <%@page import="java.util.List" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,7 +14,6 @@
         <title>Search</title>
     </head>
     <body>
-        <c:set var="userLoggedIn" value="${userLoggedIn}"/>
         <c:if test="${userLoggedIn != null}">
             <c:set var="lastName" value="${userLoggedIn.lastName}"/>
         </c:if>
