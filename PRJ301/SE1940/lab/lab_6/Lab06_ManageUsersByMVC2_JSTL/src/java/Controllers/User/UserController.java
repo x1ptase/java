@@ -52,8 +52,10 @@ public class UserController extends HttpServlet {
                 url = loginPage;
             }
         } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
+            if (url != null) {
+                RequestDispatcher rd = request.getRequestDispatcher(url);
+                rd.forward(request, response);
+            }
         }
     } //end processRequest
         

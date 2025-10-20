@@ -30,8 +30,12 @@ public class UserDetailsController extends HttpServlet {
         User user;
         try {
             String userName = request.getParameter("userName");
+            if (userName == null || userName.isEmpty()) {
+                userName = request.getParameter("txtUserName");
+            }
+            
             UserDAO dao = new UserDAO();
-            if (!userName.isEmpty()) {
+            if (userName != null && !userName.isEmpty()) {
                 user = dao.getUserByUserName(userName);
                 if (user != null) {
                     request.setAttribute("userDetails", user);

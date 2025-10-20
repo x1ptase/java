@@ -3,7 +3,7 @@
     Created on : Oct 18, 2025, 4:29:57 PM
     Author     : x1pta
 --%>
-<%@taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="Models.DTO.User" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -16,7 +16,6 @@
         <form method="post">
             <input type="submit" formaction="LogoutController" value="Logout"/><br/>
         </form>
-        <c:set var="userLoggedIn" value="${userLoggedIn}"/>
         <c:if test="${userLoggedIn != null}">
             <c:set var="lastName" value="${userLoggedIn.lastName}"/>
         </c:if>
