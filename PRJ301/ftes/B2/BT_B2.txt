@@ -7,11 +7,11 @@
 	// và kèm thông báo: Bạn là người may mắn
 		                Nếu 2 số khác nhau: thì bạn trả về thông báo: Chúc bạn may mắn lần sau
 	** Phát triển: Oẳn tù xì project
-*/
+*/  
 // 2. Code chạy trong jsp
 // Đăng kí đăng nhập flow
 // register.jsp: Cho phép user nhập username, password, email, fullname và 1 nút submit
-// RegisteController.jsp (urlPattern: /process) => Cho user đăng kí tài khoản, thông tin tài khoản lưu vào bằng cách
+// RegisteController.java (urlPattern: /process) => Cho user đăng kí tài khoản, thông tin tài khoản lưu vào bằng cách
 // tạo 1 package model, tạo 1 class User.java và lưu thông tin theo dạng Object
 // Sau khi register thành công, chuyển user đến profile.jsp
 
