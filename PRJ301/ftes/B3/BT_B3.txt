@@ -1,0 +1,7 @@
+Mô tả:
+Viết một ứng dụng web đơn giản sử dụng Java Servlet/JSP để thực hiện các phép toán cộng, trừ, nhân, chia. Người dùng nhập hai số và chọn phép tính từ giao diện web (form HTML). Sau khi submit, kết quả được hiển thị trên trang kết quả.
+
+Yêu cầu:Tạo form nhập 2 số (number1, number2) và chọn phép tính (+, -, *, /). Gửi dữ liệu từ form đến Servlet xử lý. Servlet thực hiện tính toán và trả về kết quả cho người dùng. Nếu người dùng chia cho 0 → hiển thị thông báo lỗi. Kết quả hiển thị trên JSP với định dạng rõ ràng.
+Output mong đợi:Giao diện form cho phép nhập số và chọn phép tính. Trang kết quả hiển thị phép tính và kết quả. Ví dụ: 5 + 3 = 8 10 / 2 = 5 Chia cho 0 → Hiển thị thông báo lỗi: "Không thể chia cho 0"
+Files: .java
+Tiêu chí: Code quality: Tổ chức mã nguồn rõ ràng (Servlet tách biệt với JSP). Logic: Xử lý chính xác các phép toán, đặc biệt với phép chia. Performance: Chương trình chạy ổn định, phản hồi nhanh. UI/UX: Giao diện form đơn giản, dễ sử dụng.

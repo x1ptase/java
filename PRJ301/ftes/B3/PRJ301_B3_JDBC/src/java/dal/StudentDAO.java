@@ -58,12 +58,4 @@ public class StudentDAO extends DBContext{
         }
         return false;
     }
-    
-    public static void main(String[] args) {
-        StudentDAO dao=new StudentDAO();
-        dao.removeStudentByID("1");
-        for(Student std : dao.getListStudent()){
-            System.out.println(std.toString());
-        }   
-    }
 }
