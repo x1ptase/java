@@ -22,6 +22,8 @@ public class FilterServlet extends HttpServlet {
             out.println("<h1>Filter Demo</h1>");
             String test=(String)request.getAttribute("KEY");
             out.println("KEY is: " + test);
+            String test1=(String)request.getAttribute("KEY1");
+            out.println("KEY is: " + test1);
             out.println("</body>");
             out.println("</html>");
         } catch(Exception ex){
