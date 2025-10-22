@@ -78,7 +78,6 @@ public class MyFilter implements Filter {
             }
             return alteredContent;
         }
-
         @Override
         public PrintWriter getWriter() {
             return new PrintWriter(writer);
@@ -87,5 +86,6 @@ public class MyFilter implements Filter {
         public String toString() {
             return writer.toString();
         }
+        
     }
 }
