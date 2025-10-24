@@ -1,0 +1,9 @@
+THỰC HÀNH SESSION - COOKIE
+Mô tả:
+Trong lập trình web với JSP/Servlet, Cookie và Session là 2 cơ chế quan trọng để lưu trữ thông tin người dùng: Cookie: lưu dữ liệu nhỏ ở phía client (trình duyệt). Session: lưu dữ liệu ở phía server, thường dùng để quản lý phiên đăng nhập. Bài tập này giúp sinh viên hiểu cách kết hợp Cookie và Session để xây dựng Login Flow cơ bản, bao gồm chức năng "Ghi nhớ đăng nhập" (Remember Me).
+
+Yêu cầu:Tạo một ứng dụng JSP/Servlet kết nối với cơ sở dữ liệu Users gồm các cột: id (INT, PK, AUTO_INCREMENT) username (VARCHAR) password (VARCHAR) Tạo trang login.jsp với form đăng nhập: Trường Username, Password. Checkbox “Remember Me”. Button “Login”. Tạo LoginServlet để xử lý: Nếu đúng thông tin → tạo Session cho người dùng. Nếu chọn “Remember Me” → tạo Cookie lưu username. Nếu sai thông tin → trả về login.jsp với thông báo lỗi. Tạo trang home.jsp: Nếu Session tồn tại → hiển thị “Xin chào, {username}”. Nếu có Cookie mà chưa có Session → tự động đăng nhập bằng Cookie. Nếu không có Session/Cookie → chuyển hướng về login.jsp. Tạo LogoutServlet để: Xoá Session và Cookie. Chuyển hướng về login.jsp.
+Output mong đợi:Người dùng đăng nhập đúng → hiển thị home.jsp với lời chào. Người dùng chọn “Remember Me” → lần sau mở lại web, tự động login bằng Cookie. Người dùng logout → Session và Cookie bị xoá, quay lại login.jsp. Ví dụ: Login: user01 / 123456 Output: "Xin chào, user01" Tick Remember Me → lần sau mở web không cần login lại.
+Files:
+.java
+Tiêu chí: Biết sử dụng Session để quản lý phiên đăng nhập. Biết sử dụng Cookie cho chức năng “Remember Me”. Hiểu rõ sự khác biệt Session vs Cookie. Code chạy đúng flow: Login → Home → Logout.

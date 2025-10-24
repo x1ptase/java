@@ -1,0 +1,9 @@
+BÀI TẬP JSP SERVLET CƠ BẢN - KẾT NỐI CSDL VÀ THAO TÁC CRUD
+Mô tả:
+Sinh viên xây dựng ứng dụng web cơ bản bằng JSP và Servlet kết nối với cơ sở dữ liệu (MySQL/PostgreSQL). Ứng dụng phải thực hiện đầy đủ CRUD (Create – Read – Update – Delete) trên bảng User. Mỗi User có các trường dữ liệu: ID (INT, khóa chính, tự tăng) FullName (VARCHAR) Gender (BOOLEAN hoặc VARCHAR) DOB (DATE) Email (VARCHAR, unique) Phone (VARCHAR) Ứng dụng cần có giao diện JSP đơn giản hiển thị danh sách user trong bảng, kèm form nhập liệu để thêm/cập nhật thông tin.
+
+Yêu cầu:Tạo cơ sở dữ liệu và bảng User với các field trên. Viết Servlet và DAO xử lý các chức năng: Thêm User (Create) Xem danh sách User (Read) Cập nhật thông tin User (Update) Xóa User (Delete) JSP hiển thị danh sách User trong bảng HTML với các cột: FullName | Gender | DOB | Email | Phone | Action Cột Action chứa nút Edit và Delete. Thực hiện validate cơ bản (không để trống FullName, Email hợp lệ, Phone chỉ chứa số). Đảm bảo kết nối cơ sở dữ liệu qua JDBC (sử dụng connection pool nếu có thể).
+Output mong đợi:Ứng dụng web chạy trên Tomcat/GlassFish. Trang JSP hiển thị danh sách user và form thêm/cập nhật. Các nút Edit và Delete hoạt động đúng. Dữ liệu thay đổi trực tiếp trong cơ sở dữ liệu.
+Files:
+.java
+Tiêu chí: Tiêu chí đánh giá Code quality: Phân tách rõ Servlet, DAO, JSP. Logic: Thao tác CRUD chính xác. Validation: Kiểm tra dữ liệu đầu vào cơ bản. Performance: Kết nối DB tối ưu, tránh rò rỉ.

@@ -1,3 +1,4 @@
+XÂY DỰNG ỨNG DỤNG CALCULATOR BẰNG SERVLET/JSP
 Mô tả:
 Viết một ứng dụng web đơn giản sử dụng Java Servlet/JSP để thực hiện các phép toán cộng, trừ, nhân, chia. Người dùng nhập hai số và chọn phép tính từ giao diện web (form HTML). Sau khi submit, kết quả được hiển thị trên trang kết quả.
 
