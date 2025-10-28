@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context path="/lab7">
-    <Resource auth="Container"
-              driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+    <Resource auth="Container" driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
               name="SampleDB"
               password="12345"
               type="javx.sql.DataSource"
