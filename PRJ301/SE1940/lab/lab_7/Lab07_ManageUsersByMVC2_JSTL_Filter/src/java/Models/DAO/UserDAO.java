@@ -12,7 +12,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException; 
 
-public abstract class UserDAO implements IUserDAO {
+public class UserDAO implements IUserDAO {
     public static Connection getConnection() throws Exception {
         Connection cnn;
         try {

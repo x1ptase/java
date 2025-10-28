@@ -16,6 +16,6 @@ public interface IUserDAO {
     User getUserByUserName(String userName) throws Exception;
     List<User> searchUserByLastName(String searchValue) throws Exception;
     boolean addUser(User user) throws Exception;
-    boolean deleteUser(User userName) throws Exception;
+    boolean deleteUser(String userName) throws Exception;
     boolean updateUser(User user) throws Exception;
 }
