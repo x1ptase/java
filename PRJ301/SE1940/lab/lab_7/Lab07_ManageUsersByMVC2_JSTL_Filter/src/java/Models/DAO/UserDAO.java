@@ -145,5 +145,76 @@ public abstract class UserDAO implements IUserDAO {
         return userList;
     }
     
+    public boolean addUser(User user) throws Exception{
+        PreparedStatement preStm=null;
+        Connection cnn=null;
+        
+        try{
+            cnn=getConnection();
+            String sql="INSERT Registration VALUES(?, ?, ?, ?)";
+            preStm=cnn.prepareStatement(sql);
+            preStm.setString(1, user.getUserName());
+            preStm.setString(2, user.getPassword());
+            preStm.setString(4, user.getLastName());
+            preStm.setBoolean(4, user.isIsAdmin());
+            return preStm.executeUpdate() > 0;
+        } catch(Exception ex){
+            throw ex;
+        } finally{
+            if(preStm != null){
+                preStm.close();
+            }
+            if(cnn != null){
+                cnn.close();
+            }
+        }
+    }
     
+    public boolean deleteUser(String userName) throws Exception {
+        PreparedStatement preStmt=null;
+        Connection cnn=null;
+
+        try {
+            cnn=getConnection();
+            String sql="DELETE FROM Registration WHERE UserName=?";
+            preStmt=cnn.prepareStatement(sql);
+            preStmt.setString(1, userName);
+            return preStmt.executeUpdate() > 0;
+        } catch(Exception ex){
+            throw ex;
+        } finally{
+            if(preStmt != null){
+                preStmt.close();
+            }
+            if(cnn != null){
+                cnn.close();
+            }
+        }
+    }
+    
+      public boolean updateUser(User user) throws Exception{
+        PreparedStatement preStm=null;
+        Connection cnn=null;
+        
+        try{
+            cnn=getConnection();
+            String sql=
+                    "UPDATE Registration SET Password=?, LastName=?, isAdmin=? WHERE UserName=?";
+            preStm=cnn.prepareStatement(sql);
+            preStm.setString(1, user.getPassword());
+            preStm.setString(2, user.getLastName());
+            preStm.setBoolean(3, user.isIsAdmin());
+            preStm.setString(4, user.getUserName());
+            return preStm.executeUpdate() > 0;
+        } catch(Exception ex){
+            throw ex;
+        } finally{
+            if(preStm != null){
+                preStm.close();
+            }
+            if(cnn != null){
+                cnn.close();
+            }
+        }
+    }
 }
