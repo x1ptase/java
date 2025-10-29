@@ -26,7 +26,7 @@ public class SearchController extends HttpServlet {
         try{
             UserService userService=new UserService();
             searchValue=request.getParameter("txtSearchValue");
-            if(!searchValue.isEmpty()){
+            if(searchValue != null && !searchValue.isEmpty()){
                 List<User> userList=userService.getUsersByKeywordOfLastName(searchValue);
                 request.setAttribute("SearchResult", userList);
             }

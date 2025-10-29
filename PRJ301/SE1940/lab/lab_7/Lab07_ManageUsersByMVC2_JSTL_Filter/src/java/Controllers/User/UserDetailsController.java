@@ -9,45 +9,33 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "DeleteController", urlPatterns = {"/delete"})
-public class DeleteController extends HttpServlet {
+@WebServlet(name = "UserDetailsController", urlPatterns = {"/UserDetailsController"})
+public class UserDetailsController extends HttpServlet {
 
+    private final String USER_DETAILS_PAGE="UserDetails.jsp";
     private final String USER_CONTROLLER="UserController";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out=response.getWriter();
-        String url=USER_CONTROLLER;
-        String message=null;
+        String url=USER_DETAILS_PAGE;
+        User user;
         
         try{
+            String userName=request.getParameter("UserName");
             UserService userService=new UserService();
-            HttpSession session=request.getSession();
-            User userLoggedIn=(User) session.getAttribute("userLoggedIn");
-            String userName=request.getParameter("userName");
-            String searchValue=request.getParameter("txtSearchValue");
-
-            if(userLoggedIn != null && userName != null && userName.equals(userLoggedIn.getUserName())){
-                message="<b style='color: red'>This user logged in, can not delete.</b>";
-            } else{
-                if(userName != null && !userName.isEmpty()){
-                    if(userService.removeUser(userName) == true){
-                        message="<b style='color: green'>The user has been deleted successfully.</b>";
-                    } else{
-                        message="<b style='color: red'>Something went wrong.</b>";
-                    }
+            if(!userName.isEmpty()){
+                user=userService.getUserByUserName(userName);
+                if(user != null){
+                    request.setAttribute("userDetails", user);
                 }
+            } else{
+                url=USER_CONTROLLER + "?action=Search";
             }
-
-            url=USER_CONTROLLER + "?action=search&txtSearchValue=" + searchValue;
-
         } catch(Exception ex){
             log(ex.getMessage());
         } finally{
-            request.setAttribute("message", message);
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

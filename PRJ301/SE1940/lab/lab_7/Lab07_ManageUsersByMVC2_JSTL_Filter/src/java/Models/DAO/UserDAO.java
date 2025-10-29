@@ -76,7 +76,7 @@ public class UserDAO implements IUserDAO {
             cnn=getConnection();
         
             String sql=
-                    "SELECT Password, LastName, isAdmin FROM Resgistration WHERE [UserName]=?";
+                    "SELECT Password, LastName, isAdmin FROM Registration WHERE [UserName]=?";
             preStm=cnn.prepareStatement(sql);
             preStm.setString(1, userName);
             rs=preStm.executeQuery();
@@ -139,9 +139,6 @@ public class UserDAO implements IUserDAO {
                 cnn.close();
             }
         }
-        if(userList.isEmpty()){
-            return null;
-        }
         return userList;
     }
     
@@ -151,11 +148,11 @@ public class UserDAO implements IUserDAO {
         
         try{
             cnn=getConnection();
-            String sql="INSERT Registration VALUES(?, ?, ?, ?)";
+            String sql="INSERT INTO Registration (UserName, Password, LastName, isAdmin) VALUES(?, ?, ?, ?)";
             preStm=cnn.prepareStatement(sql);
             preStm.setString(1, user.getUserName());
             preStm.setString(2, user.getPassword());
-            preStm.setString(4, user.getLastName());
+            preStm.setString(3, user.getLastName());
             preStm.setBoolean(4, user.isIsAdmin());
             return preStm.executeUpdate() > 0;
         } catch(Exception ex){
