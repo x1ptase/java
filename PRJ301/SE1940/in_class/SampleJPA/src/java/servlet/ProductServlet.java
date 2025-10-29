@@ -61,7 +61,63 @@ public class ProductServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String action = request.getParameter("action");
+        if (action == null) action = "";
+
+        ProductService productService = new ProductService();
+        try {
+            switch (action) {
+                case "add": {
+                    String idStr = request.getParameter("id");
+                    String name = request.getParameter("name");
+                    String priceStr = request.getParameter("unitPrice");
+                    String qtyStr = request.getParameter("quantity");
+                    if (idStr != null && name != null && priceStr != null && qtyStr != null) {
+                        ProductDTO p = new ProductDTO();
+                        p.setId(Integer.parseInt(idStr));
+                        p.setName(name);
+                        p.setUnitPrice(Float.parseFloat(priceStr));
+                        p.setQuantity(Integer.parseInt(qtyStr));
+                        productService.add(p);
+                    }
+                    break;
+                }
+                case "update": {
+                    String idStr = request.getParameter("id");
+                    String name = request.getParameter("name");
+                    String priceStr = request.getParameter("unitPrice");
+                    String qtyStr = request.getParameter("quantity");
+                    if (idStr != null && name != null && priceStr != null && qtyStr != null) {
+                        ProductDTO p = new ProductDTO();
+                        p.setId(Integer.parseInt(idStr));
+                        p.setName(name);
+                        p.setUnitPrice(Float.parseFloat(priceStr));
+                        p.setQuantity(Integer.parseInt(qtyStr));
+                        productService.update(p);
+                    }
+                    break;
+                }
+                case "delete": {
+                    String idStr = request.getParameter("id");
+                    if (idStr != null) {
+                        int id = Integer.parseInt(idStr);
+                        ProductDTO p = productService.searchById(id);
+                        if (p != null) {
+                            productService.delete(p);
+                        }
+                    }
+                    break;
+                }
+                default:
+                    break;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            productService.close();
+        }
+
+        response.sendRedirect(request.getContextPath() + "/ProductServlet");
     }
 
     /**

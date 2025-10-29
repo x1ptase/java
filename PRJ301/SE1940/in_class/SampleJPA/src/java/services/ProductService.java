@@ -71,6 +71,7 @@ public class ProductService implements IProductService<ProductDTO> {
         return result;
     }
     
+    @Override
     public boolean update (ProductDTO product) {
         EntityManager em = this.emf.createEntityManager();
         boolean result = false;
@@ -92,6 +93,7 @@ public class ProductService implements IProductService<ProductDTO> {
         return result;
     }
     
+    @Override
     public boolean delete (ProductDTO product) {
         EntityManager em = this.emf.createEntityManager();
         boolean result = false;
@@ -99,7 +101,7 @@ public class ProductService implements IProductService<ProductDTO> {
             ProductDTO pro = em.find(ProductDTO.class, product.getId());
             if (pro!=null) {
                 em.getTransaction() .begin();
-                em.remove(product);
+                em.remove(pro);
                 em.getTransaction() .commit();
                 result = true;
             }
