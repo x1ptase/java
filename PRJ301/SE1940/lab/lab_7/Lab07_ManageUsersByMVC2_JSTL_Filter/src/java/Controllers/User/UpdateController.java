@@ -2,48 +2,74 @@ package Controllers.User;
 
 import Models.DAO.Services.UserService;
 import Models.DTO.User;
+import Models.DTO.UserError;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "DeleteController", urlPatterns = {"/delete"})
-public class DeleteController extends HttpServlet {
+/**
+ *
+ * @author x1pta
+ */
+@WebServlet(name = "UpdateController", urlPatterns = {"/update"})
+public class UpdateController extends HttpServlet {
 
     private final String USER_CONTROLLER="UserController";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out=response.getWriter();
-        String url=USER_CONTROLLER;
+        String userName, password, lastName;
+        boolean isAdmin=true, isError=false;
         String message=null;
+        String url=USER_CONTROLLER;
         
-        try{
+        try {
             UserService userService=new UserService();
-            HttpSession session=request.getSession();
-            User userLoggedIn=(User) session.getAttribute("userLoggedIn");
-            String userName=request.getParameter("userName");
-            String searchValue=request.getParameter("txtSearchValue");
-
-            if(userName.equals(userLoggedIn.getUserName())){
-                message="<b style='color: red'>This user logged in, can not delete.</b>";
-            } else{
-                if(!userName.isEmpty()){
-                    if(userService.removeUser(userName) == true){
-                        message="<b style='color: green'>The user has been deleted successfully.</b>";
-                    } else{
-                        message="<b style='color: red'>Something went wrong.</b>";
-                    }
-                }
+            userName=request.getParameter("txtUserName");
+            password=request.getParameter("txtPassword");
+            lastName=request.getParameter("txtLastName");
+            String admin=request.getParameter("chkIsAdmin");
+            UserError userError=new UserError();
+            
+            // check userName
+            if (userName.matches("U\\d{3}") == false){
+                userError.setUserNameError("The UserName must be formatted Uxxx, x is digits.");
+                isError=true;
             }
 
-            url=USER_CONTROLLER + "?action=search&txtSearchValue=" + searchValue;
+            // check password
+            if(password.matches(".{3,15}") == false){
+                userError.setPasswordError("The Password must be 3 to 15 characters.");
+                isError=true;
+            } 
 
+            // check lastName
+            if(lastName.matches(".{5,50}") == false){
+                userError.setLastNameError("The LastName must be 5 to 50 characters.");
+                isError=true;
+            }
+
+            if(isError == false){
+                if(admin == null){
+                    isAdmin=false;
+                }
+
+                User user=new User(userName, password, lastName, isAdmin);
+
+                if(userService.updateUser(user) == true){
+                    message="<b style='color: green'>The user has been updated successfully.</b>";
+                } else{
+                    message="<b style='color: red'>Something went wrong.</b>";
+                }
+            } else{
+                request.setAttribute("ErrorDetails", userError);
+            }
+
+            url=USER_CONTROLLER + "?action=Details&userName=" + userName;
         } catch(Exception ex){
             log(ex.getMessage());
         } finally{
@@ -51,7 +77,6 @@ public class DeleteController extends HttpServlet {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -90,5 +115,4 @@ public class DeleteController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }
