@@ -32,7 +32,7 @@
             <th>Tên</th>
             <th>Giá</th>
             <th>Năm SX</th>
-            <th>Còn bán?</th>
+            <th>Còn bán</th>
             <th>Thêm vào giỏ</th>
         </tr>
         <c:forEach var="m" items="${mobiles}">

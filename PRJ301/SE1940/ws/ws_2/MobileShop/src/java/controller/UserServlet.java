@@ -19,9 +19,6 @@ public class UserServlet extends HttpServlet {
         List<Mobiles> mobiles = (min == null || max == null || min.isEmpty() || max.isEmpty())
             ? new dao.MobilesDAO().getAll()
             : new dao.MobilesDAO().searchByPrice(Float.parseFloat(min), Float.parseFloat(max));
-        for (model.Mobiles m : mobiles) {
-            System.out.println("-- " + m.getMobileId() + " | " + m.getMobileName());
-        }
         request.setAttribute("mobiles", mobiles);
         request.getRequestDispatcher(USER_PAGE).forward(request, response);
     }

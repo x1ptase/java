@@ -27,7 +27,6 @@ public class MobilesDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        for (Mobiles m : list) System.out.println("getAll--" + m.getMobileId() + " | " + m.getMobileName());
         return list;
     }
 
@@ -102,7 +101,6 @@ public class MobilesDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        for (Mobiles m : list) System.out.println("search--" + m.getMobileId() + " | " + m.getMobileName());
         return list;
     }
 

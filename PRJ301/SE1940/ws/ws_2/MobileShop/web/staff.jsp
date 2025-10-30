@@ -49,10 +49,15 @@
                 <td><c:out value="${m.notSale ? 'Không' : 'Có'}"/></td>
                 <td>${m.description}</td>
                 <td class="actions">
-                    <form method="post" action="staff">
+                    <form method="post" action="staff" style="display:inline-block;">
                         <input type="hidden" name="action" value="delete"/>
                         <input type="hidden" name="mobileId" value="${m.mobileId}"/>
                         <button class="btn btn-del" onclick="return confirm('Xóa sản phẩm này?');">Xóa</button>
+                    </form>
+                    <form method="get" action="staff" style="display:inline-block;">
+                        <input type="hidden" name="action" value="edit"/>
+                        <input type="hidden" name="mobileId" value="${m.mobileId}"/>
+                        <button class="btn btn-upd" type="submit">Sửa</button>
                     </form>
                 </td>
             </tr>
@@ -63,19 +68,72 @@
     </table>
 
     <h3>Thêm / Cập nhật sản phẩm</h3>
-    <form method="post" action="staff">
-        <input type="hidden" name="action" value="create"/>
-        <input type="text" name="mobileId" placeholder="Mã" required>
-        <input type="text" name="mobileName" placeholder="Tên" required>
-        <input type="number" name="price" placeholder="Giá" step="0.01" required>
-        <input type="number" name="yearOfProduction" placeholder="Năm SX">
-        <input type="number" name="quantity" placeholder="Số lượng" required>
-        <label><input type="checkbox" name="notSale"> Không bán</label>
-        <br>
-        <input type="text" name="description" placeholder="Mô tả" style="width: 60%;">
-        <br>
-        <button class="btn btn-add" type="submit">Thêm mới</button>
-    </form>
+    <c:choose>
+        <c:when test="${not empty editMobile}">
+            <!-- FORM SỬA ĐẸP -->
+            <form method="post" action="staff" class="product-form">
+                <input type="hidden" name="action" value="update"/>
+                <div class="row">
+                    <label>Mã:</label>
+                    <input type="text" name="mobileId" value="${editMobile.mobileId}" readonly style="background:#f5f5f5;" />
+                    <label>Tên:</label>
+                    <input type="text" name="mobileName" value="${editMobile.mobileName}" required />
+                    <label>Giá:</label>
+                    <input type="number" name="price" value="${editMobile.price}" step="0.01" required />
+                </div>
+                <div class="row">
+                    <label>Năm SX:</label>
+                    <input type="number" name="yearOfProduction" value="${editMobile.yearOfProduction}" />
+                    <label>Số lượng:</label>
+                    <input type="number" name="quantity" value="${editMobile.quantity}" required />
+                    <label style="margin-left:12px;"><input type="checkbox" name="notSale" <c:if test='${editMobile.notSale}'>checked</c:if> /> Không bán</label>
+                </div>
+                <div class="row">
+                    <label>Mô tả:</label>
+                    <input type="text" name="description" value="${editMobile.description}" style="width: 60%;" />
+                </div>
+                <div class="row">
+                    <button class="btn btn-upd" type="submit">Lưu</button>
+                    <a href="staff" class="btn btn-add" style="background:#bbb;color:#fff;text-decoration:none;">Bỏ sửa</a>
+                </div>
+            </form>
+        </c:when>
+        <c:otherwise>
+            <!-- FORM THÊM ĐẸP -->
+            <form method="post" action="staff" class="product-form">
+                <input type="hidden" name="action" value="create"/>
+                <div class="row">
+                    <label>Mã:</label>
+                    <input type="text" name="mobileId" placeholder="Mã" required>
+                    <label>Tên:</label>
+                    <input type="text" name="mobileName" placeholder="Tên" required>
+                    <label>Giá:</label>
+                    <input type="number" name="price" placeholder="Giá" step="0.01" required>
+                </div>
+                <div class="row">
+                    <label>Năm SX:</label>
+                    <input type="number" name="yearOfProduction" placeholder="Năm SX">
+                    <label>Số lượng:</label>
+                    <input type="number" name="quantity" placeholder="Số lượng" required>
+                    <label style="margin-left:12px;"><input type="checkbox" name="notSale"> Không bán</label>
+                </div>
+                <div class="row">
+                    <label>Mô tả:</label>
+                    <input type="text" name="description" placeholder="Mô tả" style="width: 60%;">
+                </div>
+                <div class="row">
+                    <button class="btn btn-add" type="submit">Thêm mới</button>
+                </div>
+            </form>
+        </c:otherwise>
+    </c:choose>
+    <style>
+    .product-form .row { display: flex; align-items: center; margin-bottom: 8px; }
+    .product-form label { min-width: 70px; margin-right: 6px; }
+    .product-form input[type=text], 
+    .product-form input[type=number] { margin-right: 12px; padding: 5px; }
+    .product-form button { margin-left: 0; }
+    </style>
 
     <p><a href="user">&larr; Về trang người dùng</a> | <a href="cart">Xem giỏ hàng</a></p>
 </div>

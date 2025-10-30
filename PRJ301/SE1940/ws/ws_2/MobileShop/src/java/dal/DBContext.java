@@ -23,7 +23,6 @@ public class DBContext {
         try{
             if(cnn != null && !cnn.isClosed()){
                 cnn.close();
-                System.out.println("Connection closed successfully.");
             }
         } catch(SQLException ex){
             System.out.println("Error closing connection: " + ex.getMessage());
@@ -37,8 +36,4 @@ public class DBContext {
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         return DriverManager.getConnection(url, username, pass);
     }
-
-//    public static void main(String[] args) {
-//        DBContext db=new DBContext();
-//    }
 }

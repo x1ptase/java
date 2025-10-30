@@ -36,9 +36,6 @@ public class CartServlet extends HttpServlet {
             cart.removeItem(request.getParameter("mobileId"));
         }
         
-        for (model.CartItem ci : cart.getItems()) {
-            System.out.println("Item: " + ci.getMobile().getMobileId() + " - Số lượng: " + ci.getQuantity());
-        }
         response.sendRedirect("cart");
     }
 }

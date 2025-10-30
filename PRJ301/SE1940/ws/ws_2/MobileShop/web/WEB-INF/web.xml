@@ -9,6 +9,10 @@
         <servlet-class>controller.CartServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>CheckoutServlet</servlet-name>
+        <servlet-class>controller.CheckoutServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>StaffServlet</servlet-name>
         <servlet-class>controller.StaffServlet</servlet-class>
     </servlet>
@@ -25,6 +29,10 @@
         <servlet-name>CartServlet</servlet-name>
         <url-pattern>/CartServlet</url-pattern>
         <url-pattern>/cart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckoutServlet</servlet-name>
+        <url-pattern>/checkout</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>StaffServlet</servlet-name>
