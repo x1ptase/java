@@ -8,7 +8,7 @@ import java.util.*;
 public class MobilesDAO {
     public List<Mobiles> getAll() {
         List<Mobiles> list = new ArrayList<>();
-        String sql = "SELECT * FROM Mobile";
+        String sql = "SELECT * FROM Mobiles";
         try (Connection conn = new DBContext().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
@@ -27,13 +27,12 @@ public class MobilesDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("[DEBUG] getAll, số dòng trả về: " + list.size());
         for (Mobiles m : list) System.out.println("getAll--" + m.getMobileId() + " | " + m.getMobileName());
         return list;
     }
 
     public Mobiles getById(String mobileId) {
-        String sql = "SELECT * FROM Mobile WHERE mobileId = ?";
+        String sql = "SELECT * FROM Mobiles WHERE mobileId = ?";
         try (Connection conn = new DBContext().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, mobileId);
@@ -57,7 +56,7 @@ public class MobilesDAO {
 
     public List<Mobiles> searchByPrice(float min, float max) {
         List<Mobiles> list = new ArrayList<>();
-        String sql = "SELECT * FROM Mobile WHERE price BETWEEN ? AND ?";
+        String sql = "SELECT * FROM Mobiles WHERE price BETWEEN ? AND ?";
         try (Connection conn = new DBContext().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setFloat(1, min);
@@ -82,7 +81,7 @@ public class MobilesDAO {
 
     public List<Mobiles> searchByNameOrId(String keyword) {
         List<Mobiles> list = new ArrayList<>();
-        String sql = "SELECT * FROM Mobile WHERE mobileId LIKE ? OR mobileName LIKE ?";
+        String sql = "SELECT * FROM Mobiles WHERE mobileId LIKE ? OR mobileName LIKE ?";
         try (Connection conn = new DBContext().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             String kw = "%" + keyword + "%";
@@ -103,13 +102,12 @@ public class MobilesDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("[DEBUG] searchByNameOrId, keyword=" + keyword + ", số dòng trả về: " + list.size());
         for (Mobiles m : list) System.out.println("search--" + m.getMobileId() + " | " + m.getMobileName());
         return list;
     }
 
     public void insert(Mobiles mobile) {
-        String sql = "INSERT INTO Mobile (mobileId, description, price, mobileName, yearOfProduction, quantity, notSale) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Mobiles (mobileId, description, price, mobileName, yearOfProduction, quantity, notSale) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = new DBContext().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, mobile.getMobileId());
@@ -126,7 +124,7 @@ public class MobilesDAO {
     }
 
     public void update(Mobiles mobile) {
-        String sql = "UPDATE Mobile SET description=?, price=?, mobileName=?, yearOfProduction=?, quantity=?, notSale=? WHERE mobileId=?";
+        String sql = "UPDATE Mobiles SET description=?, price=?, mobileName=?, yearOfProduction=?, quantity=?, notSale=? WHERE mobileId=?";
         try (Connection conn = new DBContext().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, mobile.getDescription());
@@ -143,7 +141,7 @@ public class MobilesDAO {
     }
 
     public void delete(String mobileId) {
-        String sql = "DELETE FROM Mobile WHERE mobileId=?";
+        String sql = "DELETE FROM Mobiles WHERE mobileId=?";
         try (Connection conn = new DBContext().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, mobileId);

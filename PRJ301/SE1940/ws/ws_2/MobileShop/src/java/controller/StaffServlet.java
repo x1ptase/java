@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.util.List;
 
 public class StaffServlet extends HttpServlet {
+    
+    private static final String STAFF_PAGE="Staff.jsp";
+    
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String keyword = request.getParameter("keyword");
@@ -19,7 +22,7 @@ public class StaffServlet extends HttpServlet {
         System.out.println("Từ khóa tìm kiếm (keyword): " + keyword);
         System.out.println("Kết quả tìm kiếm: " + mobiles.size() + " sản phẩm");
         request.setAttribute("mobiles", mobiles);
-        request.getRequestDispatcher("staff.jsp").forward(request, response);
+        request.getRequestDispatcher(STAFF_PAGE).forward(request, response);
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

@@ -9,9 +9,12 @@ import javax.servlet.*;
 import java.io.IOException;
 
 public class CartServlet extends HttpServlet {
+    
+    private static final String CART_PAGE="Cart.jsp";
+    
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("Cart.jsp").forward(request, response);
+        request.getRequestDispatcher(CART_PAGE).forward(request, response);
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -32,9 +35,7 @@ public class CartServlet extends HttpServlet {
         } else if ("remove".equals(action)) {
             cart.removeItem(request.getParameter("mobileId"));
         }
-        // Debug: in trạng thái Cart để kiểm tra session bị mất hay model có item không
-        System.out.println("Session ID: " + session.getId());
-        System.out.println("Cart size: " + cart.getItems().size());
+        
         for (model.CartItem ci : cart.getItems()) {
             System.out.println("Item: " + ci.getMobile().getMobileId() + " - Số lượng: " + ci.getQuantity());
         }
