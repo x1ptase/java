@@ -8,10 +8,12 @@ import javax.servlet.http.*;
 import java.io.IOException;
 
 public class CarCreateServlet extends HttpServlet {
+    
+    private static final String FROM_PAGE="carForm.jsp";
+    
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Chỉ show form nhập mới car
-        request.getRequestDispatcher("carForm.jsp").forward(request, response);
+        request.getRequestDispatcher(FROM_PAGE).forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

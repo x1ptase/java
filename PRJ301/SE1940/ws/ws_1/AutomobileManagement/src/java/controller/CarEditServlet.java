@@ -10,6 +10,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CarEditServlet extends HttpServlet {
+    
+    private static final String FROM_PAGE="carForm.jsp";
+    
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int carID = Integer.parseInt(request.getParameter("id"));
@@ -21,6 +24,6 @@ public class CarEditServlet extends HttpServlet {
             Logger.getLogger(CarEditServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         request.setAttribute("car", car);
-        request.getRequestDispatcher("carForm.jsp").forward(request, response); // form.jsp dùng chung create/edit
+        request.getRequestDispatcher(FROM_PAGE).forward(request, response); // create/ edit
     }
 }

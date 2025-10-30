@@ -11,6 +11,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CarListServlet extends HttpServlet {
+    
+    private static final String LIST_PAGE="carList.jsp";
+    
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         CarDAO dao = new CarDAO();
@@ -21,6 +24,6 @@ public class CarListServlet extends HttpServlet {
             Logger.getLogger(CarListServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         request.setAttribute("cars", cars);
-        request.getRequestDispatcher("carList.jsp").forward(request, response);
+        request.getRequestDispatcher(LIST_PAGE).forward(request, response);
     }
 }
