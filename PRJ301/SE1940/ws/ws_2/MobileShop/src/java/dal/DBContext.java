@@ -9,7 +9,7 @@ public class DBContext {
 
     public DBContext() {
         try {
-            String url="jdbc:sqlserver://localhost:1433;databaseName=MyShop;encrypt=true;trustServerCertificate=true";
+            String url="jdbc:sqlserver://localhost:1433;databaseName=MyShop";
             String username="sa";
             String pass="12345";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -30,9 +30,8 @@ public class DBContext {
         }
     }
     
-    // Bổ sung method tiện dụng cho DAO
     public static Connection getConnection() throws Exception {
-        String url = "jdbc:sqlserver://localhost:1433;databaseName=MyStock;encrypt=true;trustServerCertificate=true";
+        String url = "jdbc:sqlserver://localhost:1433;databaseName=MyShop";
         String username = "sa";
         String pass = "12345";
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");

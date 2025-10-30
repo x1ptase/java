@@ -12,9 +12,12 @@ public class StaffServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String keyword = request.getParameter("keyword");
+        if (keyword != null) keyword = keyword.trim();
         List<Mobiles> mobiles = (keyword == null || keyword.isEmpty())
             ? new MobilesDAO().getAll()
             : new MobilesDAO().searchByNameOrId(keyword);
+        System.out.println("Từ khóa tìm kiếm (keyword): " + keyword);
+        System.out.println("Kết quả tìm kiếm: " + mobiles.size() + " sản phẩm");
         request.setAttribute("mobiles", mobiles);
         request.getRequestDispatcher("staff.jsp").forward(request, response);
     }

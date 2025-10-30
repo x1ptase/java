@@ -1,8 +1,8 @@
 package controller;
 
-import dao.MobileDAO;
+import dao.MobilesDAO;
 import model.Cart;
-import model.Mobile;
+import model.Mobiles;
 
 import javax.servlet.http.*;
 import javax.servlet.*;
@@ -11,7 +11,7 @@ import java.io.IOException;
 public class CartServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("cart.jsp").forward(request, response);
+        request.getRequestDispatcher("Cart.jsp").forward(request, response);
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -23,7 +23,7 @@ public class CartServlet extends HttpServlet {
             session.setAttribute("cart", cart);
         }
         if ("add".equals(action)) {
-            Mobile mobile = new MobileDAO().getById(request.getParameter("mobileId"));
+            Mobiles mobile = new MobilesDAO().getById(request.getParameter("mobileId"));
             int quantity = Integer.parseInt(request.getParameter("qty"));
             cart.addItem(mobile, quantity);
         } else if ("update".equals(action)) {
@@ -31,6 +31,12 @@ public class CartServlet extends HttpServlet {
                                Integer.parseInt(request.getParameter("qty")));
         } else if ("remove".equals(action)) {
             cart.removeItem(request.getParameter("mobileId"));
+        }
+        // Debug: in trạng thái Cart để kiểm tra session bị mất hay model có item không
+        System.out.println("Session ID: " + session.getId());
+        System.out.println("Cart size: " + cart.getItems().size());
+        for (model.CartItem ci : cart.getItems()) {
+            System.out.println("Item: " + ci.getMobile().getMobileId() + " - Số lượng: " + ci.getQuantity());
         }
         response.sendRedirect("cart");
     }

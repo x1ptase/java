@@ -10,14 +10,14 @@ package model;
  */
 public class Users {
     private String userId;
-    private int password;
+    private String password;
     private String fullName;
     private int role;
 
     public Users() {
     }
 
-    public Users(String userId, int password, String fullName, int role) {
+    public Users(String userId, String password, String fullName, int role) {
         this.userId = userId;
         this.password = password;
         this.fullName = fullName;
@@ -32,11 +32,11 @@ public class Users {
         this.userId = userId;
     }
 
-    public int getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(int password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -58,7 +58,7 @@ public class Users {
 
     @Override
     public String toString() {
-        return String.format("UserID:%S, Password:%d, FullName:%s, Role:%d", 
+        return String.format("UserID:%s, Password:%s, FullName:%s, Role:%d",
                 userId, password, fullName, role);
     }
     

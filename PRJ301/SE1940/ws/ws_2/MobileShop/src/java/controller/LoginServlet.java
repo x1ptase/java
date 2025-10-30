@@ -13,13 +13,19 @@ public class LoginServlet extends HttpServlet {
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
         request.getRequestDispatcher(LOGIN_CONTROLLER).forward(request, response);
     }
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
         String userId = request.getParameter("userId");
-        int password = Integer.parseInt(request.getParameter("password"));
+        String password = request.getParameter("password");
         Users user = new UsersDAO().checkLogin(userId, password);
         if (user == null) {
             request.setAttribute("errorMsg", "Đăng nhập thất bại");
