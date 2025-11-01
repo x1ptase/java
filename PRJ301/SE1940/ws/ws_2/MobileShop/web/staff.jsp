@@ -135,7 +135,7 @@
     .product-form button { margin-left: 0; }
     </style>
 
-    <p><a href="user">&larr; Về trang người dùng</a> | <a href="cart">Xem giỏ hàng</a></p>
+    <p><a href="user">&larr; User Page</a> | <a href="cart">Xem giỏ hàng</a></p>
 </div>
 </body>
 </html>

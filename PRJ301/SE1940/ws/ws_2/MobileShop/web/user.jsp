@@ -54,7 +54,7 @@
         </c:forEach>
     </table>
 
-    <p><a href="cart">Xem giỏ hàng</a> | <a href="staff">Trang quản trị</a></p>
+    <p><a href="cart">Xem giỏ hàng</a> | <a href="staff">Admin Page</a></p>
 </div>
 </body>
 </html>

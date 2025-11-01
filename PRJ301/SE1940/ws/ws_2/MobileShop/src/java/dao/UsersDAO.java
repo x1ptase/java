@@ -6,14 +6,14 @@ import java.sql.*;
 
 public class UsersDAO {
     public Users checkLogin(String userId, String password) {
-        String sql = "SELECT userId, password, fullName, role FROM Users WHERE userId=? AND password=?";
-        try (
-                Connection conn = new DBContext().getConnection();
-                PreparedStatement ps = conn.prepareStatement(sql)) {
+        String sql="SELECT userId, password, fullName, role FROM Users WHERE userId=? AND password=?";
+        try(
+                Connection conn=new DBContext().getConnection();
+                PreparedStatement ps=conn.prepareStatement(sql)) {
             ps.setString(1, userId);
             ps.setString(2, password);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
+            ResultSet rs=ps.executeQuery();
+            if(rs.next()){
                 return new Users(
                         rs.getString("userId"),
                         rs.getString("password"),
@@ -21,8 +21,8 @@ public class UsersDAO {
                         rs.getInt("role")
                 );
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch(Exception ex){
+            ex.printStackTrace();
         }
         return null;
     }

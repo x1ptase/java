@@ -7,13 +7,13 @@ import java.util.*;
 
 public class MobilesDAO {
     public List<Mobiles> getAll() {
-        List<Mobiles> list = new ArrayList<>();
-        String sql = "SELECT * FROM Mobiles";
-        try (Connection conn = new DBContext().getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                Mobiles m = new Mobiles(
+        List<Mobiles> list=new ArrayList<>();
+        String sql="SELECT * FROM Mobiles";
+        try(Connection conn=new DBContext().getConnection();
+             PreparedStatement ps=conn.prepareStatement(sql);
+             ResultSet rs=ps.executeQuery()) {
+            while(rs.next()){
+                Mobiles m=new Mobiles(
                         rs.getString("mobileId"),
                         rs.getString("description"),
                         rs.getFloat("price"),
@@ -24,14 +24,14 @@ public class MobilesDAO {
                 );
                 list.add(m);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch(Exception ex){
+            ex.printStackTrace();
         }
         return list;
     }
 
     public Mobiles getById(String mobileId) {
-        String sql = "SELECT * FROM Mobiles WHERE mobileId = ?";
+        String sql="SELECT * FROM Mobiles WHERE mobileId = ?";
         try (Connection conn = new DBContext().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, mobileId);
@@ -54,14 +54,14 @@ public class MobilesDAO {
     }
 
     public List<Mobiles> searchByPrice(float min, float max) {
-        List<Mobiles> list = new ArrayList<>();
-        String sql = "SELECT * FROM Mobiles WHERE price BETWEEN ? AND ?";
-        try (Connection conn = new DBContext().getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        List<Mobiles> list=new ArrayList<>();
+        String sql="SELECT * FROM Mobiles WHERE price BETWEEN ? AND ?";
+        try(Connection conn=new DBContext().getConnection();
+             PreparedStatement ps=conn.prepareStatement(sql)) {
             ps.setFloat(1, min);
             ps.setFloat(2, max);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            ResultSet rs=ps.executeQuery();
+            while(rs.next()){
                 list.add(new Mobiles(
                     rs.getString("mobileId"),
                     rs.getString("description"),
@@ -72,22 +72,22 @@ public class MobilesDAO {
                     rs.getBoolean("notSale")
                 ));
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch(Exception ex){
+            ex.printStackTrace();
         }
         return list;
     }
 
-    public List<Mobiles> searchByNameOrId(String keyword) {
-        List<Mobiles> list = new ArrayList<>();
-        String sql = "SELECT * FROM Mobiles WHERE mobileId LIKE ? OR mobileName LIKE ?";
-        try (Connection conn = new DBContext().getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            String kw = "%" + keyword + "%";
+    public List<Mobiles> searchByNameOrId(String keyword){
+        List<Mobiles> list=new ArrayList<>();
+        String sql="SELECT * FROM Mobiles WHERE mobileId LIKE ? OR mobileName LIKE ?";
+        try(Connection conn=new DBContext().getConnection();
+                PreparedStatement ps=conn.prepareStatement(sql)){
+            String kw="%" + keyword + "%";
             ps.setString(1, kw);
             ps.setString(2, kw);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            ResultSet rs=ps.executeQuery();
+            while(rs.next()){
                 list.add(new Mobiles(
                     rs.getString("mobileId"),
                     rs.getString("description"),
@@ -98,8 +98,8 @@ public class MobilesDAO {
                     rs.getBoolean("notSale")
                 ));
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch(Exception ex){
+            ex.printStackTrace();
         }
         return list;
     }
@@ -139,7 +139,7 @@ public class MobilesDAO {
     }
 
     public void delete(String mobileId) {
-        String sql = "DELETE FROM Mobiles WHERE mobileId=?";
+        String sql="DELETE FROM Mobiles WHERE mobileId=?";
         try (Connection conn = new DBContext().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, mobileId);
