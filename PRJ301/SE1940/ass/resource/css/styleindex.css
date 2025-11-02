@@ -117,13 +117,17 @@
 .food-content{
     flex: 0 0 50%;
 }
+.food-content h1{
+    margin-left: 20px;
+    color: #622E23;
+}
 .food-content h2{
     margin-left: 20px;
     color: #622E23;
 }
 .food-content h3{
     margin-left: 20px;
-    color: #7B4A3E;
+    color: #828282;
 }
 
 /* --- Nút giá --- */
