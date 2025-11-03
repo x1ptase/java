@@ -1,0 +1,67 @@
+/* login.css (Clean Version) */
+
+/* --- 1. CSS Reset và Căn giữa --- */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+.login-container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 350px;
+}
+
+/* --- 2. Định dạng Form và Input --- */
+.input-group {
+    margin-bottom: 20px;
+}
+label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 5px;
+}
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; 
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+input[type="text"]:focus, input[type="password"]:focus {
+    border-color: #64b54e; /* Màu xanh lá cây */
+    outline: none;
+}
+
+/* --- 3. Nút --- */
+.submit-btn {
+    width: 100%;
+    background-color: #64b54e;
+    color: white;
+    padding: 12px 0;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px; 
+    font-weight: bold;
+}
+.submit-btn:hover {
+    background-color: #58a045;
+}
+.message-logout {
+    color: green; 
+    text-align: right;
+    font-weight: bold; 
+    margin-bottom: 15px;
+}

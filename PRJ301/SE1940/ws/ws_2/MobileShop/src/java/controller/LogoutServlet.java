@@ -1,0 +1,41 @@
+package controller;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+public class LogoutServlet extends HttpServlet {
+
+    private static final String LOGIN_PAGE="Login.jsp";
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        HttpSession session=request.getSession(false); // false -> k create new verson
+       
+        try{
+            if(session != null){
+                session.invalidate();
+            }
+        } catch(Exception ex){
+            log("Error at LogoutController: " + ex.getMessage());
+        } finally{
+            response.sendRedirect(LOGIN_PAGE + "?status=logoutSuccess");
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+}

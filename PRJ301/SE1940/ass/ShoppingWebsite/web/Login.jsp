@@ -9,16 +9,44 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Login Page</title>
+        <title>Sign In</title>
+        
+        <link rel="stylesheet" type="text/css" 
+              href="${pageContext.request.contextPath}/resource/css/login.css">
+        
     </head>
     <body>
-        <h1>Login!</h1>
-        <p style="color: red;">${requestScope.message}</p>
-        
-        <form action="LoginController" method="POST">
-            Username <input type="text" name="txtUsername" /><br/>
-            Password <input type="password" name="txtPassword" /><br/>
-            <input type="submit" value="Login" />
-        </form>
+        <div class="login-container">
+            
+            <form action="LoginController" method="POST">
+                
+                <div class="input-group">
+                    <label for="txtUsername">Username</label>
+                    <input type="text" id="txtUsername" name="txtUsername" required/>
+                </div>
+                
+                <div class="input-group">
+                    <label for="txtPassword">Password</label>
+                    <input type="password" id="txtPassword" name="txtPassword" required/>
+                </div>
+                
+                
+                <%-- error login --%>
+                <p style="color: red; text-align: center; font-weight: bold">${requestScope.msg}</p>
+
+                <%-- logout success --%>
+                <%
+                    String status=request.getParameter("status");
+                    if(status != null && status.equals("logoutSuccess")){
+                %>
+                    <p class="message-logout">Logout successfully</p>
+                <%
+                    }
+                %>
+                
+                
+                <input type="submit" class="submit-btn" value="Sign in & continue" />
+            </form>
+        </div>
     </body>
 </html>

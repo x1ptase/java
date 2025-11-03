@@ -1,6 +1,6 @@
 <%-- 
-    Document   : Search
-    Created on : Nov 3, 2025, 12:19:20 AM
+    Document   : Error
+    Created on : Nov 3, 2025, 4:31:43 PM
     Author     : x1pta
 --%>
 
@@ -9,11 +9,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Search</title>
+        <title>Error Page</title>
     </head>
     <body>
-        <h1>Search (User)</h1>
-        <p style="color: green;">${requestScope.msg}</p>
-        <a href="LogoutController">Logout</a>
+        <h1>!! Error !!</h1>
+        <a href="Login.jsp">Login Again</a>
     </body>
 </html>

@@ -8,6 +8,26 @@
         <servlet-name>LoginController</servlet-name>
         <servlet-class>controller.LoginController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>controller.LogoutController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewProductController</servlet-name>
+        <servlet-class>controller.ViewProductController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateProductController</servlet-name>
+        <servlet-class>controller.CreateProductController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateProductController</servlet-name>
+        <servlet-class>controller.UpdateProductController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteProductController</servlet-name>
+        <servlet-class>controller.DeleteProductController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -16,12 +36,31 @@
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/LogoutController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewProductController</servlet-name>
+        <url-pattern>/ViewProductController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateProductController</servlet-name>
+        <url-pattern>/CreateProductController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateProductController</servlet-name>
+        <url-pattern>/UpdateProductController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteProductController</servlet-name>
+        <url-pattern>/DeleteProductController</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    
     <welcome-file-list>
         <welcome-file>Login.jsp</welcome-file>
     </welcome-file-list>
