@@ -17,6 +17,7 @@
     <body>
         
         <h1>Update Product</h1>
+        <p><a href="${pageContext.request.contextPath}/MainController?action=ViewProduct">Back to Product Management</a></p>
         
         <p style="color: red;">${requestScope.msg}</p>
 
@@ -24,30 +25,28 @@
         <jsp:useBean id="product" scope="request" class="model.ProductDTO" /> 
         <jsp:setProperty name="product" property="*" />
         
-        <form action="MainController" method="POST">
+        <form action="${pageContext.request.contextPath}/MainController" method="POST">
             
             <%-- Hidden field để lưu Product ID (Không hiển thị nhưng cần cho update) --%>
             <input type="hidden" name="txtProductID" value="${requestScope.PRODUCT_EDIT.productID}" />
             
-            <label for="txtName">Name:</label> 
-            <input type="text" id="txtName" name="txtName" value="${requestScope.PRODUCT_EDIT.name}" required /><br/><br/>
+            <label for="txtProductName">Product Name:</label> 
+            <input type="text" id="txtProductName" name="txtProductName" value="${requestScope.PRODUCT_EDIT.productName}" required /><br/><br/>
             
-            <label for="txtPrice">Price ($):</label> 
-            <input type="number" id="txtPrice" name="txtPrice" step="0.01" value="${requestScope.PRODUCT_EDIT.price}" required /><br/><br/>
+            <label for="txtUnitPrice">Price ($):</label> 
+            <input type="number" id="txtUnitPrice" name="txtUnitPrice" step="0.01" value="${requestScope.PRODUCT_EDIT.unitPrice}" required /><br/><br/>
             
-            <label for="txtDescription">Description:</label><br/>
-            <textarea id="txtDescription" name="txtDescription" rows="4" cols="50" required>${requestScope.PRODUCT_EDIT.description}</textarea><br/><br/>
+            <label for="txtQuantityPerUnit">Quantity Per Unit:</label>
+            <input type="text" id="txtQuantityPerUnit" name="txtQuantityPerUnit" value="${requestScope.PRODUCT_EDIT.quantityPerUnit}" required /><br/><br/>
             
-            <label for="txtImageUrl">Image URL (link):</label> 
-            <input type="text" id="txtImageUrl" name="txtImageUrl" value="${requestScope.PRODUCT_EDIT.imageUrl}" required /><br/><br/>
+            <label for="txtProductImage">Image URL (link):</label> 
+            <input type="text" id="txtProductImage" name="txtProductImage" value="${requestScope.PRODUCT_EDIT.productImage}" required /><br/><br/>
             
-            <label for="chkIsPizzaOfTheWeek">Is Pizza Of The Week:</label>
-            <%-- Logic kiểm tra checkbox: nếu giá trị là true thì thêm thuộc tính checked --%>
-            <input type="checkbox" id="chkIsPizzaOfTheWeek" name="chkIsPizzaOfTheWeek" value="true" 
-                   ${requestScope.PRODUCT_EDIT.isPizzaOfTheWeek ? 'checked' : ''} /><br/><br/>
+            <label for="txtSupplierID">Supplier ID:</label>
+            <input type="number" id="txtSupplierID" name="txtSupplierID" value="${requestScope.PRODUCT_EDIT.supplierID}" required /><br/><br/>
 
-            <label for="txtCategory">Category:</label>
-            <input type="text" id="txtCategory" name="txtCategory" value="${requestScope.PRODUCT_EDIT.category}" required /><br/><br/>
+            <label for="txtCategoryID">Category ID:</label>
+            <input type="number" id="txtCategoryID" name="txtCategoryID" value="${requestScope.PRODUCT_EDIT.categoryID}" required /><br/><br/>
 
             <input type="submit" name="action" value="UpdateProduct" />
             <input type="submit" name="action" value="ViewProduct" />

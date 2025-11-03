@@ -18,7 +18,7 @@
     <body>
         <div class="login-container">
             
-            <form action="LoginController" method="POST">
+            <form action="${pageContext.request.contextPath}/LoginController" method="POST">
                 
                 <div class="input-group">
                     <label for="txtUsername">Username</label>

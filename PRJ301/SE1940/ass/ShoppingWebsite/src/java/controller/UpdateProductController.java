@@ -13,6 +13,7 @@ public class UpdateProductController extends HttpServlet {
 
     private static final String VIEW_PRODUCT_CONTROLLER = "ViewProductController";
     private static final String ERROR_PAGE = "Error.jsp";
+    private static final String UPDATE_PAGE = "Update.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -31,6 +32,19 @@ public class UpdateProductController extends HttpServlet {
                 String quantityPerUnit = request.getParameter("txtQuantityPerUnit");
                 float unitPrice = Float.parseFloat(request.getParameter("txtUnitPrice"));
                 String productImage = request.getParameter("txtProductImage");
+                // Normalize image path to relative under resource/
+                if (productImage != null) {
+                    productImage = productImage.trim();
+                    String ctx = request.getContextPath();
+                    String prefixCtx = ctx + "/resource/";
+                    if (productImage.startsWith(prefixCtx)) {
+                        productImage = productImage.substring(prefixCtx.length());
+                    } else if (productImage.startsWith("/resource/")) {
+                        productImage = productImage.substring("/resource/".length());
+                    } else if (productImage.startsWith("/")) {
+                        productImage = productImage.substring(1);
+                    }
+                }
                 
                 // 2. Tạo DTO và gọi DAO
                 ProductDTO updatedProduct = new ProductDTO(
@@ -57,8 +71,24 @@ public class UpdateProductController extends HttpServlet {
                 log("General Error at UpdateProductController: " + ex.getMessage());
                 request.setAttribute("msg", "Lỗi nhập liệu hoặc hệ thống không mong muốn.");
             }
+        } else { // GET: Hiển thị form cập nhật
+            try {
+                int productID = Integer.parseInt(request.getParameter("productID"));
+                ProductDAO dao = new ProductDAO();
+                ProductDTO product = dao.findById(productID);
+                if (product == null) {
+                    request.setAttribute("msg", "Product not found: ID=" + productID);
+                    url = ERROR_PAGE;
+                } else {
+                    request.setAttribute("PRODUCT_EDIT", product);
+                    url = UPDATE_PAGE;
+                }
+            } catch (Exception ex) {
+                log("Error at UpdateProductController (GET): " + ex.getMessage());
+                request.setAttribute("msg", "Unexpected error while loading product to edit.");
+            }
         }
-        
+
         request.getRequestDispatcher(url).forward(request, response);
     }
     

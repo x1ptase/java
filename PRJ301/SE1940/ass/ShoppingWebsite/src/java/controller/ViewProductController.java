@@ -21,36 +21,33 @@ public class ViewProductController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url=ERROR_PAGE; // Mặc định là trang lỗi
+        String url=ERROR_PAGE; 
         
         try{
             // check qtruy cap
             HttpSession session=request.getSession(false); // Dùng false để không tạo session mới
             AccountDTO account=(AccountDTO) (session != null ? session.getAttribute("account") : null);
             
-            // Nếu không đăng nhập hoặc không phải Admin
+            // no login & not admin
             if(account == null || !account.isType()){
-                response.sendRedirect(LOGIN_PAGE);
+                response.sendRedirect(request.getContextPath()+"/"+LOGIN_PAGE);
                 return;
             }
             
             // get data
             ProductDAO dao=new ProductDAO();
-            // LƯU Ý: viewAllProducts() ném ra Exception, nên DAO cần được đặt trong try-catch
-            List<ProductDTO> productList=dao.viewAllProducts(); 
+            List<ProductDTO> productList=dao.viewAllProducts(); // throw ex so put in trycatch
             
             // put data into request & chuyen huong
             request.setAttribute("PRODUCT_LIST", productList);
-            url=VIEW_PAGE; // Chỉ chuyển về VIEW_PAGE khi thành công
+            url=VIEW_PAGE;
                     
         } catch(Exception ex){
             log("Error at ViewProductController: " + ex.getMessage());
-            // SỬA LỖI: Đặt thông báo lỗi vào request scope
-            request.setAttribute("msg", "Lỗi tải dữ liệu: " + ex.getMessage()); 
-            url = ERROR_PAGE; // Giữ nguyên ERROR_PAGE
+            url=ERROR_PAGE;
         } finally{
-            // Chỉ forward khi chưa có redirect (vì sendRedirect đã đóng response)
-            if (!response.isCommitted()) {
+            // forward khi chưa có redirect (vì sendRedirect đã đóng response)
+            if(!response.isCommitted()){
                 request.getRequestDispatcher(url).forward(request, response);
             }
         }

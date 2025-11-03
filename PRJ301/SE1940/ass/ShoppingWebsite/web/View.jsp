@@ -1,4 +1,4 @@
-\<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="model.AccountDTO, java.util.List, model.ProductDTO"%>
 
 <!DOCTYPE html>
@@ -6,17 +6,14 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Product Management (Admin)</title>
-    <style>
-        table, th, td { border: 1px solid #ddd; border-collapse: collapse; padding: 10px; text-align: left; }
-        th { background-color: #f2f2f2; }
-    </style>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resource/css/styleindex.css">
 </head>
 <body>
     <%
         // 1. Authorization Check: Ensure Admin role
         AccountDTO account = (AccountDTO) session.getAttribute("account");
         if (account == null || !account.isType()) {
-            response.sendRedirect("Login.jsp");
+            response.sendRedirect(request.getContextPath()+"/Login.jsp");
             return;
         }
     %>
@@ -25,9 +22,9 @@
     <p style="color: green;">${requestScope.msg}</p>
 
     <p>
-        <a href="MainController?action=CreatePage">➕ Create New Product</a>
+        <a href="${pageContext.request.contextPath}/MainController?action=CreatePage">➕ Create New Product</a>
         | 
-        <a href="LogoutController">Logout</a>
+        <a href="${pageContext.request.contextPath}/LogoutController">Logout</a>
     </p>
 
     <%
@@ -52,11 +49,11 @@
                     <td>$<%= String.format("%.2f", product.getUnitPrice()) %></td>
                     <td><%= product.getQuantityPerUnit() %></td>
                     <td>
-                        <a href="MainController?action=ViewDetails&productID=<%= product.getProductID() %>">Details</a> |
-                        <a href="MainController?action=UpdatePage&productID=<%= product.getProductID() %>">Edit</a> |
+                        <a href="${pageContext.request.contextPath}/MainController?action=ViewDetails&productID=<%= product.getProductID() %>">Details</a> |
+                        <a href="${pageContext.request.contextPath}/MainController?action=UpdatePage&productID=<%= product.getProductID() %>">Edit</a> |
                         
                         <%-- Delete Form (using POST) --%>
-                        <form action="MainController" method="POST" style="display: inline;">
+                        <form action="${pageContext.request.contextPath}/MainController" method="POST" style="display: inline;">
                             <input type="hidden" name="action" value="DeleteProduct">
                             <input type="hidden" name="productID" value="<%= product.getProductID() %>">
                             <input type="submit" value="Delete" onclick="return confirm('Confirm deletion of: <%= product.getProductName() %>?');">

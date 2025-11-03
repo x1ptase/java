@@ -12,8 +12,8 @@ import model.AccountDTO;
 public class LoginController extends HttpServlet {
     
     private static final String LOGIN_PAGE="Login.jsp";
-    private static final String SEARCH_PAGE="Search.jsp";
-    private static final String VIEW_PAGE="View.jsp";
+    private static final String USER_LIST_CONTROLLER="ViewPizzaListController";
+    private static final String VIEW_ADMIN_CONTROLLER="ViewProductController";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -24,7 +24,6 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String url=LOGIN_PAGE;
         String userName=request.getParameter("txtUsername");
         String password=request.getParameter("txtPassword");
         AccountDAO dao=new AccountDAO();
@@ -42,9 +41,9 @@ public class LoginController extends HttpServlet {
             session.setAttribute("account", account);
             
             if(account.isType()){
-                response.sendRedirect(VIEW_PAGE); // admin
+                response.sendRedirect(request.getContextPath()+"/"+VIEW_ADMIN_CONTROLLER); // admin -> controller loads list
             } else{
-                response.sendRedirect(SEARCH_PAGE); // user
+                response.sendRedirect(request.getContextPath()+"/"+USER_LIST_CONTROLLER); // user -> shopping list
             }
         } catch(Exception ex){
             log("Error at LoginController: " + ex.getMessage());

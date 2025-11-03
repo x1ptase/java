@@ -11,15 +11,14 @@ import model.ProductDTO;
 
 public class CreateProductController extends HttpServlet {
 
-    private static final String VIEW_PRODUCT_CONTROLLER = "ViewProductController";
-    private static final String CREATE_PAGE = "Create.jsp";
-    private static final String ERROR_PAGE = "Error.jsp";
+    private static final String VIEW_PRODUCT_CONTROLLER="ViewProductController";
+    private static final String CREATE_PAGE="Create.jsp";
+    private static final String ERROR_PAGE="Error.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR_PAGE;
+        String url=ERROR_PAGE;
         
         // Chỉ xử lý POST request từ form
         if ("POST".equalsIgnoreCase(request.getMethod())) {
@@ -32,6 +31,19 @@ public class CreateProductController extends HttpServlet {
                 String quantityPerUnit = request.getParameter("txtQuantityPerUnit");
                 float unitPrice = Float.parseFloat(request.getParameter("txtUnitPrice"));
                 String productImage = request.getParameter("txtProductImage");
+                // Normalize image path to relative under resource/
+                if (productImage != null) {
+                    productImage = productImage.trim();
+                    String ctx = request.getContextPath();
+                    String prefixCtx = ctx + "/resource/";
+                    if (productImage.startsWith(prefixCtx)) {
+                        productImage = productImage.substring(prefixCtx.length());
+                    } else if (productImage.startsWith("/resource/")) {
+                        productImage = productImage.substring("/resource/".length());
+                    } else if (productImage.startsWith("/")) {
+                        productImage = productImage.substring(1);
+                    }
+                }
                 
                 // 2. Tạo DTO và gọi DAO
                 ProductDTO newProduct = new ProductDTO(

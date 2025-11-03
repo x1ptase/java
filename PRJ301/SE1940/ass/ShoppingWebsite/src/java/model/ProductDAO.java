@@ -23,6 +23,8 @@ public class ProductDAO {
     private static final String UPDATE_SQL = 
         "UPDATE Products SET ProductName=?, SupplierID=?, CategoryID=?, QuantityPerUnit=?, UnitPrice=?, ProductImage=? " +
         "WHERE ProductID=?";
+    private static final String FIND_BY_ID_SQL =
+        "SELECT ProductID, ProductName, SupplierID, CategoryID, QuantityPerUnit, UnitPrice, ProductImage FROM Products WHERE ProductID = ?";
 
     // --- 1. CHỨC NĂNG VIEW (Đã sửa lỗi SQL) ---
     public List<ProductDTO> viewAllProducts() throws Exception{
@@ -65,6 +67,37 @@ public class ProductDAO {
              }
         }
         return list;
+    }
+
+    // --- FIND ONE BY ID ---
+    public ProductDTO findById(int productId) throws Exception {
+        Connection cnn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            cnn = DBUtils.getConnection();
+            if (cnn != null) {
+                ps = cnn.prepareStatement(FIND_BY_ID_SQL);
+                ps.setInt(1, productId);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    return new ProductDTO(
+                        rs.getInt("ProductID"),
+                        rs.getString("ProductName"),
+                        rs.getInt("SupplierID"),
+                        rs.getInt("CategoryID"),
+                        rs.getString("QuantityPerUnit"),
+                        rs.getFloat("UnitPrice"),
+                        rs.getString("ProductImage")
+                    );
+                }
+            }
+        } finally {
+            if (rs != null) rs.close();
+            if (ps != null) ps.close();
+            if (cnn != null) cnn.close();
+        }
+        return null;
     }
 
     // --- 2. CHỨC NĂNG CREATE ---

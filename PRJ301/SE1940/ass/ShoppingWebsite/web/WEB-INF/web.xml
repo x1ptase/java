@@ -28,6 +28,14 @@
         <servlet-name>DeleteProductController</servlet-name>
         <servlet-class>controller.DeleteProductController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewDetailsController</servlet-name>
+        <servlet-class>controller.ViewDetailsController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewPizzaListController</servlet-name>
+        <servlet-class>controller.ViewPizzaListController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -55,6 +63,14 @@
     <servlet-mapping>
         <servlet-name>DeleteProductController</servlet-name>
         <url-pattern>/DeleteProductController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewDetailsController</servlet-name>
+        <url-pattern>/ViewDetailsController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewPizzaListController</servlet-name>
+        <url-pattern>/ViewPizzaListController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

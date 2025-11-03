@@ -24,7 +24,13 @@
     <p><strong>Product Name:</strong> <%= product.getProductName() %></p>
     <p><strong>Unit Price:</strong> $<%= String.format("%.2f", product.getUnitPrice()) %></p>
     <p><strong>Quantity Per Unit:</strong> <%= product.getQuantityPerUnit() %></p>
-    <p><strong>Image:</strong> <img src="<%= product.getProductImage() %>" alt="Product Image" style="max-width: 300px;"></p>
+    <%
+        String rawImg = product.getProductImage();
+        String imgSrc = (rawImg != null && rawImg.startsWith("/"))
+                ? rawImg
+                : (request.getContextPath()+"/resource/"+ (rawImg != null ? rawImg : ""));
+    %>
+    <p><strong>Image:</strong> <img src="<%= imgSrc %>" alt="Product Image" style="max-width: 300px;"></p>
     
     <% if (account != null && account.isType()) { %>
         <p style="color: blue;">(Technical Info) Supplier ID: <%= product.getSupplierID() %>, Category ID: <%= product.getCategoryID() %></p>
@@ -33,10 +39,10 @@
     <hr>
     
     <% if (account != null && account.isType()) { %>
-        <p><a href="MainController?action=ViewProducts">Back to Product Management</a></p>
+        <p><a href="${pageContext.request.contextPath}/MainController?action=ViewProduct">Back to Product Management</a></p>
     <% } else { %>
-        <p><a href="MainController?action=ViewAllPizzas">Back to Shopping</a></p>
-        <p><a href="MainController?action=AddToCart&productID=<%= product.getProductID() %>">🛒 Add to Cart</a></p>
+        <p><a href="${pageContext.request.contextPath}/MainController?action=ViewAllPizzas">Back to Shopping</a></p>
+        <p><a href="${pageContext.request.contextPath}/MainController?action=AddToCart&productID=<%= product.getProductID() %>">🛒 Add to Cart</a></p>
     <% } %>
 </body>
 </html>

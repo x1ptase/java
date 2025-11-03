@@ -1,160 +1,152 @@
-﻿
--- DATABASE: SalesSystem
-CREATE DATABASE  SalesSystem;
-USE SalesSystem;
+﻿/* ===== RESET DATABASE ===== */
+IF DB_ID('PizzaDB') IS NOT NULL
+BEGIN
+    ALTER DATABASE PizzaDB SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    DROP DATABASE PizzaDB;
+END;
+GO
 
--- TABLE: Customers
-CREATE TABLE Customers (
-    CustomerID INT  PRIMARY KEY,
-    Password VARCHAR(100) NOT NULL,
-    ContactName VARCHAR(100) NOT NULL,
-    Address VARCHAR(255),
-    Phone VARCHAR(20)
+CREATE DATABASE PizzaDB;
+GO
+USE PizzaDB;
+GO
+
+/* ===== SCHEMA ===== */
+
+/* Account: dùng đúng tên cột mà AccountDAO đang đọc */
+IF OBJECT_ID('dbo.Account','U') IS NOT NULL DROP TABLE dbo.Account;
+GO
+CREATE TABLE dbo.Account(
+    accountID INT IDENTITY(1,1) PRIMARY KEY,
+    userName  VARCHAR(50)  NOT NULL UNIQUE,
+    password  VARCHAR(100) NOT NULL,
+    fullName  VARCHAR(100) NULL,
+    type      BIT          NOT NULL DEFAULT(0) -- 1 = admin, 0 = user
 );
+GO
 
--- TABLE: Suppliers
-CREATE TABLE Suppliers (
-    SupplierID INT  PRIMARY KEY,
+/* Suppliers */
+IF OBJECT_ID('dbo.Suppliers','U') IS NOT NULL DROP TABLE dbo.Suppliers;
+GO
+CREATE TABLE dbo.Suppliers(
+    SupplierID  INT          PRIMARY KEY,
     CompanyName VARCHAR(100) NOT NULL,
-    Address VARCHAR(255),
-    Phone VARCHAR(20)
+    Address     VARCHAR(255) NULL,
+    Phone       VARCHAR(20)  NULL
 );
--- TABLE: Categories
-
--- Đảm bảo không còn bảng cũ tồn tại
-IF OBJECT_ID('Categories', 'U') IS NOT NULL
-    DROP TABLE Categories;
 GO
-CREATE TABLE Categories (
-    -- Thêm IDENTITY(1,1)
-    CategoryID INT PRIMARY KEY IDENTITY(1,1), 
+
+/* Categories */
+IF OBJECT_ID('dbo.Categories','U') IS NOT NULL DROP TABLE dbo.Categories;
+GO
+CREATE TABLE dbo.Categories(
+    CategoryID   INT IDENTITY(1,1) PRIMARY KEY,
     CategoryName VARCHAR(100) NOT NULL,
-    Description VARCHAR(100)
+    Description  VARCHAR(100) NULL
 );
 GO
 
-
--- TABLE: Products
-ALTER TABLE Products
-ALTER COLUMN UnitPrice FLOAT;
-CREATE TABLE Products (
-    ProductID INT  PRIMARY KEY,
-    ProductName VARCHAR(100) NOT NULL,
-    SupplierID INT,
-    CategoryID INT,
-    QuantityPerUnit VARCHAR(50),
-    UnitPrice FLOAT,
-    ProductImage VARCHAR(255),
-    FOREIGN KEY (SupplierID) REFERENCES Suppliers(SupplierID),
-    FOREIGN KEY (CategoryID) REFERENCES Categories(CategoryID)
-);
-
--- TABLE: Orders
-CREATE TABLE Orders (
-    OrderID INT  PRIMARY KEY,
-    CustomerID INT,
-    OrderDate VARCHAR(50),
-    RequiredDate VARCHAR(50),
-    ShippedDate VARCHAR(50),
-    Freight FLOAT,
-    ShipAddress VARCHAR(255),
-    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
-);
-
--- TABLE: OrderDetails 
-CREATE TABLE OrderDetails (
-    OrderID INT,
-    ProductID INT,
-    UnitPrice FLOAT,
-    Quantity INT,
-    PRIMARY KEY (OrderID, ProductID),
-    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
-    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
-);
-
--- Lệnh 1: Xóa bảng Account (Nếu nó tồn tại)
-IF OBJECT_ID('Account', 'U') IS NOT NULL
-    DROP TABLE Account;
+/* Products: KHÔNG IDENTITY để phù hợp DAO hiện tại */
+IF OBJECT_ID('dbo.Products','U') IS NOT NULL DROP TABLE dbo.Products;
 GO
-
--- Lệnh 2: Tạo lại bảng với IDENTITY(1,1)
-CREATE TABLE Account (
-    AccountID INT PRIMARY KEY IDENTITY(1,1), -- Thuộc tính IDENTITY bắt buộc
-    UserName VARCHAR(50) NOT NULL UNIQUE,
-    Password VARCHAR(100) NOT NULL,
-    FullName VARCHAR(100),
-    Type BIT NOT NULL DEFAULT 0
+CREATE TABLE dbo.Products(
+    ProductID       INT           PRIMARY KEY,
+    ProductName     VARCHAR(100)  NOT NULL,
+    SupplierID      INT           NULL,
+    CategoryID      INT           NULL,
+    QuantityPerUnit VARCHAR(50)   NULL,
+    UnitPrice       FLOAT         NOT NULL,   -- DAO đang dùng getFloat
+    ProductImage    VARCHAR(255)  NULL,
+    CONSTRAINT FK_Products_Suppliers FOREIGN KEY (SupplierID) REFERENCES dbo.Suppliers(SupplierID),
+    CONSTRAINT FK_Products_Categories FOREIGN KEY (CategoryID) REFERENCES dbo.Categories(CategoryID)
 );
 GO
 
-
--- Lệnh INSERT TỐI ƯU cho SQL Server (AccountID tự động tăng)
-
-INSERT INTO Account (UserName, Password, FullName, Type) VALUES 
-('U001', '111', 'Lamine Yamal', 1),    -- Admin
-('U002', '222', 'Pedri', 0),           -- User
-('U003', '333', 'Raphinha', 1),        -- Admin
-('U004', '444', 'Gavi', 0),            -- User
-('U005', '555', 'Xavi', 0);            -- User
-
-SELECT AccountID, UserName, FullName, Type 
-FROM Account;
-
--- Dữ liệu mẫu cho bảng Categories
-INSERT INTO Categories (CategoryName, Description) VALUES 
-('Pepperoni', 'Sliced pepperoni, parmesan cheese, mozzarella cheese, sauc'),
-('BBQ Chicken Pizza', 'BBQ sauce, chicken, mozzarella, cheese, tomatoes, red onion'),
-('Cheese Pizza', 'Tomato sauce, mozzarella cheese, parmesan cheese, basil'),
-('Ultimate Meat Pizza', 'Sausage, seasoned ground beef, pepperoni, ham, salami, bacon');
-
-SELECT * FROM Categories;
-
--- Dữ liệu mẫu cho bảng Suppliers
-INSERT INTO Suppliers (SupplierID, CompanyName, Address, Phone) VALUES 
-(1, 'Downtown', '8721 M Central Avenue, Los Angeles, CA 90036', '7896543210'),
-(2, 'Hollywood', '678 W Hollywood Way, Burbank CA 91505', '7896450123');
-
-SELECT * FROM Suppliers;
-
--- Dữ liệu mẫu cho bảng Products (Pizza)
--- Giả định SupplierID 1 và 2 đã tồn tại
-INSERT INTO Products (ProductID, ProductName, SupplierID, CategoryID, QuantityPerUnit, UnitPrice, ProductImage) VALUES
-(1, 'Pepperoni', 1, 1, 'Medium', 25.00, 'images/classic_pep.jpg'),
-(2, 'BBQ Chicken', 1, 2, 'Small', 27.00, 'images/bbq_chicken.jpg'),
-(3, 'Cheese Pizza', 2, 3, 'Medium', 22.50, 'images/cheese_supreme.jpg'),
-(4, 'Ultimate Meat Pizza', 2, 4, 'Large', 32.75, 'images/meat_lovers.jpg');
-
-SELECT * FROM Products;
-
--- Dữ liệu mẫu cho bảng Customers
-INSERT INTO Customers (CustomerID, Password, ContactName, Address, Phone) VALUES
-(1001, 'custpass1', 'John Wick', '123 Main St, New York', '5551234567'),
-(1002, 'custpass2', 'Jane Doe', '456 Oak Ave, Los Angeles', '5559876543'),
-(1003, 'custpass3', 'Robert Baratheon', '789 King Rd, Seattle', '5551122334');
-
-SELECT * FROM Customers;
-
--- Dữ liệu mẫu cho bảng Orders
--- OrderID được quản lý thủ công (không phải IDENTITY)
-INSERT INTO Orders (OrderID, CustomerID, OrderDate, RequiredDate, ShippedDate, Freight, ShipAddress) VALUES
-(5001, 1001, '2025-10-25', '2025-10-27', '2025-10-26', 15.50, '123 Main St, New York'),
-(5002, 1002, '2025-10-26', '2025-10-28', NULL, 12.00, '456 Oak Ave, Los Angeles'),
-(5003, 1001, '2025-10-27', '2025-10-29', '2025-10-28', 18.75, '123 Main St, New York');
-
-SELECT * FROM Orders;
-
--- Dữ liệu mẫu cho bảng OrderDetails
--- OrderID và ProductID là khóa chính kép
-INSERT INTO OrderDetails (OrderID, ProductID, UnitPrice, Quantity) VALUES
--- Chi tiết cho OrderID 5001 (John Wick)
-(5001, 1, 25.00, 2), -- 2 Pizza Pepperoni
-(5001, 3, 22.50, 1), -- 1 Pizza Cheese
-
--- Chi tiết cho OrderID 5002 (Jane Doe)
-(5002, 2, 27.00, 1), -- 1 BBQ Chicken
-
--- Chi tiết cho OrderID 5003 (John Wick)
-(5003, 4, 32.75, 1); -- 1 Ultimate Meat Pizza
+/* Customers */
+IF OBJECT_ID('dbo.Customers','U') IS NOT NULL DROP TABLE dbo.Customers;
+GO
+CREATE TABLE dbo.Customers(
+    CustomerID  INT          PRIMARY KEY,
+    Password    VARCHAR(100) NOT NULL,
+    ContactName VARCHAR(100) NOT NULL,
+    Address     VARCHAR(255) NULL,
+    Phone       VARCHAR(20)  NULL
+);
 GO
 
-SELECT * FROM OrderDetails;
+/* Orders */
+IF OBJECT_ID('dbo.Orders','U') IS NOT NULL DROP TABLE dbo.Orders;
+GO
+CREATE TABLE dbo.Orders(
+    OrderID     INT          PRIMARY KEY,
+    CustomerID  INT          NULL,
+    OrderDate   VARCHAR(50)  NULL,
+    RequiredDate VARCHAR(50) NULL,
+    ShippedDate VARCHAR(50)  NULL,
+    Freight     FLOAT        NULL,
+    ShipAddress VARCHAR(255) NULL,
+    CONSTRAINT FK_Orders_Customers FOREIGN KEY (CustomerID) REFERENCES dbo.Customers(CustomerID)
+);
+GO
+
+/* OrderDetails */
+IF OBJECT_ID('dbo.OrderDetails','U') IS NOT NULL DROP TABLE dbo.OrderDetails;
+GO
+CREATE TABLE dbo.OrderDetails(
+    OrderID   INT   NOT NULL,
+    ProductID INT   NOT NULL,
+    UnitPrice FLOAT NOT NULL,
+    Quantity  INT   NOT NULL,
+    CONSTRAINT PK_OrderDetails PRIMARY KEY (OrderID, ProductID),
+    CONSTRAINT FK_OrderDetails_Orders   FOREIGN KEY (OrderID)  REFERENCES dbo.Orders(OrderID),
+    CONSTRAINT FK_OrderDetails_Products FOREIGN KEY (ProductID) REFERENCES dbo.Products(ProductID)
+);
+GO
+
+/* ===== SEED DATA ===== */
+
+/* Accounts */
+INSERT INTO dbo.Account(userName, password, fullName, type) VALUES
+('U001','111','Administrator',1), -- admin
+('U002','222','Regular User',0);
+
+/* Suppliers */
+INSERT INTO dbo.Suppliers(SupplierID, CompanyName, Address, Phone) VALUES
+(1,'Downtown','8721 M Central Avenue, Los Angeles, CA 90036','7896543210'),
+(2,'Hollywood','678 W Hollywood Way, Burbank CA 91505','7896450123');
+
+/* Categories */
+INSERT INTO dbo.Categories(CategoryName, Description) VALUES
+('Pepperoni','Sliced pepperoni, parmesan cheese, mozzarella cheese, sauce'),
+('BBQ Chicken Pizza','BBQ sauce, chicken, mozzarella, tomatoes, red onion'),
+('Cheese Pizza','Tomato sauce, mozzarella, parmesan, basil'),
+('Ultimate Meat Pizza','Sausage, beef, pepperoni, ham, salami, bacon');
+
+/* Products (đường dẫn ảnh khớp thư mục web/resource/images) */
+INSERT INTO dbo.Products(ProductID, ProductName, SupplierID, CategoryID, QuantityPerUnit, UnitPrice, ProductImage) VALUES
+(1,'Pepperoni',         1,1,'Medium', 25.00, '/ShoppingWebsite/resource/images/classic_pep.jpg'),
+(2,'BBQ Chicken',       1,2,'Small',  27.00, '/ShoppingWebsite/resource/images/bbq_chicken.jpg'),
+(3,'Cheese Pizza',      2,3,'Medium', 22.50, '/ShoppingWebsite/resource/images/cheese_supreme.jpg'),
+(4,'Ultimate Meat Pizza',2,4,'Large', 32.75, '/ShoppingWebsite/resource/images/meat_lovers.jpg');
+
+/* Customers */
+INSERT INTO dbo.Customers(CustomerID, Password, ContactName, Address, Phone) VALUES
+(1001,'custpass1','John Wick','123 Main St, New York','5551234567'),
+(1002,'custpass2','Jane Doe','456 Oak Ave, Los Angeles','5559876543');
+
+/* Orders */
+INSERT INTO dbo.Orders(OrderID, CustomerID, OrderDate, RequiredDate, ShippedDate, Freight, ShipAddress) VALUES
+(5001,1001,'2025-10-25','2025-10-27','2025-10-26',15.50,'123 Main St, New York'),
+(5002,1002,'2025-10-26','2025-10-28',NULL,12.00,'456 Oak Ave, Los Angeles');
+
+/* OrderDetails */
+INSERT INTO dbo.OrderDetails(OrderID, ProductID, UnitPrice, Quantity) VALUES
+(5001,1,25.00,2),
+(5001,3,22.50,1),
+(5002,2,27.00,1);
+GO
+
+/* ===== QUICK CHECKS ===== */
+SELECT COUNT(*) AS NumAccounts FROM dbo.Account;
+SELECT COUNT(*) AS NumProducts FROM dbo.Products;
+SELECT TOP 5 * FROM dbo.Products;
