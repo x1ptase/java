@@ -41,9 +41,9 @@ public class LoginController extends HttpServlet {
             session.setAttribute("account", account);
             
             if(account.isType()){
-                response.sendRedirect(request.getContextPath()+"/"+VIEW_ADMIN_CONTROLLER); // admin -> controller loads list
+                request.getRequestDispatcher(VIEW_ADMIN_CONTROLLER).forward(request, response); // ADMIN --> controller loads list
             } else{
-                response.sendRedirect(request.getContextPath()+"/"+USER_LIST_CONTROLLER); // user -> shopping list
+                request.getRequestDispatcher(USER_LIST_CONTROLLER).forward(request, response); // USER --> shopping list
             }
         } catch(Exception ex){
             log("Error at LoginController: " + ex.getMessage());

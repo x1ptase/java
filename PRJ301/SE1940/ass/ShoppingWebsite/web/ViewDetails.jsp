@@ -8,11 +8,10 @@
 </head>
 <body>
     <%
-        AccountDTO account = (AccountDTO) session.getAttribute("account");
+        AccountDTO account=(AccountDTO) session.getAttribute("account");
         
-        // Retrieve ProductDTO object from request scope
-        ProductDTO product = (ProductDTO) request.getAttribute("PRODUCT_DETAIL");
-        if (product == null) {
+        ProductDTO product=(ProductDTO) request.getAttribute("PRODUCT_DETAIL");
+        if(product == null){
             response.sendRedirect("MainController?action=ViewProducts&msg=Error: Product not found.");
             return;
         }
@@ -33,7 +32,7 @@
     <p><strong>Image:</strong> <img src="<%= imgSrc %>" alt="Product Image" style="max-width: 300px;"></p>
     
     <% if (account != null && account.isType()) { %>
-        <p style="color: blue;">(Technical Info) Supplier ID: <%= product.getSupplierID() %>, Category ID: <%= product.getCategoryID() %></p>
+        <p style="color: green;">(Info) Supplier ID: <%= product.getSupplierID() %>, Category ID: <%= product.getCategoryID() %></p>
     <% } %>
     
     <hr>

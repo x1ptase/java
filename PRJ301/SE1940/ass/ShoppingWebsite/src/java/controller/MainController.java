@@ -14,8 +14,8 @@ public class MainController extends HttpServlet {
     private static final String LOGIN_ACTION="Login";
     private static final String LOGOUT_ACTION="Logout";
     
-    private static final String VIEW_PRODUCT_ACTION = "ViewProduct"; // Key: ViewProduct (Read)
-    private static final String VIEW_DETAILS_ACTION = "ViewDetails"; // View one product
+    private static final String VIEW_PRODUCT_ACTION="ViewProduct";
+    private static final String VIEW_DETAILS_ACTION="ViewDetails"; // view 1 product
     private static final String CREATE_PAGE_ACTION = "CreatePage"; // Key: Chuyển đến form tạo mới (GET)
     private static final String CREATE_PRODUCT_ACTION = "CreateProduct"; // Key: Gửi form tạo mới (POST)
     private static final String UPDATE_PRODUCT_ACTION = "UpdateProduct"; // Key: Chỉnh sửa/Cập nhật (POST)
@@ -46,8 +46,8 @@ public class MainController extends HttpServlet {
                 url=LOGOUT_CONTROLLER;
             } else if(action.equals(VIEW_PRODUCT_ACTION)){
                 url=VIEW_PRODUCT_CONTROLLER;
-            } else if (action.equals(VIEW_DETAILS_ACTION)) {
-                url = VIEW_DETAILS_CONTROLLER;
+            } else if(action.equals(VIEW_DETAILS_ACTION)) {
+                url=VIEW_DETAILS_CONTROLLER;
             } else if (action.equals(CREATE_PAGE_ACTION)) {
                 // Xử lý GET (Hiển thị form tạo mới)
                 url = CREATE_PRODUCT_CONTROLLER; 

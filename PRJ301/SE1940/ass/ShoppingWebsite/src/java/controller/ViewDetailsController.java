@@ -12,30 +12,19 @@ import model.ProductDTO;
 
 public class ViewDetailsController extends HttpServlet {
 
-    private static final String ERROR_PAGE = "Error.jsp";
-    private static final String LOGIN_PAGE = "Login.jsp";
-    private static final String DETAILS_PAGE = "ViewDetails.jsp";
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
+    private static final String ERROR_PAGE="Error.jsp";
+    private static final String LOGIN_PAGE="Login.jsp";
+    private static final String DETAILS_PAGE="ViewDetails.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String url = ERROR_PAGE;
-        try {
-            HttpSession session = request.getSession(false);
-            AccountDTO account = (AccountDTO) (session != null ? session.getAttribute("account") : null);
-            if (account == null) {
-                response.sendRedirect(request.getContextPath()+"/"+LOGIN_PAGE);
+        String url=ERROR_PAGE;
+        
+        try{
+            HttpSession session=request.getSession(false);
+            AccountDTO account=(AccountDTO) (session != null ? session.getAttribute("account") : null);
+            if(account == null){
+                request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
                 return;
             }
 
@@ -59,6 +48,18 @@ public class ViewDetailsController extends HttpServlet {
                 request.getRequestDispatcher(url).forward(request, response);
             }
         }
+    }
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 }
 
