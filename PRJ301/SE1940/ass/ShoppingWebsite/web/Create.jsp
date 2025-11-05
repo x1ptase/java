@@ -1,16 +1,9 @@
-<%-- 
-    Document   : CreateProduct
-    Created on : Nov 4, 2025
-    Author     : x1pta
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Create New Product</title>
-        <%-- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resource/css/admin.css"> --%>
     </head>
     <body>
         

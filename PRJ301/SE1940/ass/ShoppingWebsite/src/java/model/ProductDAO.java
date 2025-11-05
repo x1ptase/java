@@ -13,10 +13,8 @@ import utils.DBUtils;
  */
 public class ProductDAO {
 
-    // --- CÁC HẰNG SỐ SQL ---
-    private static final String VIEW_ALL_PRODUCTS_SQL = 
-        "SELECT ProductID, ProductName, SupplierID, CategoryID, QuantityPerUnit, UnitPrice, ProductImage FROM Products";
-    private static final String DELETE_SQL = "DELETE FROM Products WHERE ProductID = ?";
+    private static final String VIEW_ALL_PRODUCTS_SQL="SELECT * FROM Products";
+    private static final String DELETE_SQL="DELETE FROM Products WHERE ProductID=?";
     private static final String CREATE_SQL = 
         "INSERT INTO Products (ProductID, ProductName, SupplierID, CategoryID, QuantityPerUnit, UnitPrice, ProductImage) " +
         "VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -26,7 +24,7 @@ public class ProductDAO {
     private static final String FIND_BY_ID_SQL =
         "SELECT ProductID, ProductName, SupplierID, CategoryID, QuantityPerUnit, UnitPrice, ProductImage FROM Products WHERE ProductID = ?";
 
-    // --- 1. CHỨC NĂNG VIEW (Đã sửa lỗi SQL) ---
+    // --- VIEW ---
     public List<ProductDTO> viewAllProducts() throws Exception{
         List<ProductDTO> list=new ArrayList<>();
         Connection cnn=null;
@@ -36,7 +34,6 @@ public class ProductDAO {
         try{
             cnn=DBUtils.getConnection();
             if(cnn != null){
-                // Dùng PreparedStatement cho câu lệnh SELECT đơn giản
                 ps=cnn.prepareStatement(VIEW_ALL_PRODUCTS_SQL); 
                 rs=ps.executeQuery();
                 
@@ -56,15 +53,15 @@ public class ProductDAO {
         } catch(Exception ex){
             throw ex;
         } finally{
-             if(rs != null){
-                 rs.close();
-             }
-             if(ps != null){
-                 ps.close();
-             }
-             if(cnn != null){
-                 cnn.close();
-             }
+            if(rs != null){
+                rs.close();
+            }
+            if(ps != null){
+                ps.close();
+            }
+            if(cnn != null){
+               cnn.close();
+            }
         }
         return list;
     }
@@ -92,10 +89,16 @@ public class ProductDAO {
                     );
                 }
             }
-        } finally {
-            if (rs != null) rs.close();
-            if (ps != null) ps.close();
-            if (cnn != null) cnn.close();
+        } finally{
+            if(rs != null){
+                rs.close();
+            }
+            if(ps != null){
+                ps.close();
+            }
+            if(cnn != null){
+               cnn.close();
+            }
         }
         return null;
     }
@@ -122,9 +125,13 @@ public class ProductDAO {
             }
         } catch (Exception ex) {
             throw ex;
-        } finally {
-            if (ps != null) ps.close();
-            if (cnn != null) cnn.close();
+        } finally{
+            if(ps != null){
+                ps.close();
+            }
+            if(cnn != null){
+               cnn.close();
+            }
         }
         return check;
     }
@@ -150,30 +157,39 @@ public class ProductDAO {
             }
         } catch (Exception ex) {
             throw ex;
-        } finally {
-            if (ps != null) ps.close();
-            if (cnn != null) cnn.close();
+        } finally{
+            if(ps != null){
+                ps.close();
+            }
+            if(cnn != null){
+               cnn.close();
+            }
         }
         return check;
     }
 
-    // --- 4. CHỨC NĂNG DELETE ---
-    public boolean deleteProduct(int productID) throws Exception {
-        Connection cnn = null;
-        PreparedStatement ps = null;
-        boolean check = false;
-        try {
-            cnn = DBUtils.getConnection();
-            if (cnn != null) {
-                ps = cnn.prepareStatement(DELETE_SQL);
+    // --- DELETE ---
+    public boolean delete(int productID) throws Exception {
+        Connection cnn=null;
+        PreparedStatement ps=null;
+        boolean check=false;
+        
+        try{
+            cnn=DBUtils.getConnection();
+            if(cnn != null){
+                ps=cnn.prepareStatement(DELETE_SQL);
                 ps.setInt(1, productID);
-                check = ps.executeUpdate() > 0;
+                check=ps.executeUpdate() > 0;
             }
         } catch (Exception ex) {
             throw ex;
-        } finally {
-            if (ps != null) ps.close();
-            if (cnn != null) cnn.close();
+        } finally{
+            if(ps != null){
+                ps.close();
+            }
+            if(cnn != null){
+               cnn.close();
+            }
         }
         return check;
     }

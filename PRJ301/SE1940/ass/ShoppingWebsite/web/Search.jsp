@@ -1,9 +1,3 @@
-<%-- 
-    Document   : Search
-    Created on : Nov 3, 2025, 12:19:20 AM
-    Author     : x1pta
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

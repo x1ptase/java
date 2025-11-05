@@ -44,7 +44,6 @@
                     }
                 %>
                 
-                
                 <input type="submit" class="submit-btn" value="Sign in & continue" />
             </form>
         </div>

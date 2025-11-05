@@ -64,7 +64,7 @@
             </tbody>
         </table>
     <% } else { %>
-        <p>No products found in the database.</p>
+        <p>No products found in the database</p>
     <% } %>
 </body>
 </html>
