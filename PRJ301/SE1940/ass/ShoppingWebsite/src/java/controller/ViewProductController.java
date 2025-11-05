@@ -46,7 +46,6 @@ public class ViewProductController extends HttpServlet {
             log("Error at ViewProductController: " + ex.getMessage());
             url=ERROR_PAGE;
         } finally{
-            // forward khi chưa có redirect (vì sendRedirect đã đóng response)
             if(!response.isCommitted()){
                 request.getRequestDispatcher(url).forward(request, response);
             }

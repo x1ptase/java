@@ -28,23 +28,22 @@ public class ViewDetailsController extends HttpServlet {
                 return;
             }
 
-            String idRaw = request.getParameter("productID");
-            int productId = Integer.parseInt(idRaw);
+            String idRaw=request.getParameter("productID");
+            int productId=Integer.parseInt(idRaw);
 
-            ProductDAO dao = new ProductDAO();
-            ProductDTO product = dao.findById(productId);
-            if (product == null) {
+            ProductDAO dao=new ProductDAO();
+            ProductDTO product=dao.findById(productId);
+            if(product == null){
                 request.setAttribute("msg", "Product not found: ID=" + productId);
-                url = ERROR_PAGE;
-            } else {
+                url=ERROR_PAGE;
+            } else{
                 request.setAttribute("PRODUCT_DETAIL", product);
-                url = DETAILS_PAGE;
+                url=DETAILS_PAGE;
             }
-        } catch (Exception ex) {
+        } catch(Exception ex){
             log("Error at ViewDetailsController: " + ex.getMessage());
-            request.setAttribute("msg", "Unexpected error while loading product details.");
         } finally {
-            if (!response.isCommitted()) {
+            if(!response.isCommitted()){
                 request.getRequestDispatcher(url).forward(request, response);
             }
         }

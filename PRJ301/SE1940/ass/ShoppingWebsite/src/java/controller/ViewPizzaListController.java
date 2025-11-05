@@ -16,18 +16,6 @@ public class ViewPizzaListController extends HttpServlet {
     private static final String LOGIN_PAGE="Login.jsp";
     private static final String VIEW_PIZZA_LIST_PAGE="ViewPizzaList.jsp";
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try{
@@ -45,6 +33,18 @@ public class ViewPizzaListController extends HttpServlet {
         } catch(Exception ex){
             log("Error at ViewPizzaListController: " + ex.getMessage());
         }
+    }
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 }
 
