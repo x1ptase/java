@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>CarListServlet</servlet-name>
-        <servlet-class>controller.CarListServlet</servlet-class>
+        <servlet-name>MainController</servlet-name>
+        <servlet-class>controllers.MainController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CarDetailsServlet</servlet-name>
-        <servlet-class>controller.CarDetailsServlet</servlet-class>
+        <servlet-name>CarsListController</servlet-name>
+        <servlet-class>controllers.CarsListController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CarCreateServlet</servlet-name>
-        <servlet-class>controller.CarCreateServlet</servlet-class>
+        <servlet-name>ViewDetailsController</servlet-name>
+        <servlet-class>controllers.ViewDetailsController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CarEditServlet</servlet-name>
-        <servlet-class>controller.CarEditServlet</servlet-class>
+        <servlet-name>CreateCarsController</servlet-name>
+        <servlet-class>controllers.CreateCarsController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CarUpdateServlet</servlet-name>
-        <servlet-class>controller.CarUpdateServlet</servlet-class>
+        <servlet-name>EditCarsController</servlet-name>
+        <servlet-class>controllers.EditCarsController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CarDeleteServlet</servlet-name>
-        <servlet-class>controller.CarDeleteServlet</servlet-class>
+        <servlet-name>UpdateCarsController</servlet-name>
+        <servlet-class>controllers.UpdateCarsController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>CarListServlet</servlet-name>
-        <url-pattern>/CarListServlet</url-pattern>
+        <servlet-name>MainController</servlet-name>
+        <url-pattern>/MainController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CarDetailsServlet</servlet-name>
-        <url-pattern>/CarDetailsServlet</url-pattern>
+        <servlet-name>CarsListController</servlet-name>
+        <url-pattern>/CarsListController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CarCreateServlet</servlet-name>
-        <url-pattern>/CarCreateServlet</url-pattern>
+        <servlet-name>ViewDetailsController</servlet-name>
+        <url-pattern>/ViewDetailsController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CarEditServlet</servlet-name>
-        <url-pattern>/CarEditServlet</url-pattern>
+        <servlet-name>CreateCarsController</servlet-name>
+        <url-pattern>/CreateCarsController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CarUpdateServlet</servlet-name>
-        <url-pattern>/CarUpdateServlet</url-pattern>
+        <servlet-name>EditCarsController</servlet-name>
+        <url-pattern>/EditCarsController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CarDeleteServlet</servlet-name>
-        <url-pattern>/CarDeleteServlet</url-pattern>
+        <servlet-name>UpdateCarsController</servlet-name>
+        <url-pattern>/UpdateCarsController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -54,6 +54,6 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>CarListServlet</welcome-file>
+        <welcome-file>CarsListController</welcome-file>
     </welcome-file-list>
 </web-app>

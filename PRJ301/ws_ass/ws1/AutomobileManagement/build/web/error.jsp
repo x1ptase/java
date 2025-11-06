@@ -1,11 +1,15 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
-<head><title>Error</title></head>
-<body>
-    <h2>Error Occurred</h2>
-    <p style="color: red;">
-        ${error}
-    </p>
-    <a href="CarListServlet">Back to List</a>
-</body>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Error Page</title>
+    </head>
+    <body>
+        <h1>Error</h1>
+        <p style="color: red;">
+            ${msg}
+        </p>
+        <a href="CarsListController">Back to List</a>
+    </body>
 </html>

@@ -1,50 +1,43 @@
-package controller;
+package controllers;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.AccountDTO;
-import model.ProductDAO;
-import model.ProductDTO;
+import models.CarsDAO;
+import models.CarsDTO;
 
 public class ViewDetailsController extends HttpServlet {
 
     private static final String ERROR_PAGE="Error.jsp";
-    private static final String LOGIN_PAGE="Login.jsp";
     private static final String DETAILS_PAGE="ViewDetails.jsp";
-
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         String url=ERROR_PAGE;
         
         try{
-            HttpSession session=request.getSession(false);
-            AccountDTO account=(AccountDTO) (session != null ? session.getAttribute("account") : null);
-            if(account == null){
-                request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
-                return;
-            }
-
-            String idRaw=request.getParameter("productID");
-            int productId=Integer.parseInt(idRaw);
-
-            ProductDAO dao=new ProductDAO();
-            ProductDTO product=dao.findById(productId);
-            if(product == null){
-                request.setAttribute("msg", "Product not found: ID=" + productId);
+            String idRaw=request.getParameter("carID");
+            int carID=Integer.parseInt(idRaw);
+            
+            CarsDAO dao=new CarsDAO();
+            CarsDTO cars=dao.findById(carID);
+            if(cars == null){
+                request.setAttribute("msg", "CarID not found: ID=" + carID);
                 url=ERROR_PAGE;
             } else{
-                request.setAttribute("PRODUCT_DETAIL", product);
+                request.setAttribute("car", cars);
                 url=DETAILS_PAGE;
             }
         } catch(Exception ex){
             log("Error at ViewDetailsController: " + ex.getMessage());
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -57,5 +50,3 @@ public class ViewDetailsController extends HttpServlet {
         processRequest(request, response);
     }
 }
-
-
