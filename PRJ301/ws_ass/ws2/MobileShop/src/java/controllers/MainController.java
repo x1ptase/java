@@ -1,32 +1,42 @@
-package controller;
+package controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-public class LogoutController extends HttpServlet {
-
+public class MainController extends HttpServlet {
+    
+    private static final String ERROR_PAGE="Error.jsp";
     private static final String LOGIN_PAGE="Login.jsp";
+    
+    private static final String LOGIN_ACTION="Login";
+    private static final String LOGOUT_ACTION="Logout";
+    
+    private static final String LOGIN_CONTROLLER="LoginController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session=request.getSession(false); // false -> k create new verson
-       
+        String url=ERROR_PAGE;
+        
         try{
-            if(session != null){
-                session.invalidate();
+            String action=request.getParameter("action");
+            if(action == null){
+                url=LOGIN_PAGE;
+            } else if(action.equals(LOGIN_ACTION)){
+                url=LOGIN_CONTROLLER;
+            } else{
+                url=ERROR_PAGE;
             }
         } catch(Exception ex){
-            log("Error at LogoutController: " + ex.getMessage());
+            log("Error at MainController: " + ex.getMessage());
         } finally{
-            request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

@@ -12,15 +12,6 @@
 
             <p style="color: red">${requestScope.msg}</p>
 
-            <%
-                String status = request.getParameter("status");
-                if(status != null && status.equals("logoutSuccess")){
-            %>
-            <p style="color: green">Logout successfully</p>
-            <%
-                }
-            %>
-
             <input type="submit" value="Sign in & Continue" />
         </form>  
     </body>

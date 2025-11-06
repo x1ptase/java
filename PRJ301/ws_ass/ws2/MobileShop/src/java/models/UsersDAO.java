@@ -10,7 +10,7 @@ public class UsersDAO {
     
     private static final String CHECK_LOGIN="SELECT * FROM Users WHERE userId=? AND password=?";
     
-    public UserDTO checkLogin(String userId, String password) throws SQLException{
+    public UsersDTO checkLogin(String userId, String password) throws SQLException{
         Connection cnn=null;
         PreparedStatement ps=null;
         ResultSet rs=null;
@@ -23,7 +23,7 @@ public class UsersDAO {
             rs=ps.executeQuery();
             
             if(rs.next()){
-                return new UserDTO(
+                return new UsersDTO(
                         rs.getString("userId"),
                         rs.getString("password"),
                         rs.getString("fullName"),

@@ -1,15 +1,15 @@
 package models;
 
-public class UserDTO {
+public class UsersDTO {
     private String userId;
     private String password;
     private String fullName;
     private int role;
 
-    public UserDTO() {
+    public UsersDTO() {
     }
 
-    public UserDTO(String userId, String password, String fullName, int role) {
+    public UsersDTO(String userId, String password, String fullName, int role) {
         this.userId = userId;
         this.password = password;
         this.fullName = fullName;
