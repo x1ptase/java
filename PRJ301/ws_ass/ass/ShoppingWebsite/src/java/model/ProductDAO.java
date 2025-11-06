@@ -13,7 +13,7 @@ import utils.DBUtils;
  */
 public class ProductDAO {
 
-    private static final String VIEW_ALL_PRODUCTS_SQL="SELECT * FROM Products";
+    private static final String VIEW_ALL_SQL="SELECT * FROM Products";
     private static final String FIND_BY_ID_SQL="SELECT * FROM Products WHERE ProductID=?";
     private static final String DELETE_SQL="DELETE FROM Products WHERE ProductID=?";
     private static final String CREATE_SQL= 
@@ -32,9 +32,8 @@ public class ProductDAO {
         
         try{
             cnn=DBUtils.getConnection();
-            ps=cnn.prepareStatement(VIEW_ALL_PRODUCTS_SQL); 
+            ps=cnn.prepareStatement(VIEW_ALL_SQL); 
             rs=ps.executeQuery();
-                
                 while(rs.next()){
                     list.add(new ProductDTO(
                         rs.getInt("ProductID"),

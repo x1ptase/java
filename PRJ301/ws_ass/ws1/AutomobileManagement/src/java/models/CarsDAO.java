@@ -6,7 +6,7 @@ import utils.DBUtils;
 
 public class CarsDAO {
     
-    private static final String VIEW_ALL_CARS_SQL="SELECT * FROM Cars";
+    private static final String VIEW_ALL_SQL="SELECT * FROM Cars";
     private static final String FIND_BY_ID="SELECT * FROM Cars WHERE CarID=?";
     private static final String CREATE_SQL="INSERT INTO Cars (CarID, CarName, Manufacturer, Price, ReleasedYear) VALUES (?, ?, ?, ?, ?)";
     private static final String UPDATE_SQL="UPDATE Cars SET CarName=?, Manufacturer=?, Price=?, ReleasedYear=? WHERE CarID=?";
@@ -19,7 +19,7 @@ public class CarsDAO {
         ResultSet rs=null;
         try{
             cnn=DBUtils.getConnection();
-            ps=cnn.prepareStatement(VIEW_ALL_CARS_SQL);
+            ps=cnn.prepareStatement(VIEW_ALL_SQL);
             rs=ps.executeQuery();
             while(rs.next()){
                 list.add(new CarsDTO(

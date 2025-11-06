@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +15,7 @@ public class MainController extends HttpServlet {
     private static final String LOGOUT_ACTION="Logout";
     
     private static final String LOGIN_CONTROLLER="LoginController";
+    private static final String LOGOUT_CONTROLLER="LogoutController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -28,6 +28,8 @@ public class MainController extends HttpServlet {
                 url=LOGIN_PAGE;
             } else if(action.equals(LOGIN_ACTION)){
                 url=LOGIN_CONTROLLER;
+            } else if(action.equals(LOGOUT_ACTION)){
+                url=LOGOUT_CONTROLLER;
             } else{
                 url=ERROR_PAGE;
             }
