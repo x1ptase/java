@@ -1,19 +1,15 @@
-package model;
+package models;
 
-/**
- *
- * @author x1pta
- */
-public class Users {
+public class UserDTO {
     private String userId;
     private String password;
     private String fullName;
     private int role;
 
-    public Users() {
+    public UserDTO() {
     }
 
-    public Users(String userId, String password, String fullName, int role) {
+    public UserDTO(String userId, String password, String fullName, int role) {
         this.userId = userId;
         this.password = password;
         this.fullName = fullName;
@@ -50,12 +46,6 @@ public class Users {
 
     public void setRole(int role) {
         this.role = role;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("UserID:%s, Password:%s, FullName:%s, Role:%d",
-                userId, password, fullName, role);
     }
     
     

@@ -25,7 +25,7 @@
         </form>
         <c:if test="${not empty errorMsg}">
             <div class="error">
-                ${errorMsg}
+                ${msg}
             </div>
         </c:if>
         <a class="home-link" href="user">&larr; Về trang mua hàng</a>

@@ -28,7 +28,7 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         Users user = new UsersDAO().checkLogin(userId, password);
         if (user == null) {
-            request.setAttribute("errorMsg", "Đăng nhập thất bại");
+            request.setAttribute("msg", "Đăng nhập thất bại");
             request.getRequestDispatcher(LOGIN_CONTROLLER).forward(request, response);
             return;
         }
