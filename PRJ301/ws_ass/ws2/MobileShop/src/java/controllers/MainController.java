@@ -14,8 +14,18 @@ public class MainController extends HttpServlet {
     private static final String LOGIN_ACTION="Login";
     private static final String LOGOUT_ACTION="Logout";
     
+    private static final String VIEW_MOBILES_ACTION="ViewMobile";
+    private static final String CREATE_MOBILES_ACTION="CreateMobile";
+    private static final String UPDATE_MOBILES_ACTION="UpdateMobile";
+    private static final String DELETE_MOBILES_ACTION="DeleteMobile";
+    
     private static final String LOGIN_CONTROLLER="LoginController";
     private static final String LOGOUT_CONTROLLER="LogoutController";
+    
+    private static final String VIEW_CONTROLLER="ViewController";
+    private static final String CREATE_MOBILES_CONTROLLER="CreateMobilesController";
+    private static final String UPDATE_MOBILES_CONTROLLER="UpdateMobilesController";
+    private static final String DELETE_MOBILES_CONTROLLER="DeleteMobilesController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -30,6 +40,14 @@ public class MainController extends HttpServlet {
                 url=LOGIN_CONTROLLER;
             } else if(action.equals(LOGOUT_ACTION)){
                 url=LOGOUT_CONTROLLER;
+            } else if(action.equals(VIEW_MOBILES_ACTION)){
+                url=VIEW_CONTROLLER;
+            } else if(action.equals(CREATE_MOBILES_ACTION)){
+                url=CREATE_MOBILES_CONTROLLER;
+            } else if(action.equals(UPDATE_MOBILES_ACTION)){
+                url=UPDATE_MOBILES_CONTROLLER;
+            } else if(action.equals(DELETE_MOBILES_ACTION)){
+                url=DELETE_MOBILES_CONTROLLER;
             } else{
                 url=ERROR_PAGE;
             }

@@ -1,9 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,9 +12,7 @@ import models.UsersDTO;
 public class LoginController extends HttpServlet {
 
     private static final String LOGIN_PAGE="Login.jsp";
-    private static final String STAFF_PAGE="Staff.jsp";
-    private static final String USER_PAGE="User.jsp";
-    private static final String WELCOME_PAGE="Welcome.jsp";
+    private static final String VIEW_CONTROLLER="ViewController";
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -44,9 +39,9 @@ public class LoginController extends HttpServlet {
             session.setAttribute("user", user);
             
             if(user.getRole() == 1) {
-                request.getRequestDispatcher(WELCOME_PAGE).forward(request, response);
+                request.getRequestDispatcher(VIEW_CONTROLLER).forward(request, response);
             } else{
-                request.getRequestDispatcher(USER_PAGE).forward(request, response);
+                request.getRequestDispatcher(VIEW_CONTROLLER).forward(request, response);
             }
         } catch(Exception ex){
             log("Error at LoginController: " + ex.getMessage());

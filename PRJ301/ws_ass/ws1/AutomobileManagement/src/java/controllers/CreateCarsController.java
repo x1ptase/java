@@ -28,7 +28,7 @@ public class CreateCarsController extends HttpServlet {
                 );
             CarsDAO dao=new CarsDAO();
             dao.createCar(car);
-            response.sendRedirect(LIST_CONTROLLER);
+            request.getRequestDispatcher(LIST_CONTROLLER).forward(request, response);
         } catch(Exception ex) {
             log("Error at CreateCarsController: " + ex.getMessage());
             request.getRequestDispatcher(ERROR_PAGE).forward(request, response);

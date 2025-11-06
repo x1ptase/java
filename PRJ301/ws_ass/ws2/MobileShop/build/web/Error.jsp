@@ -7,6 +7,7 @@
     </head>
     <body>
         <h1>Error</h1>
-        
+        <p style="color: red">${requestScope.msg}</p>
+        <a href="ViewController">Back to List</a>
     </body>
 </html>

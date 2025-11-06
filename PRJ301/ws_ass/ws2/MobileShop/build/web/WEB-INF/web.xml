@@ -12,6 +12,22 @@
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>controllers.LogoutController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreateMobilesController</servlet-name>
+        <servlet-class>controllers.CreateMobilesController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewController</servlet-name>
+        <servlet-class>controllers.ViewController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateMobilesController</servlet-name>
+        <servlet-class>controllers.UpdateMobilesController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteMobilesController</servlet-name>
+        <servlet-class>controllers.DeleteMobilesController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -23,6 +39,22 @@
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/LogoutController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateMobilesController</servlet-name>
+        <url-pattern>/CreateMobilesController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewController</servlet-name>
+        <url-pattern>/ViewController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateMobilesController</servlet-name>
+        <url-pattern>/UpdateMobilesController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteMobilesController</servlet-name>
+        <url-pattern>/DeleteMobilesController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

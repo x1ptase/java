@@ -16,13 +16,6 @@ public class ProductDAO {
     private static final String VIEW_ALL_SQL="SELECT * FROM Products";
     private static final String FIND_BY_ID_SQL="SELECT * FROM Products WHERE ProductID=?";
     private static final String DELETE_SQL="DELETE FROM Products WHERE ProductID=?";
-    private static final String CREATE_SQL= 
-        "INSERT INTO Products(ProductID, ProductName, SupplierID, CategoryID, QuantityPerUnit, UnitPrice, ProductImage)" +
-        "VALUES (?, ?, ?, ?, ?, ?, ?)";
-    private static final String UPDATE_SQL= 
-        "UPDATE Products SET ProductName=?, SupplierID=?, CategoryID=?, QuantityPerUnit=?, UnitPrice=?, ProductImage=?" +
-        "WHERE ProductID=?";
-
  
     public List<ProductDTO> viewAllProducts() throws Exception{
         List<ProductDTO> list=new ArrayList<>();
@@ -97,42 +90,6 @@ public class ProductDAO {
         return null;
     }
 
-    
-    
-    // --- UPDATE ---
-    public boolean updateProduct(ProductDTO product) throws Exception {
-        Connection cnn=null;
-        PreparedStatement ps=null;
-        boolean check=false;
-        try{
-            cnn=DBUtils.getConnection();
-            if(cnn != null){
-                ps=cnn.prepareStatement(UPDATE_SQL);
-                
-                ps.setString(1, product.getProductName());
-                ps.setInt(2, product.getSupplierID());
-                ps.setInt(3, product.getCategoryID());
-                ps.setString(4, product.getQuantityPerUnit());
-                ps.setFloat(5, product.getUnitPrice());
-                ps.setString(6, product.getProductImage());
-                ps.setInt(7, product.getProductID()); 
-                
-                check=ps.executeUpdate() > 0;
-            }
-        } catch(Exception ex){
-            throw ex;
-        } finally{
-            if(ps != null){
-                ps.close();
-            }
-            if(cnn != null){
-               cnn.close();
-            }
-        }
-        return check;
-    }
-
-    // --- DELETE ---
     public boolean delete(int productID) throws Exception {
         Connection cnn=null;
         PreparedStatement ps=null;
