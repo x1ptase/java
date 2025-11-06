@@ -25,18 +25,18 @@ public class ViewProductController extends HttpServlet {
         
         try{
             // check qtruy cap
-            HttpSession session=request.getSession(false); // Dùng false để không tạo session mới
+            HttpSession session=request.getSession(false); // false --> not create new session
             AccountDTO account=(AccountDTO) (session != null ? session.getAttribute("account") : null);
             
             // no login & not admin
             if(account == null || !account.isType()){
-                response.sendRedirect(request.getContextPath()+"/"+LOGIN_PAGE);
+                request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
                 return;
             }
             
             // get data
             ProductDAO dao=new ProductDAO();
-            List<ProductDTO> productList=dao.viewAllProducts(); // throw ex so put in trycatch
+            List<ProductDTO> productList=dao.viewAllProducts(); 
             
             // put data into request & chuyen huong
             request.setAttribute("PRODUCT_LIST", productList);
@@ -44,11 +44,8 @@ public class ViewProductController extends HttpServlet {
                     
         } catch(Exception ex){
             log("Error at ViewProductController: " + ex.getMessage());
-            url=ERROR_PAGE;
         } finally{
-            if(!response.isCommitted()){
-                request.getRequestDispatcher(url).forward(request, response);
-            }
+           request.getRequestDispatcher(url).forward(request, response);
         }
     }
     

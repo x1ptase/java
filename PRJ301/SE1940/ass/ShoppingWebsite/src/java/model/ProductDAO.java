@@ -15,14 +15,14 @@ public class ProductDAO {
 
     private static final String VIEW_ALL_PRODUCTS_SQL="SELECT * FROM Products";
     private static final String DELETE_SQL="DELETE FROM Products WHERE ProductID=?";
-    private static final String CREATE_SQL = 
-        "INSERT INTO Products (ProductID, ProductName, SupplierID, CategoryID, QuantityPerUnit, UnitPrice, ProductImage) " +
+    private static final String CREATE_SQL= 
+        "INSERT INTO Products(ProductID, ProductName, SupplierID, CategoryID, QuantityPerUnit, UnitPrice, ProductImage)" +
         "VALUES (?, ?, ?, ?, ?, ?, ?)";
-    private static final String UPDATE_SQL = 
-        "UPDATE Products SET ProductName=?, SupplierID=?, CategoryID=?, QuantityPerUnit=?, UnitPrice=?, ProductImage=? " +
+    private static final String UPDATE_SQL= 
+        "UPDATE Products SET ProductName=?, SupplierID=?, CategoryID=?, QuantityPerUnit=?, UnitPrice=?, ProductImage=?" +
         "WHERE ProductID=?";
-    private static final String FIND_BY_ID_SQL =
-        "SELECT ProductID, ProductName, SupplierID, CategoryID, QuantityPerUnit, UnitPrice, ProductImage FROM Products WHERE ProductID = ?";
+    private static final String FIND_BY_ID_SQL=
+        "SELECT * FROM Products WHERE ProductID=?";
 
     // --- VIEW ---
     public List<ProductDTO> viewAllProducts() throws Exception{
@@ -66,18 +66,19 @@ public class ProductDAO {
         return list;
     }
 
-    // --- FIND ONE BY ID ---
+    // --- FIND BY ID ---
     public ProductDTO findById(int productId) throws Exception {
-        Connection cnn = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            cnn = DBUtils.getConnection();
-            if (cnn != null) {
-                ps = cnn.prepareStatement(FIND_BY_ID_SQL);
+        Connection cnn=null;
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        try{
+            cnn=DBUtils.getConnection();
+            if(cnn != null){
+                ps=cnn.prepareStatement(FIND_BY_ID_SQL);
                 ps.setInt(1, productId);
-                rs = ps.executeQuery();
-                if (rs.next()) {
+                rs=ps.executeQuery();
+                
+                if(rs.next()){
                     return new ProductDTO(
                         rs.getInt("ProductID"),
                         rs.getString("ProductName"),
@@ -89,6 +90,8 @@ public class ProductDAO {
                     );
                 }
             }
+        } catch(Exception ex){
+            throw ex;
         } finally{
             if(rs != null){
                 rs.close();
@@ -103,16 +106,16 @@ public class ProductDAO {
         return null;
     }
 
-    // --- 2. CHỨC NĂNG CREATE ---
+    // --- CREATE ---
     public boolean createProduct(ProductDTO product) throws Exception {
-        Connection cnn = null;
-        PreparedStatement ps = null;
-        boolean check = false;
-        try {
-            cnn = DBUtils.getConnection();
-            if (cnn != null) {
-                ps = cnn.prepareStatement(CREATE_SQL);
-                // Ghi chú: Nếu ProductID là IDENTITY, bạn nên bỏ setInt(1, ...)
+        Connection cnn=null;
+        PreparedStatement ps=null;
+        boolean check=false;
+        try{
+            cnn=DBUtils.getConnection();
+            if(cnn != null){
+                ps=cnn.prepareStatement(CREATE_SQL);
+                
                 ps.setInt(1, product.getProductID()); 
                 ps.setString(2, product.getProductName());
                 ps.setInt(3, product.getSupplierID());
@@ -121,9 +124,9 @@ public class ProductDAO {
                 ps.setFloat(6, product.getUnitPrice());
                 ps.setString(7, product.getProductImage());
                 
-                check = ps.executeUpdate() > 0;
+                check=ps.executeUpdate() > 0;
             }
-        } catch (Exception ex) {
+        } catch(Exception ex){
             throw ex;
         } finally{
             if(ps != null){
@@ -136,26 +139,27 @@ public class ProductDAO {
         return check;
     }
     
-    // --- 3. CHỨC NĂNG UPDATE ---
+    // --- UPDATE ---
     public boolean updateProduct(ProductDTO product) throws Exception {
-        Connection cnn = null;
-        PreparedStatement ps = null;
-        boolean check = false;
-        try {
-            cnn = DBUtils.getConnection();
-            if (cnn != null) {
-                ps = cnn.prepareStatement(UPDATE_SQL);
+        Connection cnn=null;
+        PreparedStatement ps=null;
+        boolean check=false;
+        try{
+            cnn=DBUtils.getConnection();
+            if(cnn != null){
+                ps=cnn.prepareStatement(UPDATE_SQL);
+                
                 ps.setString(1, product.getProductName());
                 ps.setInt(2, product.getSupplierID());
                 ps.setInt(3, product.getCategoryID());
                 ps.setString(4, product.getQuantityPerUnit());
                 ps.setFloat(5, product.getUnitPrice());
                 ps.setString(6, product.getProductImage());
-                ps.setInt(7, product.getProductID()); // Dùng cho mệnh đề WHERE
+                ps.setInt(7, product.getProductID()); 
                 
-                check = ps.executeUpdate() > 0;
+                check=ps.executeUpdate() > 0;
             }
-        } catch (Exception ex) {
+        } catch(Exception ex){
             throw ex;
         } finally{
             if(ps != null){
@@ -181,7 +185,7 @@ public class ProductDAO {
                 ps.setInt(1, productID);
                 check=ps.executeUpdate() > 0;
             }
-        } catch (Exception ex) {
+        } catch(Exception ex){
             throw ex;
         } finally{
             if(ps != null){

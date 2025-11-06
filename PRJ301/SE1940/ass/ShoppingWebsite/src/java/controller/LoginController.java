@@ -12,9 +12,8 @@ import model.AccountDTO;
 public class LoginController extends HttpServlet {
     
     private static final String LOGIN_PAGE="Login.jsp";
-    private static final String USER_LIST_CONTROLLER="ViewPizzaListController";
     private static final String VIEW_ADMIN_CONTROLLER="ViewProductController";
-
+    private static final String USER_LIST_CONTROLLER="ViewPizzaListController";
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -32,9 +31,9 @@ public class LoginController extends HttpServlet {
         try{
             account=dao.checkLogin(userName, password); 
             if(account == null){
-                request.setAttribute("msg", "Username or password invalid");
+                request.setAttribute("msg", "Invalid username or password");
                 request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
-                return; // stop
+                return;
             }
             // login success
             HttpSession session=request.getSession();
@@ -47,6 +46,8 @@ public class LoginController extends HttpServlet {
             }
         } catch(Exception ex){
             log("Error at LoginController: " + ex.getMessage());
+        } finally{
+            request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
         }
     }
 }

@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,63 +17,43 @@ public class CreateProductController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url=ERROR_PAGE;
-        
-        // Chỉ xử lý POST request từ form
-        if ("POST".equalsIgnoreCase(request.getMethod())) {
-            try {
-                // 1. Lấy dữ liệu từ form (Cần ProductID nếu nó không phải IDENTITY)
-                int productID = Integer.parseInt(request.getParameter("txtProductID")); // Cần thiết nếu không dùng IDENTITY
-                String productName = request.getParameter("txtProductName");
-                int supplierID = Integer.parseInt(request.getParameter("txtSupplierID"));
-                int categoryID = Integer.parseInt(request.getParameter("txtCategoryID"));
-                String quantityPerUnit = request.getParameter("txtQuantityPerUnit");
-                float unitPrice = Float.parseFloat(request.getParameter("txtUnitPrice"));
-                String productImage = request.getParameter("txtProductImage");
-                // Normalize image path to relative under resource/
-                if (productImage != null) {
-                    productImage = productImage.trim();
-                    String ctx = request.getContextPath();
-                    String prefixCtx = ctx + "/resource/";
-                    if (productImage.startsWith(prefixCtx)) {
-                        productImage = productImage.substring(prefixCtx.length());
-                    } else if (productImage.startsWith("/resource/")) {
-                        productImage = productImage.substring("/resource/".length());
-                    } else if (productImage.startsWith("/")) {
-                        productImage = productImage.substring(1);
-                    }
-                }
-                
-                // 2. Tạo DTO và gọi DAO
-                ProductDTO newProduct = new ProductDTO(
-                    productID, productName, supplierID, categoryID, quantityPerUnit, unitPrice, productImage
-                );
-                
-                ProductDAO dao = new ProductDAO();
-                boolean check = dao.createProduct(newProduct);
+        String url;
 
-                // 3. Xử lý kết quả
-                if (check) {
-                    request.setAttribute("msg", "Tạo sản phẩm " + productName + " thành công!");
-                    url = VIEW_PRODUCT_CONTROLLER; // Chuyển đến trang xem danh sách
-                } else {
-                    request.setAttribute("msg", "Tạo sản phẩm thất bại. Vui lòng kiểm tra dữ liệu.");
-                    url = CREATE_PAGE; // Quay lại form
-                }
-
-            } catch (SQLException ex) {
-                log("Database Error at CreateProductController: " + ex.getMessage());
-                request.setAttribute("msg", "Lỗi CSDL: Không thể tạo sản phẩm. Mã ID có thể bị trùng.");
-            } catch (Exception ex) {
-                log("General Error at CreateProductController: " + ex.getMessage());
-                request.setAttribute("msg", "Lỗi nhập liệu hoặc hệ thống không mong muốn.");
-                url = CREATE_PAGE; // Quay lại form để người dùng sửa lỗi
-            }
-        } else {
-            url = CREATE_PAGE; // Nếu là GET, chỉ hiển thị form
+        if(!"POST".equalsIgnoreCase(request.getMethod())){
+            request.getRequestDispatcher(CREATE_PAGE).forward(request, response);
+            return;
         }
-        
-        request.getRequestDispatcher(url).forward(request, response);
+
+        try {
+            // Lấy dữ liệu từ form
+            int productID=parseIntParam(request, "txtProductID");
+            String productName=trimToNull(request.getParameter("txtProductName"));
+            int supplierID=parseIntParam(request, "txtSupplierID");
+            int categoryID=parseIntParam(request, "txtCategoryID");
+            String quantityPerUnit=trimToNull(request.getParameter("txtQuantityPerUnit"));
+            float unitPrice=parseFloatParam(request, "txtUnitPrice");
+            String productImage=normalizeImagePath(request, request.getParameter("txtProductImage"));
+
+            ProductDTO newProduct=new ProductDTO(
+                productID, productName, supplierID, categoryID, quantityPerUnit, unitPrice, productImage
+            );
+
+            boolean created=new ProductDAO().createProduct(newProduct);
+
+            if(created){
+                request.setAttribute("msg", "Create new product " + productName + " success");
+                url=VIEW_PRODUCT_CONTROLLER;
+            } else{
+                request.setAttribute("msg", "Crate new product invalid. Pls check DB");
+                url=CREATE_PAGE;
+            }
+        } catch(NumberFormatException nfe) {
+            request.setAttribute("msg", "DB invalid: " + nfe.getMessage());
+            url=CREATE_PAGE;
+        } catch(Exception ex){
+            log("Error at CreateProductController" + ex.getMessage());
+            url=CREATE_PAGE;
+        }
     }
     
     @Override
@@ -87,5 +66,38 @@ public class CreateProductController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+    }
+
+    
+    // chuan hoa path
+    private static String normalizeImagePath(HttpServletRequest request, String productImage) {
+        if(productImage == null) return null;
+        String value=productImage.trim();
+        String ctx=request.getContextPath();
+        String prefixCtx=ctx + "/resource/";
+        if(value.startsWith(prefixCtx)){
+            return value.substring(prefixCtx.length());
+        }
+        if(value.startsWith("/resource/")){
+            return value.substring("/resource/".length());
+        }
+        if(value.startsWith("/")){
+            return value.substring(1);
+        }
+        return value;
+    }
+
+    private static int parseIntParam(HttpServletRequest request, String name) {
+        return Integer.parseInt(request.getParameter(name));
+    }
+
+    private static float parseFloatParam(HttpServletRequest request, String name) {
+        return Float.parseFloat(request.getParameter(name));
+    }
+
+    private static String trimToNull(String s) {
+        if(s == null) return null;
+        String v=s.trim();
+        return v.isEmpty() ? null : v;
     }
 }
