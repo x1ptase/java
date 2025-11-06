@@ -21,11 +21,8 @@
         <h1>Product Management</h1>
         <p>${requestScope.msg}</p>
 
-        <p>
-            <a href="<c:url value='/MainController'><c:param name='action' value='CreatePage'/></c:url>">Create New Product</a>
-            | 
-            <a href="<c:url value='/LogoutController'/>">Logout</a>
-        </p>
+        
+        <a href="<c:url value='/LogoutController'/>">Logout</a>
 
         <%
             List<ProductDTO> productList=(List<ProductDTO>) request.getAttribute("PRODUCT_LIST");
@@ -51,7 +48,6 @@
                         <td>
                             <c:set var="productId" value="<%= product.getProductID() %>"/>
                             <a href="<c:url value='/MainController'><c:param name='action' value='ViewDetails'/><c:param name='productID' value='${productId}'/></c:url>">Details</a> |
-                            <a href="<c:url value='/MainController'><c:param name='action' value='UpdatePage'/><c:param name='productID' value='${productId}'/></c:url>">Edit</a> |
                             <form action="<c:url value='/MainController'/>" method="POST">
                                 <input type="hidden" name="action" value="DeleteProduct">
                                 <input type="hidden" name="productID" value="<%= product.getProductID() %>">

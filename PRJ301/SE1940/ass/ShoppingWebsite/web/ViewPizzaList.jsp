@@ -38,8 +38,7 @@
             <p>Size: <%= product.getQuantityPerUnit()%></p>
             <hr>
             <c:set var="productId" value="<%= product.getProductID()%>"/>
-            <a href="<c:url value='/MainController'><c:param name='action' value='ViewDetails'/><c:param name='productID' value='${productId}'/></c:url>">View Details</a> |
-            <a href="<c:url value='/MainController'><c:param name='action' value='AddToCart'/><c:param name='productID' value='${productId}'/></c:url>">Add to Cart</a>
+            <a href="<c:url value='/MainController'><c:param name='action' value='ViewDetails'/><c:param name='productID' value='${productId}'/></c:url>">View Details</a>
         </div>
         <%
             }

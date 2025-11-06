@@ -44,8 +44,6 @@
             <p><a href="<c:url value='/MainController'><c:param name='action' value='ViewProduct'/></c:url>">Back to Product Management</a></p>
         <% } else{ %>
             <p><a href="<c:url value='/MainController'><c:param name='action' value='ViewAllPizzas'/></c:url>">Back to Shopping</a></p>
-            <c:set var="productId" value="<%= product.getProductID() %>"/>
-            <p><a href="<c:url value='/MainController'><c:param name='action' value='AddToCart'/><c:param name='productID' value='${productId}'/></c:url>">Add to Cart</a></p>
         <% 
             } 
         %>

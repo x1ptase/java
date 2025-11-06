@@ -16,18 +16,12 @@ public class MainController extends HttpServlet {
     
     private static final String VIEW_PRODUCT_ACTION="ViewProduct";
     private static final String VIEW_DETAILS_ACTION="ViewDetails"; // view 1 product
-    private static final String CREATE_PAGE_ACTION="CreatePage"; // foward form tạo mới (GET)
-    private static final String CREATE_PRODUCT_ACTION="CreateProduct"; // send form tạo mới (POST)
-    private static final String UPDATE_PRODUCT_ACTION="UpdateProduct"; 
-    private static final String UPDATE_PAGE_ACTION="UpdatePage"; // show form update (GET)
     private static final String DELETE_PRODUCT_ACTION="DeleteProduct"; // delete (POST)
 
     private static final String LOGIN_CONTROLLER="LoginController";
     private static final String LOGOUT_CONTROLLER="LogoutController";
     
     private static final String VIEW_PRODUCT_CONTROLLER="ViewProductController";
-    private static final String CREATE_PRODUCT_CONTROLLER="CreateProductController"; // GET (form) & POST (process)
-    private static final String UPDATE_PRODUCT_CONTROLLER="UpdateProductController";
     private static final String DELETE_PRODUCT_CONTROLLER="DeleteProductController";
     private static final String VIEW_DETAILS_CONTROLLER="ViewDetailsController";
     private static final String VIEW_PIZZA_LIST_CONTROLLER="ViewPizzaListController";
@@ -49,14 +43,6 @@ public class MainController extends HttpServlet {
                 url=VIEW_PRODUCT_CONTROLLER;
             } else if(action.equals(VIEW_DETAILS_ACTION)){
                 url=VIEW_DETAILS_CONTROLLER;
-            } else if(action.equals(CREATE_PAGE_ACTION)){
-                url=CREATE_PRODUCT_CONTROLLER; 
-            } else if(action.equals(CREATE_PRODUCT_ACTION)){
-                url=CREATE_PRODUCT_CONTROLLER; 
-            } else if(action.equals(UPDATE_PAGE_ACTION)){
-                url=UPDATE_PRODUCT_CONTROLLER;
-            } else if(action.equals(UPDATE_PRODUCT_ACTION)){
-                url=UPDATE_PRODUCT_CONTROLLER;
             } else if(action.equals(DELETE_PRODUCT_ACTION)){
                 url=DELETE_PRODUCT_CONTROLLER;
             } else if("ViewAllPizzas".equals(action)) {
