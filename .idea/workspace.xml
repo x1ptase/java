@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="3c906a16-bf7a-4f3c-9163-9c31f4b76894" name="Changes" comment="" />
+    <list default="true" id="3c906a16-bf7a-4f3c-9163-9c31f4b76894" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PRJ301/tools/DBContext.txt" beforeDir="false" afterPath="$PROJECT_DIR$/PRJ301/tools/DBContext.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PRJ301/ws_ass/ass/ShoppingWebsite/build/web/Login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/PRJ301/ws_ass/ass/ShoppingWebsite/build/web/Login.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PRJ301/ws_ass/ass/ShoppingWebsite/build/web/ViewDetails.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/PRJ301/ws_ass/ass/ShoppingWebsite/build/web/ViewDetails.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PRJ301/ws_ass/ass/ShoppingWebsite/build/web/WEB-INF/classes/controller/ViewDetailsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/PRJ301/ws_ass/ass/ShoppingWebsite/build/web/WEB-INF/classes/controller/ViewDetailsController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PRJ301/ws_ass/ass/ShoppingWebsite/build/web/resource/images/app.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PRJ301/ws_ass/ass/ShoppingWebsite/build/web/resource/images/banner.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PRJ301/ws_ass/ass/ShoppingWebsite/build/web/resource/images/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PRJ301/ws_ass/ass/ShoppingWebsite/dist/ShoppingWebsite.war" beforeDir="false" afterPath="$PROJECT_DIR$/PRJ301/ws_ass/ass/ShoppingWebsite/dist/ShoppingWebsite.war" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PRJ301/ws_ass/ass/ShoppingWebsite/src/java/controller/ViewDetailsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/PRJ301/ws_ass/ass/ShoppingWebsite/src/java/controller/ViewDetailsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PRJ301/ws_ass/ass/ShoppingWebsite/web/Login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/PRJ301/ws_ass/ass/ShoppingWebsite/web/Login.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PRJ301/ws_ass/ass/ShoppingWebsite/web/ViewDetails.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/PRJ301/ws_ass/ass/ShoppingWebsite/web/ViewDetails.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PRJ301/ws_ass/ws2/MobileShop/dist/MobileShop.war" beforeDir="false" afterPath="$PROJECT_DIR$/PRJ301/ws_ass/ws2/MobileShop/dist/MobileShop.war" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

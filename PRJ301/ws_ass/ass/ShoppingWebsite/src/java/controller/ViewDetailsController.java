@@ -42,6 +42,8 @@ public class ViewDetailsController extends HttpServlet {
             }
         } catch(Exception ex){
             log("Error at ViewDetailsController: " + ex.getMessage());
+        } finally{
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
     

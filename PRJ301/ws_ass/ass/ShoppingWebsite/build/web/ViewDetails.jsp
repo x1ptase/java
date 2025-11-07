@@ -27,8 +27,8 @@
         <p><strong>Quantity Per Unit:</strong> <%= product.getQuantityPerUnit() %></p>
 
         <%
-            String rawImg = product.getProductImage();
-            String imgSrc = (rawImg != null && rawImg.startsWith("/"))
+            String rawImg=product.getProductImage();
+            String imgSrc=(rawImg != null && rawImg.startsWith("/"))
                     ? rawImg
                     : (request.getContextPath()+"/resource/"+ (rawImg != null ? rawImg : ""));
         %>
