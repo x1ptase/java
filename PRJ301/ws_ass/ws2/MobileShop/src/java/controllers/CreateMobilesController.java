@@ -21,15 +21,15 @@ public class CreateMobilesController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("user") == null) {
+        HttpSession session=request.getSession(false);
+        if(session == null || session.getAttribute("user") == null){
             request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
             return;
         }
         
-        UsersDTO user = (UsersDTO) session.getAttribute("user");
-        if (user.getRole() != 1) {
-            request.setAttribute("msg", "Access denied. Only admin can create mobiles.");
+        UsersDTO user=(UsersDTO) session.getAttribute("user");
+        if(user.getRole() != 1){
+            request.setAttribute("msg", "Only admin can create mobiles");
             request.getRequestDispatcher(VIEW_CONTROLLER).forward(request, response);
             return;
         }

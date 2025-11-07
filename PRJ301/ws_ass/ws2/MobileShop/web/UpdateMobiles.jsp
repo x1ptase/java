@@ -2,14 +2,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:useBean id="dao" class="models.MobilesDAO" />
 <%
-    String mobileId = request.getParameter("mobileId");
-    if (mobileId != null) {
-        try {
-            models.MobilesDTO mobile = dao.findById(mobileId);
-            if (mobile != null) {
+    String mobileId=request.getParameter("mobileId");
+    if(mobileId != null){
+        try{
+            models.MobilesDTO mobile=dao.findById(mobileId);
+            if(mobile != null){
                 request.setAttribute("mobile", mobile);
             }
-        } catch (Exception e) {
+        } catch(Exception e){
             e.printStackTrace();
         }
     }
@@ -23,7 +23,7 @@
     <body>
         <c:if test="${sessionScope.user == null || sessionScope.user.role != 1}">
             <h2>Access Denied</h2>
-            <p style="color: red">Only admin can update mobiles.</p>
+            <p style="color: red">Only admin can update mobiles</p>
             <a href="ViewController">Back to List</a>
         </c:if>
         

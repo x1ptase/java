@@ -17,13 +17,13 @@
             <h2>Create New Mobile</h2>
             
             <form action="CreateMobilesController" method="POST">
-            Mobile ID * <input type="text" name="mobileId" required /><br/>
-            Mobile Name * <input type="text" name="mobileName" required /><br/>
-            Description <textarea name="description"></textarea><br/>
-            Price * <input type="number" name="price" step="0.01" min="0" required /><br/>
-            Year of Production * <input type="number" name="yearOfProduction" min="1900" max="2100" required /><br/>
-            Quantity * <input type="number" name="quantity" min="0" required /><br/>
-            Not Sale <input type="checkbox" name="notSale" value="on" /><br/>
+                Mobile ID * <input type="text" name="mobileId" required /><br/>
+                Mobile Name * <input type="text" name="mobileName" required /><br/>
+                Description <textarea name="description"></textarea><br/>
+                Price * <input type="number" name="price" step="0.01" min="0" required /><br/>
+                Year of Production * <input type="number" name="yearOfProduction" min="1900" max="2100" required /><br/>
+                Quantity * <input type="number" name="quantity" min="0" required /><br/>
+                Not Sale <input type="checkbox" name="notSale" value="on" /><br/>
             
             <p style="color: red">${requestScope.msg}</p>
             

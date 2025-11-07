@@ -21,17 +21,17 @@ public class DeleteMobilesController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url=ERROR_PAGE;
         
-        HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("user") == null) {
+        HttpSession session=request.getSession(false);
+        if(session == null || session.getAttribute("user") == null) {
             request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
             return;
         }
         
-        UsersDTO user = (UsersDTO) session.getAttribute("user");
-        if (user.getRole() != 1) {
-            request.setAttribute("msg", "Access denied. Only admin can delete mobiles.");
-            url = VIEW_CONTROLLER;
-        } else {
+        UsersDTO user=(UsersDTO) session.getAttribute("user");
+        if(user.getRole() != 1){
+            request.setAttribute("msg", "nly admin can delete mobiles");
+            url=VIEW_CONTROLLER;
+        } else{
             try{
                 String mobilesId=request.getParameter("mobilesId");
                 
@@ -47,7 +47,6 @@ public class DeleteMobilesController extends HttpServlet {
                 log("Error at DeleteMobilesController: " + ex.getMessage());
             }
         }
-        
         request.getRequestDispatcher(url).forward(request, response);
     }
     
