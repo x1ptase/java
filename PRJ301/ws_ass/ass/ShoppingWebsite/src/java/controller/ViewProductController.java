@@ -24,21 +24,17 @@ public class ViewProductController extends HttpServlet {
         String url=ERROR_PAGE; 
         
         try{
-            // check qtruy cap
-            HttpSession session=request.getSession(false); // false --> not create new session
+            HttpSession session=request.getSession(false);
             AccountDTO account=(AccountDTO) (session != null ? session.getAttribute("account") : null);
             
-            // no login & not admin
             if(account == null || !account.isType()){
                 request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
                 return;
             }
             
-            // get data
             ProductDAO dao=new ProductDAO();
             List<ProductDTO> productList=dao.viewAllProducts(); 
             
-            // put data into request & chuyen huong
             request.setAttribute("PRODUCT_LIST", productList);
             url=VIEW_PAGE;
                     

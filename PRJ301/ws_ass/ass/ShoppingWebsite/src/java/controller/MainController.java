@@ -15,8 +15,8 @@ public class MainController extends HttpServlet {
     private static final String LOGOUT_ACTION="Logout";
     
     private static final String VIEW_PRODUCT_ACTION="ViewProduct";
-    private static final String VIEW_DETAILS_ACTION="ViewDetails"; // view 1 product
-    private static final String DELETE_PRODUCT_ACTION="DeleteProduct"; // delete (POST)
+    private static final String VIEW_DETAILS_ACTION="ViewDetails";
+    private static final String DELETE_PRODUCT_ACTION="DeleteProduct";
 
     private static final String LOGIN_CONTROLLER="LoginController";
     private static final String LOGOUT_CONTROLLER="LogoutController";

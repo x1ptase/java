@@ -35,14 +35,14 @@ public class LoginController extends HttpServlet {
                 request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
                 return;
             }
-            // login success
+            
             HttpSession session=request.getSession();
             session.setAttribute("account", account);
             
             if(account.isType()){
-                request.getRequestDispatcher(VIEW_ADMIN_CONTROLLER).forward(request, response); // ADMIN --> controller loads list
+                request.getRequestDispatcher(VIEW_ADMIN_CONTROLLER).forward(request, response); 
             } else{
-                request.getRequestDispatcher(USER_LIST_CONTROLLER).forward(request, response); // USER --> shopping list
+                request.getRequestDispatcher(USER_LIST_CONTROLLER).forward(request, response); 
             }
         } catch(Exception ex){
             log("Error at LoginController: " + ex.getMessage());

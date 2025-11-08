@@ -20,10 +20,8 @@ public class DeleteProductController extends HttpServlet {
         String url=ERROR_PAGE;
         
         try{
-            // get ProductID from request
             int productID=Integer.parseInt(request.getParameter("productID"));
             
-            // call dao
             ProductDAO dao=new ProductDAO();
             boolean check=dao.delete(productID);
             
@@ -33,7 +31,6 @@ public class DeleteProductController extends HttpServlet {
                 request.setAttribute("msg", "Delete product failed. ID " + productID + " not exist");
             }
             
-            // fw ve trang view de user xem kq
             url=VIEW_PRODUCT_CONTROLLER; 
 
         } catch(Exception ex) {
