@@ -14,8 +14,8 @@
     <body>
         <!--your code here-->
         <form action="LoginController" method="POST">
-            Username <input type="text" name="txtUsername" value="" /> <br/>
-            Password <input type="password" name="txtPassword" value="" /> <br/>
+            Username <input type="text" name="txtUsername" value="" required /> <br/>
+            Password <input type="password" name="txtPassword" value="" required /> <br/>
             
             <p style="color:red">${requestScope.msg}</p>
             

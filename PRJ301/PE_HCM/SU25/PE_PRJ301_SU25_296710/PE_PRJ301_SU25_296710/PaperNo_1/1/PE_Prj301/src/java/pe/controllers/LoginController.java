@@ -39,7 +39,7 @@ public class LoginController extends HttpServlet {
         try{
             account=dao.checkLogin(userName, password);
             if(account == null){
-                request.setAttribute("msg", "Invalid user or password");
+                request.setAttribute("msg", "invalid user or password");
                 request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
                 return;
             }
@@ -49,7 +49,7 @@ public class LoginController extends HttpServlet {
             request.getRequestDispatcher(WELCOME_PAGE).forward(request, response);
         } catch(Exception ex){
             log("Error at LoginController: " + ex.toString());
-        } finally{
+            request.setAttribute("msg", "invalid user or password");
             request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
         }
     }
