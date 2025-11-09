@@ -12,7 +12,7 @@ import models.tbAccountDTO;
 
 public class AddBikeController extends HttpServlet {
 
-    private static final String ADD_BIKE_PAGE = "addBike.jsp";
+    private static final String ADD_BIKE_PAGE="addBike.jsp";
     private static final String BIKE_LIST_PAGE = "bikeList.jsp";
     private static final String LOGIN_PAGE = "login.jsp";
 
