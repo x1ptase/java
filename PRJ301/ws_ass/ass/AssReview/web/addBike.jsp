@@ -48,17 +48,15 @@
         <p style="color: green">${requestScope.success}</p>
         
         <%
-            String success = (String) request.getAttribute("success");
+            String success=(String) request.getAttribute("success");
             if(success != null && !success.isEmpty()){
         %>
         <br/>
-        <a href="bikeList.jsp">Back</a>
         <%
             }
         %>
         
-        <br/><br/>
-        <a href="bikeList.jsp">Back to Search</a>
+        <a href="bikeList.jsp">Back</a>
     </body>
 </html>
 

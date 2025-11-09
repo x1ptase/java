@@ -35,7 +35,7 @@ public class RemoveBikeController extends HttpServlet {
             String keyword = request.getParameter("keyword");
             
             if (bikeID == null || bikeID.trim().isEmpty()) {
-                // If no bike ID, redirect back to search with keyword
+              
                 if (keyword != null && !keyword.trim().isEmpty()) {
                     response.sendRedirect(SEARCH_BIKE_CONTROLLER + "?keyword=" + java.net.URLEncoder.encode(keyword, "UTF-8"));
                 } else {
@@ -48,14 +48,14 @@ public class RemoveBikeController extends HttpServlet {
             boolean result = dao.deleteBike(bikeID.trim());
             
             if (result) {
-                // Success - redirect back to search with keyword to refresh grid
+               
                 if (keyword != null && !keyword.trim().isEmpty()) {
                     response.sendRedirect(SEARCH_BIKE_CONTROLLER + "?keyword=" + java.net.URLEncoder.encode(keyword, "UTF-8"));
                 } else {
                     response.sendRedirect(SEARCH_BIKE_CONTROLLER);
                 }
             } else {
-                // Failed - still redirect but could set error message
+                
                 if (keyword != null && !keyword.trim().isEmpty()) {
                     response.sendRedirect(SEARCH_BIKE_CONTROLLER + "?keyword=" + java.net.URLEncoder.encode(keyword, "UTF-8"));
                 } else {

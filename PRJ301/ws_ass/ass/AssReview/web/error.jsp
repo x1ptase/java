@@ -6,6 +6,7 @@
         <title>Error Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Error!</h1>
+        <a href="bikeList.jsp">Back</a>
     </body>
 </html>

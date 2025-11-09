@@ -13,87 +13,78 @@ import models.tbAccountDTO;
 public class AddBikeController extends HttpServlet {
 
     private static final String ADD_BIKE_PAGE="addBike.jsp";
-    private static final String BIKE_LIST_PAGE = "bikeList.jsp";
-    private static final String LOGIN_PAGE = "login.jsp";
+    private static final String LOGIN_PAGE="login.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            response.sendRedirect(request.getContextPath() + "/" + LOGIN_PAGE);
-            return;
-        }
+        // Check authentication
+        if(!checkAuth(request, response)) return;
         
-        tbAccountDTO account = (tbAccountDTO) session.getAttribute("account");
-        if (account == null) {
-            response.sendRedirect(request.getContextPath() + "/" + LOGIN_PAGE);
-            return;
-        }
-        
-        try {
-            String bikeID = request.getParameter("txtBikeID");
-            String bikeName = request.getParameter("txtBikeName");
-            String quantityStr = request.getParameter("txtQuantity");
-            String model = request.getParameter("txtModel");
+        try{
+            // Get and validate parameters
+            String bikeID=getParam(request, "txtBikeID");
+            String bikeName=getParam(request, "txtBikeName");
+            String quantityStr=getParam(request, "txtQuantity");
+            String model=getParam(request, "txtModel");
             
-            // Validate input
-            if (bikeID == null || bikeID.trim().isEmpty() ||
-                bikeName == null || bikeName.trim().isEmpty() ||
-                quantityStr == null || quantityStr.trim().isEmpty() ||
-                model == null || model.trim().isEmpty()) {
-                request.setAttribute("error", "All fields are required!");
-                request.getRequestDispatcher(ADD_BIKE_PAGE).forward(request, response);
+            if(bikeID == null || bikeName == null || quantityStr == null || model == null){
+                forwardError(request, response, "All fields are required!");
                 return;
             }
             
+            // Validate quantity
             int quantity;
-            try {
-                quantity = Integer.parseInt(quantityStr);
-                if (quantity < 0) {
-                    request.setAttribute("error", "Quantity must be a positive number!");
-                    request.getRequestDispatcher(ADD_BIKE_PAGE).forward(request, response);
+            try{
+                quantity=Integer.parseInt(quantityStr);
+                if(quantity < 0){
+                    forwardError(request, response, "Quantity must be a positive number!");
                     return;
                 }
-            } catch (NumberFormatException ex) {
-                request.setAttribute("error", "Quantity must be a valid number!");
-                request.getRequestDispatcher(ADD_BIKE_PAGE).forward(request, response);
+            } catch(NumberFormatException ex){
+                forwardError(request, response, "Quantity must be a valid number!");
                 return;
             }
             
-            tbBikeDAO dao = new tbBikeDAO();
-            
-            // Check if bike ID already exists
-            if (dao.checkBikeIDExists(bikeID.trim())) {
-                request.setAttribute("error", "Bike ID already exists!");
-                request.getRequestDispatcher(ADD_BIKE_PAGE).forward(request, response);
+            // Check duplicate ID and insert
+            tbBikeDAO dao=new tbBikeDAO();
+            if(dao.checkBikeIDExists(bikeID)){
+                forwardError(request, response, "Bike ID already exists!");
                 return;
             }
             
-            // Create bike DTO and insert
-            tbBikeDTO bike = new tbBikeDTO(
-                bikeID.trim(),
-                bikeName.trim(),
-                quantity,
-                model.trim()
-            );
+            boolean result=dao.insertBike(new tbBikeDTO(bikeID, bikeName, quantity, model));
+            request.setAttribute(result ? "success" : "error", 
+                result ? "Bike added successfully!" : "Failed to add bike. Please try again!");
             
-            boolean result = dao.insertBike(bike);
-            
-            if (result) {
-                request.setAttribute("success", "Bike added successfully!");
-            } else {
-                request.setAttribute("error", "Failed to add bike. Please try again!");
-            }
-            
-        } catch (Exception ex) {
+        } catch(Exception ex){
             log("Error at AddBikeController: " + ex.getMessage());
             ex.printStackTrace();
-            request.setAttribute("error", "An error occurred: " + ex.getMessage());
-        } finally {
+            forwardError(request, response, "An error occurred: " + ex.getMessage());
+        } finally{
             request.getRequestDispatcher(ADD_BIKE_PAGE).forward(request, response);
         }
+    }
+    
+    private boolean checkAuth(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        HttpSession session = request.getSession(false);
+        if(session == null || session.getAttribute("account") == null){
+            response.sendRedirect(request.getContextPath() + "/" + LOGIN_PAGE);
+            return false;
+        }
+        return true;
+    }
+    
+    private String getParam(HttpServletRequest request, String paramName){
+        String value = request.getParameter(paramName);
+        return (value != null && !value.trim().isEmpty()) ? value.trim() : null;
+    }
+    
+    private void forwardError(HttpServletRequest request, HttpServletResponse response, String errorMsg) 
+            throws ServletException, IOException{
+        request.setAttribute("error", errorMsg);
+        request.getRequestDispatcher(ADD_BIKE_PAGE).forward(request, response);
     }
 
     @Override

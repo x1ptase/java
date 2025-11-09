@@ -28,8 +28,8 @@
         </form>
         
         <%
-            List<tbBikeDTO> bikeList = (List<tbBikeDTO>) request.getAttribute("bikeList");
-            String keyword = (String) request.getAttribute("keyword");
+            List<tbBikeDTO> bikeList=(List<tbBikeDTO>) request.getAttribute("bikeList");
+            String keyword=(String) request.getAttribute("keyword");
             
             if(bikeList != null && !bikeList.isEmpty()){
         %>
@@ -47,7 +47,7 @@
             </thead>
             <tbody>
                 <%
-                    int no = 1;
+                    int no=1;
                     for(tbBikeDTO bike : bikeList){
                 %>
                 <tr>
