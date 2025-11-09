@@ -4,8 +4,14 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/GIT/java/PRJ301/PE_HCM/SU25/PE_PRJ301_SU25_296710/PE_PRJ301_SU25_296710/PaperNo_1/1/PE_Prj301/web/login.jsp</file>
+            <file>file:/D:/GIT/java/PRJ301/PE_HCM/SU25/PE_PRJ301_SU25_296710/PE_PRJ301_SU25_296710/PaperNo_1/1/PE_Prj301/src/java/pe/model/RoomForRentDto.java</file>
+            <file>file:/D:/GIT/java/PRJ301/PE_HCM/SU25/PE_PRJ301_SU25_296710/PE_PRJ301_SU25_296710/PaperNo_1/1/PE_Prj301/src/java/pe/controllers/LoginController.java</file>
             <file>file:/D:/GIT/java/PRJ301/PE_HCM/SU25/PE_PRJ301_SU25_296710/PE_PRJ301_SU25_296710/PaperNo_1/1/PE_Prj301/web/search.jsp</file>
+            <file>file:/D:/GIT/java/PRJ301/PE_HCM/SU25/PE_PRJ301_SU25_296710/PE_PRJ301_SU25_296710/PaperNo_1/1/PE_Prj301/src/java/pe/model/RoomForRentDao.java</file>
+            <file>file:/D:/GIT/java/PRJ301/PE_HCM/SU25/PE_PRJ301_SU25_296710/PE_PRJ301_SU25_296710/PaperNo_1/1/PE_Prj301/src/java/pe/controllers/SearchController.java</file>
             <file>file:/D:/GIT/java/PRJ301/PE_HCM/SU25/PE_PRJ301_SU25_296710/PE_PRJ301_SU25_296710/PaperNo_1/1/PE_Prj301/web/welcome.jsp</file>
+            <file>file:/D:/GIT/java/PRJ301/PE_HCM/SU25/PE_PRJ301_SU25_296710/PE_PRJ301_SU25_296710/PaperNo_1/1/PE_Prj301/src/java/pe/controllers/MainController.java</file>
+            <file>file:/D:/GIT/java/PRJ301/PE_HCM/SU25/PE_PRJ301_SU25_296710/PE_PRJ301_SU25_296710/PaperNo_1/1/PE_Prj301/src/java/pe/controllers/DeleteController.java</file>
         </group>
     </open-files>
 </project-private>
