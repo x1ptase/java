@@ -3,20 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/GIT/java/PRJ301/ws_ass/ass/ShoppingWebsite/src/java/controller/ViewDetailsController.java</file>
-            <file>file:/D:/GIT/java/PRJ301/ws_ass/ass/ShoppingWebsite/src/java/controller/LogoutController.java</file>
             <file>file:/D:/GIT/java/PRJ301/ws_ass/ass/ShoppingWebsite/web/View.jsp</file>
-            <file>file:/D:/GIT/java/PRJ301/ws_ass/ass/ShoppingWebsite/src/java/controller/ViewProductController.java</file>
             <file>file:/D:/GIT/java/PRJ301/ws_ass/ass/ShoppingWebsite/web/ViewPizzaList.jsp</file>
-            <file>file:/D:/GIT/java/PRJ301/ws_ass/ass/ShoppingWebsite/web/ViewDetails.jsp</file>
-            <file>file:/D:/GIT/java/PRJ301/ws_ass/ass/ShoppingWebsite/src/java/model/ProductDAO.java</file>
-            <file>file:/D:/GIT/java/PRJ301/ws_ass/ass/ShoppingWebsite/src/java/controller/LoginController.java</file>
-            <file>file:/D:/GIT/java/PRJ301/ws_ass/ass/ShoppingWebsite/src/java/model/AccountDAO.java</file>
-            <file>file:/D:/GIT/java/PRJ301/ws_ass/ass/ShoppingWebsite/src/java/controller/DeleteProductController.java</file>
-            <file>file:/D:/GIT/java/PRJ301/ws_ass/ass/ShoppingWebsite/src/java/controller/ViewPizzaListController.java</file>
-            <file>file:/D:/GIT/java/PRJ301/ws_ass/ass/ShoppingWebsite/web/Login.jsp</file>
-            <file>file:/D:/GIT/java/PRJ301/ws_ass/ass/ShoppingWebsite/web/Error.jsp</file>
-            <file>file:/D:/GIT/java/PRJ301/ws_ass/ass/ShoppingWebsite/src/java/controller/MainController.java</file>
         </group>
     </open-files>
 </project-private>
