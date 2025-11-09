@@ -44,7 +44,7 @@
             if (searchResults != null) {
                 if (searchResults.isEmpty()) {
                     if (searchCriteria != null && !searchCriteria.trim().isEmpty()) {
-                        out.println("<p>No data matching the search criteria found!</p>");
+                        out.println("<p style=\"color:red\">No data matching the search criteria found!</p>");
                     }
                 } else {
         %>

@@ -42,15 +42,20 @@ public class SearchController extends HttpServlet {
         List<RoomForRentDto> list = null;
         
         try {
-            if (searchCriteria != null && !searchCriteria.trim().isEmpty()) {
-                list = dao.searchByLocation(searchCriteria);
-                request.setAttribute("searchResults", list);
-                request.setAttribute("searchCriteria", searchCriteria);
-            } else {
-                // If no search criteria, show empty list
-                request.setAttribute("searchResults", new java.util.ArrayList<RoomForRentDto>());
-                request.setAttribute("searchCriteria", "");
+            // Only process search if txtSearch parameter exists (user clicked Search button)
+            if (searchCriteria != null) {
+                if (!searchCriteria.trim().isEmpty()) {
+                    // Search with criteria
+                    list = dao.searchByLocation(searchCriteria);
+                    request.setAttribute("searchResults", list);
+                    request.setAttribute("searchCriteria", searchCriteria);
+                } else {
+                    // If search button clicked but no data entered, show empty list (no results)
+                    request.setAttribute("searchResults", new java.util.ArrayList<RoomForRentDto>());
+                    request.setAttribute("searchCriteria", "");
+                }
             }
+            // If txtSearch parameter is null, don't set searchResults (table won't be displayed)
         } catch (SQLException ex) {
             log("Error at SearchController: " + ex.toString());
         }
