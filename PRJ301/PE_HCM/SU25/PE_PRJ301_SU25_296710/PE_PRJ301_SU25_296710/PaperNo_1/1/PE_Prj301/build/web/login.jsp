@@ -13,11 +13,13 @@
     </head>
     <body>
         <!--your code here-->
-        <form action="MainController" method="POST">
-            User ID:<input type="text" name="userID" required=""/><br>
-            Password:<input type="password" name="password" required=""/><br>
-            <input type="submit" name="action" value="Login"/>
-            <input type="reset" value="Reset"/>
+        <form action="LoginController" method="POST">
+            Username <input type="text" name="txtUsername" value="" /> <br/>
+            Password <input type="password" name="txtPassword" value="" /> <br/>
+            
+            <p style="color:red">${requestScope.msg}</p>
+            
+            <input type="submit" value="Login" />
         </form>
     </body>
 </html>

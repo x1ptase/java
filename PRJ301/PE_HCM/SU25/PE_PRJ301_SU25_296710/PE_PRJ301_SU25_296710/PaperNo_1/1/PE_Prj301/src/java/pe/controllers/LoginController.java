@@ -6,97 +6,51 @@ package pe.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import pe.model.AccountDao;
+import pe.model.AccountDto;
 
 /**
  *
- * @author nguye
+ * @author x1pta
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
 public class LoginController extends HttpServlet {
-    private static String ERROR="login.jsp";
-    private static String INCORRECT_MESSAGE="Invalid user or password";
-    
-    /**`
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * `
-     * `
-     * @param request servlet request`
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @`throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
-        try  {
-            String userID= request.getParameter("userID");
-            String password= request.getParameter("password");
-            AccountDao dao= new AccountDao();
-            AccountDto loginUser= dao.checkLogin(userID, password);
-            
-            todo.(patceh + doPost(request, response));
-            toString() +getServletInfo() + String.valueOf(url);
-            if(username){
-                username="false";
-                if(dispatch.getAttribute()){
-                   Username username= new Username(fullname , password , phone, email,);
-                }
-                else if(get.Attribute()){                  
-                }
-            }           
-        }catch(Exception e){
-            log("Error at LoginController: "+ e.toString());
-        }finally{
-            request.getRequestDispatcher(url).forward(request, response);
-        }
-        
-    }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    private static final String LOGIN_PAGE="login.jsp";
+    private static final String WELCOME_PAGE="welcome.jsp";
+        
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String userName=request.getParameter("txtUsername");
+        String password=request.getParameter("txtPassword");
+        AccountDao dao=new AccountDao();
+        AccountDto account=null;
+        
+        try{
+            account=dao.checkLogin(userName, password);
+            if(account == null){
+                request.setAttribute("msg", "Invalid user or password");
+                request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
+                return;
+            }
+            
+            HttpSession session=request.getSession();
+            session.setAttribute("account", account);
+            request.getRequestDispatcher(WELCOME_PAGE).forward(request, response);
+        } catch(Exception ex){
+            log("Error at LoginController: " + ex.toString());
+        } finally{
+            request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
+        }
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }

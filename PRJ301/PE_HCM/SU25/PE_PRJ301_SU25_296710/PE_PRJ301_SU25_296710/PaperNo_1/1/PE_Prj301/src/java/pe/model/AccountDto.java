@@ -11,27 +11,25 @@ package pe.model;
  */
 public class AccountDto {
     //-----            your code here   --------------------------------
-    
     private String username;
-    private String password;
-    private String fullname;
-    private String phone ;
+    private String passowrd;
+    private String fullName;
+    private String phone;
     private String email;
+    private int status;
+    private int role;
 
     public AccountDto() {
-        this.username = "";
-        this.password = "";
-        this.fullname = "";
-        this.phone = "";
-        this.email = "";
     }
 
-    public AccountDto(String username, String password, String fullname, String phone, String email) {
+    public AccountDto(String username, String passowrd, String fullName, String phone, String email, int status, int role) {
         this.username = username;
-        this.password = password;
-        this.fullname = fullname;
+        this.passowrd = passowrd;
+        this.fullName = fullName;
         this.phone = phone;
         this.email = email;
+        this.status = status;
+        this.role = role;
     }
 
     public String getUsername() {
@@ -42,20 +40,20 @@ public class AccountDto {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPassowrd() {
+        return passowrd;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassowrd(String passowrd) {
+        this.passowrd = passowrd;
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getPhone() {
@@ -74,5 +72,21 @@ public class AccountDto {
         this.email = email;
     }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+    
     
 }

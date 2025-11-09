@@ -6,10 +6,11 @@
 package pe.controllers;
 
 import java.io.IOException;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 
 /**
  *
@@ -17,34 +18,23 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 public class MainController extends HttpServlet {
 
-    private static final String LOGIN="login.jsp";
-    private static final String WELCOME = "Login";
-    private static final String WELCOME_CONTROLLER = "WelcomeController";
-    private static final String CREATE ="Create";
-    private static final String CREATE_CONTROLLER ="CreateController";
-    
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *`
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+   private static final String WELCOME="login.jsp";
+   private static final String WELCOME_PAGE="welecome.jsp";
+   
+   private static final String LOGIN_ACTION="Login";
+   private static final String LOGOUT_ACTION="Logout";
+
+   
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url= WELCOME;
+        String url=WELCOME;
         try {
             String action= request.getParameter("action");
-           if (WELCOME.equals(action)) {
-                url = WELCOME_CONTROLLER;
-           }else if(CREATE.equals(action)){
-               url = CREATE_CONTROLLER;
-           }
             //-----            your code here   --------------------------------
-            
+            if(action.equals(LOGIN_ACTION))
+                url=WELCOME;
+
             //-----            your code here   --------------------------------
         } catch(Exception e) {
             log("error at MainController: "+ e.toString());

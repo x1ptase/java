@@ -6,8 +6,10 @@
 package pe.model;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import pe.utils.DbUtils;
 
 /**
  *
@@ -15,23 +17,43 @@ import java.sql.SQLException;
  */
 public class AccountDao {
     //-----            your code here   --------------------------------
-    private static final String LOGIN="ID ??? title"attribute" how a confieden";
+    private static final String CHECK_LOGIN_SQL="SELECT * FROM Account WHERE username=? AND password=?";
     
-    public UserDto checkLogin(String username, String password) throws SQLException {
-        AccountDto user = null;
-        Connection conn = null;        
-        ResultSet rs = null;
-        try {
-            conn = pe.utils.getConnection();
-            if (conn != null) {
-                ptm = conn.prepareStatement(LOGIN);
-                ptm.setString(1, userID);
-                ptm.setString(2, password);
-                rs = ptm.executeQuery();
+    public AccountDto checkLogin(String username, String password) throws SQLException{
+        Connection cnn=null;
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        
+        try{
+            cnn=DbUtils.getConnection();
+            ps=cnn.prepareStatement(CHECK_LOGIN_SQL);
+            ps.setString(1, username);
+            ps.setString(2, password);
+            rs=ps.executeQuery();
+            if(rs.next()){
+                return new AccountDto(
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("fullName"),
+                        rs.getString("phone"),
+                        rs.getString("email"),
+                        rs.getInt("status"),
+                        rs.getInt("role")
+                );
             }
-        }catch(Exception e){
-            log.("login error to connect server" + toString() );
-        }finally(){
-            dispatch.getAttribute.request + respone ;
+        } catch(Exception ex){
+            ex.printStackTrace();
+        } finally{
+            if(cnn != null){
+                cnn.close();
+            }
+            if(ps != null){
+                ps.close();
+            }
+            if(rs != null){
+                rs.close();
+            }
         }
+        return null;
+    }
 }

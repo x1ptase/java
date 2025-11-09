@@ -4,6 +4,7 @@
     Author     : Computing Fundamental - HCM Campus
 --%>
 
+<%@page import="pe.model.AccountDto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,14 +14,15 @@
     </head>
     <body>
         <!--your code` here-->
-        <% 
-            AccountDto= loginUser (AccountDto) session.getAttribute("LOGIN_USER");
-            if(loginUser== null) loginUser=new AccountDto();
+        <%
+            AccountDto account=(AccountDto) session.getAttribute("account");
+            if(account == null){
+                response.sendRedirect(request.getContextPath() + "/login.jsp");
+                return;
+            }
         %>
-        User ID:<%= loginUser.getUserID() %> </br>
-        Full Name:<%= loginUser.getFullName()%> </br>
-        Role ID:<%= loginUser.getRoleID()%> </br>
-        Password:<%= loginUser.getPassword()%>
+        <h2>Welcome <%= account.getFullName()%>!</h2>
         
+        <a href="SearchController">Search</a> | <a href="LogoutController">Logout</a>
     </body>
 </html>
