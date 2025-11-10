@@ -6,7 +6,7 @@
         <title>Login Page</title>
     </head>
     <body> 
-        <form action="LoginController" method="POST">
+        <form action="MainController?action=Login" method="POST">
             Username <input type="text" name="txtUserID" value="" /><br/>
             Password <input type="password" name="txtPassword" value="" /><br/>
             <p style="color: red">${requestScope.msg}</p>
