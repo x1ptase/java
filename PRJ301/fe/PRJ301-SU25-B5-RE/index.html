@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ôn tập Java Web Development (PRJ301-SU25-B5-RE)</title>
+    <title>PRJ301-SU25-B5-RE</title>
     <link rel="stylesheet" href="styles.css"> 
 </head>
 <body>
 
     <div class="container">
-        <h1>PRJ301-SU25-B5-RE (Java Web Development)</h1>
+        <h1>PRJ301-SU25-B5-RE</h1>
 
         <table>
             <thead>
@@ -70,7 +70,9 @@
                     <td class="question-col">What is the correct order of the servlet life cycle phases?</td>
                     <td class="answer-col">Initialization, Service, Destroy 
 
+
 [Image of Servlet Life Cycle]
+
 </td>
                 </tr>
                 <tr>
@@ -101,7 +103,7 @@
                 <tr>
                     <td class="no-col">16</td>
                     <td class="question-col">In JSP, what do scriptlets allow developers to embed within a page?</td>
-                    <td class="answer-col">Direct Java commands (The original answer "Direct SQL commands" is likely an error, Java code is correct)</td>
+                    <td class="answer-col">Direct **Java commands** (The original answer "Direct SQL commands" is technically incorrect; Java code is the core feature)</td>
                 </tr>
                 <tr>
                     <td class="no-col">17</td>
@@ -143,7 +145,9 @@
                     <td class="question-col">Which is NOT considered a standard component of a typical MVC architecture in web applications?</td>
                     <td class="answer-col">Database 
 
+
 [Image of MVC Architecture Diagram]
+
 </td>
                 </tr>
                 <tr>
@@ -175,6 +179,107 @@
                     <td class="no-col">30</td>
                     <td class="question-col">Which EL operator is used to access properties or attributes of objects?</td>
                     <td class="answer-col"><code>. (dot)</code></td>
+                </tr>
+                
+                <tr>
+                    <td class="no-col">31</td>
+                    <td class="question-col">How would you use EL to access a property named title from a Map object within a List named bookList at index 2?</td>
+                    <td class="answer-col"><code>${bookList["2"].title}</code> (or <code>${bookList[2].title}</code>)</td>
+                </tr>
+                <tr>
+                    <td class="no-col">32</td>
+                    <td class="question-col">What is the correct syntax for accessing the first element of a collection named "items" in EL?</td>
+                    <td class="answer-col"><code>${items[0]}</code></td>
+                </tr>
+                <tr>
+                    <td class="no-col">33</td>
+                    <td class="question-col">Which llistener is triggered when an attribute is added to a ServletContext?</td>
+                    <td class="answer-col"><code>ServletContextAttributeListener</code></td>
+                </tr>
+                <tr>
+                    <td class="no-col">34</td>
+                    <td class="question-col">In the <code>contextInitialized</code> method, what kind of tasks would you typically perform during the initialization of the servlet context?</td>
+                    <td class="answer-col">Initializing object for database connections (e.g., loading drivers, setting up connection pools)</td>
+                </tr>
+                <tr>
+                    <td class="no-col">35</td>
+                    <td class="question-col">Which Listener should be used to load JDBC Driver automatically for a web application?</td>
+                    <td class="answer-col"><code>ServletContextListener</code></td>
+                </tr>
+                <tr>
+                    <td class="no-col">36</td>
+                    <td class="question-col">When does <code>HttpSessionListener</code>'s <code>sessionCreated</code> method get invoked?</td>
+                    <td class="answer-col">When a new session is created (e.g., the first time a client accesses the app)</td>
+                </tr>
+                <tr>
+                    <td class="no-col">37</td>
+                    <td class="question-col">Which Java statement does the <code>&lt;c:when&gt;</code> tag within <code>&lt;c:choose&gt;</code> resemble?</td>
+                    <td class="answer-col"><code>switch-case</code> statement</td>
+                </tr>
+                <tr>
+                    <td class="no-col">38</td>
+                    <td class="question-col">In JSTL, how can you test if a variable is defined or not?</td>
+                    <td class="answer-col">Using the <code>&lt;c:if&gt;</code> tag with a condition checking for <code>null</code> (e.g., <code>${variable != null}</code>)</td>
+                </tr>
+                <tr>
+                    <td class="no-col">39</td>
+                    <td class="question-col">Which JSTL tag is used to set the locate for formatting and parsing in a JSP page?</td>
+                    <td class="answer-col"><code>&lt;fmt:setLocate&gt;</code></td>
+                </tr>
+                <tr>
+                    <td class="no-col">40</td>
+                    <td class="question-col">How are <code>&lt;fmt:parseDate&gt;</code> and <code>&lt;fmt:formatDate&gt;</code> different?</td>
+                    <td class="answer-col"><code>&lt;fmt:parseDate&gt;</code> turns **text into a date** (String &rarr; Date Object), and <code>&lt;fmt:formatDate&gt;</code> turns a **date into text** (Date Object &rarr; String)</td>
+                </tr>
+                <tr>
+                    <td class="no-col">41</td>
+                    <td class="question-col">What purpose does a logging filter serve in a Java web application?</td>
+                    <td class="answer-col">Logs requests and responses for monitoring and auditing</td>
+                </tr>
+                <tr>
+                    <td class="no-col">42</td>
+                    <td class="question-col">You need to modify the deployment descriptor for a web application installed in MyWebPro directory. Which file would you look for?</td>
+                    <td class="answer-col"><code>web.xml</code> in <code>MyWebPro/WEB-INF</code></td>
+                </tr>
+                <tr>
+                    <td class="no-col">43</td>
+                    <td class="question-col">During the filter lifecycle in a web application, when is the init() method typically called?</td>
+                    <td class="answer-col">Only once when the filter is first instantiated (usually upon application startup)</td>
+                </tr>
+                <tr>
+                    <td class="no-col">44</td>
+                    <td class="question-col">What is the purpose of the <code>&lt;filter&gt;</code> element in the web.xml deployment descriptor of a Java web application?</td>
+                    <td class="answer-col">To configure and define filters that can intercept request and responses in the web application</td>
+                </tr>
+                <tr>
+                    <td class="no-col">45</td>
+                    <td class="question-col">What's the purpose of the close method when handling JDBC resources?</td>
+                    <td class="answer-col"><code>resultSet.close(); statement.close(); connection.close()</code> (to release database resources)</td>
+                </tr>
+                <tr>
+                    <td class="no-col">46</td>
+                    <td class="question-col">What is purpose of the JSP <code>&lt;error-page&gt;</code> directive?</td>
+                    <td class="answer-col">To declare custom error pages for specific HTTP error codes or exception types</td>
+                </tr>
+                <tr>
+                    <td class="no-col">47</td>
+                    <td class="question-col">In a Java web application, where are Java Beans commmonly used?</td>
+                    <td class="answer-col">In the presentation layer (JSP) for rendering HTML and holding data (DTOs/Model)</td>
+                </tr>
+                <tr>
+                    <td class="no-col">48</td>
+                    <td class="question-col">In a Java web application, which of the following statements is used to execure an SQL query against a database?</td>
+                    <td class="answer-col"><code>executeQuery()</code> (used for SELECT queries)</td>
+                </tr>
+                <tr>
+                    <td class="no-col">49</td>
+                    <td class="question-col">What is the role of the Connection interface in JDBC when managing database operations in a Java web application?</td>
+                    <td class="answer-col">To encapsulate a connection to the database and manage transaction boundaries</td>
+                </tr>
+                <tr>
+                    <td class="no-col">50</td>
+                    <td class="question-col">Which HTTP header is used to send cookies from the server to the client in a web application?</td>
+                    <td class="answer-col"><code>Set-cookie</code></td>
                 </tr>
             </tbody>
         </table>
