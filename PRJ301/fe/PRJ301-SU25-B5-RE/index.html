@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRJ301-SU25-B5-RE</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #1a487a;
+            text-align: center;
+            border-bottom: 2px solid #1a487a;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #e9ecef;
+            color: #333;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .question-col {
+            width: 50%;
+        }
+        .answer-col {
+            width: 50%;
+        }
+        .no-col {
+            width: 5%;
+            text-align: center;
+        }
+        /* Định dạng các phần tử code/kỹ thuật trong câu trả lời */
+        .answer-col code {
+            background-color: #eee;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>PRJ301-SU25-B5-RE</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th class="no-col">STT</th>
+                    <th class="question-col">Câu hỏi</th>
+                    <th class="answer-col">Trả lời</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="no-col">1</td>
+                    <td class="question-col">Evaluate the implications of storing large amounts of data in a user's session obj.</td>
+                    <td class="answer-col">It can lead to increased memeory usage on the server and potential scalability issues</td>
+                </tr>
+                <tr>
+                    <td class="no-col">2</td>
+                    <td class="question-col">What is inside a HTTP response?</td>
+                    <td class="answer-col">A result code and Header fields<br>Body and Header fields</td>
+                </tr>
+                <tr>
+                    <td class="no-col">3</td>
+                    <td class="question-col">The status code = 401 of the HTTP response</td>
+                    <td class="answer-col">Indicates that request requires HTTP authentication</td>
+                </tr>
+                <tr>
+                    <td class="no-col">4</td>
+                    <td class="question-col">Which status code is returned when a request cannot be fulfilled due to bad syntax?</td>
+                    <td class="answer-col">400</td>
+                </tr>
+                <tr>
+                    <td class="no-col">5</td>
+                    <td class="question-col">Create a drop-down list in an HTML form?</td>
+                    <td class="answer-col">using the <code>&lt;select&gt;</code> element</td>
+                </tr>
+                <tr>
+                    <td class="no-col">6</td>
+                    <td class="question-col">Assess the role of "servlet-mapping" in the "web.xml" file. What does this element define?</td>
+                    <td class="answer-col">Specifying how URLs should be routed to specific servlets</td>
+                </tr>
+                <tr>
+                    <td class="no-col">7</td>
+                    <td class="question-col">Which Java class is used to create a servlet in a Java Webserver?</td>
+                    <td class="answer-col"><code>HttpServlet</code></td>
+                </tr>
+                <tr>
+                    <td class="no-col">8</td>
+                    <td class="question-col">How can you deploy a Web application to a Java EE application server like Apache Tomcat?</td>
+                    <td class="answer-col">Copy the Web Archive file to the server's <code>webapps</code> directory and start the server</td>
+                </tr>
+                <tr>
+                    <td class="no-col">9</td>
+                    <td class="question-col">What's the primary role of the service() method in a servlet?</td>
+                    <td class="answer-col">Handling specific HTTP requests (by dispatching to doGet/doPost, etc.)</td>
+                </tr>
+                <tr>
+                    <td class="no-col">10</td>
+                    <td class="question-col">What is the correct order of the servlet life cycle phases?</td>
+                    <td class="answer-col">Initialization, Service, Destroy</td>
+                </tr>
+                <tr>
+                    <td class="no-col">11</td>
+                    <td class="question-col">You have to send a gif image to the client as a response to a request. Which of the following calls will you have to make?</td>
+                    <td class="answer-col"><code>response.setContentType("image/gif")</code></td>
+                </tr>
+                <tr>
+                    <td class="no-col">12</td>
+                    <td class="question-col">What is the purpose of request attributes in servlet collaboration?</td>
+                    <td class="answer-col">To store data that can be shared across multiple servlets within the same request</td>
+                </tr>
+                <tr>
+                    <td class="no-col">13</td>
+                    <td class="question-col">Which of the following elements in the web.xml deployment desciptor is used to map a servlet to a URL pattern in a Java web application?</td>
+                    <td class="answer-col"><code>&lt;url-pattern&gt;</code></td>
+                </tr>
+                <tr>
+                    <td class="no-col">14</td>
+                    <td class="question-col">What is the major difference between &lt;jsp:forward&gt; and response.sendRedirect() in a JSP page?</td>
+                    <td class="answer-col"><code>&lt;jsp:forward&gt;</code> forwards to another resource within the server, <code>sendRedirect()</code> sends a new request from the client</td>
+                </tr>
+                <tr>
+                    <td class="no-col">15</td>
+                    <td class="question-col">Which mission of JSP Engine does?</td>
+                    <td class="answer-col">Parse JSP File, Generate Servlet Code, Compile Servlet, and Instantize Servlet</td>
+                </tr>
+                <tr>
+                    <td class="no-col">16</td>
+                    <td class="question-col">In JSP, what do scriptlets allow developers to embed within a page?</td>
+                    <td class="answer-col">Direct Java commands (The original answer "Direct SQL commands" is likely an error, Java code is correct)</td>
+                </tr>
+                <tr>
+                    <td class="no-col">17</td>
+                    <td class="question-col">Which implicit object in JSP provides access to the servlet context and can be used to store and retrieve application-wide information?</td>
+                    <td class="answer-col"><code>application</code> (instance of <code>ServletContext</code>)</td>
+                </tr>
+                <tr>
+                    <td class="no-col">18</td>
+                    <td class="question-col">Where should a Java web application handle error?</td>
+                    <td class="answer-col">Define error page for the whole application in <code>web.xml</code></td>
+                </tr>
+                <tr>
+                    <td class="no-col">19</td>
+                    <td class="question-col">What does the "thin" in "Thin Driver" refer to in JDBC terminology?</td>
+                    <td class="answer-col">It suggests that the driver uses a thin layer to communicate directly with the database server (Type 4 driver)</td>
+                </tr>
+                <tr>
+                    <td class="no-col">20</td>
+                    <td class="question-col">What are common errors of JDBC connection to a database?</td>
+                    <td class="answer-col">JDBC driver not found<br>Database URL is not recognized by JDBC driver<br>Unauthorized user on DBMS</td>
+                </tr>
+                <tr>
+                    <td class="no-col">21</td>
+                    <td class="question-col">Which JDBC interface represents a pre-compiled SQL statement?</td>
+                    <td class="answer-col"><code>PreparedStatement</code></td>
+                </tr>
+                <tr>
+                    <td class="no-col">22</td>
+                    <td class="question-col">How do you manage database transaction with JDBC driver?</td>
+                    <td class="answer-col">Invoke <code>con.commit()</code> or <code>con.rollback()</code></td>
+                </tr>
+                <tr>
+                    <td class="no-col">23</td>
+                    <td class="question-col">You are developing a JSP MVC applicaton for an online shopping platform. Each products has complex pricing logic based on discounts, promotions, and user roles. Describe how you would design the Model to handle this intricate pricing logic efficiently.</td>
+                    <td class="answer-col">Delegate pricing logic to a dedicated <code>PricingService</code> class in the Model (Service Layer)</td>
+                </tr>
+                <tr>
+                    <td class="no-col">24</td>
+                    <td class="question-col">Which is NOT considered a standard component of a typical MVC architecture in web applications?</td>
+                    <td class="answer-col">Database</td>
+                </tr>
+                <tr>
+                    <td class="no-col">25</td>
+                    <td class="question-col">Which layer in a multi-tier architecture is responsible for implementing business rules and logic?</td>
+                    <td class="answer-col">Business logic layer</td>
+                </tr>
+                <tr>
+                    <td class="no-col">26</td>
+                    <td class="question-col">What is the method signature for an event where an attribute was replaced in an HttpSession?</td>
+                    <td class="answer-col"><code>public void attributeReplaced (HttpSessionBindingEvent event)</code></td>
+                </tr>
+                <tr>
+                    <td class="no-col">27</td>
+                    <td class="question-col">What is the purpose of the response.sendRedirect method in Java Servlets when performing URL rewriting?</td>
+                    <td class="answer-col">It sends an HTTP redirect response to the client with a new URL</td>
+                </tr>
+                <tr>
+                    <td class="no-col">28</td>
+                    <td class="question-col">When is a ServletContext attribute available to servlets in a web application?</td>
+                    <td class="answer-col">During the entire lifecycle of the servlet container (application scope)</td>
+                </tr>
+                <tr>
+                    <td class="no-col">29</td>
+                    <td class="question-col">Which of the following EL expressions correctly accesses the "name" property of a JavaBean named "user" stored in the session scope?</td>
+                    <td class="answer-col"><code>${sessionScope.user.name}</code></td>
+                </tr>
+                <tr>
+                    <td class="no-col">30</td>
+                    <td class="question-col">Which EL operator is used to access properties or attributes of objects?</td>
+                    <td class="answer-col"><code>. (dot)</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</body>
+</html>
