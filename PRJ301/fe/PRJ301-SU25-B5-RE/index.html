@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRJ301-SU25-B5-RE</title>
+    <title>Ôn tập Java Web Development (PRJ301-SU25-B5-RE)</title>
     <link rel="stylesheet" href="styles.css"> 
 </head>
 <body>
 
     <div class="container">
-        <h1>PRJ301-SU25-B5-RE</h1>
+        <h1>PRJ301-SU25-B5-RE (Java Web Development)</h1>
 
         <table>
             <thead>
@@ -103,7 +103,7 @@
                 <tr>
                     <td class="no-col">16</td>
                     <td class="question-col">In JSP, what do scriptlets allow developers to embed within a page?</td>
-                    <td class="answer-col">Direct **Java commands** (The original answer "Direct SQL commands" is technically incorrect; Java code is the core feature)</td>
+                    <td class="answer-col">Arbitrary Java code</td>
                 </tr>
                 <tr>
                     <td class="no-col">17</td>
@@ -180,7 +180,6 @@
                     <td class="question-col">Which EL operator is used to access properties or attributes of objects?</td>
                     <td class="answer-col"><code>. (dot)</code></td>
                 </tr>
-                
                 <tr>
                     <td class="no-col">31</td>
                     <td class="question-col">How would you use EL to access a property named title from a Map object within a List named bookList at index 2?</td>
@@ -198,8 +197,31 @@
                 </tr>
                 <tr>
                     <td class="no-col">34</td>
-                    <td class="question-col">In the <code>contextInitialized</code> method, what kind of tasks would you typically perform during the initialization of the servlet context?</td>
-                    <td class="answer-col">Initializing object for database connections (e.g., loading drivers, setting up connection pools)</td>
+                    <td class="question-col">
+                        public class MyAppContextListner implements ServletContextListener{
+ public void contextInitialized(ServletContextEvent event){
+  // TO DO: Your code here
+}
+ public void contextDestroyed(ServletContextEvent event){
+  // TO DO: Your code here
+ }
+}
+In the <code>contextInitialized</code> method, what kind of tasks would you typically perform during the initialization of the servlet context?
+                    </td>
+                    <td class="answer-col">Initializing object for database connections 
+                        <pre><code class="language-java">
+public class MyAppContextListner implements ServletContextListener{
+  public void contextInitialized(ServletContextEvent event){
+   // TO DO: Your code here
+}
+  public void contextDestroyed(ServletContextEvent event){
+    // TO DO: Your code here
+  }
+}
+In the contextInitialized method, what kind of tasks would you typically perform during the initialization of the servlet context?
+--&gt; Initializing object for database connections
+                        </code></pre>
+                    </td>
                 </tr>
                 <tr>
                     <td class="no-col">35</td>
@@ -229,7 +251,7 @@
                 <tr>
                     <td class="no-col">40</td>
                     <td class="question-col">How are <code>&lt;fmt:parseDate&gt;</code> and <code>&lt;fmt:formatDate&gt;</code> different?</td>
-                    <td class="answer-col"><code>&lt;fmt:parseDate&gt;</code> turns **text into a date** (String &rarr; Date Object), and <code>&lt;fmt:formatDate&gt;</code> turns a **date into text** (Date Object &rarr; String)</td>
+                    <td class="answer-col"><code>&lt;fmt:parseDate&gt;</code> turns text into a date (String &rarr; Date Object), and <code>&lt;fmt:formatDate&gt;</code> turns a date into text (Date Object &rarr; String)</td>
                 </tr>
                 <tr>
                     <td class="no-col">41</td>

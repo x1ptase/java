@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRJ301-SU25-B5-1</title>
+    <link rel="stylesheet" href="styles.css"> 
+</head>
+<body>
+
+    <div class="container">
+        <h1>PRJ301-SU25-B5-1</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th class="no-col">STT</th>
+                    <th class="question-col">Câu hỏi</th>
+                    <th class="answer-col">Trả lời</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="no-col">1</td>
+                    <td class="question-col">Can HTML forms directly send data using the PUT method?</td>
+                    <td class="answer-col">No, HTML forms only support the <code>GET</code> and <code>POST</code> methods</td>
+                </tr>
+                <tr>
+                    <td class="no-col">2</td>
+                    <td class="question-col">Which of the followinng best describes HTTP protocol?</td>
+                    <td class="answer-col">Stateless</td>
+                </tr>
+                <tr>
+                    <td class="no-col">3</td>
+                    <td class="question-col">In a Java web application, which HTTP status code indicates a successful response for a GET request?</td>
+                    <td class="answer-col">200</td>
+                </tr>
+                <tr>
+                    <td class="no-col">4</td>
+                    <td class="question-col">Which attribute makes an input field unalterable but still submit its value when the form is submitted?</td>
+                    <td class="answer-col"><code>readonly</code></td>
+                </tr>
+                <tr>
+                    <td class="no-col">5</td>
+                    <td class="question-col">What is the primary role of the web.xml file</td>
+                    <td class="answer-col">Configuring servlets, filters, and error pages</td>
+                </tr>
+                <tr>
+                    <td class="no-col">6</td>
+                    <td class="question-col">Which element in the "web.xml" file specifies global parameters accessible throughout the entire web application?</td>
+                    <td class="answer-col"><code>context-param</code></td>
+                </tr>
+                <tr>
+                    <td class="no-col">7</td>
+                    <td class="question-col">How is the deployment descriptor of a web application typically named?</td>
+                    <td class="answer-col"><code>web.xml</code></td>
+                </tr>
+                <tr>
+                    <td class="no-col">8</td>
+                    <td class="question-col">When a servlet is requested, what information the web server may be received?</td>
+                    <td class="answer-col">The servlet name and HTTP method</td>
+                </tr>
+                <tr>
+                    <td class="no-col">9</td>
+                    <td class="question-col">When doPost() method of servlet gets called?</td>
+                    <td class="answer-col">It is called by the server to allow a servlet to handle HTTP request type as <code>POST</code><br>The <code>service()</code> method checks the HTTP request type as <code>POST</code> and calls <code>doPost()</code> method</td>
+                </tr>
+                <tr>
+                    <td class="no-col">10</td>
+                    <td class="question-col">What is the purpose of the <code>RequestDispatcher</code> interface in servlets?</td>
+                    <td class="answer-col">To forward the request to another resource</td>
+                </tr>
+                <tr>
+                    <td class="no-col">11</td>
+                    <td class="question-col">What does a URL pattern in servlet mapping specify?</td>
+                    <td class="answer-col">The actual path in the URL that triggers the servlet</td>
+                </tr>
+                <tr>
+                    <td class="no-col">12</td>
+                    <td class="question-col">Scriptlets in JSP are used to embed_____ code in to the JSP page</td>
+                    <td class="answer-col">Java</td>
+                </tr>
+                <tr>
+                    <td class="no-col">13</td>
+                    <td class="question-col">What is the purpose of the Translation phase in the JSP life cycle?</td>
+                    <td class="answer-col">Generating servlet code form JSP source</td>
+                </tr>
+                <tr>
+                    <td class="no-col">14</td>
+                    <td class="question-col">Correct example of a JSP scriptlet?</td>
+                    <td class="answer-col"><code>&lt;% int i = 0; i++; %&gt;</code></td>
+                </tr>
+                <tr>
+                    <td class="no-col">15</td>
+                    <td class="question-col">In a JSP error page, how can you accesss the exception object thrown by the server?</td>
+                    <td class="answer-col">Using the <code>exception</code> implicit object</td>
+                </tr>
+                <tr>
+                    <td class="no-col">16</td>
+                    <td class="question-col">The _______ object is used to execute SQL queries and update statements in JDBC</td>
+                    <td class="answer-col"><code>Statement</code></td>
+                </tr>
+                <tr>
+                    <td class="no-col">17</td>
+                    <td class="question-col">When establishing a JDBC connection, the_____object provides the URL and credentials for the database</td>
+                    <td class="answer-col"><code>DriverManager</code></td>
+                </tr>
+                <tr>
+                    <td class="no-col">18</td>
+                    <td class="question-col">Which statement about JDBC is TRUE?</td>
+                    <td class="answer-col">JDBC can only use with relational databases (Note: This is technically misleading, but often the expected answer in contexts emphasizing traditional RDBMS.)</td>
+                </tr>
+                <tr>
+                    <td class="no-col">19</td>
+                    <td class="question-col">Which if the following files is commonly used to configure database connections and other environment-specific setting in a Java web application during deployment?</td>
+                    <td class="answer-col"><code>context.xml</code></td>
+                </tr>
+                <tr>
+                    <td class="no-col">20</td>
+                    <td class="question-col">You are working on a JSP MVC application where multiple views need to display the same set of data. Discuss how you would avoid code duplication and ensure a consistent data presentation across different views.</td>
+                    <td class="answer-col">Implement a shared <code>DataProvider</code> class in the Model</td>
+                </tr>
+                <tr>
+                    <td class="no-col">21</td>
+                    <td class="question-col">How does the MVC architecture help in scaling an application?</td>
+                    <td class="answer-col">By allowing separate scalling of user interface and data processing components</td>
+                </tr>
+                <tr>
+                    <td class="no-col">22</td>
+                    <td class="question-col">In a multi-tier data model, which layer is resonsible for handling application logic?</td>
+                    <td class="answer-col">Application Logic Layer</td>
+                </tr>
+                <tr>
+                    <td class="no-col">23</td>
+                    <td class="question-col">What is the mothod signature for an event where an attribute was removed from an <code>HttpSession</code>?</td>
+                    <td class="answer-col"><code>public void attributeRemove(HttpSessionBindingEvent event)</code></td>
+                </tr>
+                <tr>
+                    <td class="no-col">24</td>
+                    <td class="question-col">What is a common technique used to implement session management using cookie?</td>
+                    <td class="answer-col">Storing session ID in a cookie</td>
+                </tr>
+                <tr>
+                    <td class="no-col">25</td>
+                    <td class="question-col">What is URL rewriting in the context of web application?</td>
+                    <td class="answer-col">A mechanism for appending session information to URLs</td>
+                </tr>
+                <tr>
+                    <td class="no-col">26</td>
+                    <td class="question-col">What method is used to store an attribute in the <code>ServeletContext</code> object?</td>
+                    <td class="answer-col"><code>setAttribute()</code></td>
+                </tr>
+                <tr>
+                    <td class="no-col">27</td>
+                    <td class="question-col">Which EL operator is used to perform a null-safe navigation, avoiding NullPointerExceptions?</td>
+                    <td class="answer-col"><code>?.</code></td>
+                </tr>
+                <tr>
+                    <td class="no-col">28</td>
+                    <td class="question-col">Which is NOT a scope of implicit objects of JSP file?</td>
+                    <td class="answer-col"><code>response</code></td>
+                </tr>
+                <tr>
+                    <td class="no-col">29</td>
+                    <td class="question-col">What is the correct syntax for accessing the length of a String stored in a request attribute named "message" using EL?</td>
+                    <td class="answer-col"><code>${fn:length(message)}</code></td>
+                </tr>
+                <tr>
+                    <td class="no-col">30</td>
+                    <td class="question-col">What would you use the <code>&lt;c:catch&gt;</code> tag for?</td>
+                    <td class="answer-col">To deal with errors that happen when the JSP page is running</td>
+                </tr>
+                <tr>
+                    <td class="no-col">31</td>
+                    <td class="question-col">For what purpose is the <code>&lt;listener&gt;</code> tag used in a web deployment desciptor?</td>
+                    <td class="answer-col">Defining listener classes that handle web events</td>
+                </tr>
+                <tr>
+                    <td class="no-col">32</td>
+                    <td class="question-col">When is the <code>contextInitialized (ServletContextEvent sce)</code> method called in a <code>ServletContextListener</code>?</td>
+                    <td class="answer-col">When the web applicationn is deployed</td>
+                </tr>
+                <tr>
+                    <td class="no-col">33</td>
+                    <td class="question-col">Which method of the <code>ServletContextListener</code> interface is called when the <code>ServletContext</code> is initialized?</td>
+                    <td class="answer-col"><code>contextInitialized()</code></td>
+                </tr>
+                <tr>
+                    <td class="no-col">34</td>
+                    <td class="question-col">Which event is typically handled by <code>HttpSessionListener</code>'s <code>sessionDestroyed</code> method?</td>
+                    <td class="answer-col">Session destruction</td>
+                </tr>
+                <tr>
+                    <td class="no-col">35</td>
+                    <td class="question-col">What does the <code>&lt;c:choose&gt;</code> tag provide in JSTL?</td>
+                    <td class="answer-col">Conditional branching</td>
+                </tr>
+                <tr>
+                    <td class="no-col">36</td>
+                    <td class="question-col">What does the <code>&lt;c:if&gt;</code> tag in JSTL correspond to statement in Java</td>
+                    <td class="answer-col"><code>if</code></td>
+                </tr>
+                <tr>
+                    <td class="no-col">37</td>
+                    <td class="question-col">What does the <code>var</code> attribute in the <code>&lt;fmt:message&gt;</code> tag define?</td>
+                    <td class="answer-col">The variable to store the formatted message</td>
+                </tr>
+                <tr>
+                    <td class="no-col">38</td>
+                    <td class="question-col">What's the point of using <code>&lt;fmt:setLocale&gt;</code> in a JSP?</td>
+                    <td class="answer-col">To tell other tags which language and country format to use</td>
+                </tr>
+                <tr>
+                    <td class="no-col">39</td>
+                    <td class="question-col">Which method is called by a filter to intercept an incoming HTTP request?</td>
+                    <td class="answer-col"><code>doFilter()</code></td>
+                </tr>
+                <tr>
+                    <td class="no-col">40</td>
+                    <td class="question-col">What is the purpose of a filter initialization parameter in the <code>web.xml</code> file?</td>
+                    <td class="answer-col">To provide configuration options specific to the filter</td>
+                </tr>
+                <tr>
+                    <td class="no-col">41</td>
+                    <td class="question-col">When is the <code>destroy()</code> method of a servlet filter called?</td>
+                    <td class="answer-col">At the end of the filter's lifecycle</td>
+                </tr>
+                <tr>
+                    <td class="no-col">42</td>
+                    <td class="question-col">In filter mapping, what does the URL pattern "/*" indicate?</td>
+                    <td class="answer-col">It matches any URL under the web application root</td>
+                </tr>
+                <tr>
+                    <td class="no-col">43</td>
+                    <td class="question-col">In a Java web application, where are Java Beans commonly used?</td>
+                    <td class="answer-col">In the business logic layer for processing data</td>
+                </tr>
+                <tr>
+                    <td class="no-col">44</td>
+                    <td class="question-col">What are the implications of maintaining user roles and permissions within the session object?</td>
+                    <td class="answer-col">It is often considred unsafe because there is a risk that someone could change the session information, which could lead to unauthoriaed access to higher privileges</td>
+                </tr>
+                <tr>
+                    <td class="no-col">45</td>
+                    <td class="question-col">Which is NOT a method of session tracking in Java web applications?</td>
+                    <td class="answer-col">SSL certificates</td>
+                </tr>
+                <tr>
+                    <td class="no-col">46</td>
+                    <td class="question-col">What is the role of the <code>Connection</code> interface in JDBC when managing database operations in a Java web application?</td>
+                    <td class="answer-col">To encapsulate a connection to the database</td>
+                </tr>
+                <tr>
+                    <td class="no-col">47</td>
+                    <td class="question-col">Which symbol represents placeholders in a SQL query within a <code>PreparedStatement</code>?</td>
+                    <td class="answer-col">?</td>
+                </tr>
+                <tr>
+                    <td class="no-col">48</td>
+                    <td class="question-col">In a Java web application, which of the following statements is used to execure an SQL query againist a database?</td>
+                    <td class="answer-col"><code>executeQuery()</code></td>
+                </tr>
+                <tr>
+                    <td class="no-col">49</td>
+                    <td class="question-col">What is the purpose of the JSP <code>&lt;error-page&gt;</code> directive?</td>
+                    <td class="answer-col">To handle exceptions thrown by Java code in the JSP</td>
+                </tr>
+                <tr>
+                    <td class="no-col">50</td>
+                    <td class="question-col">Which HTTP header is used to send cookies from the server to the client in a web application?</td>
+                    <td class="answer-col"><code>Set-Cookie</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</body>
+</html>
